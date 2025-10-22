@@ -52,16 +52,59 @@ vasudha-project/
 
 ## Getting Started
 
-*(This section will be filled later with instructions on how to set up and run the project)*
+These instructions will guide you through setting up and running the backend services locally.
+
+### Prerequisites
+
+* Python 3.9+ installed
+* Git installed
+* An IDE like VSCode
+
+### Setup
 
 1.  **Clone the repository:**
     ```bash
     git clone [https://github.com/JitenPurswani/vasudha.git](https://github.com/JitenPurswani/vasudha.git)
     cd vasudha-project
     ```
-2.  **Set up backend:** *(Detailed instructions TBD)*
-3.  **Set up frontend:** *(Detailed instructions TBD)*
 
+2.  **Set up Backend Services (Example: Recommendation Agent):**
+    Each agent runs in its own isolated environment. Navigate to the agent's directory:
+    ```bash
+    cd backend/agents/recommendation_agent/
+    ```
+    Create and activate a virtual environment:
+    ```bash
+    # Create the environment
+    python -m venv venv
+
+    # Activate (macOS/Linux)
+    source venv/bin/activate
+    # OR Activate (Windows Command Prompt)
+    # venv\Scripts\activate.bat
+    # OR Activate (Windows PowerShell)
+    # venv\Scripts\Activate.ps1
+    ```
+    Install the required dependencies within the active environment:
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(Repeat this virtual environment setup for each Python-based agent in the `backend/agents/` directory as you develop them.)*
+
+3.  **Set up Orchestrator:** *(Instructions TBD - will depend on whether Node.js or Python is used)*
+
+4.  **Set up Frontend:** *(Instructions TBD)*
+
+### Running the Services
+
+*(This section will be filled later with instructions on how to run the services, e.g., using `uvicorn` or `docker-compose`)*
+
+```bash
+# Example for running the Recommendation Agent:
+cd backend/agents/recommendation_agent/
+source venv/bin/activate # Activate environment if not already active
+uvicorn main:app --reload
+```
 ## Roadmap
 
 *(Link to or embed the project roadmap image/details here)*
