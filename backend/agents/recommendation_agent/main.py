@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
-from .model_loader import pipeline, label_encoder # Import loaded objects
+from model_loader import pipeline, label_encoder # Import loaded objects
 
 # --- 1. Initialize FastAPI app ---
 app = FastAPI(title="Recommendation Agent")
