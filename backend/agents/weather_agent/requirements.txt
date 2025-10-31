@@ -1,5 +1,6 @@
 fastapi>=0.100.0
 uvicorn[standard]>=0.23.2
 pydantic>=2.0
-requests>=2.28.0
-python-dotenv>=1.0.0
+requests>=2.28.0       # For OpenWeatherMap API
+python-dotenv>=1.0.0   # For the API key
+pandas>=2.0.0,<3.0.0
