@@ -99,9 +99,31 @@ These limitations are explicitly documented to preserve transparency and academi
 
 ---
 
+## Market Agent (In Progress)
+
+The Market Agent is designed as an **independent economic intelligence layer**, intentionally decoupled from agronomic scoring.
+
+### Design Principles
+- Does not consume agronomic or ML scores
+- Acts as the sole market-based ranker
+- Can be used independently or via orchestrator integration
+
+### Data Source
+- Daily Commodity Prices – India (Kaggle)  
+  https://www.kaggle.com/datasets/khandelwalmanas/daily-commodity-prices-india  
+- ~26 years of historical data
+- Daily updates sourced from data.gov.in
+
+### Market Agent Capabilities
+- District & APMC-level price analytics
+- State-level price forecasting
+- 30-day and 60-day forecasting horizon
+- Volatility-aware market scoring
+- Crop ranking based purely on economic outlook
+
+---
+
 ## Project Structure
-
-
 
 ```
 vasudha-project/
@@ -112,15 +134,19 @@ vasudha-project/
 │   │   └── ...         # Weather, Soil, Market agents TBD
 │   ├── orchestrator/   # Manages workflow between agents (Node.js/FastAPI)
 │   ├── shared/         # Shared resources (ML models, utils)
-│   │   └── models/     # Saved pipeline & encoder
-│   └── docker-compose.yml # For running the backend services
+│       └── models/     # Saved pipeline & encoder
+│ 
 │
 ├── frontend/           # React Native mobile application code
 │
 ├── notebooks/          # Jupyter notebooks for data analysis and model training
 │   └── VASUDHA_data_analysis.ipynb
 │
-├── data/               # Raw datasets used (optional, if not ignored by .gitignore)
+├── data/
+│   └── market/
+│       ├── raw/
+│       └── sqlite/
+│           └── market.db  # Raw datasets used (optional, if not ignored by .gitignore)
 │
 ├── docs/               # Project documentation, diagrams, reports
 │
@@ -191,6 +217,72 @@ uvicorn main:app --reload
 ```
 Navigate to `http://127.0.0.1:8000/docs` in your browser to test the API.
 
+## Market Agent – Local Setup & Initialization
+
+### 1. Create Virtual Environment
+
+Navigate to the Market Agent directory:
+```bash
+backend/agents/market_agent
+```
+Create and activate a virtual environment:
+```bash
+python -m venv venv
+```
+Windows PowerShell:
+```bash
+venv\Scripts\Activate.ps1
+```
+Linux / macOS:
+```bash
+source venv/bin/activate
+```
+---
+
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+---
+
+### 3. Initialize Market Database
+
+Create required directories if not present:
+
+data/market/sqlite
+
+Run schema initialization:
+```bash
+sqlite3 ../../../data/market/sqlite/market.db ".read db/schema.sql"
+```
+Verify tables:
+```bash
+sqlite3 ../../../data/market/sqlite/market.db ".tables"
+```
+Expected tables:
+- market_prices
+- market_aggregates
+- market_forecasts
+- metadata
+
+---
+
+### 4. Database Sanity Check (Python)
+```bash
+python
+```
+```bash
+from db.database import get_connection
+
+conn = get_connection()
+tables = conn.execute(
+    "SELECT name FROM sqlite_master WHERE type='table';"
+).fetchall()
+
+print([t["name"] for t in tables])
+conn.close()
+```
+---
 ## Roadmap
 
 *(Link to or embed the project roadmap image/details here)*
