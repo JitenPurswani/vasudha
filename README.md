@@ -346,6 +346,8 @@ SELECT COUNT(*) FROM market_prices;
 
 This confirms successful ingestion.
 
+## NOTE:- This Ingestion process takes upto 2-4 hours to complete so have "patience"!!
+
 ## Roadmap
 
 *(Link to or embed the project roadmap image/details here)*
