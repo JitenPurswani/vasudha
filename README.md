@@ -219,6 +219,28 @@ Navigate to `http://127.0.0.1:8000/docs` in your browser to test the API.
 
 ## Market Agent – Local Setup & Initialization
 
+### Market Agent – Data Ingestion (Kaggle Commodity Prices)
+
+The Market Agent ingests historical and daily-updated Indian commodity price data sourced from Kaggle:
+
+https://www.kaggle.com/datasets/khandelwalmanas/daily-commodity-prices-india
+
+The dataset spans ~26 years and contains daily mandi-level prices published via data.gov.in.
+
+#### Ingestion Design
+- Chunk-based CSV ingestion to handle large files (~7GB total)
+- Idempotent inserts using UNIQUE constraints
+- Safe to interrupt and re-run
+- Supports partial and incremental ingestion
+
+#### Directory Layout
+- Raw CSV files:  
+  data/market/raw/  
+  (e.g., 2001.csv, 2002.csv, …)
+
+- SQLite database:  
+  data/market/sqlite/market.db
+
 ### 1. Create Virtual Environment
 
 Navigate to the Market Agent directory:
@@ -283,6 +305,47 @@ print([t["name"] for t in tables])
 conn.close()
 ```
 ---
+
+#### Ingestion Steps
+
+1. Place all yearly CSV files into:
+```bash
+   data/market/raw/
+```
+
+2. Activate the Market Agent virtual environment:
+```bash   
+   cd backend/agents/market_agent  
+```
+```bash
+   venv\Scripts\Activate.ps1   (Windows)  
+```  
+```bash
+   source venv/bin/activate   (Linux/macOS)
+```
+3. Run the ingestion script:
+```bash   
+   python ingest/ingest_prices.py
+```
+4. The script will:
+   - Read CSVs in chunks
+   - Insert new rows
+   - Skip duplicates automatically
+   - Print progress per chunk and per file
+
+#### Verification (Optional)
+
+Open SQLite CLI:
+```bash
+sqlite3 ../../../data/market/sqlite/market.db
+```
+Run:
+```bash
+SELECT COUNT(*) FROM market_prices;
+```
+
+This confirms successful ingestion.
+
 ## Roadmap
 
 *(Link to or embed the project roadmap image/details here)*
