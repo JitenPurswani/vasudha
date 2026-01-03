@@ -1,0 +1,21 @@
+# Core
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Database
+# sqlite3 is part of Python stdlib (no install needed)
+
+# Forecasting
+prophet>=1.1.5
+
+# API (for later)
+fastapi>=0.110.0
+uvicorn>=0.27.0
+
+# Utilities
+python-dateutil>=2.9.0
+pytz>=2024.1
+tqdm>=4.66.0
+
+# Optional but useful
+scikit-learn>=1.4.0
