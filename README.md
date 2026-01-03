@@ -1,30 +1,107 @@
-# Vasudha: Multi-Agent AI for Sustainable Crop Optimization 🌿💰🌍
+# Vasudha: Multi-Agent AI for Sustainable Crop Optimization 🌱
 
-**Vasudha** is a mobile-based decision support system designed to empower small and marginal farmers in India by providing personalized, real-time, and explainable crop recommendations. It integrates agronomic, climatic, and economic data to help farmers maximize profitability and adopt sustainable practices.
+**Vasudha** is a decision-support system designed to assist farmers and planners in India by providing **context-aware, agronomically valid crop recommendations**. The system combines a numeric-only machine learning model with rule-based agronomic reasoning to move from *crop feasibility* to *crop suitability*.
 
-## Project Status (October 2025)
+Rather than relying purely on ML predictions, Vasudha explicitly models **seasonal intent, environmental regimes, and agronomic constraints** to ensure realistic and explainable recommendations across diverse Indian regions.
 
-* **Phase 1 & 2 (Research, Design, Data Engineering, Modeling):** ✅ Completed.
-* **Core Model:** XGBoost Classifier trained on a custom dataset, achieving **94.28%** accuracy.
-* **Current Focus:** Backend development of individual agent microservices.
+---
+
+## Project Status (January 2026)
+
+- **Phase 1 & 2 (Research, Data Engineering, Modeling):** ✅ Completed  
+- **Core ML Model:** XGBoost classifier trained on Indian crop data using numeric features only  
+  *(N, P, K, pH, rainfall, temperature)*  
+- **Current Focus:** Backend orchestrator logic, agronomic validation, and ranking  
+- **Frontend & Market Agent:** Planned  
+
+---
 
 ## Project Goal
 
-The primary goal of Vasudha is to bridge the information gap faced by farmers, transforming agricultural decision-making from reactive to proactive. By leveraging a multi-agent AI architecture, the system provides holistic recommendations that consider:
-* **Agronomic Suitability:** Based on farm-specific soil data and climate patterns.
-* **Economic Viability:** Based on real-time local market prices and trends.
-* **Sustainability:** Incorporating environmental impact considerations.
+The goal of Vasudha is to support informed agricultural decision-making by answering:
 
-## Key Features
+> **“What crops are suitable to grow here, under current conditions and farmer intent?”**
 
-* **Multi-Agent Architecture:** Specialized agents collaborate for weather, soil, market, recommendation, and explanation tasks.
-* **Data-Driven Recommendations:** Utilizes an XGBoost model trained on extensive real-world Indian agricultural data.
-* **Profitability Focus:** Integrates market analysis to rank agronomically suitable crops by economic potential.
-* **Scenario Simulator:** Allows farmers to perform "what-if" analysis for risk assessment.
-* **Explainable AI (XAI):** Provides clear, data-driven justifications for recommendations in simple language.
-* **Accessibility:** Features a multilingual, voice-enabled interface via a mobile app.
+To achieve this, Vasudha combines:
+- **Machine Learning** for feasibility estimation  
+- **Agronomic constraints** for validity  
+- **Context-aware ranking** for preference  
+
+This layered approach avoids shortcut learning, improves generalization, and keeps the system transparent and defensible.
+
+---
+
+## Key Features (Current)
+
+- **Numeric-Only ML Model**
+  - Avoids shortcut learning using location or crop categories
+  - Generalizes across districts and unseen regions
+
+- **Multi-Agent Backend Architecture**
+  - Weather Agent (historical rainfall & temperature aggregation)
+  - Soil Agent (district-level soil chemistry)
+  - Recommendation Agent (ML inference)
+  - Orchestrator (decision logic & ranking)
+
+- **Agronomic Constraint Engine**
+  - Regime-based reasoning (drought, low rainfall, high rainfall, soil stress)
+  - Explicit season semantics (kharif / rabi / zaid)
+  - Product-level filtering (seasonal vs plantation crops)
+
+- **Seasonal vs All-Season Modes**
+  - `seasonal`: short-cycle, sowable crops only
+  - `all_season`: allows long-cycle and plantation crops where agronomically valid
+
+- **Score-Based Crop Ranking**
+  - Soft preference boosts based on rainfall regime, crop family, and seasonal intent
+  - Ensures staples and field crops are not overshadowed by short-cycle vegetables
+
+- **Robust Error Handling**
+  - Explicit handling of missing or incomplete weather data
+  - No silent fallbacks or misleading recommendations
+
+---
+
+## Orchestrator Logic (v2)
+
+The orchestrator is the **core decision-making layer** of Vasudha.  
+It converts raw ML predictions into actionable recommendations through:
+
+1. **Agronomic Regime Derivation**
+   - Converts raw environment values into interpretable regimes  
+     *(e.g., low rainfall, high rainfall, acidic soil)*
+
+2. **Hard Constraints (Validity)**
+   - Removes crops that are agronomically invalid under current conditions
+
+3. **Season Semantics**
+   - Enforces correct seasonal behavior across all modes
+
+4. **Soft Preference Scoring**
+   - Re-ranks valid crops using small, explainable boosts
+   - Reflects agronomic preference rather than statistical dominance
+
+This separation ensures:
+- District-agnostic behavior
+- High explainability
+- Stable behavior on unseen inputs
+
+---
+
+## Known Limitations
+
+- The ML model may under-represent staple cereals (e.g., rice) in certain **high-rainfall numeric profiles** due to dataset bias.
+- The orchestrator mitigates this using **soft score boosting**, but does **not force crops** that are absent from ML outputs.
+- Market-based profitability ranking is **planned**, not yet implemented.
+- Explainable AI (XAI) output is planned as a future layer.
+
+These limitations are explicitly documented to preserve transparency and academic integrity.
+
+---
 
 ## Project Structure
+
+
 
 ```
 vasudha-project/
