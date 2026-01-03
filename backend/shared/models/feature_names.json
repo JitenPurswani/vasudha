@@ -1,1 +1,8 @@
-["N", "P", "K", "pH", "rainfall", "temperature", "Crop_Type"]
+[
+  "N",
+  "P",
+  "K",
+  "pH",
+  "rainfall",
+  "temperature"
+]

@@ -41,6 +41,7 @@ class WeatherDataOutput(BaseModel):
     status: str
 
 # --- 5. Reverse Geocoding ---
+# --- 5. Reverse Geocoding (REVISED AND FIXED) ---
 def get_district_from_coordinates(lat: float, lon: float) -> tuple[str | None, str | None]:
     """
     Uses OpenStreetMap's Nominatim API to get district and state from coordinates.
@@ -55,17 +56,48 @@ def get_district_from_coordinates(lat: float, lon: float) -> tuple[str | None, s
             "addressdetails": 1
         }
         headers = {"User-Agent": "WeatherAgent/1.0"}
+        print(f"--- Calling Nominatim API with URL: {url} and params: {params} ---")
         response = requests.get(url, params=params, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
+        print(f"--- Nominatim API Response (raw): {data} ---")
 
         address = data.get("address", {})
-        district = address.get("state_district") or address.get("county") or address.get("region")
+
+        # --- NEW, MORE ROBUST DISTRICT LOGIC ---
+        # Prioritize 'state_district', then 'county', then 'city'
+        # This will find "New Delhi" from the 'city' field for your example
+        district = address.get("state_district") or address.get("county") or address.get("city")
+
+        # --- NEW, MORE ROBUST STATE LOGIC ---
+        # Prioritize 'state' key.
         state = address.get("state")
 
-        if district:
-            district = re.sub(r" District$", "", district.strip().title())
+        # If 'state' key is missing (like for Delhi), try to get it from the display_name
+        if not state and data.get("display_name"):
+            try:
+                # display_name format: "..., District, State, Country"
+                parts = data.get("display_name").split(',')
+                if len(parts) >= 3:
+                    # Get the second to last part, which is usually the state
+                    potential_state = parts[-2].strip()
+                    
+                    # A simple check to ensure it's not the country
+                    country = address.get("country", "").lower()
+                    if country and potential_state.lower() != country:
+                         state = potential_state
+                    elif not country:
+                         state = potential_state
+            except Exception as e:
+                print(f"Warning: Could not parse state from display_name. Error: {e}")
+                pass # Parsing display_name failed, state will remain None
 
+        if district:
+            # Clean up the district name (e.g., "Ludhiana District" -> "Ludhiana")
+            district = re.sub(r" District$", "", district.strip().title())
+            district = re.sub(r" Tehsil$", "", district.strip().title())
+
+        print(f"--- Parsed District: {district}, Parsed State: {state} ---")
         return district, state
 
     except requests.exceptions.RequestException as e:
