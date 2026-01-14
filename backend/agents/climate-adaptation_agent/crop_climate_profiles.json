@@ -1,0 +1,471 @@
+{
+"rice": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 12
+  },
+  "rainfall": {
+    "seasonal_low": 800,
+    "seasonal_high": 2500,
+    "waterlogging_sensitive": false
+  },
+  "humidity": {
+    "high_risk": 90
+  },
+  "frost_sensitive": true,
+  "notes": "High water requirement crop, tolerant to standing water"
+},
+"wheat": {
+  "temperature": {
+    "min_safe": 5,
+    "max_safe": 30,
+    "heat_stress": 32,
+    "cold_stress": 2
+  },
+  "rainfall": {
+    "seasonal_low": 300,
+    "seasonal_high": 1000,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": false,
+  "notes": "Cool season cereal, sensitive to terminal heat stress"
+},
+"maize": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 500,
+    "seasonal_high": 1500,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Moderate water requirement, sensitive to both drought and waterlogging"
+},
+"barley": {
+  "temperature": {
+    "min_safe": 5,
+    "max_safe": 28,
+    "heat_stress": 30,
+    "cold_stress": 2
+  },
+  "rainfall": {
+    "seasonal_low": 250,
+    "seasonal_high": 900,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 75
+  },
+  "frost_sensitive": false,
+  "notes": "Hardy cereal, tolerant to dry and cool conditions"
+},
+"sorghum": {
+  "temperature": {
+    "min_safe": 12,
+    "max_safe": 38,
+    "heat_stress": 40,
+    "cold_stress": 8
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 1200,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Drought-tolerant cereal, suitable for semi-arid regions"
+},
+"pearl_millet": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 40,
+    "heat_stress": 42,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 300,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": true,
+  "notes": "Highly drought-resistant crop, performs well in hot climates"
+},
+"finger_millet": {
+  "temperature": {
+    "min_safe": 12,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 8
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 1000,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Hardy millet, tolerant to poor soils and variable rainfall"
+},
+"chickpea": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 30,
+    "heat_stress": 32,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 300,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season pulse, sensitive to excess moisture and terminal heat"
+},
+"pigeon_pea": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 600,
+    "seasonal_high": 1200,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Deep-rooted pulse, tolerant to short dry spells but sensitive to waterlogging"
+},
+"green_gram": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 300,
+    "seasonal_high": 900,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Short-duration pulse, sensitive to excess moisture"
+},
+"black_gram": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 1000,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Warm-season pulse, moderately drought tolerant"
+},
+"lentil": {
+  "temperature": {
+    "min_safe": 8,
+    "max_safe": 30,
+    "heat_stress": 32,
+    "cold_stress": 3
+  },
+  "rainfall": {
+    "seasonal_low": 250,
+    "seasonal_high": 700,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 75
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season pulse, sensitive to excess moisture"
+},
+"groundnut": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 500,
+    "seasonal_high": 1000,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Oilseed crop requiring well-drained soil, highly sensitive to waterlogg"
+},
+"mustard": {
+  "temperature": {
+    "min_safe": 8,
+    "max_safe": 25,
+    "heat_stress": 28,
+    "cold_stress": 3
+  },
+  "rainfall": {
+    "seasonal_low": 250,
+    "seasonal_high": 700,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 75
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season oilseed, sensitive to excess moisture and heat stress"
+},
+"soybean": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 600,
+    "seasonal_high": 1200,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Kharif oilseed crop, sensitive to waterlogging and prolonged drought"
+},
+"sunflower": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 900,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": true,
+  "notes": "Moderately drought-tolerant oilseed, prefers dry conditions during maturity"
+},
+"sesame": {
+  "temperature": {
+    "min_safe": 20,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 15
+  },
+  "rainfall": {
+    "seasonal_low": 300,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 75
+  },
+  "frost_sensitive": true,
+  "notes": "Highly drought-tolerant oilseed, extremely sensitive to waterlogging"
+},
+"tomato": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 30,
+    "heat_stress": 32,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Sensitive vegetable crop, affected by heat, cold, and excess moisture"
+},
+"potato": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 25,
+    "heat_stress": 28,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 500,
+    "seasonal_high": 900,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season tuber crop, sensitive to heat and waterlogging"
+},
+"onion": {
+  "temperature": {
+    "min_safe": 12,
+    "max_safe": 30,
+    "heat_stress": 35,
+    "cold_stress": 8
+  },
+  "rainfall": {
+    "seasonal_low": 350,
+    "seasonal_high": 750,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 75
+  },
+  "frost_sensitive": false,
+  "notes": "Bulb crop requiring dry conditions during maturity"
+},
+"cabbage": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 25,
+    "heat_stress": 28,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season vegetable, sensitive to heat stress"
+},
+"cauliflower": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 25,
+    "heat_stress": 28,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 400,
+    "seasonal_high": 800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": false,
+  "notes": "Cool-season vegetable, highly sensitive to temperature extremes"
+},
+"banana": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 12
+  },
+  "rainfall": {
+    "seasonal_low": 1000,
+    "seasonal_high": 2500,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 90
+  },
+  "frost_sensitive": true,
+  "notes": "High water requirement fruit crop, sensitive to cold and drought"
+},
+"mango": {
+  "temperature": {
+    "min_safe": 15,
+    "max_safe": 40,
+    "heat_stress": 42,
+    "cold_stress": 10
+  },
+  "rainfall": {
+    "seasonal_low": 750,
+    "seasonal_high": 2000,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Perennial fruit crop, tolerant to heat but sensitive to frost and waterlogging"
+},
+"papaya": {
+  "temperature": {
+    "min_safe": 18,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 15
+  },
+  "rainfall": {
+    "seasonal_low": 800,
+    "seasonal_high": 1800,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 85
+  },
+  "frost_sensitive": true,
+  "notes": "Highly sensitive fruit crop, vulnerable to cold and excess moisture"
+},
+"citrus": {
+  "temperature": {
+    "min_safe": 10,
+    "max_safe": 35,
+    "heat_stress": 38,
+    "cold_stress": 5
+  },
+  "rainfall": {
+    "seasonal_low": 600,
+    "seasonal_high": 1500,
+    "waterlogging_sensitive": true
+  },
+  "humidity": {
+    "high_risk": 80
+  },
+  "frost_sensitive": true,
+  "notes": "Fruit crop sensitive to frost and prolonged waterlogging"
+}
+}
+
