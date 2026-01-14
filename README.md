@@ -128,30 +128,71 @@ The Market Agent is designed as an **independent economic intelligence layer**, 
 ```
 vasudha-project/
 │
-├── backend/            # Contains all server-side code and models
-│   ├── agents/         # Individual microservices for each agent (FastAPI)
-│   │   ├── recommendation_agent/ # Core prediction engine
-│   │   └── ...         # Weather, Soil, Market agents TBD
-│   ├── orchestrator/   # Manages workflow between agents (Node.js/FastAPI)
-│   ├── shared/         # Shared resources (ML models, utils)
-│       └── models/     # Saved pipeline & encoder
-│ 
+├── backend/                        # Contains all server-side code and models
+│   ├── agents/                     # Individual microservices for each agent (FastAPI)
+│   │   ├── climate-adaptation_agent/      # Climate risk detection & preventive advisory
+│   │   │   ├── main.py
+│   │   │   ├── climate_risk_engine.py
+│   │   │   ├── climate_adaptation_pipeline.py
+│   │   │   ├── preventive_action_mapper.py
+│   │   │   ├── weather_service.py
+│   │   │   ├── rainfall_service.py
+│   │   │   ├── crop_climate_profiles.json
+│   │   │   ├── climate_preventive_actions.json
+│   │   │   └── requirements.txt
+│   │   ├── recommendation_agent/   # Core ML prediction engine
+│   │   │   ├── main.py
+│   │   │   ├── model_loader.py
+│   │   │   └── requirements.txt
+│   │   ├── weather_agent/          # Historical rainfall & temperature aggregation
+│   │   │   ├── main.py
+│   │   │   ├── create_db.py
+│   │   │   ├── district_seasonal_rainfall.csv
+│   │   │   └── requirements.txt
+│   │   ├── soil_agent/             # District-level soil chemistry data
+│   │   │   ├── main.py
+│   │   │   ├── create_db.py
+│   │   │   ├── district_soil_database_ready.csv
+│   │   │   └── requirements.txt
+│   │   ├── market_agent/           # Economic intelligence & price forecasting
+│   │   │   ├── main.py
+│   │   │   ├── requirements.txt
+│   │   │   ├── db/
+│   │   │   │   ├── database.py
+│   │   │   │   └── schema.sql
+│   │   │   └── ingest/
+│   │   │       └── ingest_prices.py
+│   │   └── xai_agent/              # Explainable AI output layer
+│   ├── orchestrator/               # Manages workflow & decision logic between agents
+│   │   ├── main.py
+│   │   └── requirements.txt
+│   ├── api_gateway/                # API gateway (planned)
+│   └── shared/                     # Shared resources (ML models, utilities)
+│       ├── models/
+│       │   └── feature_names.json
+│       └── utils/
 │
-├── frontend/           # React Native mobile application code
+├── frontend/                       # React Native mobile application code (planned)
 │
-├── notebooks/          # Jupyter notebooks for data analysis and model training
-│   └── VASUDHA_data_analysis.ipynb
+├── notebooks/                      # Jupyter notebooks for data analysis and model training
+│   ├── VASUDHA_data_analysis.ipynb
+│   └── Crop_production.csv
 │
 ├── data/
-│   └── market/
-│       ├── raw/
+│   └── market/                     # Market agent data storage
+│       ├── metadata.json
+│       ├── raw/                    # Historical commodity price CSV files (2001-2026)
 │       └── sqlite/
-│           └── market.db  # Raw datasets used (optional, if not ignored by .gitignore)
+│           └── market.db           # SQLite database for ingested market data
 │
-├── docs/               # Project documentation, diagrams, reports
+├── docs/                           # Project documentation and reports
+│   ├── architecture/               # Architecture & design documents
+│   ├── evaluation/                 # Test case analysis & validation reports
+│   ├── progress_report/            # Development progress tracking
+│   └── README.md
 │
-├── .gitignore          # Specifies intentionally untracked files
-└── README.md           # This file
+├── .gitignore                      # Specifies intentionally untracked files
+└── README.md                       # This file
 ```
 
 ## Technology Stack
