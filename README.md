@@ -123,6 +123,146 @@ The Market Agent is designed as an **independent economic intelligence layer**, 
 
 ---
 
+## Climate Adaptation Agent 🌦️🌱
+
+The Climate Adaptation Agent is a rule-based decision-support module within Vasudha that focuses on post-planting climate risk detection and preventive advisory.
+
+While the Recommendation Agent answers *what crops are suitable to grow*, the Climate Adaptation Agent answers:
+
+> **"Given a crop already planted and current climatic conditions, is the crop under climate stress, and what preventive actions should be taken?"**
+
+This agent is **advisory in nature** and does not prescribe pesticides, fertilizers, or yield estimates.
+
+### Design Motivation
+
+In real agricultural settings, crop failure often occurs after planting due to climate stress rather than incorrect crop selection alone. The Climate Adaptation Agent was introduced to:
+
+- **Detect short-term and seasonal climate risks**  
+- **Provide actionable, preventive guidance**  
+- **Complement crop recommendation and market intelligence layers**  
+
+### Key Design Principles
+
+- **Rule-Based Decision Logic**  
+  No machine learning is used for risk detection. All decisions are deterministic and explainable.
+
+- **Seasonal Context Awareness**  
+  Dry spell and waterlogging detection rely on seasonal rainfall context to avoid misleading conclusions from short-term weather data alone.
+
+- **False-Positive Avoidance**  
+  Crop-specific tolerances (e.g., rice and waterlogging) are respected to prevent unnecessary alerts.
+
+- **Separation of Concerns**  
+  Weather ingestion, rainfall context, risk logic, and advisory are modular and independently testable.
+
+- **LLM for Explanation Only**  
+  Groq (LLaMA 3.3 70B) is used strictly for natural-language explanation; LLMs do not influence decisions.
+
+### Supported Climate Risks
+
+The agent detects the following climate risks, each with severity (Low / Medium / High), trigger conditions, and preventive agronomic actions where applicable:
+
+- **Heat Stress**  
+- **Cold Stress**  
+- **Frost Risk**  
+- **Dry Spell Risk**  
+- **Waterlogging / Excess Rainfall Risk**  
+- **High Humidity Risk** (warning-level only)  
+
+### Crop Climate Knowledge Base
+
+The agent uses a structured, agronomically validated crop climate knowledge base defining:
+
+- Temperature tolerance ranges  
+- Heat and cold stress thresholds  
+- Seasonal rainfall requirements  
+- Waterlogging tolerance  
+- Humidity and frost sensitivity  
+
+This knowledge base is static and shared across all evaluations.
+
+### Data Sources
+
+- **Live Weather & Forecast**  
+  OpenWeatherMap API (current conditions and short-term forecast)
+
+- **Seasonal Rainfall Context**  
+  District-level historical rainfall database (read-only). Seasonal rainfall represents historical seasonal averages and is required to detect prolonged dry spells or excess moisture conditions that cannot be inferred from short-term weather data alone.
+
+### Validation & Testing
+
+The agent was tested across multiple synthetic and real-world scenarios:
+
+- Heat stress under high forecast temperatures  
+- Dry spell detection under low seasonal rainfall  
+- Flood-tolerant crop behavior under extreme rainfall  
+- Normal climatic conditions producing no false alerts  
+
+Final validation confirmed correct behavior where no climate stress was detected for rice grown in Mumbai during the kharif season under moderate temperatures and high rainfall.
+
+### Agent-Level Structure
+
+The Climate Adaptation Agent is implemented as an independent FastAPI service.
+
+```
+backend/agents/climate-adaptation_agent/
+│
+├── main.py
+├── climate_risk_engine.py
+├── climate_adaptation_pipeline.py
+├── preventive_action_mapper.py
+├── weather_service.py
+├── rainfall_service.py
+├── crop_climate_profiles.json
+├── climate_preventive_actions.json
+├── requirements.txt
+├── data/
+│   └── district_rainfall_db.sqlite (read-only, not committed)
+```
+
+### Local Setup (Climate Adaptation Agent)
+
+1. **Navigate to the agent directory:**
+   ```bash
+   cd backend/agents/climate-adaptation_agent
+   ```
+
+2. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   ```
+   Windows PowerShell:
+   ```bash
+   venv\Scripts\Activate.ps1
+   ```
+   Linux / macOS:
+   ```bash
+   source venv/bin/activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment variables:**
+   ```bash
+   OPENWEATHERMAP_API_KEY=<your_key>
+   GROQ_API_KEY=<your_key>
+   ```
+
+5. **Run the agent:**
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+### Current Status
+
+- **Climate Adaptation Agent:** ✅ Completed and locked  
+- **Integrated with live weather APIs and seasonal rainfall database**  
+- **Fully explainable, transparent, and demo-ready**
+---
+
 ## Project Structure
 
 ```
