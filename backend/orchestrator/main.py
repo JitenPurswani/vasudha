@@ -12,6 +12,8 @@ app = FastAPI(title="Vasudha Orchestrator")
 WEATHER_AGENT_URL = os.getenv("WEATHER_AGENT_URL", "http://localhost:8001")
 SOIL_AGENT_URL = os.getenv("SOIL_AGENT_URL", "http://localhost:8002")
 RECOMMENDATION_AGENT_URL = os.getenv("RECOMMENDATION_AGENT_URL", "http://localhost:8003")
+MARKET_AGENT_URL = os.getenv("MARKET_AGENT_URL", "http://localhost:8004")
+
 
 # ==================================================
 # Input Schema
@@ -265,20 +267,100 @@ CROP_SEASONALITY = {
     "coffee": ["kharif"],
 }
 
+MARKET_CROP_MAP = {
+    # Cereals & Millets
+    "rice": "Rice",
+    "maize": "Maize",
+    "wheat": "Wheat",
+    "jowar": "Jowar (Sorghum)",
+    "barley": "Barley (Jau)",
+    "ragi": "Ragi (Finger Millet)",
+
+    # Pulses
+    "moong": "Green Gram (Moong)(Whole)",
+    "blackgram": "Black Gram (Urd Beans)(Whole)",
+    "horsegram": "Kulthi (Horse Gram)",
+
+    # Oilseeds
+    "sesamum": "Sesamum (Sesame,Gingelly,Til)",
+    "soyabean": "Soyabean",
+    "sunflower": "Sunflower",
+    "rapeseed": "Indian Colza (Sarson)",
+
+    # Fibre
+    "cotton": "Cotton",
+    "jute": "Jute",
+
+    # Roots & Tubers
+    "potato": "Potato",
+    "sweetpotato": "Sweet Potato",
+    "tapioca": "Tapioca",
+
+    # Spices
+    "turmeric": "Turmeric",
+    "ginger": "Ginger (Green)",
+    "garlic": "Garlic",
+    "coriander": "Corriander seed",
+    "blackpepper": "Black pepper",
+    "cardamom": "Cardamoms",
+
+    # Plantation / Commercial
+    "arecanut": "Arecanut (Betelnut/Supari)",
+    "cashewnuts": "Cashewnuts",
+    "coffee": "Coffee",
+
+    # Vegetables
+    "tomato": "Tomato",
+    "brinjal": "Brinjal",
+    "ladyfinger": "Bhindi (Ladies Finger)",
+    "onion": "Onion",
+    "cabbage": "Cabbage",
+    "cauliflower": "Cauliflower",
+    "cucumber": "Cucumbar (Kheera)",
+    "bittergourd": "Bitter gourd",
+    "bottlegourd": "Bottle gourd",
+    "ridgegourd": "Ridgeguard (Tori)",
+    "pumpkin": "Pumpkin",
+    "ashgourd": "Ashgourd",
+    "carrot": "Carrot",
+    "radish": "Raddish",
+    "beetroot": "Beetroot",
+    "drumstick": "Drumstick",
+
+    # Fruits
+    "banana": "Banana",
+    "mango": "Mango",
+    "papaya": "Papaya",
+    "orange": "Orange",
+    "pineapple": "Pineapple",
+    "grapes": "Grapes",
+    "jackfruit": "Jack Fruit",
+    "watermelon": "Water Melon",
+    "pomegranate": "Pomegranate",
+    "apple": "Apple"
+}
+
 # ==================================================
 # MAIN ENDPOINT
 # ==================================================
 @app.post("/get_full_recommendation/")
 async def get_full_recommendation(input: AppInput):
+
     async with httpx.AsyncClient(timeout=15.0) as client:
+
+        # ---------- Weather ----------
         weather_data = (await client.get(
             f"{WEATHER_AGENT_URL}/get_combined_weather/",
             params={"lat": input.lat, "lon": input.lon, "season": input.season}
         )).json()
 
+        # ---------- Soil ----------
         soil_data = (await client.get(
             f"{SOIL_AGENT_URL}/get_soil_data_by_district/",
-            params={"district": weather_data["district"], "state": weather_data["state"]}
+            params={
+                "district": weather_data["district"],
+                "state": weather_data["state"]
+            }
         )).json()
 
         env = {
@@ -289,16 +371,10 @@ async def get_full_recommendation(input: AppInput):
             "rainfall": weather_data["avg_seasonal_rainfall_mm"],
             "temperature": weather_data["temperature_celsius"]
         }
-        if env["rainfall"] is None:
-            return {
-            "status": "ERROR",
-            "message": "Rainfall data not available for this district",
-            "action": "fallback_to_state_average_or_retry",
-            "input_data": input.dict()
-        }
 
         flags = derive_flags(env)
 
+        # ---------- Recommendation Agent ----------
         rec_data = (await client.post(
             f"{RECOMMENDATION_AGENT_URL}/predict_top_crops/",
             json=env,
@@ -306,47 +382,76 @@ async def get_full_recommendation(input: AppInput):
         )).json()
 
         filtered = []
+
         for item in rec_data.get("predictions", []):
             crop = item["crop"]
             prob = item["probability"]
 
-            meta = CROP_META.get(crop)
+            # 1️⃣ Season filter
             seasons = CROP_SEASONALITY.get(crop)
-
-            if not meta or not seasons:
+            if not seasons or input.season not in seasons:
                 continue
 
-            if input.season not in seasons:
+            # 2️⃣ Meta + constraints
+            meta = CROP_META.get(crop)
+            if not meta:
                 continue
 
             if violates_constraints(crop, meta, flags, input.mode):
                 continue
 
+            # 3️⃣ Agronomic score
             boost = compute_score_boost(crop, meta, flags, input.mode)
-            final_score = prob + boost
+            agro_score = prob + boost
+
+            # 4️⃣ Market agent (via mapping)
+            market_score = None
+            market_crop = MARKET_CROP_MAP.get(crop)
+
+            if market_crop:
+                try:
+                    market_resp = await client.get(
+                        f"{MARKET_AGENT_URL}/market/evaluate",
+                        params={
+                            "crop": market_crop,
+                            "state": weather_data["state"]
+                        }
+                    )
+                    if market_resp.status_code == 200:
+                        market_score = market_resp.json()["market_score"] / 100.0
+                except Exception:
+                    market_score = None
+
+            # 5️⃣ Final rank score (55 / 45)
+            if market_score is not None:
+                final_rank_score = 0.55 * market_score + 0.45 * agro_score
+            else:
+                # mild penalty if market unknown
+                final_rank_score = 0.85 * agro_score
+
             filtered.append({
-                "crop":crop,
-                "probability": round(final_score, 4),
+                "crop": crop,
+                "final_score": round(final_rank_score, 4),
+                "agronomic_score": round(agro_score, 4),
+                "market_score": round(market_score, 3) if market_score is not None else None,
                 "raw_probability": round(prob, 4)
             })
-        
-        filtered.sort(key=lambda x: x["probability"], reverse=True)
 
-
-        if not filtered:
-            filtered = rec_data.get("predictions", [])[:3]
+        filtered.sort(key=lambda x: x["final_score"], reverse=True)
 
         return {
             "status": "OK",
-            "input_data": input.dict(),
-            "weather_data": weather_data,
-            "soil_data": soil_data,
+            "location": {
+                "district": weather_data["district"],
+                "state": weather_data["state"]
+            },
             "recommendations": {
-                "status": "OK",
+                "ranking_logic": "0.55 * market + 0.45 * agronomic",
                 "top_n": len(filtered),
                 "predictions": filtered[:5]
             }
         }
+
 
 @app.get("/")
 def root():

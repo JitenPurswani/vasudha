@@ -99,27 +99,95 @@ These limitations are explicitly documented to preserve transparency and academi
 
 ---
 
-## Market Agent (In Progress)
+## Market Agent ✅ Completed
 
-The Market Agent is designed as an **independent economic intelligence layer**, intentionally decoupled from agronomic scoring.
+The Market Agent is an **independent economic intelligence layer** that evaluates the economic attractiveness of crops based on historical mandi price data.
+
+It answers: **"Given a crop and a state, how economically favorable is this crop based on historical price trends?"**
 
 ### Design Principles
 - Does not consume agronomic or ML scores
-- Acts as the sole market-based ranker
-- Can be used independently or via orchestrator integration
+- No machine learning dependency for core decisions
+- Deterministic, explainable scoring using price trends and volatility
+- Read-only access to market data
+- State-level abstraction (intentionally not district-level)
+- Can be used independently or integrated with the Orchestrator
 
-### Data Source
-- Daily Commodity Prices – India (Kaggle)  
+### Data Source & Dataset
+- **Source:** Daily Commodity Prices – India (Kaggle)  
   https://www.kaggle.com/datasets/khandelwalmanas/daily-commodity-prices-india  
-- ~26 years of historical data
-- Daily updates sourced from data.gov.in
+- **Time Span:** 2001–2026 (daily granularity)
+- **Coverage:** ~384 commodity names across 34 states
+- **Size:** ~71.7M raw records (~7 GB CSV), ~18 GB after SQLite ingestion
+- **Data Quality:** Handles noisy real-world commodity names, varieties, grades, and local naming variations
 
-### Market Agent Capabilities
-- District & APMC-level price analytics
-- State-level price forecasting
-- 30-day and 60-day forecasting horizon
-- Volatility-aware market scoring
-- Crop ranking based purely on economic outlook
+### Market Scoring Logic
+
+The Market Agent computes a normalized **market_score** (0–100) for each crop based on:
+
+- **Long-term average price** (baseline)
+- **Recent 30-day average** (current trend)
+- **Previous 150-day average** (medium-term context)
+- **Price variance** (volatility measure)
+- **Confidence level** (data sufficiency indicator)
+
+No ranking is performed; the agent evaluates one crop at a time.
+
+### Commodity Mapping Strategy
+
+The Market Agent (~384 noisy DB commodities) connects to the Recommendation Agent (53 clean agronomic crops) via an explicit canonical mapping layer in the Orchestrator:
+
+- Each agronomic crop maps to exactly one database commodity
+- Mapping is explicit, not inferred
+- Market Agent remains unaware of agronomic labels
+- All 53 crops have been mapped to valid DB commodities
+
+### Integration with the Orchestrator
+
+The Orchestrator combines outputs from all agents:
+
+1. Retrieve weather and soil data (district-level)
+2. Fetch top crops from Recommendation Agent (ML probabilities)
+3. Apply season filters and agronomic constraints
+4. Query Market Agent for state-level economic scores (using canonical mapping)
+5. **Combine using weighted formula:** 55% market score + 45% agronomic score
+6. Sort and return top recommendations
+
+If market data is unavailable, the system falls back to agronomic score with a mild penalty. Abstention is treated as a valid outcome.
+
+### Database Design
+
+**Primary Table:** market_prices
+- Columns: State, District, Market, Commodity, Arrival_Date, Modal_Price, Min_Price, Max_Price
+- **Key Constraint:** UNIQUE(State, District, Market, Commodity, Arrival_Date) — ensures idempotent ingestion
+
+**Aggregated Table:** state_daily_prices
+- Definition: Average Modal_Price per State × Commodity × Arrival_Date
+- Used for trend analysis, volatility, and forecasting
+- Size: ~9.2M rows
+
+**Indexes (mandatory for performance):**
+- (State, Commodity, Arrival_Date)
+- (State, District, Market)
+- (Arrival_Date)
+
+### Testing & Validation
+
+System-level testing conducted across diverse regions and seasons:
+
+- **Coastal & urban:** Vegetables dominate in high-rainfall kharif
+- **Interior & rainfed:** Cereals dominate in rabi (UP, MP, Maharashtra)
+- **Irrigated belts:** Wheat appears consistently where soil data exists
+- **Data-sparse regions:** System abstains appropriately
+
+All test cases included both kharif and rabi seasons with realistic geocoordinates.
+
+### Current Status
+
+- **Market Agent:** ✅ Fully implemented, integrated, and tested
+- **Market scoring:** Deterministic and explainable
+- **Orchestrator integration:** Complete with fallback behavior
+- **Status:** Demo-ready with all documentation
 
 ---
 
@@ -398,136 +466,140 @@ uvicorn main:app --reload
 ```
 Navigate to `http://127.0.0.1:8000/docs` in your browser to test the API.
 
-## Market Agent – Local Setup & Initialization
+## Market Agent – Setup & Initialization
 
-### Market Agent – Data Ingestion (Kaggle Commodity Prices)
+### Step 1: Download Dataset
 
-The Market Agent ingests historical and daily-updated Indian commodity price data sourced from Kaggle:
-
+Download the Daily Commodity Prices India dataset from Kaggle:  
 https://www.kaggle.com/datasets/khandelwalmanas/daily-commodity-prices-india
 
-The dataset spans ~26 years and contains daily mandi-level prices published via data.gov.in.
-
-#### Ingestion Design
-- Chunk-based CSV ingestion to handle large files (~7GB total)
-- Idempotent inserts using UNIQUE constraints
-- Safe to interrupt and re-run
-- Supports partial and incremental ingestion
-
-#### Directory Layout
-- Raw CSV files:  
-  data/market/raw/  
-  (e.g., 2001.csv, 2002.csv, …)
-
-- SQLite database:  
-  data/market/sqlite/market.db
-
-### 1. Create Virtual Environment
-
-Navigate to the Market Agent directory:
+Extract all CSV files into:
 ```bash
-backend/agents/market_agent
+data/market/raw/
 ```
-Create and activate a virtual environment:
+
+### Step 2: Setup Virtual Environment
+
 ```bash
+cd backend/agents/market_agent
 python -m venv venv
 ```
+
 Windows PowerShell:
 ```bash
 venv\Scripts\Activate.ps1
 ```
+
 Linux / macOS:
 ```bash
 source venv/bin/activate
 ```
----
 
-### 2. Install Dependencies
+### Step 3: Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
----
 
-### 3. Initialize Market Database
+### Step 4: Initialize Database Schema
 
-Create required directories if not present:
+Navigate to the market agent directory and run the schema initialization:
 
-data/market/sqlite
-
-Run schema initialization:
 ```bash
 sqlite3 ../../../data/market/sqlite/market.db ".read db/schema.sql"
 ```
+
 Verify tables:
 ```bash
 sqlite3 ../../../data/market/sqlite/market.db ".tables"
 ```
-Expected tables:
-- market_prices
-- market_aggregates
-- market_forecasts
-- metadata
 
----
+### Step 5: Run Data Ingestion
 
-### 4. Database Sanity Check (Python)
+Run the ingestion script to load CSV data into SQLite:
+
 ```bash
-python
-```
-```bash
-from db.database import get_connection
-
-conn = get_connection()
-tables = conn.execute(
-    "SELECT name FROM sqlite_master WHERE type='table';"
-).fetchall()
-
-print([t["name"] for t in tables])
-conn.close()
-```
----
-
-#### Ingestion Steps
-
-1. Place all yearly CSV files into:
-```bash
-   data/market/raw/
+python ingest/ingest_prices.py
 ```
 
-2. Activate the Market Agent virtual environment:
-```bash   
-   cd backend/agents/market_agent  
-```
-```bash
-   venv\Scripts\Activate.ps1   (Windows)  
-```  
-```bash
-   source venv/bin/activate   (Linux/macOS)
-```
-3. Run the ingestion script:
-```bash   
-   python ingest/ingest_prices.py
-```
-4. The script will:
-   - Read CSVs in chunks
-   - Insert new rows
-   - Skip duplicates automatically
-   - Print progress per chunk and per file
+The script will:
+- Read CSVs in chunks (to avoid memory exhaustion)
+- Validate date formats and numeric fields
+- Insert rows with UNIQUE constraint protection
+- Skip duplicates automatically
+- Print progress per file
 
-#### Verification (Optional)
+⏱️ **Note:** Ingestion takes 2–4 hours for the full dataset. Safe to interrupt and resume.
 
-Open SQLite CLI:
+### Step 6: Create Database Indexes
+
+After ingestion completes, create indexes for query performance:
+
 ```bash
 sqlite3 ../../../data/market/sqlite/market.db
 ```
+
 Run:
-```bash
-SELECT COUNT(*) FROM market_prices;
+```sql
+CREATE INDEX IF NOT EXISTS idx_state_commodity_date
+ON market_prices(State, Commodity, Arrival_Date);
+
+CREATE INDEX IF NOT EXISTS idx_state_district_market
+ON market_prices(State, District, Market);
+
+CREATE INDEX IF NOT EXISTS idx_arrival_date
+ON market_prices(Arrival_Date);
 ```
 
-This confirms successful ingestion.
+### Step 7: Create Aggregated Table
 
-## NOTE:- This Ingestion process takes upto 2-4 hours to complete so have "patience"!!
+Build the state-level daily prices table for analytics:
+
+```sql
+CREATE TABLE state_daily_prices AS
+SELECT
+  State,
+  Commodity,
+  Arrival_Date,
+  AVG(Modal_Price) AS avg_modal_price
+FROM market_prices
+GROUP BY State, Commodity, Arrival_Date;
+
+CREATE INDEX IF NOT EXISTS idx_state_daily_main
+ON state_daily_prices(State, Commodity, Arrival_Date);
+```
+
+### Step 8: Verify Ingestion
+
+Confirm the data load:
+
+```bash
+python
+```
+
+```python
+from db.database import get_connection
+
+conn = get_connection()
+count = conn.execute("SELECT COUNT(*) FROM market_prices;").fetchone()
+print(f"Total records: {count[0]}")
+conn.close()
+```
+
+Expected: ~71.7 million records
+
+### Step 9: Run the Market Agent
+
+Start the FastAPI service:
+
+```bash
+uvicorn main:app --reload --port 8004
+```
+
+Access the API documentation:  
+http://127.0.0.1:8004/docs
+
+Test the `/market/evaluate` endpoint with a crop and state (e.g., "rice", "Maharashtra").
 
 ## Roadmap
 
