@@ -14,6 +14,7 @@ SOIL_AGENT_URL = os.getenv("SOIL_AGENT_URL", "http://localhost:8002")
 RECOMMENDATION_AGENT_URL = os.getenv("RECOMMENDATION_AGENT_URL", "http://localhost:8003")
 MARKET_AGENT_URL = os.getenv("MARKET_AGENT_URL", "http://localhost:8004")
 SUSTAINABILITY_AGENT_URL = os.getenv("SUSTAINABILITY_AGENT_URL","http://localhost:8006")
+XAI_AGENT_URL = os.getenv("XAI_AGENT_URL", "http://localhost:8005")
 
 # ==================================================
 # Input Schema
@@ -452,7 +453,54 @@ async def get_full_recommendation(input: AppInput):
                 sustainability_data = sustain_resp.json()
         except Exception:
             sustainability_data = None
+        
 
+        xai_data = None
+        try:
+            print(f"[XAI_DEBUG] Building XAI payload")
+            print(f"[XAI_DEBUG] XAI_AGENT_URL: {XAI_AGENT_URL}")
+            print(f"[XAI_DEBUG] Number of recommendations: {len(filtered[:5])}")
+            
+            if filtered and len(filtered) > 0:
+                print(f"[XAI_DEBUG] First recommendation: {filtered[0]}")
+                print(f"[XAI_DEBUG] SHAP summary structure: {filtered[0].get('shap_summary')}")
+            
+            # Build sustainability list if available
+            sustainability_list = None
+            if sustainability_data and "results" in sustainability_data:
+                sustainability_list = sustainability_data["results"]
+                print(f"[XAI_DEBUG] Sustainability data found with {len(sustainability_list)} items")
+            else:
+                print(f"[XAI_DEBUG] No sustainability data or missing 'results' key")
+            
+            xai_payload = {
+                "location": {
+                    "district": weather_data["district"],
+                    "state": weather_data["state"]
+                },
+                "recommendations": filtered[:5],
+                "sustainability": sustainability_list
+            }
+            
+            print(f"[XAI_DEBUG] Sending POST request to {XAI_AGENT_URL}/xai/explain")
+            xai_resp = await client.post(
+                f"{XAI_AGENT_URL}/xai/explain",
+                json=xai_payload
+            )
+            print(f"[XAI_DEBUG] XAI response status: {xai_resp.status_code}")
+            
+            if xai_resp.status_code == 200:
+                xai_data = xai_resp.json()
+                print(f"[XAI_DEBUG] XAI response received: {type(xai_data)}")
+            else:
+                print(f"[XAI_DEBUG] XAI error status {xai_resp.status_code}: {xai_resp.text}")
+                xai_data = None
+        except Exception as e:
+            print(f"❌ XAI agent error: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
+            xai_data = None
+        
         return {
             "status": "OK",
             "location": {
@@ -464,7 +512,8 @@ async def get_full_recommendation(input: AppInput):
                 "top_n": len(filtered),
                 "predictions": filtered[:5]
             },
-            "sustainability": sustainability_data
+            "sustainability": sustainability_data,
+            "xai_data": xai_data
         }
 
 
