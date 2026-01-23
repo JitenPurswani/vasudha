@@ -413,9 +413,284 @@ backend/agents/climate-adaptation_agent/
 - **Climate Adaptation Agent:** ✅ Completed and locked  
 - **Integrated with live weather APIs and seasonal rainfall database**  
 - **Fully explainable, transparent, and demo-ready**
+
 ---
 
-## Project Structure
+## XAI (Explainable AI) Agent 🔍💡
+
+The XAI Agent is responsible for converting raw system outputs into **human-understandable explanations** without changing any decisions or recommendations.
+
+### Purpose & Role
+
+While other agents make decisions (ML, Market, Sustainability), the XAI Agent answers:
+
+> **"Why was this specific crop recommended, and what factors influenced this decision?"**
+
+**Core Principle:** Explainability is an **interpretation layer**, never a decision layer. The XAI Agent never computes scores, ranks crops, or makes recommendations.
+
+### Why an Independent XAI Agent Exists
+
+Explainability was intentionally separated into its own agent to ensure:
+
+- **No leakage of explanation logic into decision logic** — Explanations don't influence outcomes
+- **No coupling between ML models and narratives** — Model updates don't break explanations
+- **Clean extensibility** — New explanation rules can be added without touching scoring
+- **Safe experimentation** — Changes to explanations don't affect recommendations
+
+This follows the principle: **"Explain after deciding, not while deciding."**
+
+### System Architecture
+
+```
+Orchestrator
+     │
+     ├── Recommendation Agent (ML + SHAP)
+     ├── Market Agent (Economics)
+     ├── Sustainability Agent (Advisory)
+     └── XAI Agent (Explanation Layer) ← Only consumes, never influences
+```
+
+**Key Rule:** The XAI Agent only consumes orchestrator output. It never calls other agents directly.
+
+### Input Data Structure
+
+The XAI Agent receives a fully computed recommendation from the Orchestrator:
+
+| Component | Source | Purpose |
+|-----------|--------|---------|
+| **Crop name** | Recommendation Agent | What was recommended |
+| **Final score** | Orchestrator | Overall ranking |
+| **Agronomic score** | Orchestrator | ML-based feasibility |
+| **Market score** | Market Agent | Economic viability |
+| **SHAP summary** | Recommendation Agent | Feature importance categories |
+| **Sustainability data** | Sustainability Agent | Environmental context |
+| **Location** | Orchestrator | Geographic context |
+
+### Hybrid Explainability Strategy
+
+The XAI Agent combines three explanation dimensions:
+
+#### 1️⃣ **Model Explanation (ML + SHAP)**
+
+Explains which soil and climate features supported or hindered the crop prediction.
+
+**Example:**
+> "Potassium and soil pH strongly supported this crop's suitability, while high rainfall slightly reduced its predicted performance."
+
+**Derived from:** SHAP feature categories (top_positive, top_negative, neutral)
+
+#### 2️⃣ **Market Explanation (Optional)**
+
+Explains the economic attractiveness and market stability.
+
+**Example:**
+> "This crop shows strong market stability and favorable pricing trends in the selected state."
+
+**Key Point:** XAI does not recompute market logic — it explains the market_score already computed by the Market Agent.
+
+#### 3️⃣ **Sustainability Explanation (Optional)**
+
+Explains environmental impact in simple terms.
+
+**Example:**
+> "This crop has moderate sustainability due to balanced water usage and neutral soil impact."
+
+**Source:** Directly derived from Sustainability Agent output.
+
+### SHAP Integration (Critical Design Decision)
+
+**Where SHAP is computed:**
+- Inside the **Recommendation Agent** (with the ML model)
+
+**Why not in XAI Agent:**
+- SHAP depends on the trained ML model
+- XAI must remain model-agnostic
+- Prevents circular dependencies
+
+**How SHAP is represented to XAI:**
+
+Instead of raw SHAP values, the Recommendation Agent returns:
+
+```json
+{
+  "top_positive_features": ["phosphorus", "potassium"],
+  "top_negative_features": ["rainfall"],
+  "neutral_features": ["pH", "nitrogen", "temperature"]
+}
+```
+
+**Why This Matters:**
+- Language-independent
+- Stable across model versions
+- Easy to map into explanations
+- Translation-friendly for future multilingual support
+
+### XAI Output Format
+
+For each crop, the XAI Agent generates:
+
+```json
+{
+  "crop": "cucumber",
+  "model_explanation": [
+    {
+      "feature": "phosphorus",
+      "effect": "positive",
+      "reason": "Phosphorus supports strong root development and early plant vigor."
+    },
+    ...
+  ],
+  "market_explanation": "...",
+  "sustainability_explanation": "...",
+  "summary": "Economically viable, environmentally acceptable, supported by soil and climate conditions."
+}
+```
+
+**Full Response:**
+```json
+{
+  "agent": "xai_agent",
+  "scope": "crop_level",
+  "explanations": [...]
+}
+```
+
+### Explanation Granularity
+
+The XAI Agent deliberately explains at:
+
+✔️ **Crop level** — Why this specific crop was recommended  
+✔️ **Feature level** — Which soil/climate factors mattered  
+✔️ **Summary level** — High-level narrative
+
+**Intentionally avoids:**
+
+❌ Per-tree ML explanations  
+❌ SHAP plots or mathematical formulations  
+❌ Model internals  
+
+### What This Agent Does NOT Do
+
+❌ Does NOT rank crops  
+❌ Does NOT modify scores  
+❌ Does NOT call ML models  
+❌ Does NOT compute SHAP  
+❌ Does NOT fetch data from databases  
+❌ Does NOT translate languages  
+
+### Rule-Based Design Philosophy
+
+The XAI Agent is **100% rule-based** because:
+
+- **Deterministic behavior** — Same input always produces same explanation
+- **Auditable logic** — All rules are explicit and reviewable
+- **Language-independent** — Rules are content-agnostic
+- **Stable** — Works even if ML models are retrained
+- **No hallucinations** — No generative AI involved
+
+This is crucial for government/policy usage, educational settings, and farmer trust.
+
+### Frontend & Localization
+
+**Backend responsibility:**
+- Return canonical English explanations
+- Provide structured, template-friendly outputs
+
+**Frontend responsibility:**
+- Language translation (i18n)
+- UI presentation
+- Localization-specific formatting
+
+This keeps concerns clean and allows easy multilingual expansion.
+
+### Current Status
+
+- **XAI Agent:** ✅ Fully implemented and integrated
+- **SHAP-backed explanations:** ✅ Working correctly for multiclass classification
+- **Rule-based output:** ✅ Deterministic and auditable
+- **Status:** Demo-ready with all documentation
+
+---
+
+## XAI Agent – Setup & Initialization
+
+The XAI Agent requires minimal setup with no external dependencies or databases.
+
+### Step 1: Setup Virtual Environment
+
+```bash
+cd backend/agents/xai_agent
+python -m venv venv
+```
+
+Windows PowerShell:
+```bash
+venv\Scripts\Activate.ps1
+```
+
+Linux / macOS:
+```bash
+source venv/bin/activate
+```
+
+### Step 2: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Agent
+
+Start the FastAPI service:
+
+```bash
+uvicorn main:app --reload --port 8005
+```
+
+Access the API documentation:  
+http://127.0.0.1:8005/docs
+
+### Step 4: Test the Endpoint
+
+The `/xai/explain` endpoint expects a payload from the Orchestrator containing:
+- Location metadata (district, state)
+- Recommendations with SHAP summaries
+- Optional sustainability data
+
+Example request structure:
+```json
+{
+  "location": {
+    "district": "Agra",
+    "state": "Uttar Pradesh"
+  },
+  "recommendations": [
+    {
+      "crop": "wheat",
+      "final_score": 0.82,
+      "agronomic_score": 0.75,
+      "market_score": 0.88,
+      "raw_probability": 0.65,
+      "shap_summary": {
+        "top_positive_features": ["phosphorus", "pH"],
+        "top_negative_features": ["rainfall"],
+        "neutral_features": ["nitrogen", "potassium", "temperature"]
+      }
+    }
+  ],
+  "sustainability": [...]
+}
+```
+
+### Step 5: Verify Response
+
+Example response includes:
+- **model_explanation:** Feature-level impact with reasons
+- **market_explanation:** Economic context (if market data available)
+- **sustainability_explanation:** Environmental impact (if sustainability data available)
+- **summary:** High-level narrative combining all dimensions
+
+---
 
 ```
 vasudha-project/
