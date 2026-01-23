@@ -191,6 +191,90 @@ All test cases included both kharif and rabi seasons with realistic geocoordinat
 
 ---
 
+## Sustainability Scoring Agent 🌿♻️
+
+The Sustainability Scoring Agent is a deterministic, rule-based advisory layer that evaluates the **intrinsic environmental sustainability** of recommended crops.
+
+### Purpose & Design Philosophy
+
+While the Recommendation Agent answers *what crops are feasible* and the Market Agent answers *what crops are profitable*, the Sustainability Agent answers:
+
+> **"What crops are environmentally sustainable to grow?"**
+
+**Key Principle:** Sustainability is **explained, never enforced**. This agent provides environmental context to recommendations without altering crop ranking or blocking any crops.
+
+### Why Sustainability Is a Separate Agent
+
+Sustainability was intentionally isolated into its own independent agent because:
+
+- **Sustainability criteria are policy-driven, not predictive** — They remain stable even if ML models change
+- **Environmental logic must be auditable** — All decisions are deterministic and explainable
+- **Avoid hidden bias** — Prevents mixing economic goals with ecological metrics in the ML layer
+- **Clean modularity** — Ensures sustainability is an advisory layer, not a hard constraint
+
+### Sustainability Dimensions
+
+The agent evaluates crops across three fundamental dimensions:
+
+| Dimension | Definition | Categories |
+|-----------|-----------|-----------|
+| **Water Intensity** | Inherent water requirements | very_high (0.20) → high (0.40) → medium (0.70) → low (0.90) |
+| **Soil Impact** | Effect on soil health | negative (0.40) → neutral (0.65) → positive (0.90) |
+| **Cultivation Intensity** | Resource & labor input | high (0.40) → medium (0.65) → low (0.85) |
+
+### Scoring Formula
+
+```
+Sustainability Score = 
+    0.50 × water_factor
+  + 0.30 × soil_factor
+  + 0.20 × cultivation_factor
+```
+
+**Weight Justification:**
+- **Water (50%):** Most critical sustainability constraint in Indian agriculture
+- **Soil (30%):** Long-term agricultural health
+- **Cultivation (20%):** Farmer effort and resource efficiency
+
+**Score Range:** 0.30 (minimum) to 0.90 (maximum) — No crop receives a perfect score, reinforcing realism.
+
+### What This Agent Provides
+
+For each recommended crop, the agent returns:
+
+- **Overall sustainability score** (0–100 normalized)
+- **Dimension-level breakdown** with factors and weights
+- **Human-readable explanations** (e.g., "Lower sustainability due to high water requirements")
+- **Explicit disclaimer** clarifying that intrinsic scores do not account for local climate, irrigation practices, or soil chemistry
+
+### What This Agent Does NOT Do
+
+❌ Does NOT rank crops  
+❌ Does NOT block recommendations  
+❌ Does NOT use ML or predictions  
+❌ Does NOT depend on weather or soil APIs  
+❌ Does NOT suggest fertilizers or pesticides  
+
+### Integration with Orchestrator
+
+The Orchestrator calls the Sustainability Agent independently:
+
+1. Recommendation Agent returns top crops (ML-based)
+2. Market Agent scores economic viability (market-based)
+3. **Sustainability Agent scores environmental impact** (policy-based, advisory)
+4. All three scorecards are returned to the user for informed decision-making
+
+If sustainability data is unavailable, the system continues without penalty — sustainability is advisory, not mandatory.
+
+### Current Status
+
+- **Sustainability Scoring Agent:** ✅ Fully implemented and integrated
+- **Deterministic scoring:** No dependencies on external APIs or ML predictions
+- **Explainable output:** All scores linked to clear reasoning
+- **Status:** Demo-ready with all documentation
+
+---
+
 ## Climate Adaptation Agent 🌦️🌱
 
 The Climate Adaptation Agent is a rule-based decision-support module within Vasudha that focuses on post-planting climate risk detection and preventive advisory.
@@ -364,13 +448,27 @@ vasudha-project/
 │   │   │   └── requirements.txt
 │   │   ├── market_agent/           # Economic intelligence & price forecasting
 │   │   │   ├── main.py
+│   │   │   ├── market_logic.py
 │   │   │   ├── requirements.txt
 │   │   │   ├── db/
 │   │   │   │   ├── database.py
 │   │   │   │   └── schema.sql
 │   │   │   └── ingest/
 │   │   │       └── ingest_prices.py
+│   │   ├── sustainability_agent/   # Environmental sustainability advisory
+│   │   │   ├── main.py
+│   │   │   ├── sustainability_engine.py
+│   │   │   ├── crop_sustainability_data.json
+│   │   │   └── requirements.txt
 │   │   └── xai_agent/              # Explainable AI output layer
+│   │       ├── main.py
+│   │       ├── reasoning_engine.py
+│   │       ├── shap_rules.py
+│   │       ├── market_rules.py
+│   │       ├── sustainability_rules.py
+│   │       ├── schemas.py
+│   │       ├── utils.py
+│   │       └── requirements.txt
 │   ├── orchestrator/               # Manages workflow & decision logic between agents
 │   │   ├── main.py
 │   │   └── requirements.txt
@@ -465,6 +563,57 @@ source venv/bin/activate # Activate environment if not already active
 uvicorn main:app --reload
 ```
 Navigate to `http://127.0.0.1:8000/docs` in your browser to test the API.
+
+## Sustainability Agent – Setup & Initialization
+
+The Sustainability Agent requires minimal setup as it has no external dependencies or databases.
+
+### Step 1: Setup Virtual Environment
+
+```bash
+cd backend/agents/sustainability_agent
+python -m venv venv
+```
+
+Windows PowerShell:
+```bash
+venv\Scripts\Activate.ps1
+```
+
+Linux / macOS:
+```bash
+source venv/bin/activate
+```
+
+### Step 2: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Agent
+
+Start the FastAPI service:
+
+```bash
+uvicorn main:app --reload --port 8006
+```
+
+Access the API documentation:  
+http://127.0.0.1:8006/docs
+
+Test the `/sustainability/evaluate` endpoint with a list of crops (e.g., "rice", "wheat", "cotton").
+
+### Step 4: Verify Response
+
+Example response includes:
+- **sustainability_score:** 0–1 normalized score
+- **dimensions:** Breakdown of water, soil, and cultivation impacts
+- **score_breakdown:** Contribution of each dimension
+- **explanation:** Human-readable summary and details
+- **disclaimer:** Clarifying intrinsic vs. contextual sustainability
+
+---
 
 ## Market Agent – Setup & Initialization
 
