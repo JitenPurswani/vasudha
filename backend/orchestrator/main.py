@@ -386,6 +386,7 @@ async def get_full_recommendation(input: AppInput):
         for item in rec_data.get("predictions", []):
             crop = item["crop"]
             prob = item["probability"]
+            shap_summary = item.get("shap_summary")
 
             # 1️⃣ Season filter
             seasons = CROP_SEASONALITY.get(crop)
@@ -434,7 +435,8 @@ async def get_full_recommendation(input: AppInput):
                 "final_score": round(final_rank_score, 4),
                 "agronomic_score": round(agro_score, 4),
                 "market_score": round(market_score, 3) if market_score is not None else None,
-                "raw_probability": round(prob, 4)
+                "raw_probability": round(prob, 4),
+                "shap_summary": shap_summary
             })
 
         filtered.sort(key=lambda x: x["final_score"], reverse=True)

@@ -6,3 +6,4 @@ xgboost==3.1.0      # EXACT Colab version
 joblib==1.5.2       # EXACT Colab version (or check if specified in Colab)
 pandas==2.2.2       # EXACT Colab version
 numpy>=1.23.0       
+shap
