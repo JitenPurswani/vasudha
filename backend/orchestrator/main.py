@@ -13,7 +13,7 @@ WEATHER_AGENT_URL = os.getenv("WEATHER_AGENT_URL", "http://localhost:8001")
 SOIL_AGENT_URL = os.getenv("SOIL_AGENT_URL", "http://localhost:8002")
 RECOMMENDATION_AGENT_URL = os.getenv("RECOMMENDATION_AGENT_URL", "http://localhost:8003")
 MARKET_AGENT_URL = os.getenv("MARKET_AGENT_URL", "http://localhost:8004")
-
+SUSTAINABILITY_AGENT_URL = os.getenv("SUSTAINABILITY_AGENT_URL","http://localhost:8006")
 
 # ==================================================
 # Input Schema
@@ -438,6 +438,18 @@ async def get_full_recommendation(input: AppInput):
             })
 
         filtered.sort(key=lambda x: x["final_score"], reverse=True)
+        # ---------- Sustainability Scoring (Advisory Only) ----------
+        top_crops = [item["crop"] for item in filtered[:5]]
+        sustainability_data = None
+        try:
+            sustain_resp = await client.get(
+                f"{SUSTAINABILITY_AGENT_URL}/sustainability/evaluate",
+                params=[("crops", crop) for crop in top_crops]
+            )
+            if sustain_resp.status_code == 200:
+                sustainability_data = sustain_resp.json()
+        except Exception:
+            sustainability_data = None
 
         return {
             "status": "OK",
@@ -449,7 +461,8 @@ async def get_full_recommendation(input: AppInput):
                 "ranking_logic": "0.55 * market + 0.45 * agronomic",
                 "top_n": len(filtered),
                 "predictions": filtered[:5]
-            }
+            },
+            "sustainability": sustainability_data
         }
 
 
