@@ -1025,9 +1025,46 @@ http://127.0.0.1:8004/docs
 
 Test the `/market/evaluate` endpoint with a crop and state (e.g., "rice", "Maharashtra").
 
-## Roadmap
+## 📖 Documentation
 
-*(Link to or embed the project roadmap image/details here)*
+Complete documentation for setup, architecture, API, and integration is available in the [docs/](docs/) folder.
+
+### Quick Links
+
+| Document | Purpose |
+|----------|---------|
+| [Setup Guide](docs/setup_guide.md) | Step-by-step installation for all 8 agents and Docker deployment |
+| [Agents Overview](docs/agents_overview.md) | Quick reference for each agent (purpose, inputs, outputs, setup time) |
+| [API Reference](docs/api_reference.md) | Complete endpoint specifications with curl examples for all 8 agents |
+| [Integration Guide](docs/integration_guide.md) | System architecture, 6-phase data flow, dependencies, and extension points |
+| **Architecture Designs** | Detailed design documentation |
+| → [Orchestrator Design](docs/architecture/orchestrator_design.md) | Decision pipeline, 6-stage process, constraints, scoring |
+| → [Recommendation Agent Design](docs/architecture/recommendation_agent_design.md) | XGBoost model specs, multiclass SHAP integration |
+| → [XAI Agent Design](docs/architecture/xai_agent_design.md) | Explainability layer, rule-based explanations, feature mapping |
+| → [Market Agent Design](docs/architecture/market_agent_design.md) | Economic scoring logic and commodity mapping |
+| [Documentation Structure](docs/DOCUMENTATION_STRUCTURE.md) | Meta-documentation explaining the entire doc suite |
+
+### How to Use This Documentation
+
+**👨‍💻 For Developers:**
+1. Start with [Setup Guide](docs/setup_guide.md) to run the system locally
+2. Read [API Reference](docs/api_reference.md) for endpoint details
+3. Check [Integration Guide](docs/integration_guide.md) for system flow
+
+**🏗️ For Architects:**
+1. Review [Integration Guide](docs/integration_guide.md) for overall system design
+2. Study architecture design docs for each component
+3. Check [Orchestrator Design](docs/architecture/orchestrator_design.md) for decision logic
+
+**📊 For Data Scientists:**
+1. Read [Recommendation Agent Design](docs/architecture/recommendation_agent_design.md) for ML model
+2. Review [XAI Agent Design](docs/architecture/xai_agent_design.md) for explainability
+3. Check [Integration Guide](docs/integration_guide.md) for data flow
+
+**🚀 For DevOps:**
+1. Start with [Setup Guide](docs/setup_guide.md) — Docker Compose section
+2. Review [Agents Overview](docs/agents_overview.md) for agent dependencies
+3. Check [Integration Guide](docs/integration_guide.md) for system requirements
 
 ---
 *Developed as a Major Project for Computer Engineering.*
