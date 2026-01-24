@@ -2,11 +2,8 @@
 pandas>=2.2.0
 numpy>=1.26.0
 
-# Database
-# sqlite3 is part of Python stdlib (no install needed)
-
 # Forecasting
-prophet>=1.1.5
+prophet
 
 # API (for later)
 fastapi>=0.110.0

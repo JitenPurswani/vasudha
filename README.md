@@ -101,14 +101,19 @@ These limitations are explicitly documented to preserve transparency and academi
 
 ## Market Agent ✅ Completed
 
-The Market Agent is an **independent economic intelligence layer** that evaluates the economic attractiveness of crops based on historical mandi price data.
+The Market Agent is an **independent economic intelligence layer** that evaluates the economic attractiveness of crops based on historical mandi price data and provides short-to-mid-term price forecasts.
 
-It answers: **"Given a crop and a state, how economically favorable is this crop based on historical price trends?"**
+It answers two core questions:
+
+> **"Given a crop and a state, how economically favorable is this crop based on historical price trends?"**
+
+> **"What are the projected market prices for this crop over the next 30, 60, and 90 days?"**
 
 ### Design Principles
 - Does not consume agronomic or ML scores
 - No machine learning dependency for core decisions
 - Deterministic, explainable scoring using price trends and volatility
+- Rule-based forecasting avoiding black-box ML models
 - Read-only access to market data
 - State-level abstraction (intentionally not district-level)
 - Can be used independently or integrated with the Orchestrator
@@ -133,6 +138,217 @@ The Market Agent computes a normalized **market_score** (0–100) for each crop 
 
 No ranking is performed; the agent evaluates one crop at a time.
 
+### Database Design
+
+**Primary Table:** market_prices
+- Columns: State, District, Market, Commodity, Arrival_Date, Modal_Price, Min_Price, Max_Price
+- **Key Constraint:** UNIQUE(State, District, Market, Commodity, Arrival_Date) — ensures idempotent ingestion
+
+**Aggregated Table:** state_daily_prices
+- Definition: Average Modal_Price per State × Commodity × Arrival_Date
+- Used for trend analysis, volatility, and forecasting
+- Size: ~9.2M rows
+- **Columns:** State, Commodity, Arrival_Date, avg_modal_price
+
+**Supporting Tables for Forecasting:**
+
+1. **state_30d_avg** — Rolling 30-day average prices
+   - Columns: State, Commodity, Arrival_Date, avg_30
+   - Purpose: Smooths daily volatility for trend detection
+
+2. **state_30d_trends** — Historical trend continuation records
+   - Columns: State, Commodity, start_date, avg_30_start, avg_30_next, continued_up
+   - Purpose: Tracks whether upward/downward trends historically continue
+
+3. **crop_trend_persistence** — Trend persistence scores (0–1)
+   - Columns: State, Commodity, persistence_score, sample_size
+   - Meaning: Probability that a trend continues in the same direction
+   - **Default:** persistence_score = 0.5 if sample_size < 20
+
+**Indexes (mandatory for performance):**
+- (State, Commodity, Arrival_Date)
+- (State, District, Market)
+- (Arrival_Date)
+
+### Data Ingestion & Forecasting Table Setup
+
+After ingesting the raw mandi data into `market_prices` and aggregating to `state_daily_prices`, run the following SQL blocks sequentially to prepare the forecasting tables:
+
+**Step 1: Create rolling 30-day averages**
+```sql
+CREATE TABLE IF NOT EXISTS state_30d_avg AS
+SELECT
+    State,
+    Commodity,
+    Arrival_Date,
+    AVG(avg_modal_price) OVER (
+        PARTITION BY State, Commodity
+        ORDER BY Arrival_Date
+        ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+    ) AS avg_30
+FROM state_daily_prices;
+```
+
+**Step 2: Create trend continuation table**
+```sql
+CREATE TABLE IF NOT EXISTS state_30d_trends AS
+SELECT
+    a.State,
+    a.Commodity,
+    a.Arrival_Date AS start_date,
+    a.avg_30 AS avg_30_start,
+    b.avg_30 AS avg_30_next,
+    CASE
+        WHEN b.avg_30 > a.avg_30 THEN 1
+        ELSE 0
+    END AS continued_up
+FROM state_30d_avg a
+JOIN state_30d_avg b
+  ON a.State = b.State
+ AND a.Commodity = b.Commodity
+ AND b.Arrival_Date = DATE(a.Arrival_Date, '+30 day')
+WHERE a.avg_30 IS NOT NULL
+  AND b.avg_30 IS NOT NULL;
+```
+
+**Step 3: Create persistence scores**
+```sql
+CREATE TABLE IF NOT EXISTS crop_trend_persistence AS
+SELECT
+    State,
+    Commodity,
+    AVG(continued_up * 1.0) AS persistence_score,
+    COUNT(*) AS sample_size
+FROM state_30d_trends
+GROUP BY State, Commodity;
+```
+
+**Step 4: Apply safe defaults**
+```sql
+UPDATE crop_trend_persistence
+SET persistence_score = 0.5
+WHERE persistence_score IS NULL
+   OR sample_size < 20;
+```
+
+**Verification Query:**
+```sql
+SELECT * 
+FROM crop_trend_persistence
+WHERE Commodity = 'Soyabean'
+LIMIT 5;
+```
+
+Expected output: persistence_score ≈ 0.5–0.7 indicates moderate trend persistence (economically realistic).
+
+### Price Forecasting Module
+
+#### Overview
+
+The forecasting module provides short-term (30 days), mid-term (60 days), and planning-level (90 days) price projections for agricultural commodities at the state level.
+
+The design intentionally avoids heavy statistical or black-box ML forecasting models and instead uses a **transparent, explainable, rule-based economic approach** grounded in 26 years of historical mandi data.
+
+The forecasting logic balances:
+- **Recent market momentum** (last 60 days of actual prices)
+- **Long-term historical trend persistence** (probability that trends continue)
+- **Uncertainty growth over time** (decay factors increase projection uncertainty)
+
+#### Forecasting Logic Design
+
+**Why only the last 60 days for trend?**
+
+Agriculture markets react to recent supply, arrivals, MSP changes, exports, and seasonality. Using full 26-year regression would dilute actionable signals. Long-term data is already captured via persistence_score. Hence:
+- **Short-term direction** from recent data (last 60 days)
+- **Long-term behavior** from persistence (historical probability)
+
+**Base trend computation:**
+
+Last 60 days are split into:
+- Last 30 days
+- Previous 30 days
+
+Formula:
+```
+base_trend_pct = (avg_last_30 - avg_prev_30) / avg_prev_30
+```
+
+This captures recent momentum.
+
+**Decay factors (uncertainty increases with horizon):**
+
+| Horizon | Decay Factor | Interpretation |
+|---------|-------------|-----------------|
+| 30 days | 1.0 | Strong signal, near-term actionable |
+| 60 days | 0.6 | Moderated continuation, mid-term |
+| 90 days | 0.35 | Conservative planning estimate |
+
+**Effective trend calculation:**
+
+```
+effective_trend = base_trend_pct × persistence_score × decay_factor
+```
+
+This ensures trends:
+- Do not extrapolate infinitely
+- Respect historical behavior
+- Decay naturally over time
+
+**Daily price slope (linear interpolation for explainability):**
+
+```
+daily_slope = (last_price × effective_trend) / horizon
+```
+
+Linear interpolation is used intentionally for explainability and stability, not exponential or complex curve fitting.
+
+#### FastAPI Endpoint
+
+**Endpoint Definition:**
+```
+GET /market/forecast
+```
+
+**Query Parameters:**
+- `crop` (string): Crop name (must be mapped to valid DB commodity)
+- `state` (string): State name
+
+**Response Structure:**
+```json
+{
+  "crop": "Soyabean",
+  "state": "Gujarat",
+  "trend_percent": 5.43,
+  "persistence": 0.537,
+  "confidence": 0.72,
+  "forecast_30": [
+    {
+      "date": "2026-02-24",
+      "price": 4150.50
+    },
+    ...
+  ],
+  "forecast_60": [...],
+  "forecast_90": [...]
+}
+```
+
+**Output Interpretation:**
+
+- **forecast_30** — Reflects actionable near-term market movement; highest confidence
+- **forecast_60** — Reflects moderated continuation; medium confidence
+- **forecast_90** — Reflects conservative planning estimate; lowest confidence
+- **persistence** — Historical probability that recent trends continue (0–1)
+- **confidence** — Derived directly from persistence; indicates forecast reliability
+
+#### Design Principles Followed
+
+✅ **No black-box ML** — All forecasting logic is explicit math  
+✅ **Fully explainable** — Every component has a clear interpretation  
+✅ **Uses long-term data responsibly** — Via persistence, not regression extrapolation  
+✅ **Robust to noise** — Decay factors and persistence prevent false signals  
+✅ **Defensible** — Aligned with real agricultural economics, not statistical artifacts  
+
 ### Commodity Mapping Strategy
 
 The Market Agent (~384 noisy DB commodities) connects to the Recommendation Agent (53 clean agronomic crops) via an explicit canonical mapping layer in the Orchestrator:
@@ -150,42 +366,30 @@ The Orchestrator combines outputs from all agents:
 2. Fetch top crops from Recommendation Agent (ML probabilities)
 3. Apply season filters and agronomic constraints
 4. Query Market Agent for state-level economic scores (using canonical mapping)
-5. **Combine using weighted formula:** 55% market score + 45% agronomic score
-6. Sort and return top recommendations
+5. Query Market Agent for price forecasts (30/60/90 day horizons)
+6. **Combine using weighted formula:** 55% market score + 45% agronomic score
+7. Sort and return top recommendations with forecast data
 
 If market data is unavailable, the system falls back to agronomic score with a mild penalty. Abstention is treated as a valid outcome.
 
-### Database Design
-
-**Primary Table:** market_prices
-- Columns: State, District, Market, Commodity, Arrival_Date, Modal_Price, Min_Price, Max_Price
-- **Key Constraint:** UNIQUE(State, District, Market, Commodity, Arrival_Date) — ensures idempotent ingestion
-
-**Aggregated Table:** state_daily_prices
-- Definition: Average Modal_Price per State × Commodity × Arrival_Date
-- Used for trend analysis, volatility, and forecasting
-- Size: ~9.2M rows
-
-**Indexes (mandatory for performance):**
-- (State, Commodity, Arrival_Date)
-- (State, District, Market)
-- (Arrival_Date)
-
 ### Testing & Validation
 
-System-level testing conducted across diverse regions and seasons:
+System-level testing conducted across diverse regions, seasons, and commodities:
 
 - **Coastal & urban:** Vegetables dominate in high-rainfall kharif
 - **Interior & rainfed:** Cereals dominate in rabi (UP, MP, Maharashtra)
 - **Irrigated belts:** Wheat appears consistently where soil data exists
 - **Data-sparse regions:** System abstains appropriately
+- **Forecasting validation:** Trend persistence and decay factors tested across seasonal transitions
 
-All test cases included both kharif and rabi seasons with realistic geocoordinates.
+All test cases included both kharif and rabi seasons with realistic geocoordinates and commodity-specific trend patterns.
 
 ### Current Status
 
-- **Market Agent:** ✅ Fully implemented, integrated, and tested
+- **Market Agent (Scoring Module):** ✅ Fully implemented, integrated, and tested
+- **Market Agent (Forecasting Module):** ✅ Fully implemented, integrated, and tested
 - **Market scoring:** Deterministic and explainable
+- **Price forecasting:** Transparent, rule-based, grounded in historical data
 - **Orchestrator integration:** Complete with fallback behavior
 - **Status:** Demo-ready with all documentation
 
