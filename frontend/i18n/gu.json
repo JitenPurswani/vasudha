@@ -1,0 +1,137 @@
+{
+    "app_title": "વસુધા",
+    "onboarding":
+    {
+        "welcome": "વસુધામાં તમારું સ્વાગત છે",
+        "set_up": "તમારી પ્રોફાઇલ સેટ કરો",
+        "username": "વપરાશકર્તાનું નામ",
+        "username_input": "તમારું નામ લખો",
+        "language": "ભાષા",
+        "soil_report_availability": "શું તમારી પાસે જમીન પરીક્ષણ રિપોર્ટ છે?",
+        "soil_params": "જમીનના ઘટકોની વિગત",
+        "continue": "આગળ",
+        "yes": "હા",
+        "no": "ના"
+    }, 
+  "crops": {
+    "rice": "ડાંગર (ચોખા)",
+    "wheat": "ઘઉં",
+    "maize": "મકાઈ",
+    "barley": "જવ",
+    "jowar": "જુવાર",
+    "ragi": "રાગી (નાગલી)",
+    "moong": "મગ",
+    "blackgram": "અડદ",
+    "horsegram": "કુલીથ (કળથી)",
+    "chickpea": "ચણા",
+    "lentil": "મસૂર",
+    "peas": "વટાણા",
+    "sesamum": "તલ",
+    "rapeseed": "રાયડો",
+    "sunflower": "સૂર્યમુખી",
+    "soyabean": "સોયાબીન",
+    "groundnut": "મગફળી",
+    "mustard": "રાઈ",
+    "linseed": "અળસી",
+    "safflower": "કુસુમ",
+    "cotton": "કપાસ",
+    "jute": "શણ (જૂટ)",
+    "tomato": "ટામેટા",
+    "brinjal": "રીંગણ",
+    "ladyfinger": "ભીંડા",
+    "cucumber": "કાકડી",
+    "bittergourd": "કારેલા",
+    "bottlegourd": "દૂધી",
+    "ridgegourd": "તુરિયા",
+    "pumpkin": "કોળું",
+    "ashgourd": "પેઠા (સફેદ કોળું)",
+    "cabbage": "કોબીજ",
+    "cauliflower": "ફૂલેવર",
+    "carrot": "ગાજર",
+    "beetroot": "બીટ",
+    "radish": "મૂળા",
+    "onion": "ડુંગળી",
+    "potato": "બટાકા",
+    "sweetpotato": "શક્કરિયા",
+    "tapioca": "કસાવો (સાબુદાણા)",
+    "drumstick": "સરગવો",
+    "banana": "કેળા",
+    "papaya": "પપૈયું",
+    "apple": "સફરજન",
+    "mango": "કેરી",
+    "pomegranate": "દાડમ",
+    "arecanut": "સોપારી",
+    "cashewnuts": "કાજુ"
+  },
+    "locations":{
+      "kalyan_apmc": "કલ્યાણ એપીએમસી",
+      "thane_apmc": "થાણે એપીએમસી",
+      "panvel_apmc": "પનવેલ એપીએમસી",
+      "default_region": "કલ્યાણ, મહારાષ્ટ્ર"
+  },
+  "common": {
+      "last_updated": "છેલ્લે અપડેટ કર્યું: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "નમસ્તે,",
+    "sections": {
+      "weather": "હાલનું હવામાન",
+      "alerts": "ચેતવણીઓ",
+      "crop": "ચાલુ પાક",
+      "market": "બજાર ભાવ"
+    },
+    
+    "weather": {
+        "temperature": "તાપમાન",
+        "precipitation": "વરસાદ",
+        "humidity": "ભેજ",
+        "wind_speed": "પવનની ગતિ"
+    },
+    "crop":{
+        "days_since": "વાવણીના {{days}} દિવસ"
+    },
+    "market":{
+      "per_kg": "પ્રતિ કિલો"
+    }
+  },
+  "crop":{
+    "title": "પાકની ભલામણ",
+    "subtitle": "તમારા માટે ભલામણ કરેલ શ્રેષ્ઠ પાક",
+    "seasonal": "મોસમી",
+    "all_season": "બારેમાસ",
+    "top_recommendation": "શ્રેષ્ઠ ભલામણ",
+    "why_this_crop": "આ પાક શા માટે?"
+  },
+  "market":{
+    "title": "બજાર ભાવ",
+    "subtitle": "પાકના ભાવના વલણો પર નજર રાખો",
+    "per_kg": "પ્રતિ કિલો",
+    "current_market": "વર્તમાન બજાર",
+    "current_price": "વર્તમાન ભાવ",
+    "nearby_markets": "નજીકના માર્કેટ યાર્ડ",
+    "historical_prices": "ઐતિહાસિક બજાર ભાવ",
+    "graph_title": "તમારા પસંદ કરેલા પાકના ભાવમાં ફેરફાર"
+  },
+  "disease": {
+    "title": "રોગની ઓળખ",
+    "subtitle": "સંભવિત રોગો અથવા જીવાતો શોધો",
+    "upload": "અપલોડ કરો",
+    "retake": "ફરીથી ફોટો લો",
+    "click_picture": "ફોટો પાડો",
+    "close": "બંધ કરો",
+    "diagnosis": "રોગનું નિદાન"
+  },
+  "profile": {
+    "title": "પ્રોફાઇલ",
+    "subtitle": "તમારા એકાઉન્ટ સેટિંગ્સનું સંચાલન કરો",
+    "edit": "પ્રોફાઇલ એડિટ કરો",
+    "soil_params": "જમીનના ઘટકો",
+    "save": "સાચવો",
+    "username": "વપરાશકર્તાનું નામ",
+    "language": "ભાષા",
+    "location": "સ્થળ"
+  },
+  "notifications": {
+    "title": "સૂચનાઓ"
+  }
+}

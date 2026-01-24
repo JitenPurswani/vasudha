@@ -1,0 +1,136 @@
+{
+    "app_title": "वसुधा",
+    "onboarding":
+    {
+        "welcome": "वसुधा मध्ये आपले स्वागत आहे",
+        "set_up": "तुमचे प्रोफाइल सेट करा",
+        "username": "वापरकर्तानाव",
+        "username_input": "आपले नाव प्रविष्ट करा",
+        "language": "भाषा",
+        "soil_report_availability": "तुमच्याकडे माती चाचणी अहवाल आहे का?",
+        "soil_params": "मातीचे मापदंड",
+        "continue": "पुढे",
+        "yes": "हो",
+        "no": "नाही"
+    },
+  "crops": {
+    "rice": "तांदूळ",
+    "wheat": "गहू",
+    "maize": "मका",
+    "barley": "जव",
+    "jowar": "ज्वार",
+    "ragi": "नाचणी (रागी)",
+    "moong": "मूग",
+    "blackgram": "उडीद",
+    "horsegram": "कुलथी (हुलगं)",
+    "chickpea": "हरभरा",
+    "lentil": "मसूर",
+    "peas": "वाटाणा",
+    "sesamum": "तीळ",
+    "rapeseed": "तोरिया",
+    "sunflower": "सूर्यफूल",
+    "soyabean": "सोयाबीन",
+    "groundnut": "भुईमूग",
+    "mustard": "मोहरी",
+    "linseed": "जवस",
+    "safflower": "करडई",
+    "cotton": "कापूस",
+    "jute": "जूट",
+    "tomato": "टमाटर",
+    "brinjal": "वांगी",
+    "ladyfinger": "भेंडी",
+    "cucumber": "काकडी",
+    "bittergourd": "कारले",
+    "bottlegourd": "दुधी भोपळा",
+    "ridgegourd": "दोडका",
+    "pumpkin": "लाल भोपळा",
+    "ashgourd": "कोहळा",
+    "cabbage": "कोबी",
+    "cauliflower": "फ्लॉवर",
+    "carrot": "गाजर",
+    "beetroot": "बीट",
+    "radish": "मुळा",
+    "onion": "कांदा",
+    "potato": "बटाटा",
+    "sweetpotato": "रताळे",
+    "tapioca": "शाबूदाना (कसावा)",
+    "drumstick": "शेवगा",
+    "banana": "केळी",
+    "papaya": "पपई",
+    "apple": "सफरचंद",
+    "mango": "आंबा",
+    "pomegranate": "डाळिंब",
+    "arecanut": "सुपारी",
+    "cashewnuts": "काजू"
+  },
+    "locations":{
+      "kalyan_apmc": "कल्याण एपीएमसी",
+      "thane_apmc": "ठाणे एपीएमसी",
+      "panvel_apmc": "पनवेल एपीएमसी",
+      "default_region": "कल्याण, महाराष्ट्र"
+  },
+  "common": {
+      "last_updated": "शेवटचे अपडेट: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "नमस्कार,",
+    "sections": {
+      "weather": "सध्याचे हवामान",
+      "alerts": "अलर्ट",
+      "crop": "चालू पीक",
+      "market": "बाजार भाव"
+    },
+    "weather": {
+        "temperature": "तापमान",
+        "precipitation": "पर्जन्य",
+        "humidity": "आर्द्रता",
+        "wind_speed": "वाऱ्याचा वेग"
+    },
+    "crop":{
+        "days_since": "लागवडीपासूनचे दिवस: {{days}}"
+    },
+    "market":{
+      "per_kg": "प्रति किलो"
+    }
+  },
+  "crop":{
+    "title": "पीक शिफारसी",
+    "subtitle": "तुमच्यासाठी शिफारस केलेली प्रमुख पिके",
+    "seasonal": "हंगामी",
+    "all_season": "बारमाही",
+    "top_recommendation": "शीर्ष शिफारस",
+    "why_this_crop": "हेच पीक का?"
+  },
+  "market":{
+    "title": "बाज़ार भाव",
+    "subtitle": "पीक दरांच्या कलमानाचा मागोवा घ्या",
+    "per_kg": "प्रति किलो",
+    "current_market": "सध्याचा बाजार",
+    "current_price": "चालू भाव",
+    "nearby_markets": "जवळील बाजारपेठा",
+    "historical_prices": "ऐतिहासिक बाजार भाव",
+    "graph_title": "तुमच्या निवडलेल्या पिकाचे दरातील चढ-उतार"
+  },
+  "disease": {
+    "title": "रोग ओळख",
+    "subtitle": "संभाव्य रोग किंवा कीड ओळखा",
+    "upload": "अपलोड करा",
+    "retake": "पुन्हा फोटो काढा",
+    "click_picture": "फोटो काढा",
+    "close": "बंद करा",
+    "diagnosis": "रोगाचे निदान"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "subtitle": "तुमच्या खात्याची सेटिंग्ज व्यवस्थापित करा",
+    "edit": "प्रोफाइल संपादित करा",
+    "soil_params": "मातीचे मापदंड",
+    "save": "सेव करा",
+    "username": "वापरकर्तानाव",
+    "language": "भाषा",
+    "location": "ठिकाण"
+  },
+  "notifications": {
+    "title": "सूचना"
+  }
+}

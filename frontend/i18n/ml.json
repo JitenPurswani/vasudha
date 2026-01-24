@@ -1,0 +1,137 @@
+{
+    "app_title": "വസുധ",
+    "onboarding":
+    {
+        "welcome": "വസുധയിലേക്ക് സ്വാഗതം",
+        "set_up": "നിങ്ങളുടെ പ്രൊഫൈൽ തയ്യാറാക്കുക",
+        "username": "ഉപയോക്തൃനാമം",
+        "username_input": "നിങ്ങളുടെ പേര് നൽകുക",
+        "language": "ഭാഷ",
+        "soil_report_availability": "നിങ്ങളുടെ പക്കൽ മണ്ണ് പരിശോധനാ റിപ്പോർട്ട് ഉണ്ടോ?",
+        "soil_params": "മണ്ണിലെ മൂലകങ്ങളുടെ അളവ്",
+        "continue": "അടുത്തത്",
+        "yes": "ഉണ്ട്",
+        "no": "ഇല്ല"
+    },  
+    "crops": {
+        "rice": "നെൽ (അരി)",
+        "wheat": "ഗോതമ്പ്",
+        "maize": "ചോളം",
+        "barley": "ബാർലി",
+        "jowar": "ജോവർ",
+        "ragi": "റാഗി",
+        "moong": "ചെറുപയർ",
+        "blackgram": "ഉഴുന്ന്",
+        "horsegram": "മുതിര",
+        "chickpea": "കടല",
+        "lentil": "പരിപ്പ്",
+        "peas": "പട്ടാണി",
+        "sesamum": "എള്ള്",
+        "rapeseed": "റേപ്സീഡ്",
+        "sunflower": "സൂര്യകാന്തി",
+        "soyabean": "സോയാബീൻ",
+        "groundnut": "നിലക്കടല",
+        "mustard": "കടുക്",
+        "linseed": "അളിവിത്ത് (ലിൻസീഡ്)",
+        "safflower": "കുസുമം",
+        "cotton": "പരുത്തി",
+        "jute": "ചണം",
+        "tomato": "തക്കാളി",
+        "brinjal": "വഴുതനങ്ങ",
+        "ladyfinger": "വെണ്ടയ്ക്ക",
+        "cucumber": "വെള്ളരിക്ക",
+        "bittergourd": "പാവയ്ക്ക",
+        "bottlegourd": "ചുരയ്ക്ക",
+        "ridgegourd": "പീച്ചിങ്ങ",
+        "pumpkin": "മത്തങ്ങ",
+        "ashgourd": "കുമ്പളങ്ങ",
+        "cabbage": "കാബേജ്",
+        "cauliflower": "കോളിഫ്ലവർ",
+        "carrot": "കാരറ്റ്",
+        "beetroot": "ബീറ്റ്റൂട്ട്",
+        "radish": "മുള്ളങ്കി",
+        "onion": "ഉള്ളി",
+        "potato": "ഉരുളക്കിഴങ്ങ്",
+        "sweetpotato": "മധുരക്കിഴങ്ങ്",
+        "tapioca": "മരച്ചീനി",
+        "drumstick": "മുരിങ്ങക്ക",
+        "banana": "വാഴപ്പഴം",
+        "papaya": "പപ്പായ",
+        "apple": "ആപ്പിൾ",
+        "mango": "മാമ്പഴം",
+        "pomegranate": "മാതളനാരങ്ങ",
+        "arecanut": "അടയ്ക്ക",
+        "cashewnuts": "കശുവണ്ടി"
+    },
+    "locations":{
+      "kalyan_apmc": "കല്യാൺ എ.പി.എം.സി",
+      "thane_apmc": "താനെ എ.പി.എം.സി",
+      "panvel_apmc": "പൻവേൽ എ.പി.എം.സി",
+      "default_region": "കല്യാൺ, മഹാരാഷ്ട്ര"
+  },
+  "common": {
+      "last_updated": "അവസാനം പുതുക്കിയത്: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "നമസ്കാരം,",
+    "sections": {
+      "weather": "നിലവിലെ കാലാവസ്ഥ",
+      "alerts": "അറിയിപ്പുകൾ",
+      "crop": "നിലവിലെ കൃഷി",
+      "market": "വിപണി വില"
+    },
+    
+    "weather": {
+        "temperature": "താപനില",
+        "precipitation": "മഴ",
+        "humidity": "ഈർപ്പം",
+        "wind_speed": "കാറ്റിന്റെ വേഗം"
+    },
+    "crop":{
+        "days_since": "കൃഷി തുടങ്ങിയിട്ട് {{days}} ദിവസം"
+    },
+    "market":{
+      "per_kg": "ഒരു കിലോ"
+    }
+  },
+  "crop":{
+    "title": "വിള ശുപാർശകൾ",
+    "subtitle": "നിങ്ങൾക്കായി നിർദ്ദേശിക്കുന്ന മികച്ച വിളകൾ",
+    "seasonal": "സീസണൽ",
+    "all_season": "എല്ലാ സീസണിലും",
+    "top_recommendation": "ഏറ്റവും മികച്ച നിർദ്ദേശം",
+    "why_this_crop": "എന്തുകൊണ്ട് ഈ വിള?"
+  },
+  "market":{
+    "title": "വിപണി നിരക്കുകൾ",
+    "subtitle": "വിളകളുടെ വിലനിലവാരം നിരീക്ഷിക്കുക",
+    "per_kg": "ഒരു കിലോ",
+    "current_market": "നിലവിലെ വിപണി",
+    "current_price": "ഇന്നത്തെ വില",
+    "nearby_markets": "അടുത്തുള്ള വിപണികൾ",
+    "historical_prices": "പഴയ വിപണി നിരക്കുകൾ",
+    "graph_title": "തിരഞ്ഞെടുത്ത വിളയുടെ വിലയിലെ മാറ്റങ്ങൾ"
+  },
+  "disease": {
+    "title": "രോഗ നിർണ്ണയം",
+    "subtitle": "രോഗങ്ങളോ കീടങ്ങളോ ഉണ്ടോ എന്ന് പരിശോധിക്കുക",
+    "upload": "അപ്‌ലോഡ്",
+    "retake": "തിരിച്ചെടുക്കുക",
+    "click_picture": "ഫോട്ടോ എടുക്കുക",
+    "close": "അടയ്ക്കുക",
+    "diagnosis": "അടയ്ക്കുക"
+  },
+  "profile": {
+    "title": "പ്രൊഫൈൽ",
+    "subtitle": "നിങ്ങളുടെ അക്കൗണ്ട് ക്രമീകരണങ്ങൾ നിയന്ത്രിക്കുക",
+    "edit": "പ്രൊഫൈൽ എഡിറ്റ് ചെയ്യുക",
+    "soil_params": "മണ്ണിലെ ഘടകങ്ങൾ",
+    "save": "സേവ് ചെയ്യുക",
+    "username": "ഉപയോക്തൃനാമം",
+    "language": "ഭാഷ",
+    "location": "സ്ഥാനം"
+  },
+  "notifications": {
+    "title": "അറിയിപ്പുകൾ"
+  }
+}

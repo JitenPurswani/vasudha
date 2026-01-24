@@ -1,0 +1,136 @@
+{
+    "app_title": "वसुधा",
+    "onboarding":
+    {
+        "welcome": "वसुधा: आपका स्वागत है",
+        "set_up": "अपना प्रोफ़ाइल सेट करें",
+        "username": "उपयोगकर्ता नाम",
+        "username_input": "अपना नाम दर्ज करें",
+        "language": "भाषा",
+        "soil_report_availability": "क्या आपके पास मिट्टी परीक्षण रिपोर्ट है?",
+        "soil_params": "मिट्टी के मापदंडों का मान",
+        "continue": "आगे बढ़ें",
+        "yes": "हाँ",
+        "no": "नहीं"
+    },
+   "crops": {
+    "rice": "चावल",
+    "wheat": "गेहूं",
+    "maize": "मक्का",
+    "barley": "जौ",
+    "jowar": "ज्वार",
+    "ragi": "रागी",
+    "moong": "मूंग",
+    "blackgram": "उड़द",
+    "horsegram": "कुलथी",
+    "chickpea": "चना",
+    "lentil": "मसूर",
+    "peas": "मटर",
+    "sesamum": "तिल",
+    "rapeseed": "तोड़िया",
+    "sunflower": "सूरजमुखी",
+    "soyabean": "सोयाबीन",
+    "groundnut": "मूंगफली",
+    "mustard": "सरसों",
+    "linseed": "अलसी",
+    "safflower": "कुसुम",
+    "cotton": "कपास",
+    "jute": "जूट",
+    "tomato": "टमाटर",
+    "brinjal": "बैंगन",
+    "ladyfinger": "भिंडी",
+    "cucumber": "खीरा",
+    "bittergourd": "करेला",
+    "bottlegourd": "लौकी",
+    "ridgegourd": "तुरई",
+    "pumpkin": "कद्दू",
+    "ashgourd": "पेठा",
+    "cabbage": "पत्ता गोभी",
+    "cauliflower": "फूल गोभी",
+    "carrot": "गाजर",
+    "beetroot": "चुकंदर",
+    "radish": "मूली",
+    "onion": "प्याज",
+    "potato": "आलू",
+    "sweetpotato": "शकरकंद",
+    "tapioca": "साबूदाना",
+    "drumstick": "सहजन (मुनगा)",
+    "banana": "केला",
+    "papaya": "पपीता",
+    "apple": "सेब",
+    "mango": "आम",
+    "pomegranate": "अनार",
+    "arecanut": "सुपारी",
+    "cashewnuts": "काजू"
+  },
+    "locations":{
+      "kalyan_apmc": "कल्याण एपीएमसी",
+      "thane_apmc": "ठाणे एपीएमसी",
+      "panvel_apmc": "पनवेल एपीएमसी",
+      "default_region": "कल्याण, महाराष्ट्र"
+  },
+  "common": {
+      "last_updated": "अंतिम अपडेट: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "नमस्ते,",
+    "sections": {
+      "weather": "वर्तमान मौसम",
+      "alerts": "अलर्ट",
+      "crop": "वर्तमान फसल",
+      "market": "बाजार भाव"
+    },
+    "weather": {
+        "temperature": "तापमान",
+        "precipitation": "वर्षा",
+        "humidity": "नमी",
+        "wind_speed": "हवा की गति"
+    },
+    "crop":{
+        "days_since": "रोपण से {{days}} दिन"
+    },
+    "market":{
+      "per_kg": "प्रति किलो"
+    }
+  },
+  "crop":{
+    "title": "फसल सुझाव",
+    "subtitle": "आपके लिए सुझाई गई फसलें",
+    "seasonal": "मौसमी",
+    "all_season": "बारहमासी",
+    "top_recommendation": "शीर्ष सुझाव",
+    "why_this_crop": "यह फसल क्यों?"
+  },
+  "market":{
+    "title": "बाज़ार भाव",
+    "subtitle": "फसल की कीमतों के बदलाव पर नज़र रखें",
+    "per_kg": "प्रति किलो",
+    "current_market": "वर्तमान मंडी भाव",
+    "current_price": "वर्तमान कीमत",
+    "nearby_markets": "आस-पास की मंडियां",
+    "historical_prices": "ऐतिहासिक बाजार भाव",
+    "graph_title": "आपकी चुनी हुई फसल की कीमतों में बदलाव"
+  },
+  "disease": {
+    "title": "रोग की पहचान",
+    "subtitle": "संभावित बीमारियों या कीटों का पता लगाएं",
+    "upload": "अपलोड करें",
+    "retake": "फिर से लें",
+    "click_picture": "फोटो खींचें",
+    "close": "बंद करें",
+    "diagnosis": "रोग की जाँच (निदान)"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "subtitle": "अपने खाते की सेटिंग प्रबंधित करें",
+    "edit": "प्रोफ़ाइल संपादित करें",
+    "soil_params": "मिट्टी के मापदंडों का मान",
+    "save": "सेव करें",
+    "username": "उपयोगकर्ता नाम",
+    "language": "भाषा",
+    "location": "स्थान"
+  },
+  "notifications": {
+    "title": "सूचनाएं"
+  }
+}

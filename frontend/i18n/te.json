@@ -1,0 +1,135 @@
+{
+  "app_title": "వసుధ",
+  "onboarding": {
+    "welcome": "వసుధకు స్వాగతం",
+    "set_up": "మీ ప్రొఫైల్‌ను సెటప్ చేయండి",
+    "username": "పేరు",
+    "username_input": "మీ పేరు నమోదు చేయండి",
+    "language": "భాష",
+    "soil_report_availability": "మీ దగ్గర నేల పరీక్ష నివేదిక ఉందా?",
+    "soil_params": "నేల పరీక్ష విలువల వివరాలు",
+    "continue": "కొనసాగించు",
+    "yes": "అవును",
+    "no": "కాదు"
+  },
+  "crops": {
+    "rice": "వరి (బియ్యం)",
+    "wheat": "గోధుమ",
+    "maize": "మొక్కజొన్న",
+    "barley": "బార్లీ (యవలు)",
+    "jowar": "జొన్నలు",
+    "ragi": "రాగులు",
+    "moong": "పెసర పప్పు",
+    "blackgram": "మినప పప్పు",
+    "horsegram": "ఉలవలు",
+    "chickpea": "శనగలు",
+    "lentil": "కంది పప్పు",
+    "peas": "బఠానీలు",
+    "sesamum": "నువ్వులు",
+    "rapeseed": "రేప్ సీడ్",
+    "sunflower": "పొద్దుతిరుగుడు",
+    "soyabean": "సోయాబీన్",
+    "groundnut": "వేరుశనగ",
+    "mustard": "ఆవాలు",
+    "linseed": "ఎల్లగీసే విత్తులు",
+    "safflower": "కుసుమ పువ్వు",
+    "cotton": "ప్రత్తి",
+    "jute": "జనపనార",
+    "tomato": "టమాటా",
+    "brinjal": "వంకాయ",
+    "ladyfinger": "బెండకాయ",
+    "cucumber": "దోసకాయ",
+    "bittergourd": "కాకరకాయ",
+    "bottlegourd": "సొరకాయ",
+    "ridgegourd": "బీరకాయ",
+    "pumpkin": "గుమ్మడికాయ",
+    "ashgourd": "బూడిద గుమ్మడికాయ",
+    "cabbage": "క్యాబేజీ",
+    "cauliflower": "క్యాలీఫ్లవర్",
+    "carrot": "క్యారెట్",
+    "beetroot": "బీట్‌రూట్",
+    "radish": "ముల్లంగి",
+    "onion": "ఉల్లిపాయ",
+    "potato": "బంగాళాదుంప",
+    "sweetpotato": "చిలకడదుంప",
+    "tapioca": "కర్రపెండలం",
+    "drumstick": "మునక్కాయ",
+    "banana": "అరటిపండు",
+    "papaya": "బొప్పాయి",
+    "apple": "ఆపిల్",
+    "mango": "మామిడిపండు",
+    "pomegranate": "దానిమ్మ",
+    "arecanut": "పోక చెక్క",
+    "cashewnuts": "జీడిపప్పు"
+  },
+  "locations": {
+    "kalyan_apmc": "కళ్యాణ్ APMC",
+    "thane_apmc": "థానే APMC",
+    "panvel_apmc": "పాన్వెల్ APMC",
+    "default_region": "కళ్యాణ్, మహారాష్ట్ర"
+  },
+  "common": {
+    "last_updated": "చివరి అప్‌డేట్: {{timestamp}}"
+  },
+  "home": {
+    "greeting": "నమస్కారం,",
+    "sections": {
+      "weather": "ప్రస్తుత వాతావరణం",
+      "alerts": "అలర్ట్‌లు",
+      "crop": "ప్రస్తుత పంట",
+      "market": "మార్కెట్ ధరలు"
+    },
+    "weather": {
+      "temperature": "ఉష్ణోగ్రత",
+      "precipitation": "వర్షపాతం",
+      "humidity": "తేమ",
+      "wind_speed": "గాలి వేగం"
+    },
+    "crop": {
+      "days_since": "నాటినప్పటి నుండి {{days}} రోజులు"
+    },
+    "market": {
+      "per_kg": "కిలోకు"
+    }
+  },
+  "crop": {
+    "title": "పంట సిఫార్సులు",
+    "subtitle": "మీ కోసం సిఫార్సు చేసిన ఉత్తమ పంటలు",
+    "seasonal": "సీజనల్",
+    "all_season": "అన్ని కాలాలు",
+    "top_recommendation": "ముఖ్యమైన సిఫార్సు",
+    "why_this_crop": "ఈ పంట ఎందుకు?"
+  },
+  "market": {
+    "title": "మార్కెట్ ధరలు",
+    "subtitle": "పంట ధరల ట్రెండ్‌లను ట్రాక్ చేయండి",
+    "per_kg": "కిలోకు",
+    "current_market": "ప్రస్తుత మార్కెట్",
+    "current_price": "ప్రస్తుత ధర",
+    "nearby_markets": "దగ్గరలోని మార్కెట్లు",
+    "historical_prices": "గత మార్కెట్ ధరలు",
+    "graph_title": "మీరు ఎంచుకున్న పంట ధరల కదలిక"
+  },
+  "disease": {
+    "title": "వ్యాధి గుర్తింపు",
+    "subtitle": "పంటకు పట్టే వ్యాధులు లేదా పురుగులను గుర్తించండి",
+    "upload": "అప్‌లోడ్",
+    "retake": "మళ్లీ తీయండి",
+    "click_picture": "ఫోటో తీయండి",
+    "close": "మూసివేయి",
+    "diagnosis": "నిర్ధారణ"
+  },
+  "profile": {
+    "title": "ప్రొఫైల్",
+    "subtitle": "మీ ఖాతా సెట్టింగ్‌లను నిర్వహించండి",
+    "edit": "ప్రొఫైల్ సవరించండి",
+    "soil_params": "నేల పరీక్ష వివరాలు",
+    "save": "సేవ్ చేయి",
+    "username": "యూజర్ నేమ్",
+    "language": "భాష",
+    "location": "ప్రాంతం"
+  },
+  "notifications": {
+    "title": "నోటిఫికేషన్లు"
+  }
+}

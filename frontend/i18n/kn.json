@@ -1,0 +1,135 @@
+{
+  "app_title": "ವಸುಧಾ",
+  "onboarding": {
+    "welcome": "ವಸುಧಾ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ಸುಸ್ವಾಗತ",
+    "set_up": "ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಹೊಂದಿಸಿ",
+    "username": "ಬಳಕೆದಾರರ ಹೆಸರು",
+    "username_input": "ನಿಮ್ಮ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
+    "language": "ಭಾಷೆ",
+    "soil_report_availability": "ನಿಮ್ಮ ಬಳಿ ಮಣ್ಣಿನ ಪರೀಕ್ಷಾ ವರದಿ ಇದೆಯೇ?",
+    "soil_params": "ಮಣ್ಣಿನ ಪರೀಕ್ಷಾ ಮೌಲ್ಯಗಳು",
+    "continue": "ಮುಂದುವರಿಸಿ",
+    "yes": "ಹೌದು",
+    "no": "ಇಲ್ಲ"
+  },
+  "crops": {
+    "rice": "ಭತ್ತ (ಅಕ್ಕಿ)",
+    "wheat": "ಗೋಧಿ",
+    "maize": "ಮೆಕ್ಕೆಜೋಳ",
+    "barley": "ಬಾರ್ಲಿ (ಯವೆ)",
+    "jowar": "ಜೋಳ",
+    "ragi": "ರಾಗಿ",
+    "moong": "ಮೂಂಗ್ ದಾಲ್",
+    "blackgram": "ಉದ್ದು",
+    "horsegram": "ಹುರುಳಿ",
+    "chickpea": "ಕಡಲೆ",
+    "lentil": "ಮಸೂರ ಬೇಳೆ",
+    "peas": "ಬಟಾಣಿ",
+    "sesamum": "ಎಳ್ಳು",
+    "rapeseed": "ರೇಪ್ಸೀಡ್",
+    "sunflower": "ಸೂರ್ಯಕಾಂತಿ",
+    "soyabean": "ಸೋಯಾಬೀನ್",
+    "groundnut": "ಕಡಲೆಕಾಯಿ",
+    "mustard": "ಸಾಸಿವೆ",
+    "linseed": "ನಾರಗಸೆಯ ಬೀಜ",
+    "safflower": "ಕುಸುಬೆ",
+    "cotton": "ಹತ್ತಿ",
+    "jute": "ಸೆಣಬು",
+    "tomato": "ಟೊಮೆಟೊ",
+    "brinjal": "ಬಿಳಿಬದನೆ",
+    "ladyfinger": "ಬೆಂಡೆಕಾಯಿ",
+    "cucumber": "ಸೌತೆಕಾಯಿ",
+    "bittergourd": "ಹಾಗಲಕಾಯಿ",
+    "bottlegourd": "ಸೋರೆಕಾಯಿ",
+    "ridgegourd": "ಕಡ್ಲೆಕಾಯಿ",
+    "pumpkin": "ಕುಂಬಳಕಾಯಿ",
+    "ashgourd": "ಬೂದು ಕುಂಬಳಕಾಯಿ",
+    "cabbage": "ಎಲೆಕೋಸು",
+    "cauliflower": "ಹೂಕೋಸು",
+    "carrot": "ಗಜ್ಜರಿ (ಕ್ಯಾರೆಟ್)",
+    "beetroot": "ಬೀಟ್‌ರೂಟ್",
+    "radish": "ಮೂಲಂಗಿ",
+    "onion": "ಈರುಳ್ಳಿ",
+    "potato": "ಆಲೂಗಡ್ಡೆ",
+    "sweetpotato": "ಗೆಣಸು",
+    "tapioca": "ಮರಗೆಣಸು",
+    "drumstick": "ನುಗ್ಗೆಕಾಯಿ",
+    "banana": "ಬಾಳೆಹಣ್ಣು",
+    "papaya": "ಪಪ್ಪಾಯಿ",
+    "apple": "ಸೇಬು",
+    "mango": "ಮಾವಿನಹಣ್ಣು",
+    "pomegranate": "ದಾಳಿಂಬೆ",
+    "arecanut": "ಅಡಿಕೆ",
+    "cashewnuts": "ಗೇರುಬೀಜ"
+  },
+  "locations": {
+    "kalyan_apmc": "ಕಲ್ಯಾಣ್ ಎಪಿಎಂಸಿ",
+    "thane_apmc": "ಥಾಣೆ ಎಪಿಎಂಸಿ",
+    "panvel_apmc": "ಪನ್ವೇಲ್ ಎಪಿಎಂಸಿ",
+    "default_region": "ಕಲ್ಯಾಣ್, ಮಹಾರಾಷ್ಟ್ರ"
+  },
+  "common": {
+    "last_updated": "ಕೊನೆಯ ಅಪ್‌ಡೇಟ್: {{timestamp}}"
+  },
+  "home": {
+    "greeting": "ನಮಸ್ಕಾರ,",
+    "sections": {
+      "weather": "ಪ್ರಸ್ತುತ ಹವಾಮಾನ",
+      "alerts": "ಎಚ್ಚರಿಕೆಗಳು",
+      "crop": "ಪ್ರಸ್ತುತ ಬೆಳೆ",
+      "market": "ಮಾರುಕಟ್ಟೆ ದರ"
+    },
+    "weather": {
+      "temperature": "ತಾಪಮಾನ",
+      "precipitation": "ಮಳೆ",
+      "humidity": "ಆರ್ದ್ರತೆ",
+      "wind_speed": "ಗಾಳಿಯ ವೇಗ"
+    },
+    "crop": {
+      "days_since": "ಬಿತ್ತನೆ ಮಾಡಿದಂದಿನಿಂದ {{days}} ದಿನಗಳು"
+    },
+    "market": {
+      "per_kg": "ಪ್ರತಿ ಕೆ.ಜಿ.ಗೆ"
+    }
+  },
+  "crop": {
+    "title": "ಬೆಳೆ ಶಿಫಾರಸುಗಳು",
+    "subtitle": "ನಿಮಗಾಗಿ ಶಿಫಾರಸು ಮಾಡಲಾದ ಪ್ರಮುಖ ಬೆಳೆಗಳು",
+    "seasonal": "ಋತುಮಾನದ",
+    "all_season": "ಎಲ್ಲಾ ಋತುಗಳು",
+    "top_recommendation": "ಉನ್ನತ ಶಿಫಾರಸು",
+    "why_this_crop": "ಈ ಬೆಳೆ ಏಕೆ?"
+  },
+  "market": {
+    "title": "ಮಾರುಕಟ್ಟೆ ದರಗಳು",
+    "subtitle": "ಬೆಳೆ ಬೆಲೆಗಳ ಪ್ರವೃತ್ತಿಯನ್ನು ಗಮನಿಸಿ",
+    "per_kg": "ಪ್ರತಿ ಕೆ.ಜಿ.ಗೆ",
+    "current_market": "ಪ್ರಸ್ತುತ ಮಾರುಕಟ್ಟೆ",
+    "current_price": "ಪ್ರಸ್ತುತ ಬೆಲೆ",
+    "nearby_markets": "ಹತ್ತಿರದ ಮಾರುಕಟ್ಟೆಗಳು",
+    "historical_prices": "ಹಿಂದಿನ ಮಾರುಕಟ್ಟೆ ದರಗಳು",
+    "graph_title": "ನೀವು ಆಯ್ಕೆ ಮಾಡಿದ ಬೆಳೆಯ ಬೆಲೆ ವ್ಯತ್ಯಾಸ"
+  },
+  "disease": {
+    "title": "ರೋಗ ಪತ್ತೆ",
+    "subtitle": "ಸಂಭವನೀಯ ರೋಗಗಳು ಅಥವಾ ಕೀಟಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಿ",
+    "upload": "ಅಪ್‌ಲೋಡ್",
+    "retake": "ಮತ್ತೊಮ್ಮೆ ತೆಗೆದುಕೊಳ್ಳಿ",
+    "click_picture": "ಫೋಟೋ ತೆಗೆಯಿರಿ",
+    "close": "ಮುಚ್ಚಿ",
+    "diagnosis": "ರೋಗನಿರ್ಣಯ"
+  },
+  "profile": {
+    "title": "ಪ್ರೊಫೈಲ್",
+    "subtitle": "ನಿಮ್ಮ ಖಾತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ನಿರ್ವಹಿಸಿ",
+    "edit": "ಪ್ರೊಫೈಲ್ ಎಡಿಟ್ ಮಾಡಿ",
+    "soil_params": "ಮಣ್ಣಿನ ಪರೀಕ್ಷಾ ಮೌಲ್ಯಗಳು",
+    "save": "ಉಳಿಸಿ",
+    "username": "ಬಳಕೆದಾರರ ಹೆಸರು",
+    "language": "ಭಾಷೆ",
+    "location": "ಸ್ಥಳ"
+  },
+  "notifications": {
+    "title": "ಸೂಚನೆಗಳು"
+  }
+}

@@ -1,0 +1,137 @@
+{
+    "app_title": "Vasudha",
+    "onboarding":
+    {
+        "welcome": "Welcome to Vasudha",
+        "set_up": "Set up your profile",
+        "username": "Username",
+        "username_input": "Enter your name",
+        "language": "Language",
+        "soil_report_availability": "Do you have Soil Parameters Report?",
+        "soil_params": "Soil Parameter Values",
+        "continue": "Continue",
+        "yes": "Yes",
+        "no": "No"
+    },  
+    "crops": {
+        "rice": "Rice",
+        "wheat": "Wheat",
+        "maize": "Maize",
+        "barley": "Barley",
+        "jowar": "Jowar",
+        "ragi": "Ragi",
+        "moong": "Moong",
+        "blackgram": "Blackgram",
+        "horsegram": "Horsegram",
+        "chickpea": "Chickpea",
+        "lentil": "Lentil",
+        "peas": "Peas",
+        "sesamum": "Sesamum",
+        "rapeseed": "Rapeseed",
+        "sunflower": "Sunflower",
+        "soyabean": "Soyabean",
+        "groundnut": "Groundnut",
+        "mustard": "Mustard",
+        "linseed": "Linseed",
+        "safflower": "Safflower",
+        "cotton": "Cotton",
+        "jute": "Jute",
+        "tomato": "Tomato",
+        "brinjal": "Brinjal",
+        "ladyfinger": "Ladyfinger",
+        "cucumber": "Cucumber",
+        "bittergourd": "Bitter Gourd",
+        "bottlegourd": "Bottle Gourd",
+        "ridgegourd": "Ridge Gourd",
+        "pumpkin": "Pumpkin",
+        "ashgourd": "Ash Gourd",
+        "cabbage": "Cabbage",
+        "cauliflower": "Cauliflower",
+        "carrot": "Carrot",
+        "beetroot": "Beetroot",
+        "radish": "Radish",
+        "onion": "Onion",
+        "potato": "Potato",
+        "sweetpotato": "Sweet Potato",
+        "tapioca": "Tapioca",
+        "drumstick": "Drumstick",
+        "banana": "Banana",
+        "papaya": "Papaya",
+        "apple": "Apple",
+        "mango": "Mango",
+        "pomegranate": "Pomegranate",
+        "arecanut": "Arecanut",
+        "cashewnuts": "Cashewnuts"
+    },
+    "locations":{
+      "kalyan_apmc": "Kalyan APMC",
+      "thane_apmc": "Thane APMC",
+      "panvel_apmc": "Panvel APMC",
+      "default_region": "Kalyan, Maharashtra"
+  },
+  "common": {
+      "last_updated": "Last Updated: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "Hello,",
+    "sections": {
+      "weather": "Current Weather",
+      "alerts": "Alerts",
+      "crop": "Current Crop",
+      "market": "Market Price"
+    },
+    
+    "weather": {
+        "temperature": "Temperature",
+        "precipitation": "Precipitation",
+        "humidity": "Humidity",
+        "wind_speed": "Wind Speed"
+    },
+    "crop":{
+        "days_since": "{{days}} since planting"
+    },
+    "market":{
+      "per_kg": "per kg"
+    }
+  },
+  "crop":{
+    "title": "Crop Recommendations",
+    "subtitle": "Top Crops Recommended for you",
+    "seasonal": "Seasonal",
+    "all_season": "All Seasons",
+    "top_recommendation": "Top Recommendation",
+    "why_this_crop": "Why This Crop?"
+  },
+  "market":{
+    "title": "Market Prices",
+    "subtitle": "Track Crop Price Trends",
+    "per_kg": "per kg",
+    "current_market": "Current Market",
+    "current_price": "Current Price",
+    "nearby_markets": "Nearby Markets",
+    "historical_prices": "Historical Market Prices",
+    "graph_title": "Price movement of your selected crop"
+  },
+  "disease": {
+    "title": "Disease Detection",
+    "subtitle": "Detect possible diseases or pests",
+    "upload": "Upload",
+    "retake": "Retake",
+    "click_picture": "Click Picture",
+    "close": "Close",
+    "diagnosis": "Diagnosis"
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage your account settings",
+    "edit": "Edit Profile",
+    "soil_params": "Soil Parameter Values",
+    "save": "Save",
+    "username": "Username",
+    "language": "Language",
+    "location": "Location"
+  },
+  "notifications": {
+    "title": "Notifications"
+  }
+}

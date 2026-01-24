@@ -1,0 +1,137 @@
+{
+    "app_title": "வசுதா",
+    "onboarding":
+    {
+        "welcome": "வசுதா-விற்கு உங்களை வரவேற்கிறோம்",
+        "set_up": "உங்கள் சுயவிவரத்தை நிரப்பவும்",
+        "username": "பயனர் பெயர்",
+        "username_input": "உங்கள் பெயரை உள்ளிடவும்",
+        "language": "மொழி",
+        "soil_report_availability": "உங்களிடம் மண் பரிசோதனை அறிக்கை உள்ளதா?",
+        "soil_params": "மண் அளவுரு மதிப்புகள்",
+        "continue": "அடுத்தது",
+        "yes": "ஆம்",
+        "no": "இல்லை"
+    },
+  "crops": {
+    "rice": "நெல் (அரிசி)",
+    "wheat": "கோதுமை",
+    "maize": "சோளம்",
+    "barley": "பார்லி",
+    "jowar": "சோளம் (ஜோவர்)",
+    "ragi": "கேழ்வரகு (ராகி)",
+    "moong": "பாசிப்பயறு",
+    "blackgram": "உளுந்து",
+    "horsegram": "கொள்ளு",
+    "chickpea": "கொண்டைக்கடலை",
+    "lentil": "பருப்பு வகை",
+    "peas": "பட்டாணி",
+    "sesamum": "எள்",
+    "rapeseed": "கடுகு வகை",
+    "sunflower": "சூரியகாந்தி",
+    "soyabean": "சோயாபீன்",
+    "groundnut": "நிலக்கடலை",
+    "mustard": "கடுகு",
+    "linseed": "ஆளிவிதை",
+    "safflower": "குசும்பைப் பூ",
+    "cotton": "பருத்தி",
+    "jute": "சணல்",
+    "tomato": "தக்காளி",
+    "brinjal": "கத்தரிக்காய்",
+    "ladyfinger": "வெண்டைக்காய்",
+    "cucumber": "வெள்ளரிக்காய்",
+    "bittergourd": "பாகற்காய்",
+    "bottlegourd": "சுரைக்காய்",
+    "ridgegourd": "பீர்க்கங்காய்",
+    "pumpkin": "பூசணிக்காய்",
+    "ashgourd": "சாம்பல் பூசணி",
+    "cabbage": "முட்டைக்கோஸ்",
+    "cauliflower": "காலிஃபிளவர்",
+    "carrot": "கேரட்",
+    "beetroot": "பீட்ரூட்",
+    "radish": "முள்ளங்கி",
+    "onion": "வெங்காயம்",
+    "potato": "உருளைக்கிழங்கு",
+    "sweetpotato": "சர்க்கரைவள்ளி கிழங்கு",
+    "tapioca": "மரவள்ளிக்கிழங்கு",
+    "drumstick": "முருங்கை",
+    "banana": "வாழைப்பழம்",
+    "papaya": "பப்பாளி",
+    "apple": "ஆப்பிள்",
+    "mango": "மாம்பழம்",
+    "pomegranate": "மாதுளை",
+    "arecanut": "பாக்கு",
+    "cashewnuts": "முந்திரி"
+  },
+    "locations":{
+      "kalyan_apmc": "கல்யாண் APMC",
+      "thane_apmc": "தானே APMC",
+      "panvel_apmc": "பன்வெல் APMC",
+      "default_region": "கல்யாண், மகாராஷ்டிரா"
+  },
+  "common": {
+      "last_updated": "கடைசியாக புதுப்பிக்கப்பட்டது: {{timestamp}}"
+    },
+  "home": {
+    "greeting": "வணக்கம்,",
+    "sections": {
+      "weather": "தற்போதைய வானிலை",
+      "alerts": "அறிவிப்புகள்",
+      "crop": "தற்போதைய பயிர்",
+      "market": "சந்தை விலை"
+    },
+    
+    "weather": {
+        "temperature": "வெப்பநிலை",
+        "precipitation": "மழைப்பொழிவு",
+        "humidity": "ஈரப்பதம்",
+        "wind_speed": "காற்றின் வேகம்"
+    },
+    "crop":{
+        "days_since": "நடவு செய்து {{days}} நாட்கள்"
+    },
+    "market":{
+      "per_kg": "ஒரு கிலோவிற்கு"
+    }
+  },
+  "crop":{
+    "title": "பயிர் பரிந்துரைகள்",
+    "subtitle": "உங்களுக்காக பரிந்துரைக்கப்பட்ட சிறந்த பயிர்கள்",
+    "seasonal": "பருவகால",
+    "all_season": "அனைத்து பருவகால",
+    "top_recommendation": "சிறந்த பரிந்துரை",
+    "why_this_crop": "ஏன் இந்தப் பயிர்?"
+  },
+  "market":{
+    "title": "சந்தை விலைகள்",
+    "subtitle": "பயிர் விலை மாற்றங்களைக் கண்காணிக்கவும்",
+    "per_kg": "ஒரு கிலோவிற்கு",
+    "current_market": "தற்போதைய சந்தை",
+    "current_price": "தற்போதைய விலை",
+    "nearby_markets": "அருகிலுள்ள சந்தைகள்",
+    "historical_prices": "வரலாற்றுச் சந்தை விலைகள்",
+    "graph_title": "நீங்கள் தேர்ந்தெடுத்த பயிரின் விலை மாற்றம்"
+  },
+  "disease": {
+    "title": "நோய் கண்டறிதல்",
+    "subtitle": "சாத்தியமான நோய்கள் அல்லது பூச்சிகளைக் கண்டறியவும்",
+    "upload": "பதிவேற்றவும்",
+    "retake": "மீண்டும் எடுக்கவும்",
+    "click_picture": "படம் எடுக்கவும்",
+    "close": "மூடவும்",
+    "diagnosis": "நோய் ஆய்வு"
+  },
+  "profile": {
+    "title": "சுயவிவரம்",
+    "subtitle": "உங்கள் கணக்கு அமைப்புகளை நிர்வகிக்கவும்",
+    "edit": "சுயவிவரத்தைத் திருத்தவும்",
+    "soil_params": "மண் அளவுருக்கள்",
+    "save": "சேமி",
+    "username": "பயனர் பெயர்",
+    "language": "மொழி",
+    "location": "இடம்"
+  },
+  "notifications": {
+    "title": "அறிவிப்புகள்"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "app_title": "ਵਸੁਧਾ",
+  "onboarding": {
+    "welcome": "ਵਸੁਧਾ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
+    "set_up": "ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਬਣਾਓ",
+    "username": "ਵਰਤੋਂਕਾਰ ਦਾ ਨਾਮ",
+    "username_input": "ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ",
+    "language": "ਭਾਸ਼ਾ",
+    "soil_report_availability": "ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਮਿੱਟੀ ਦੀ ਜਾਂਚ ਰਿਪੋਰਟ ਹੈ?",
+    "soil_params": "ਮਿੱਟੀ ਦੇ ਤੱਤਾਂ ਦੀ ਮਾਤਰਾ",
+    "continue": "ਜਾਰੀ ਰੱਖੋ",
+    "yes": "ਹਾਂ",
+    "no": "ਨਹੀਂ"
+  },
+  "crops": {
+    "rice": "ਝੋਨਾ (ਚਾਵਲ)",
+    "wheat": "ਕਣਕ",
+    "maize": "ਮੱਕੀ",
+    "barley": "ਜੌਂ",
+    "jowar": "ਜਵਾਰ",
+    "ragi": "ਰਾਗੀ",
+    "moong": "ਮੂੰਗੀ ਦੀ ਦਾਲ",
+    "blackgram": "ਮਾਂਹ ਦੀ ਦਾਲ",
+    "horsegram": "ਕੁਲਥੀ",
+    "chickpea": "ਛੋਲੇ",
+    "lentil": "ਮਸਰਾਂ ਦੀ ਦਾਲ",
+    "peas": "ਮਟਰ",
+    "sesamum": "ਤਿਲ",
+    "rapeseed": "ਤੋਰੀਆ",
+    "sunflower": "ਸੂਰਜਮੁਖੀ",
+    "soyabean": "ਸੋਇਆਬੀਨ",
+    "groundnut": "ਮੂੰਗਫਲੀ",
+    "mustard": "ਸਰ੍ਹੋਂ",
+    "linseed": "ਅਲਸੀ",
+    "safflower": "ਕੁਸੁੰਭਾ",
+    "cotton": "ਨਰਮਾ/ਕਪਾਹ",
+    "jute": "ਪਟਸਨ",
+    "tomato": "ਟਮਾਟਰ",
+    "brinjal": "ਬੈਂਗਣ",
+    "ladyfinger": "ਭਿੰਡੀ",
+    "cucumber": "ਖੀਰਾ",
+    "bittergourd": "ਕਰੇਲਾ",
+    "bottlegourd": "ਘੀਆ/ਲੌਕੀ",
+    "ridgegourd": "ਤੋਰੀ",
+    "pumpkin": "ਕੱਦੂ",
+    "ashgourd": "ਪੇਠਾ",
+    "cabbage": "ਬੰਦਗੋਭੀ",
+    "cauliflower": "ਫੁੱਲਗੋਭੀ",
+    "carrot": "ਗਾਜਰ",
+    "beetroot": "ਚਕੰਦਰ",
+    "radish": "ਮੂਲੀ",
+    "onion": "ਗੰਢਾ (ਪਿਆਜ਼)",
+    "potato": "ਆਲੂ",
+    "sweetpotato": "ਸ਼ਕਰਕੰਦੀ",
+    "tapioca": "ਟੈਪੀਓਕਾ",
+    "drumstick": "ਸੋਹਾਂਜਣਾ",
+    "banana": "ਕੇਲਾ",
+    "papaya": "ਪਪੀਤਾ",
+    "apple": "ਸੇਬ",
+    "mango": "ਅੰਬ",
+    "pomegranate": "ਅਨਾਰ",
+    "arecanut": "ਸੁਪਾਰੀ",
+    "cashewnuts": "ਕਾਜੂ"
+  },
+  "locations": {
+    "kalyan_apmc": "ਕਲਿਆਣ ਏ.ਪੀ.ਐਮ.ਸੀ.",
+    "thane_apmc": "ਠਾਣੇ ਏ.ਪੀ.ਐਮ.ਸੀ.",
+    "panvel_apmc": "ਪਨਵੇਲ ਏ.ਪੀ.ਐਮ.ਸੀ.",
+    "default_region": "ਕਲਿਆਣ, ਮਹਾਰਾਸ਼ਟਰ"
+  },
+  "common": {
+    "last_updated": "ਆਖਰੀ ਅੱਪਡੇਟ: {{timestamp}}"
+  },
+  "home": {
+    "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ,",
+    "sections": {
+      "weather": "ਮੌਜੂਦਾ ਮੌਸਮ",
+      "alerts": "ਚੇਤਾਵਨੀਆਂ",
+      "crop": "ਮੌਜੂਦਾ ਫ਼ਸਲ",
+      "market": "ਮੰਡੀ ਦਾ ਭਾਅ"
+    },
+    "weather": {
+      "temperature": "ਤਾਪਮਾਨ",
+      "precipitation": "ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ",
+      "humidity": "ਨਮੀ",
+      "wind_speed": "ਹਵਾ ਦੀ ਰਫ਼ਤਾਰ"
+    },
+    "crop": {
+      "days_since": "ਬਿਜਾਈ ਤੋਂ {{days}} ਦਿਨ"
+    },
+    "market": {
+      "per_kg": "ਪ੍ਰਤੀ ਕਿੱਲੋ"
+    }
+  },
+  "crop": {
+    "title": "ਫ਼ਸਲ ਦੀ ਸਿਫ਼ਾਰਸ਼",
+    "subtitle": "ਤੁਹਾਡੇ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ ਫ਼ਸਲਾਂ",
+    "seasonal": "ਮੌਸਮੀ",
+    "all_season": "ਸਦਾਬਹਾਰ",
+    "top_recommendation": "ਮੁੱਖ ਸਿਫ਼ਾਰਸ਼",
+    "why_this_crop": "ਇਹ ਫ਼ਸਲ ਕਿਉਂ?"
+  },
+  "market": {
+    "title": "ਮੰਡੀ ਦੇ ਭਾਅ",
+    "subtitle": "ਫ਼ਸਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ 'ਤੇ ਨਜ਼ਰ ਰੱਖੋ",
+    "per_kg": "ਪ੍ਰਤੀ ਕਿੱਲੋ",
+    "current_market": "ਮੌਜੂਦਾ ਮੰਡੀ",
+    "current_price": "ਤਾਜ਼ਾ ਭਾਅ",
+    "nearby_markets": "ਨੇੜਲੀਆਂ ਮੰਡੀਆਂ",
+    "historical_prices": "ਪੁਰਾਣੇ ਮੰਡੀ ਭਾਅ",
+    "graph_title": "ਤੁਹਾਡੀ ਚੁਣੀ ਹੋਈ ਫ਼ਸਲ ਦੀ ਕੀਮਤ ਵਿੱਚ ਬਦਲਾਅ"
+  },
+  "disease": {
+    "title": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
+    "subtitle": "ਸੰਭਾਵਿਤ ਬਿਮਾਰੀਆਂ ਜਾਂ ਕੀੜਿਆਂ ਦੀ ਪਛਾਣ ਕਰੋ",
+    "upload": "ਅੱਪਲੋਡ ਕਰੋ",
+    "retake": "ਦੁਬਾਰਾ ਖਿੱਚੋ",
+    "click_picture": "ਫੋਟੋ ਖਿੱਚੋ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "diagnosis": "ਨਿਦਾਨ (ਪਛਾਣ)"
+  },
+  "profile": {
+    "title": "ਪ੍ਰੋਫਾਈਲ",
+    "subtitle": "ਆਪਣੇ ਖਾਤੇ ਦੀ ਸੈਟਿੰਗ ਬਦਲੋ",
+    "edit": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
+    "soil_params": "ਮਿੱਟੀ ਦੇ ਤੱਤਾਂ ਦੀ ਮਾਤਰਾ",
+    "save": "ਸੰਭਾਲੋ",
+    "username": "ਵਰਤੋਂਕਾਰ ਦਾ ਨਾਮ",
+    "language": "ਭਾਸ਼ਾ",
+    "location": "ਸਥਾਨ"
+  },
+  "notifications": {
+    "title": "ਸੂਚਨਾਵਾਂ"
+  }
+}
