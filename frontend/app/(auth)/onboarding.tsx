@@ -17,12 +17,16 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import * as Location from 'expo-location';
+import { ActivityIndicator } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 export default function OnboardingScreen() {
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const { t, i18n } = useTranslation();
     const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [secureText, setSecureText] = useState(true);
     const [hasReport, setHasReport] = useState<boolean | null>(true);
     const [unit, setUnit] = useState<'kg/ha' | 'ppm'>('kg/ha');
     const currentContentFont = getFont('content', i18n.language);
@@ -32,6 +36,14 @@ export default function OnboardingScreen() {
     const [focusedInput, setFocusedInput] = useState<string | null>(null);
     const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('English');
+
+    const [district, setDistrict] = useState('');
+    const [stateName, setStateName] = useState('');
+    const [isFetching, setIsFetching] = useState(false);
+    const [locationFetched, setLocationFetched] = useState(false);
+    const [manualEdit, setManualEdit] = useState(false);
+    const [locationError, setLocationError] = useState<string | null>(null);
+
     const languages = [
         { label: 'English', native: 'English', code: 'en' },
         { label: 'Hindi', native: 'हिन्दी', code: 'hi' },
@@ -40,9 +52,9 @@ export default function OnboardingScreen() {
         { label: 'Bengali', native: 'বাংলা', code: 'bn' },
         { label: 'Tamil', native: 'தமிழ்', code: 'ta' },
         { label: 'Malayalam', native: 'മലയാളം', code: 'ml' },
-        { label: 'Telugu', native: 'తెలుగు', code: 'te'},
-        { label: 'Kannada', native: 'ಕನ್ನಡ', code: 'kn'},
-        { label: 'Punjabi', native: 'ਪੰਜਾਬੀ', code: 'pa'},
+        { label: 'Telugu', native: 'తెలుగు', code: 'te' },
+        { label: 'Kannada', native: 'ಕನ್ನಡ', code: 'kn' },
+        { label: 'Punjabi', native: 'ਪੰਜਾਬੀ', code: 'pa' },
     ];
     const handleInputChange = (key: string, value: string) => {
         setSoilValues(prev => ({ ...prev, [key]: value }));
@@ -53,6 +65,55 @@ export default function OnboardingScreen() {
         setSelectedLanguage(langLabel);
         setLanguageModalVisible(false);
     };
+
+    const fetchLocation = async () => {
+    setIsFetching(true);
+    setLocationError(null);
+
+    try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+            setLocationError("Permission denied");
+            return;
+        }
+
+        let userLocation = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.Balanced,
+        });
+
+        const { latitude, longitude } = userLocation.coords;
+
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1&accept-language=${i18n.language}`,
+            {
+                headers: {
+                    'User-Agent': 'Vasudha-App' 
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (data && data.address) {
+            const addr = data.address;
+            
+            const detectedDistrict = addr.state_district || addr.county || addr.city || "";
+            const detectedState = addr.state || "";
+
+            setDistrict(detectedDistrict.replace(" District", "")); 
+            setStateName(detectedState);
+
+            setLocationFetched(true);
+            setManualEdit(false);
+        }
+    } catch (error) {
+        console.error("Nominatim Error:", error);
+        setLocationError("Could not auto-fetch. Please enter manually.");
+        setManualEdit(true);
+    } finally {
+        setIsFetching(false);
+    }
+};
     return (
         <View style={[styles.mainContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
             <KeyboardAwareScrollView
@@ -89,6 +150,45 @@ export default function OnboardingScreen() {
                             placeholderTextColor="#78909C"
                         />
                     </View>
+                    <View style={styles.labelRow}>
+                        <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
+                        <AppText variant="header" style={styles.label}>{t('onboarding.password')}</AppText>
+                    </View>
+                    <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
+                        <TextInput
+                            style={styles.passwordInput}
+                            placeholder={t('login.password_input')}
+                            placeholderTextColor="#78909C"
+                            value={password}
+                            onFocus={() => setFocusedInput('password')}
+                            onBlur={() => setFocusedInput(null)}
+                            onChangeText={setPassword}
+                            secureTextEntry={secureText}
+                        />
+                        <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
+                            <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.labelRow}>
+                        <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
+                        <AppText variant="header" style={styles.label}>{t('onboarding.confirm_password')}</AppText>
+                    </View>
+                    <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
+                        <TextInput
+                            style={styles.passwordInput}
+                            placeholder={t('login.password_input')}
+                            placeholderTextColor="#78909C"
+                            value={password}
+                            onFocus={() => setFocusedInput('password')}
+                            onBlur={() => setFocusedInput(null)}
+                            onChangeText={setPassword}
+                            secureTextEntry={secureText}
+                        />
+                        <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
+                            <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={styles.inputGroup}>
                         <View style={styles.labelRow}>
@@ -122,29 +222,139 @@ export default function OnboardingScreen() {
                                 showsVerticalScrollIndicator={false}
                             >
                                 {languages.map((lang) => (
-    <TouchableOpacity
-        key={lang.code}
-        style={styles.languageOption}
-        onPress={() => handleLanguageSelect(lang.code, lang.native)}
-    >
-        <View>
-            <AppText variant="content" bold={i18n.language === lang.code} style={styles.optionText}>
-                {lang.native}
-            </AppText>
-            {lang.code !== 'en' && (
-                <AppText variant="content" style={styles.englishSublabel}>
-                    {lang.label}
-                </AppText>
-            )}
-        </View>
-        {i18n.language === lang.code && (
-            <Ionicons name="checkmark-circle" size={20} color="#186F71" />
-        )}
-    </TouchableOpacity>
-))}
+                                    <TouchableOpacity
+                                        key={lang.code}
+                                        style={styles.languageOption}
+                                        onPress={() => handleLanguageSelect(lang.code, lang.native)}
+                                    >
+                                        <View>
+                                            <AppText variant="content" bold={i18n.language === lang.code} style={styles.optionText}>
+                                                {lang.native}
+                                            </AppText>
+                                            {lang.code !== 'en' && (
+                                                <AppText variant="content" style={styles.englishSublabel}>
+                                                    {lang.label}
+                                                </AppText>
+                                            )}
+                                        </View>
+                                        {i18n.language === lang.code && (
+                                            <Ionicons name="checkmark-circle" size={20} color="#186F71" />
+                                        )}
+                                    </TouchableOpacity>
+                                ))}
                             </ScrollView>
                         </View>
                     </Modal>
+                    <View style={styles.inputGroup}>
+                        <View style={styles.labelRow}>
+                            <Feather name="map-pin" size={20} color="#186F71" />
+                            <AppText variant="header" style={styles.label}>
+                                {t("onboarding.location")}
+                            </AppText>
+                        </View>
+                        {(locationFetched || locationError) && (
+                            <View style={styles.locationCard}>
+                                <View style={styles.locationCardRow}>
+                                    <Feather
+                                        name={locationError ? "alert-circle" : "check-circle"}
+                                        size={16}
+                                        color={locationError ? "#D9534F" : "#28A745"}
+                                    />
+
+                                    <AppText variant="content" style={styles.locationCardText}>
+                                        {locationError
+                                            ? "Could not auto-detect location. Please enter manually."
+                                            : "Detected your location. You can edit if incorrect."}
+                                    </AppText>
+                                </View>
+
+                                {!locationError && (
+                                    <View style={styles.locationActionRow}>
+                                        <TouchableOpacity
+                                            style={[styles.locationActionBtn, !manualEdit && styles.locationActionBtnActive]}
+                                            onPress={() => setManualEdit(false)}
+                                        >
+                                            <AppText
+                                                variant="content"
+                                                bold
+                                                style={[styles.locationActionText, !manualEdit && styles.textWhite]}
+                                            >
+                                                Use this
+                                            </AppText>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity
+                                            style={[styles.locationActionBtn, manualEdit && styles.locationActionBtnActive]}
+                                            onPress={() => setManualEdit(true)}
+                                        >
+                                            <AppText
+                                                variant="content"
+                                                bold
+                                                style={[styles.locationActionText, manualEdit && styles.textWhite]}
+                                            >
+                                                Edit
+                                            </AppText>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
+                            </View>
+                        )}
+
+                        {/* Manual Inputs */}
+                        <View style={styles.locationFieldsRow}>
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    styles.halfInput,
+                                    focusedInput === "district" && styles.activeBorder,
+                                    !manualEdit && locationFetched && styles.disabledInput
+                                ]}
+                                placeholder={t("onboarding.district")}
+                                value={district}
+                                onChangeText={setDistrict}
+                                editable={manualEdit || !locationFetched}
+                                onFocus={() => setFocusedInput("district")}
+                                onBlur={() => setFocusedInput(null)}
+                                placeholderTextColor="#78909C"
+                            />
+
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    styles.halfInput,
+                                    focusedInput === "state" && styles.activeBorder,
+                                    !manualEdit && locationFetched && styles.disabledInput
+                                ]}
+                                placeholder={t("onboarding.state")}
+                                value={stateName}
+                                onChangeText={setStateName}
+                                editable={manualEdit || !locationFetched}
+                                onFocus={() => setFocusedInput("state")}
+                                onBlur={() => setFocusedInput(null)}
+                                placeholderTextColor="#78909C"
+                            />
+                        </View>
+                    </View>
+                    {/* Modernized Fetch Button */}
+                    {!locationFetched && (
+                        <TouchableOpacity
+                            onPress={fetchLocation}
+                            disabled={isFetching}
+                            style={styles.fetchBtn}
+                            activeOpacity={0.8}
+                        >
+                            {isFetching ? (
+                                <ActivityIndicator size="small" color="#FFF" />
+                            ) : (
+                                <View style={styles.btnContent}>
+                                    <Feather name="navigation" size={18} color="#FFF" />
+                                    <AppText variant="content" bold style={styles.fetchText}>
+                                        {t("onboarding.auto_fetch")}
+                                    </AppText>
+                                </View>
+                            )}
+                        </TouchableOpacity>
+                    )}
                     <AppText variant="header" style={styles.questionText}>
                         {t('onboarding.soil_report_availability')}
                     </AppText>
@@ -220,17 +430,17 @@ export default function OnboardingScreen() {
                     >
                         <AppText variant='content' style={[{ fontWeight: "bold" }, styles.continueBtnText]}>{t('onboarding.continue')}</AppText>
                     </TouchableOpacity>
-                    <TouchableOpacity 
-  style={styles.linkContainer} 
-  onPress={() => router.push('/login')} 
->
-  <AppText variant="content" style={styles.linkText}>
-    {t('onboarding.already_have_account')}{' '}
-    <AppText bold style={{ color: '#186F71' }}>
-      {t('onboarding.login_here')}
-    </AppText>
-  </AppText>
-</TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.linkContainer}
+                        onPress={() => router.push('/login')}
+                    >
+                        <AppText variant="content" style={styles.linkText}>
+                            {t('onboarding.already_have_account')}{' '}
+                            <AppText bold style={{ color: '#186F71', fontSize: 11 }}>
+                                {t('onboarding.login_here')}
+                            </AppText>
+                        </AppText>
+                    </TouchableOpacity>
                 </View>
             </KeyboardAwareScrollView>
         </View>
@@ -270,6 +480,17 @@ const styles = StyleSheet.create({
         color: '#186F71',
         paddingLeft: 16,
     },
+    passwordWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        borderWidth: 1,
+        borderColor: '#186F71',
+        borderRadius: 14,
+    },
+    passwordInput: { flex: 1, padding: 14, fontSize: 14, color: '#186F71' },
+    eyeIcon: { paddingRight: 14 },
+
     activeBorder: {
         borderColor: '#186F71',
         borderWidth: 1.5,
@@ -355,12 +576,12 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingHorizontal: 24,
-        paddingTop: 12, 
+        paddingTop: 12,
         paddingBottom: Platform.OS === 'ios' ? 40 : 24,
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        maxHeight: '70%', 
+        maxHeight: '70%',
     },
     modalHandle: {
         width: 40,
@@ -373,7 +594,7 @@ const styles = StyleSheet.create({
     modalScrollView: {
         width: '100%',
     },
-        modalTitle: {
+    modalTitle: {
         fontSize: 18,
         color: '#186F71',
         marginBottom: 20,
@@ -395,19 +616,95 @@ const styles = StyleSheet.create({
         color: '#186F71',
     },
     englishSublabel: {
-    fontSize: 10,
-    color: '#186F71',
-    opacity: 0.6,
-    marginTop: -2,
-},
-linkContainer: { 
-  marginTop: 15, 
-  alignItems: 'center',
-  paddingBottom: 20 
-},
-linkText: { 
-  color: '#186F71', 
-  fontSize: 10,
-  textAlign: 'center'
-},
+        fontSize: 10,
+        color: '#186F71',
+        opacity: 0.6,
+        marginTop: -2,
+    },
+    linkContainer: {
+        marginTop: 15,
+        alignItems: 'center',
+        paddingBottom: 20
+    },
+    linkText: {
+        color: '#186F71',
+        fontSize: 11,
+        textAlign: 'center'
+    },
+    halfInput: {
+        flex: 1,
+    },
+    fetchBtn: {
+        backgroundColor: '#186F71',
+        borderRadius: 14,
+        height: 52,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
+    btnContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+    fetchText: {
+        color: '#FFF',
+        fontSize: 15,
+    },
+    locationFieldsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 12,
+    },
+    locationCard: {
+        backgroundColor: "rgba(255,255,255,0.7)",
+        borderWidth: 1,
+        borderColor: "rgba(24,111,113,0.25)",
+        borderRadius: 14,
+        padding: 12,
+        marginBottom: 12,
+    },
+
+    locationCardRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+    },
+
+    locationCardText: {
+        fontSize: 11,
+        color: "#186F71",
+        flex: 1,
+        opacity: 0.9,
+    },
+
+    locationActionRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 10,
+        marginTop: 10,
+    },
+
+    locationActionBtn: {
+        flex: 1,
+        paddingVertical: 8,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "#186F71",
+        backgroundColor: "rgba(189, 219, 232, 0.7)",
+        alignItems: "center",
+    },
+
+    locationActionBtnActive: {
+        backgroundColor: "#186F71",
+    },
+
+    locationActionText: {
+        fontSize: 12,
+        color: "#186F71",
+    },
+
+    disabledInput: {
+        opacity: 0.6,
+    },
 });

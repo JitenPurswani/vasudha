@@ -47,9 +47,6 @@ export default function LoginScreen() {
                 onChangeText={setUsername}
                 autoCapitalize="none"
               />
-            </View>
-
-            <View style={styles.inputGroup}>
               <View style={styles.labelRow}>
                 <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
             <AppText variant="header" style={styles.label}>{t('login.password')}</AppText>
@@ -80,7 +77,7 @@ export default function LoginScreen() {
               onPress={() => router.push('/onboarding')}
             >
               <AppText variant="content" style={styles.linkText}>
-                {t('login.new_user')} <AppText bold style={{color: '#186F71'}}>{t('login.create_account')}</AppText>
+                {t('login.new_user')} <AppText bold style={{color: '#186F71', fontSize:11}}>{t('login.create_account')}</AppText>
               </AppText>
             </TouchableOpacity>
           </View>
@@ -127,5 +124,5 @@ const styles = StyleSheet.create({
   },
   continueBtnText: { color: '#FFF', fontSize: 18, alignSelf: 'center' },
   linkContainer: { marginTop: 25, alignItems: 'center' },
-  linkText: { color: '#186F71', fontSize: 10, textAlign: 'center' },
+  linkText: { color: '#186F71', fontSize: 11, textAlign: 'center' },
 });

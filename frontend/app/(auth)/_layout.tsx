@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Stack } from 'expo-router';
 import Logo from '@/assets/images/logo.svg';
-import { AppText } from '@/components/AppText';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function AuthLayout() {
@@ -12,7 +11,7 @@ export default function AuthLayout() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.headerSection}>
         <Logo width={30} height={30} />
-        <AppText variant="header" style={styles.logoText}>Vasudha</AppText>
+        <Text style={styles.logoText}>Vasudha</Text>
       </View>
       <Stack screenOptions={{ headerShown: false }} />
     </View>
@@ -35,5 +34,6 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 16,
     color: '#186F71',
+    fontFamily: 'KronaOne'
   },
 });
