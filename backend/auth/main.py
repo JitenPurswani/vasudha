@@ -59,7 +59,11 @@ async def login(credentials: LoginSchema):
             "profile": {
                 "district": user['district_key'],
                 "state": user['state_key'],
-                "language": user['language']
+                "language": user['language'],
+                "n": user['n_val'], 
+                "p": user['p_val'],
+                "k": user['k_val'],
+                "ph": user['ph_val']
             }
         }
     finally:

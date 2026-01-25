@@ -1,6 +1,6 @@
 import { AppText } from '@/components/AppText';
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Modal,
@@ -11,7 +11,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const LANGUAGE_MAP: { [key: string]: string } = {
+  en: 'English',
+  hi: 'हिन्दी',
+  mr: 'मराठी',
+  gu: 'ગુજરાતી',
+  ta: 'தமிழ்',
+  te: 'తెలుగు',
+  bn: 'বাংলা',
+  ml: 'മലയാളം',
+  kn: 'ಕನ್ನಡ',
+  pa: 'ਪੰਜਾਬੀ',
+};
 const ProfileItem = ({ icon, label, value, t }) => (
   <View style={styles.profileItem}>
     <View style={styles.iconCircle}>
@@ -29,111 +41,113 @@ const SoilCard = ({ label, value }) => (
   </View>
 );
 export default function Profile() {
+  const { t } = useTranslation();
   const [editVisible, setEditVisible] = useState(false);
+
   const [profile, setProfile] = useState({
-  username: 'abc_xyz',
-  language: 'English',
-  location: 'Kalyan, Maharashtra',
-});
-const {t}=useTranslation();
+    username: '',
+    languageCode: 'en',
+    districtKey: '',
+    stateKey: '',
+    n: '-', p: '-', k: '-', ph: '-'
+  });
 
-const [editedProfile, setEditedProfile] = useState(profile);
+  const [editedProfile, setEditedProfile] = useState(profile);
 
+  useEffect(() => {
+    const loadFullProfile = async () => {
+      const savedData = await AsyncStorage.getItem('userProfile');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        const mappedData = {
+          username: data.name || 'User',
+          languageCode: data.language || 'en',
+          districtKey: data.district?.toLowerCase() || '',
+          stateKey: data.state?.toLowerCase() || '',
+          n: data.n || '-',
+          p: data.p || '-',
+          k: data.k || '-',
+          ph: data.ph || '-'
+        };
+        setProfile(mappedData);
+        setEditedProfile(mappedData);
+      }
+    };
+    loadFullProfile();
+  }, []);
+  const displayLocation = profile.districtKey && profile.stateKey
+    ? `${t(`locations.districts.${profile.stateKey}.${profile.districtKey}`)}, ${t(`locations.states.${profile.stateKey}`)}`
+    : t('locations.default_region');
   return (
     <View style={{ flex: 1, backgroundColor: '#DDF1F9' }}>
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ paddingBottom: 40 }}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* Header */}
-      <View style={styles.headerRow}>
-        <View>
-          <AppText variant="header" style={styles.title}>{t('profile.title')}</AppText>
-          <AppText variant="content" style={styles.subtitle}>{t('profile.subtitle')}</AppText>
-        </View>
-
-        <TouchableOpacity style={styles.editBtn}  onPress={() => setEditVisible(true)}>
-          <Feather name="edit-2" size={16} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
-
-      {/* Profile Fields */}
-      <View style={styles.card}>
-        <ProfileItem icon="user" label="Username" value={profile.username} t={t} />
-        <ProfileItem icon="globe" label="Language" value={profile.language} t={t} />
-        <ProfileItem icon="map-pin" label="Location" value={profile.location} t={t} />
-
-      </View>
-
-      {/* Soil Parameters */}
-      <View style={styles.card}>
-        <AppText variant="content" bold style={styles.sectionTitle}>{t('profile.soil_params')}</AppText>
-
-        <View style={styles.grid}>
-          <SoilCard label="N" value="120 kg/ha" />
-          <SoilCard label="P" value="180 kg/ha" />
-          <SoilCard label="K" value="200 kg/ha" />
-          <SoilCard label="pH" value="6.5" />
-        </View>
-      </View>
-
-    </ScrollView>
-    <Modal
-  visible={editVisible}
-  animationType="slide"
-  transparent
->
-  <View style={styles.modalOverlay}>
-    <View style={styles.modalCard}>
-      <AppText variant='content' bold style={styles.modalTitle}>{t('profile.edit')}</AppText>
-
-      <TextInput
-      value={editedProfile.username}
-      onChangeText={(text) =>
-       setEditedProfile({ ...editedProfile, username: text })
-      }
-      style={styles.input}
-      />
-      <TextInput
-      value={editedProfile.language}
-      onChangeText={(text) =>
-       setEditedProfile({ ...editedProfile, language: text })
-      }
-      style={styles.input}
-      />
-
-      <TextInput
-      value={editedProfile.location}
-      onChangeText={(text) =>
-      setEditedProfile({ ...editedProfile, location: text })
-      }
-      style={styles.input}
-      />
-
-      <TouchableOpacity
-        style={styles.saveBtn}
-        onPress={() => {
-          setProfile(editedProfile);
-          setEditVisible(false)
-        }}
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={{ paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
       >
-        <AppText variant='content' bold style={{ color: '#fff' }}>{t('profile.save')}</AppText>
-      </TouchableOpacity>
+        <View style={styles.headerRow}>
+          <View>
+            <AppText variant="header" style={styles.title}>{t('profile.title')}</AppText>
+            <AppText variant="content" style={styles.subtitle}>{t('profile.subtitle')}</AppText>
+          </View>
+
+          <TouchableOpacity style={styles.editBtn} onPress={() => setEditVisible(true)}>
+            <Feather name="edit-2" size={16} color="#FFFFFF" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.card}>
+          <ProfileItem icon="user" label="Username" value={profile.username} t={t} />
+          <ProfileItem icon="globe" label="Language" value={LANGUAGE_MAP[profile.languageCode] || profile.languageCode} t={t} />
+          <ProfileItem icon="map-pin" label="Location" value={displayLocation} t={t} />
+
+        </View>
+
+        <View style={styles.card}>
+          <AppText variant="content" bold style={styles.sectionTitle}>{t('profile.soil_params')}</AppText>
+
+          <View style={styles.grid}>
+            <SoilCard label="N" value={`${profile.n} kg/ha`} />
+            <SoilCard label="P" value={`${profile.p} kg/ha`} />
+            <SoilCard label="K" value={`${profile.k} kg/ha`} />
+            <SoilCard label="pH" value={profile.ph} />
+          </View>
+        </View>
+
+      </ScrollView>
+      <Modal visible={editVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalCard}>
+            <AppText variant='content' bold style={styles.modalTitle}>{t('profile.edit')}</AppText>
+            
+            <TextInput
+              value={editedProfile.username}
+              onChangeText={(text) => setEditedProfile({ ...editedProfile, username: text })}
+              style={styles.input}
+              placeholder="Username"
+            />
+            <TextInput
+              value={editedProfile.languageCode}
+              onChangeText={(text) => setEditedProfile({ ...editedProfile, languageCode: text })}
+              style={styles.input}
+              placeholder="Language Code (en, hi, etc.)"
+            />
+
+            <TouchableOpacity
+              style={styles.saveBtn}
+              onPress={() => {
+                setProfile(editedProfile);
+                setEditVisible(false);
+              }}
+            >
+              <AppText variant='content' bold style={{ color: '#fff' }}>{t('profile.save')}</AppText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
-  </View>
-</Modal>
-</View>
-
-    
   );
-  
 }
-
-
-
-/* ---------------- STYLES ---------------- */
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#DDF1F9',
@@ -145,6 +159,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    marginTop: 10, 
+    paddingRight: 5, 
   },
   title: {
     fontSize: 15,
@@ -152,7 +168,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     alignSelf: 'flex-start',
     marginLeft: 2,
-    width: 500,
+    flex: 1,
   },
   subtitle: {
     fontFamily: 'OpenSans-Bold',
@@ -238,7 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#4A6F7C',
   },
-   tabs: {
+  tabs: {
     height: 60,          // Adjust based on tab bar height
     position: 'absolute',
     bottom: 0,
@@ -246,38 +262,38 @@ const styles = StyleSheet.create({
     right: 0,
   },
   modalOverlay: {
-  flex: 1,
-  backgroundColor: 'rgba(0,0,0,0.4)',
-  justifyContent: 'center',
-},
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+  },
 
-modalCard: {
-  backgroundColor: '#fff',
-  margin: 20,
-  padding: 20,
-  borderRadius: 16,
-},
+  modalCard: {
+    backgroundColor: '#fff',
+    margin: 20,
+    padding: 20,
+    borderRadius: 16,
+  },
 
-modalTitle: {
-  fontSize: 16,
-  fontWeight: '600',
-  color: '#156349',
-  marginBottom: 12,
-},
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#156349',
+    marginBottom: 12,
+  },
 
-input: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  padding: 10,
-  marginBottom: 16,
-},
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 16,
+  },
 
-saveBtn: {
-  backgroundColor: '#156349',
-  padding: 12,
-  borderRadius: 10,
-  alignItems: 'center',
-},
+  saveBtn: {
+    backgroundColor: '#156349',
+    padding: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
 
 });

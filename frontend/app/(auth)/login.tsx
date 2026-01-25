@@ -11,6 +11,7 @@ import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '@/context/AuthContext';
 import api from '@/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -37,6 +38,11 @@ export default function LoginScreen() {
 
       if (response.data && response.data.token) {
         await login(response.data.token);
+        const userProfile = {
+        name: username,
+        ...response.data.profile 
+      };
+      await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
       }
     } catch (error: any) {
       console.error("[Login Error]", error);
