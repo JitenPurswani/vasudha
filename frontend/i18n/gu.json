@@ -8,7 +8,10 @@
     "password_input": "તમારો પાસવર્ડ દાખલ કરો",
     "submit": "લોગિન કરો",
     "new_user": "નવા યુઝર?",
-    "create_account": "એકાઉન્ટ બનાવો"
+    "create_account": "એકાઉન્ટ બનાવો",
+    "error_missing_fields": "યુઝરનેમ અને પાસવર્ડ બંને દાખલ કરો",
+    "error_unauthorized": "ખોટું યુઝરનેમ અથવા પાસવર્ડ",
+    "error_network": "સર્વર સાથે કનેક્ટ થઈ શકતું નથી"
   },
   "onboarding": {
     "welcome": "વસુધામાં તમારું સ્વાગત છે",
@@ -31,7 +34,11 @@
     "state": "રાજ્ય",
     "auto_fetch": "તમારું સ્થાન મેળવો",
     "use_this": "આનો ઉપયોગ કરો",
-    "edit": "સુધારો"
+    "edit": "સુધારો",
+    "confirm_password_input": "પાસવર્ડ ફરીથી દાખલ કરો",
+    "error_required": "યુઝરનેમ અને પાસવર્ડ જરૂરી છે",
+    "password_mismatch": "પાસવર્ડ મેળ ખાતા નથી",
+    "registration_success": "ખાતું સફળતાપૂર્વક બની ગયું!"
   },
   "crops": {
     "rice": "ડાંગર (ચોખા)",

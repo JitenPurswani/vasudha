@@ -8,7 +8,10 @@
     "password_input": "ਆਪਣਾ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
     "submit": "ਲੌਗਇਨ",
     "new_user": "ਨਵੇਂ ਯੂਜ਼ਰ?",
-    "create_account": "ਖਾਤਾ ਬਣਾਓ"
+    "create_account": "ਖਾਤਾ ਬਣਾਓ",
+    "error_missing_fields": "ਯੂਜ਼ਰਨੇਮ ਅਤੇ ਪਾਸਵਰਡ ਦੋਵੇਂ ਭਰੋ",
+    "error_unauthorized": "ਗਲਤ ਯੂਜ਼ਰਨੇਮ ਜਾਂ ਪਾਸਵਰਡ",
+    "error_network": "ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਨਹੀਂ ਹੋ ਰਿਹਾ"
   },
   "onboarding": {
     "welcome": "ਵਸੁਧਾ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
@@ -31,7 +34,11 @@
     "state": "ਰਾਜ",
     "auto_fetch": "ਆਪਣਾ ਟਿਕਾਣਾ ਪ੍ਰਾਪਤ ਕਰੋ",
     "use_this": "ਇਹ ਵਰਤੋ",
-    "edit": "ਸੋਧੋ"
+    "edit": "ਸੋਧੋ",
+    "confirm_password_input": "ਪਾਸਵਰਡ ਦੁਬਾਰਾ ਭਰੋ",
+    "error_required": "ਯੂਜ਼ਰਨੇਮ ਅਤੇ ਪਾਸਵਰਡ ਲਾਜ਼ਮੀ ਹਨ",
+    "password_mismatch": "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
+    "registration_success": "ਖਾਤਾ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ!"
   },
   "crops": {
     "rice": "ਝੋਨਾ (ਚਾਵਲ)",

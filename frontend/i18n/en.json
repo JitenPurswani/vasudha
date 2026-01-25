@@ -8,7 +8,10 @@
     "password_input": "Enter your password",
     "submit": "Login",
     "new_user": "New User?",
-    "create_account": "Create Account"
+    "create_account": "Create Account",
+    "error_missing_fields": "Please enter both username and password",
+    "error_unauthorized": "Invalid username or password",
+    "error_network": "Unable to connect to server"
   },
   "onboarding": {
     "welcome": "Welcome to Vasudha",
@@ -32,7 +35,11 @@
     "auto_fetch": "Fetch Your Location",
     "use_this": "Use this",
     "edit": "Edit",
-    "location_fetch": "Location Fetched"
+    "location_fetch": "Location Fetched",
+    "confirm_password_input": "Re-enter your password",
+    "error_required": "Username and password are required",
+    "password_mismatch": "Passwords do not match",
+    "registration_success": "Account created successfully!"
   },
   "crops": {
     "rice": "Rice",

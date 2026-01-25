@@ -11,6 +11,8 @@ import {
   TimeoutError,
 } from "./types";
 
+import * as SecureStore from 'expo-secure-store';
+
 // API base URL - can be configured via environment variable
 // IMPORTANT: For mobile devices/emulators, localhost won't work!
 // - Android Emulator: Use "http://10.0.2.2:8000"
@@ -19,7 +21,7 @@ import {
 // Set EXPO_PUBLIC_API_URL environment variable to override
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_URL || "http://localhost:8000";
-
+const AUTH_URL = process.env.EXPO_PUBLIC_AUTH_URL || "http://192.168.198.191:8008";
 // Request timeout in milliseconds (90 seconds)
 // Orchestrator calls multiple agents (weather, soil, recommendation, market, sustainability, XAI)
 // Each agent may take time, especially on first run
@@ -64,6 +66,7 @@ export async function fetchRecommendations(
   const url = `${baseUrl}/get_full_recommendation/`;
   console.log("[API] Using base URL:", baseUrl);
 
+  const token = await SecureStore.getItemAsync('userToken');
   // Create AbortController for timeout
   const controller = new AbortController();
   const timeoutId = setTimeout(() => {
@@ -79,6 +82,7 @@ export async function fetchRecommendations(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {}),
       },
       body: JSON.stringify(requestBody),
       signal: controller.signal,
@@ -159,3 +163,30 @@ export async function fetchRecommendations(
     );
   }
 }
+const api = {
+  post: async (endpoint: string, body: any) => {
+    const isAuth = endpoint.includes('login') || endpoint.includes('register');
+    const baseUrl = isAuth ? AUTH_URL : API_BASE_URL;
+    const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+    const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${base}${path}`;
+
+    const token = await SecureStore.getItemAsync('userToken');
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+    return {
+      status: response.status,
+      data: data,
+    };
+  }
+};
+
+export default api;

@@ -8,7 +8,10 @@
     "password_input": "अपना पासवर्ड दर्ज करें",
     "submit": "लॉगिन करें",
     "new_user": "नए यूज़र?",
-    "create_account": "अकाउंट बनाएं"
+    "create_account": "अकाउंट बनाएं",
+    "error_missing_fields": "यूजरनेम और पासवर्ड दोनों डालें",
+    "error_unauthorized": "गलत यूजरनेम या पासवर्ड",
+    "error_network": "सर्वर से कनेक्ट नहीं हो पा रहा है"
   },
   "onboarding": {
     "welcome": "वसुधा: आपका स्वागत है",
@@ -31,7 +34,11 @@
     "state": "राज्य",
     "auto_fetch": "अपना स्थान प्राप्त करें",
     "use_this": "इसका उपयोग करें",
-    "edit": "बदलें"
+    "edit": "बदलें",
+    "confirm_password_input": "पासवर्ड दोबारा डालें",
+    "error_required": "यूजरनेम और पासवर्ड जरूरी हैं",
+    "password_mismatch": "पासवर्ड मेल नहीं खाते",
+    "registration_success": "खाता सफलतापूर्वक बन गया!"
   },
   "crops": {
     "rice": "चावल",

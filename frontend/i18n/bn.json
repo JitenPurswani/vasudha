@@ -8,7 +8,10 @@
     "password_input": "আপনার পাসওয়ার্ড লিখুন",
     "submit": "লগইন করুন",
     "new_user": "নতুন ইউজার?",
-    "create_account": "অ্যাকাউন্ট তৈরি করুন"
+    "create_account": "অ্যাকাউন্ট তৈরি করুন",
+    "error_missing_fields": "ইউজারনেম এবং পাসওয়ার্ড উভয়ই লিখুন",
+    "error_unauthorized": "ভুল ইউজারনেম বা পাসওয়ার্ড",
+    "error_network": "সার্ভারের সাথে সংযোগ করা যাচ্ছে না"
   },
   "onboarding": {
     "welcome": "বসুধায় স্বাগতম",
@@ -31,7 +34,11 @@
     "state": "রাজ্য",
     "auto_fetch": "আপনার অবস্থান খুঁজুন",
     "use_this": "এটি ব্যবহার করুন",
-    "edit": "সম্পাদন করুন"
+    "edit": "সম্পাদন করুন",
+    "confirm_password_input": "আবার পাসওয়ার্ড লিখুন",
+    "error_required": "ইউজারনেম এবং পাসওয়ার্ড প্রয়োজন",
+    "password_mismatch": "পাসওয়ার্ড মেলেনি",
+    "registration_success": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!"
   },
   "crops": {
     "rice": "ধান",

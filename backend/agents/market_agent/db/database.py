@@ -1,8 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-# Resolve absolute path to market.db
-BASE_DIR = Path(__file__).resolve().parents[4]  # vasudha-project/
+BASE_DIR = Path(__file__).resolve().parents[4]  
 DB_PATH = BASE_DIR / "data" / "market" / "sqlite" / "market.db"
 
 

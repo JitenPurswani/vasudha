@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   StyleSheet, View, TextInput, TouchableOpacity,
-  KeyboardAvoidingView, Platform, ScrollView
+  KeyboardAvoidingView, Platform, ScrollView, ActivityIndicator
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -9,20 +9,43 @@ import { AppText } from '@/components/AppText';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAuth } from '@/context/AuthContext';
+import api from '@/services/api';
 
 export default function LoginScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = () => {
-    router.replace('/(main)/(tabs)/home');
+  const handleLogin = async () => {
+    if (!username || !password) {
+      alert(t('login.error_missing_fields') || "Please enter both username and password");
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      const response = await api.post('/login', {
+        username: username,
+        password: password
+      });
+
+      if (response.data && response.data.token) {
+        await login(response.data.token);
+      }
+    } catch (error: any) {
+      console.error("[Login Error]", error);
+      const errorMsg = error.response?.data?.detail || "Invalid username or password";
+      alert(errorMsg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
   return (
     <View style={[styles.mainContainer, { paddingBottom: insets.bottom }]}>
 
@@ -73,10 +96,19 @@ export default function LoginScreen() {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.continueBtn} onPress={handleLogin}>
-              <AppText variant="content" bold style={styles.continueBtnText}>{t('login.submit')}</AppText>
+            <TouchableOpacity
+              style={[styles.continueBtn, isSubmitting && { opacity: 0.7 }]}
+              onPress={handleLogin}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <ActivityIndicator color="#FFF" />
+              ) : (
+                <AppText variant="content" bold style={styles.continueBtnText}>
+                  {t('login.submit')}
+                </AppText>
+              )}
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.linkContainer}
               onPress={() => router.push('/onboarding')}
