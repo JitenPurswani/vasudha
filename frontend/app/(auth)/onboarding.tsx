@@ -1,4 +1,3 @@
-import Logo from '@/assets/images/logo.svg';
 import { AppText } from '@/components/AppText';
 import { getFont } from '@/constants/Typography';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -62,11 +61,6 @@ export default function OnboardingScreen() {
                 enableOnAndroid={true}
                 extraScrollHeight={Platform.OS === 'ios' ? 50 : 100}
             >
-                <View style={styles.logoSection}>
-                    <Logo width={30} height={30}/>
-                    <AppText variant="header" style={styles.logoText}>Vasudha</AppText>
-                </View>
-
                 <View style={styles.welcomeSection}>
                     <AppText variant="content" bold style={[{ fontWeight: "bold" }, styles.welcomeTitle]}>
                         {t('onboarding.welcome')}
@@ -226,7 +220,17 @@ export default function OnboardingScreen() {
                     >
                         <AppText variant='content' style={[{ fontWeight: "bold" }, styles.continueBtnText]}>{t('onboarding.continue')}</AppText>
                     </TouchableOpacity>
-
+                    <TouchableOpacity 
+  style={styles.linkContainer} 
+  onPress={() => router.push('/login')} 
+>
+  <AppText variant="content" style={styles.linkText}>
+    {t('onboarding.already_have_account')}{' '}
+    <AppText bold style={{ color: '#186F71' }}>
+      {t('onboarding.login_here')}
+    </AppText>
+  </AppText>
+</TouchableOpacity>
                 </View>
             </KeyboardAwareScrollView>
         </View>
@@ -247,9 +251,6 @@ const styles = StyleSheet.create({
     },
     openSans: { fontFamily: 'OpenSans' },
     openSansBold: { fontFamily: 'OpenSans-Bold' },
-
-    logoSection: { flexDirection: 'row', alignItems: 'center', marginTop: 20, marginBottom: 30, gap: 10 },
-    logoText: { fontSize: 16, color: '#186F71' },
 
     welcomeSection: { alignItems: 'center', marginBottom: 35 },
     welcomeTitle: { fontSize: 22, color: '#186F71', textAlign: 'center', width: 400 },
@@ -398,5 +399,15 @@ const styles = StyleSheet.create({
     color: '#186F71',
     opacity: 0.6,
     marginTop: -2,
+},
+linkContainer: { 
+  marginTop: 15, 
+  alignItems: 'center',
+  paddingBottom: 20 
+},
+linkText: { 
+  color: '#186F71', 
+  fontSize: 10,
+  textAlign: 'center'
 },
 });

@@ -1,18 +1,29 @@
 {
-    "app_title": "वसुधा",
-    "onboarding":
-    {
-        "welcome": "वसुधा मध्ये आपले स्वागत आहे",
-        "set_up": "तुमचे प्रोफाइल सेट करा",
-        "username": "वापरकर्तानाव",
-        "username_input": "आपले नाव प्रविष्ट करा",
-        "language": "भाषा",
-        "soil_report_availability": "तुमच्याकडे माती चाचणी अहवाल आहे का?",
-        "soil_params": "मातीचे मापदंड",
-        "continue": "पुढे",
-        "yes": "हो",
-        "no": "नाही"
-    },
+  "app_title": "वसुधा",
+  "login": {
+    "welcome": "वसुधा मध्ये आपले स्वागत आहे",
+    "username": "युजरनेम",
+    "username_input": "तुमचे युजरनेम प्रविष्ट करा",
+    "password": "पासवर्ड",
+    "password_input": "तुमचा पासवर्ड प्रविष्ट करा",
+    "submit": "लॉगिन करा",
+    "new_user": "नवीन युजर?",
+    "create_account": "अकाउंट तयार करा"
+  },
+  "onboarding": {
+    "welcome": "वसुधा मध्ये आपले स्वागत आहे",
+    "set_up": "तुमचे प्रोफाइल सेट करा",
+    "username": "युजरनेम",
+    "username_input": "आपले युजरनेम प्रविष्ट करा",
+    "language": "भाषा",
+    "soil_report_availability": "तुमच्याकडे माती चाचणी अहवाल आहे का?",
+    "soil_params": "मातीचे मापदंड",
+    "continue": "पुढे",
+    "yes": "हो",
+    "no": "नाही",
+    "already_have_account": "तुमचे आधीच अकाउंट आहे का?",
+    "login_here": "लॉगिन करा"
+  },
   "crops": {
     "rice": "तांदूळ",
     "wheat": "गहू",
@@ -63,15 +74,15 @@
     "arecanut": "सुपारी",
     "cashewnuts": "काजू"
   },
-    "locations":{
-      "kalyan_apmc": "कल्याण एपीएमसी",
-      "thane_apmc": "ठाणे एपीएमसी",
-      "panvel_apmc": "पनवेल एपीएमसी",
-      "default_region": "कल्याण, महाराष्ट्र"
+  "locations": {
+    "kalyan_apmc": "कल्याण एपीएमसी",
+    "thane_apmc": "ठाणे एपीएमसी",
+    "panvel_apmc": "पनवेल एपीएमसी",
+    "default_region": "कल्याण, महाराष्ट्र"
   },
   "common": {
-      "last_updated": "शेवटचे अपडेट: {{timestamp}}"
-    },
+    "last_updated": "शेवटचे अपडेट: {{timestamp}}"
+  },
   "home": {
     "greeting": "नमस्कार,",
     "sections": {
@@ -81,19 +92,19 @@
       "market": "बाजार भाव"
     },
     "weather": {
-        "temperature": "तापमान",
-        "precipitation": "पर्जन्य",
-        "humidity": "आर्द्रता",
-        "wind_speed": "वाऱ्याचा वेग"
+      "temperature": "तापमान",
+      "precipitation": "पर्जन्य",
+      "humidity": "आर्द्रता",
+      "wind_speed": "वाऱ्याचा वेग"
     },
-    "crop":{
-        "days_since": "लागवडीपासूनचे दिवस: {{days}}"
+    "crop": {
+      "days_since": "लागवडीपासूनचे दिवस: {{days}}"
     },
-    "market":{
+    "market": {
       "per_kg": "प्रति किलो"
     }
   },
-  "crop":{
+  "crop": {
     "title": "पीक शिफारसी",
     "subtitle": "तुमच्यासाठी शिफारस केलेली प्रमुख पिके",
     "seasonal": "हंगामी",
@@ -101,7 +112,7 @@
     "top_recommendation": "शीर्ष शिफारस",
     "why_this_crop": "हेच पीक का?"
   },
-  "market":{
+  "market": {
     "title": "बाज़ार भाव",
     "subtitle": "पीक दरांच्या कलमानाचा मागोवा घ्या",
     "per_kg": "प्रति किलो",
@@ -126,7 +137,7 @@
     "edit": "प्रोफाइल संपादित करा",
     "soil_params": "मातीचे मापदंड",
     "save": "सेव करा",
-    "username": "वापरकर्तानाव",
+    "username": "युजरनेम",
     "language": "भाषा",
     "location": "ठिकाण"
   },

@@ -1,16 +1,28 @@
 {
   "app_title": "ਵਸੁਧਾ",
+  "login": {
+    "welcome": "ਵਸੁਧਾ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ",
+    "username": "ਯੂਜ਼ਰਨੇਮ",
+    "username_input": "ਆਪਣਾ ਯੂਜ਼ਰਨੇਮ ਦਰਜ ਕਰੋ",
+    "password": "ਪਾਸਵਰਡ",
+    "password_input": "ਆਪਣਾ ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ",
+    "submit": "ਲੌਗਇਨ",
+    "new_user": "ਨਵੇਂ ਯੂਜ਼ਰ?",
+    "create_account": "ਖਾਤਾ ਬਣਾਓ"
+  },
   "onboarding": {
     "welcome": "ਵਸੁਧਾ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ",
     "set_up": "ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਬਣਾਓ",
-    "username": "ਵਰਤੋਂਕਾਰ ਦਾ ਨਾਮ",
+    "username": "ਯੂਜ਼ਰਨੇਮ",
     "username_input": "ਆਪਣਾ ਨਾਮ ਦਰਜ ਕਰੋ",
     "language": "ਭਾਸ਼ਾ",
     "soil_report_availability": "ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਮਿੱਟੀ ਦੀ ਜਾਂਚ ਰਿਪੋਰਟ ਹੈ?",
     "soil_params": "ਮਿੱਟੀ ਦੇ ਤੱਤਾਂ ਦੀ ਮਾਤਰਾ",
     "continue": "ਜਾਰੀ ਰੱਖੋ",
     "yes": "ਹਾਂ",
-    "no": "ਨਹੀਂ"
+    "no": "ਨਹੀਂ",
+    "already_have_account": "ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਖਾਤਾ ਹੈ?",
+    "login_here": "ਲੌਗਇਨ"
   },
   "crops": {
     "rice": "ਝੋਨਾ (ਚਾਵਲ)",
@@ -125,7 +137,7 @@
     "edit": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
     "soil_params": "ਮਿੱਟੀ ਦੇ ਤੱਤਾਂ ਦੀ ਮਾਤਰਾ",
     "save": "ਸੰਭਾਲੋ",
-    "username": "ਵਰਤੋਂਕਾਰ ਦਾ ਨਾਮ",
+    "username": "ਯੂਜ਼ਰਨੇਮ",
     "language": "ਭਾਸ਼ਾ",
     "location": "ਸਥਾਨ"
   },

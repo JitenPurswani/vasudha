@@ -1,5 +1,15 @@
 {
     "app_title": "Vasudha",
+    "login": {
+      "welcome": "Welcome to Vasudha",
+      "username": "Username",
+      "username_input": "Enter your username",
+      "password": "Password",
+      "password_input": "Enter your password",
+      "submit": "Login",
+      "new_user": "New User?",
+      "create_account": "Create Account"
+    },
     "onboarding":
     {
         "welcome": "Welcome to Vasudha",
@@ -11,7 +21,9 @@
         "soil_params": "Soil Parameter Values",
         "continue": "Continue",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "already_have_account": "Already have an account?",
+        "login_here": "Login"
     },  
     "crops": {
         "rice": "Rice",

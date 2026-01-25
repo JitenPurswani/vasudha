@@ -1,19 +1,30 @@
 {
-    "app_title": "वसुधा",
-    "onboarding":
-    {
-        "welcome": "वसुधा: आपका स्वागत है",
-        "set_up": "अपना प्रोफ़ाइल सेट करें",
-        "username": "उपयोगकर्ता नाम",
-        "username_input": "अपना नाम दर्ज करें",
-        "language": "भाषा",
-        "soil_report_availability": "क्या आपके पास मिट्टी परीक्षण रिपोर्ट है?",
-        "soil_params": "मिट्टी के मापदंडों का मान",
-        "continue": "आगे बढ़ें",
-        "yes": "हाँ",
-        "no": "नहीं"
-    },
-   "crops": {
+  "app_title": "वसुधा",
+  "login": {
+    "welcome": "वसुधा में आपका स्वागत है",
+    "username": "यूज़रनेम",
+    "username_input": "अपना यूज़रनेम दर्ज करें",
+    "password": "पासवर्ड",
+    "password_input": "अपना पासवर्ड दर्ज करें",
+    "submit": "लॉगिन करें",
+    "new_user": "नए यूज़र?",
+    "create_account": "अकाउंट बनाएं"
+  },
+  "onboarding": {
+    "welcome": "वसुधा: आपका स्वागत है",
+    "set_up": "अपना प्रोफ़ाइल सेट करें",
+    "username": "यूज़रनेम",
+    "username_input": "अपना यूज़रनेम दर्ज करें",
+    "language": "भाषा",
+    "soil_report_availability": "क्या आपके पास मिट्टी परीक्षण रिपोर्ट है?",
+    "soil_params": "मिट्टी के मापदंडों का मान",
+    "continue": "आगे बढ़ें",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "already_have_account": "क्या आपके पास पहले से अकाउंट है?",
+    "login_here": "लॉगिन करें"
+  },
+  "crops": {
     "rice": "चावल",
     "wheat": "गेहूं",
     "maize": "मक्का",
@@ -63,15 +74,15 @@
     "arecanut": "सुपारी",
     "cashewnuts": "काजू"
   },
-    "locations":{
-      "kalyan_apmc": "कल्याण एपीएमसी",
-      "thane_apmc": "ठाणे एपीएमसी",
-      "panvel_apmc": "पनवेल एपीएमसी",
-      "default_region": "कल्याण, महाराष्ट्र"
+  "locations": {
+    "kalyan_apmc": "कल्याण एपीएमसी",
+    "thane_apmc": "ठाणे एपीएमसी",
+    "panvel_apmc": "पनवेल एपीएमसी",
+    "default_region": "कल्याण, महाराष्ट्र"
   },
   "common": {
-      "last_updated": "अंतिम अपडेट: {{timestamp}}"
-    },
+    "last_updated": "अंतिम अपडेट: {{timestamp}}"
+  },
   "home": {
     "greeting": "नमस्ते,",
     "sections": {
@@ -81,19 +92,19 @@
       "market": "बाजार भाव"
     },
     "weather": {
-        "temperature": "तापमान",
-        "precipitation": "वर्षा",
-        "humidity": "नमी",
-        "wind_speed": "हवा की गति"
+      "temperature": "तापमान",
+      "precipitation": "वर्षा",
+      "humidity": "नमी",
+      "wind_speed": "हवा की गति"
     },
-    "crop":{
-        "days_since": "रोपण से {{days}} दिन"
+    "crop": {
+      "days_since": "रोपण से {{days}} दिन"
     },
-    "market":{
+    "market": {
       "per_kg": "प्रति किलो"
     }
   },
-  "crop":{
+  "crop": {
     "title": "फसल सुझाव",
     "subtitle": "आपके लिए सुझाई गई फसलें",
     "seasonal": "मौसमी",
@@ -101,7 +112,7 @@
     "top_recommendation": "शीर्ष सुझाव",
     "why_this_crop": "यह फसल क्यों?"
   },
-  "market":{
+  "market": {
     "title": "बाज़ार भाव",
     "subtitle": "फसल की कीमतों के बदलाव पर नज़र रखें",
     "per_kg": "प्रति किलो",
@@ -126,7 +137,7 @@
     "edit": "प्रोफ़ाइल संपादित करें",
     "soil_params": "मिट्टी के मापदंडों का मान",
     "save": "सेव करें",
-    "username": "उपयोगकर्ता नाम",
+    "username": "यूज़रनेम",
     "language": "भाषा",
     "location": "स्थान"
   },

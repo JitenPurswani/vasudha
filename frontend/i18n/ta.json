@@ -1,18 +1,29 @@
 {
-    "app_title": "வசுதா",
-    "onboarding":
-    {
-        "welcome": "வசுதா-விற்கு உங்களை வரவேற்கிறோம்",
-        "set_up": "உங்கள் சுயவிவரத்தை நிரப்பவும்",
-        "username": "பயனர் பெயர்",
-        "username_input": "உங்கள் பெயரை உள்ளிடவும்",
-        "language": "மொழி",
-        "soil_report_availability": "உங்களிடம் மண் பரிசோதனை அறிக்கை உள்ளதா?",
-        "soil_params": "மண் அளவுரு மதிப்புகள்",
-        "continue": "அடுத்தது",
-        "yes": "ஆம்",
-        "no": "இல்லை"
-    },
+  "app_title": "வசுதா",
+  "login": {
+    "welcome": "வசுதாவிற்கு வரவேற்கிறோம்",
+    "username": "பயனர்பெயர்",
+    "username_input": "உங்கள் பயனர்பெயரை உள்ளிடவும்",
+    "password": "கடவுச்சொல்",
+    "password_input": "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
+    "submit": "உள்நுழை",
+    "new_user": "புதிய பயனரா?",
+    "create_account": "கணக்கை உருவாக்கவும்"
+  },
+  "onboarding": {
+    "welcome": "வசுதா-விற்கு உங்களை வரவேற்கிறோம்",
+    "set_up": "உங்கள் சுயவிவரத்தை நிரப்பவும்",
+    "username": "பயனர் பெயர்",
+    "username_input": "உங்கள் பெயரை உள்ளிடவும்",
+    "language": "மொழி",
+    "soil_report_availability": "உங்களிடம் மண் பரிசோதனை அறிக்கை உள்ளதா?",
+    "soil_params": "மண் அளவுரு மதிப்புகள்",
+    "continue": "அடுத்தது",
+    "yes": "ஆம்",
+    "no": "இல்லை",
+    "already_have_account": "ஏற்கனவே கணக்கு உள்ளதா?",
+    "login_here": "உள்நுழை"
+  },
   "crops": {
     "rice": "நெல் (அரிசி)",
     "wheat": "கோதுமை",
@@ -63,15 +74,15 @@
     "arecanut": "பாக்கு",
     "cashewnuts": "முந்திரி"
   },
-    "locations":{
-      "kalyan_apmc": "கல்யாண் APMC",
-      "thane_apmc": "தானே APMC",
-      "panvel_apmc": "பன்வெல் APMC",
-      "default_region": "கல்யாண், மகாராஷ்டிரா"
+  "locations": {
+    "kalyan_apmc": "கல்யாண் APMC",
+    "thane_apmc": "தானே APMC",
+    "panvel_apmc": "பன்வெல் APMC",
+    "default_region": "கல்யாண், மகாராஷ்டிரா"
   },
   "common": {
-      "last_updated": "கடைசியாக புதுப்பிக்கப்பட்டது: {{timestamp}}"
-    },
+    "last_updated": "கடைசியாக புதுப்பிக்கப்பட்டது: {{timestamp}}"
+  },
   "home": {
     "greeting": "வணக்கம்,",
     "sections": {
@@ -80,21 +91,20 @@
       "crop": "தற்போதைய பயிர்",
       "market": "சந்தை விலை"
     },
-    
     "weather": {
-        "temperature": "வெப்பநிலை",
-        "precipitation": "மழைப்பொழிவு",
-        "humidity": "ஈரப்பதம்",
-        "wind_speed": "காற்றின் வேகம்"
+      "temperature": "வெப்பநிலை",
+      "precipitation": "மழைப்பொழிவு",
+      "humidity": "ஈரப்பதம்",
+      "wind_speed": "காற்றின் வேகம்"
     },
-    "crop":{
-        "days_since": "நடவு செய்து {{days}} நாட்கள்"
+    "crop": {
+      "days_since": "நடவு செய்து {{days}} நாட்கள்"
     },
-    "market":{
+    "market": {
       "per_kg": "ஒரு கிலோவிற்கு"
     }
   },
-  "crop":{
+  "crop": {
     "title": "பயிர் பரிந்துரைகள்",
     "subtitle": "உங்களுக்காக பரிந்துரைக்கப்பட்ட சிறந்த பயிர்கள்",
     "seasonal": "பருவகால",
@@ -102,7 +112,7 @@
     "top_recommendation": "சிறந்த பரிந்துரை",
     "why_this_crop": "ஏன் இந்தப் பயிர்?"
   },
-  "market":{
+  "market": {
     "title": "சந்தை விலைகள்",
     "subtitle": "பயிர் விலை மாற்றங்களைக் கண்காணிக்கவும்",
     "per_kg": "ஒரு கிலோவிற்கு",
