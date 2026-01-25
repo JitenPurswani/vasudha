@@ -13,12 +13,16 @@ def query_one(query: str, params=()):
 
 
 def evaluate_market_logic(crop: str, state: str) -> dict:
+    # Normalize inputs to handle case sensitivity
+    crop = crop.strip()
+    state = state.strip()
+    
     # 1️⃣ Long-term average price
     price_raw = query_one(
         """
         SELECT AVG(avg_modal_price)
         FROM state_daily_prices
-        WHERE Commodity = ? AND State = ?
+        WHERE LOWER(commodity) = LOWER(?) AND LOWER(state) = LOWER(?)
         """,
         (crop, state)
     )
@@ -32,8 +36,8 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         SELECT MIN(p), MAX(p) FROM (
             SELECT AVG(avg_modal_price) AS p
             FROM state_daily_prices
-            WHERE Commodity = ?
-            GROUP BY State
+            WHERE LOWER(commodity) = LOWER(?)
+            GROUP BY state
         )
         """,
         (crop,)
@@ -52,8 +56,8 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
             - AVG(avg_modal_price) * AVG(avg_modal_price)
         )
         FROM state_daily_prices
-        WHERE Commodity = ? AND State = ?
-          AND Arrival_Date >= DATE('now', '-365 day')
+        WHERE LOWER(commodity) = LOWER(?) AND LOWER(state) = LOWER(?)
+          AND arrival_date >= DATE('now', '-365 day')
         """,
         (crop, state)
     )
@@ -66,9 +70,9 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
                 - AVG(avg_modal_price) * AVG(avg_modal_price)
             ) AS v
             FROM state_daily_prices
-            WHERE Commodity = ?
-              AND Arrival_Date >= DATE('now', '-365 day')
-            GROUP BY State
+            WHERE LOWER(commodity) = LOWER(?)
+              AND arrival_date >= DATE('now', '-365 day')
+            GROUP BY state
         )
         """,
         (crop,)
@@ -82,8 +86,8 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         """
         SELECT AVG(avg_modal_price)
         FROM state_daily_prices
-        WHERE Commodity = ? AND State = ?
-          AND Arrival_Date >= DATE('now', '-30 day')
+        WHERE LOWER(commodity) = LOWER(?) AND LOWER(state) = LOWER(?)
+          AND arrival_date >= DATE('now', '-30 day')
         """,
         (crop, state)
     )
@@ -92,9 +96,9 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         """
         SELECT AVG(avg_modal_price)
         FROM state_daily_prices
-        WHERE Commodity = ? AND State = ?
-          AND Arrival_Date < DATE('now', '-30 day')
-          AND Arrival_Date >= DATE('now', '-180 day')
+        WHERE LOWER(commodity) = LOWER(?) AND LOWER(state) = LOWER(?)
+          AND arrival_date < DATE('now', '-30 day')
+          AND arrival_date >= DATE('now', '-180 day')
         """,
         (crop, state)
     )
