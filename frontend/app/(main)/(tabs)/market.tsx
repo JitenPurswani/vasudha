@@ -1,8 +1,9 @@
 import { AppText } from '@/components/AppText';
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  ActivityIndicator,
   Dimensions,
   ScrollView,
   StyleSheet,
@@ -10,8 +11,14 @@ import {
   View
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { fetchMarketEvaluation, fetchMarketForecast } from '@/services/marketApi';
+import { adaptMarketCard, adaptDualViewChart, validateChartData } from '@/services/marketAdapter';
+import { APIError, NetworkError, TimeoutError } from '@/services/types';
 
 const screenWidth = Dimensions.get("window").width - 64;
+
+// Default state (Maharashtra) for market data
+const DEFAULT_STATE = "Maharashtra";
 
 export default function Market() {
   const [cropOpen, setCropOpen] = useState(false);
@@ -19,14 +26,108 @@ export default function Market() {
   const { t, i18n } = useTranslation();
 
   const crops = ['Rice', 'Wheat', 'Maize', 'Cotton'];
-  const marketData = [
-    { id: '1', location: 'Kalyan APMC', price: '2500', trend: '+6%', isUp: true, type: 'current' },
-    { id: '2', location: 'Thane APMC', price: '1500', trend: '-10%', isUp: false, type: 'current' },
-    { id: '3', location: 'Panvel APMC', price: '1800', trend: '+3%', isUp: true, type: 'nearby' },
-  ];
-  const prices = [2100, 2300, 2200, 2600, 2400, 2800];
-  const labels = ["1", "5", "10", "15", "20", "25"];
-  const [activeTime, setActiveTime] = useState('30D');
+
+  // Market evaluation state
+  const [evaluationLoading, setEvaluationLoading] = useState(false);
+  const [evaluationError, setEvaluationError] = useState<string | null>(null);
+  const [marketCard, setMarketCard] = useState<any>(null);
+
+  // Market forecast state
+  const [forecastLoading, setForecastLoading] = useState(false);
+  const [forecastError, setForecastError] = useState<string | null>(null);
+  const [chartData, setChartData] = useState<any>(null);
+
+  // Active time range
+  const [activeTime, setActiveTime] = useState<'30D' | '60D' | '90D'>('30D');
+
+  // Cached forecast data (to avoid re-fetching when switching time ranges)
+  const [cachedForecast, setCachedForecast] = useState<any>(null);
+
+  // Fetch market evaluation when crop changes
+  useEffect(() => {
+    const fetchEvaluation = async () => {
+      setEvaluationLoading(true);
+      setEvaluationError(null);
+      try {
+        console.log(`[Market Screen] Fetching evaluation for crop=${selectedCrop}, state=${DEFAULT_STATE}`);
+        const response = await fetchMarketEvaluation(selectedCrop, DEFAULT_STATE);
+        const card = adaptMarketCard(response);
+        console.log(`[Market Screen] Evaluation success:`, card);
+        setMarketCard(card);
+      } catch (error) {
+        console.error(`[Market Screen] Evaluation error:`, error);
+        let errorMsg = "Failed to load market data";
+        if (error instanceof APIError) {
+          errorMsg = error.statusCode === 404 
+            ? "No market data available for this crop"
+            : `Error: ${error.message}`;
+        } else if (error instanceof TimeoutError) {
+          errorMsg = "Market data request timed out";
+        } else if (error instanceof NetworkError) {
+          errorMsg = "Network error loading market data";
+        }
+        setEvaluationError(errorMsg);
+        setMarketCard(null);
+      } finally {
+        setEvaluationLoading(false);
+      }
+    };
+
+    fetchEvaluation();
+  }, [selectedCrop]);
+
+  // Fetch market forecast when crop changes
+  useEffect(() => {
+    const fetchForecast = async () => {
+      setForecastLoading(true);
+      setForecastError(null);
+      try {
+        console.log(`[Market Screen] Fetching forecast for crop=${selectedCrop}, state=${DEFAULT_STATE}`);
+        const response = await fetchMarketForecast(selectedCrop, DEFAULT_STATE);
+        console.log(`[Market Screen] Forecast response:`, response);
+        setCachedForecast(response);
+
+        // Adapt for current active time
+        const adapted = adaptDualViewChart(response, activeTime === '30D' ? 30 : activeTime === '60D' ? 60 : 90);
+        console.log(`[Market Screen] Adapted chart data:`, adapted);
+        if (validateChartData(adapted)) {
+          setChartData(adapted);
+        } else {
+          console.error(`[Market Screen] Chart data validation failed`);
+          setForecastError("Chart data validation failed");
+        }
+      } catch (error) {
+        console.error(`[Market Screen] Forecast error:`, error);
+        let errorMsg = "Failed to load price forecast";
+        if (error instanceof APIError) {
+          errorMsg = error.statusCode === 404
+            ? "Insufficient market history for this crop"
+            : `Error: ${error.message}`;
+        } else if (error instanceof TimeoutError) {
+          errorMsg = "Forecast request timed out";
+        } else if (error instanceof NetworkError) {
+          errorMsg = "Network error loading forecast";
+        }
+        setForecastError(errorMsg);
+        setChartData(null);
+      } finally {
+        setForecastLoading(false);
+      }
+    };
+
+    fetchForecast();
+  }, [selectedCrop]);
+
+  // Update chart when active time changes (using cached data)
+  useEffect(() => {
+    if (cachedForecast) {
+      const horizon = activeTime === '30D' ? 30 : activeTime === '60D' ? 60 : 90;
+      const adapted = adaptDualViewChart(cachedForecast, horizon);
+      if (validateChartData(adapted)) {
+        setChartData(adapted);
+      }
+    }
+  }, [activeTime]);
 
   return (
     <ScrollView style={{ backgroundColor: "#DDF1F9" }}
@@ -86,78 +187,55 @@ export default function Market() {
 
       <AppText variant='header' style={ styles.sectionTitle }>{t('market.current_market')}</AppText>
 
-      <View style={styles.marketCard}>
-        {/* Current Price */}
-        <AppText variant='content' bold style={styles.currentPriceLabel}>{t('market.current_price')}</AppText>
+      {evaluationLoading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#156349" />
+          <AppText variant='content' style={styles.loadingText}>{t('common.loading')}</AppText>
+        </View>
+      )}
 
-        {marketData
-          .filter(item => item.type === 'current')
-          .map(item => (
-            <View key={item.id} style={styles.marketRow}>
-              <AppText variant='content' bold style={styles.locationTextMarket}>{item.location}</AppText>
+      {evaluationError && (
+        <View style={styles.errorContainer}>
+          <Feather name="alert-circle" size={20} color="#DC3545" />
+          <AppText variant='content' style={styles.errorText}>{evaluationError}</AppText>
+        </View>
+      )}
 
-              <AppText variant='content' bold style={styles.priceValueText}>
-                ₹{item.price} <AppText variant='content' style={styles.perKgText}>per kg</AppText>
+      {marketCard && !evaluationLoading && (
+        <View style={styles.marketCard}>
+          {/* Current Price */}
+          <AppText variant='content' bold style={styles.currentPriceLabel}>{t('market.current_price')}</AppText>
+
+          <View style={styles.marketRow}>
+            <AppText variant='content' bold style={styles.locationTextMarket}>{marketCard.location}</AppText>
+
+            <AppText variant='content' bold style={styles.priceValueText}>
+              {marketCard.price} <AppText variant='content' style={styles.perKgText}>{t('market.per_kg')}</AppText>
+            </AppText>
+
+            <View style={styles.trendCapsule}>
+              <Feather
+                name={marketCard.isUp ? 'trending-up' : 'trending-down'}
+                size={16}
+                color={marketCard.isUp ? '#28A745' : '#DC3545'}
+              />
+              <AppText
+              variant='content' bold
+                style={[
+                  styles.trendText,
+                  { color: marketCard.isUp ? '#28A745' : '#DC3545' },
+                ]}
+              >
+                {marketCard.trend}
               </AppText>
-
-              <View style={styles.trendCapsule}>
-                <Feather
-                  name={item.isUp ? 'trending-up' : 'trending-down'}
-                  size={16}
-                  color={item.isUp ? '#28A745' : '#DC3545'}
-                />
-                <AppText
-                variant='content' bold
-                  style={[
-                    styles.trendText,
-                    { color: item.isUp ? '#28A745' : '#DC3545' },
-                  ]}
-                >
-                  {item.trend}
-                </AppText>
-              </View>
             </View>
-          ))}
+          </View>
 
-        {/* Divider */}
-        <View style={styles.divider} />
-
-        {/* Nearby Markets */}
-        <AppText variant='content' bold style={styles.currentPriceLabel}>{t('market.nearby_markets')}</AppText>
-
-        {marketData
-          .filter(item => item.type === 'nearby')
-          .map(item => (
-            <View key={item.id} style={styles.marketRow}>
-              <AppText variant='content' bold style={styles.locationTextMarket}>{item.location}</AppText>
-
-              <AppText variant='content' bold style={styles.priceValueText}>
-                ₹{item.price} <AppText variant='content' style={styles.perKgText}>{t('market.per_kg')}</AppText>
-              </AppText>
-
-              <View style={styles.trendCapsule}>
-                <Feather
-                  name={item.isUp ? 'trending-up' : 'trending-down'}
-                  size={16}
-                  color={item.isUp ? '#28A745' : '#DC3545'}
-                />
-                <AppText
-                variant='content' bold
-                  style={[
-                    styles.trendText,
-                    { color: item.isUp ? '#28A745' : '#DC3545' },
-                  ]}
-                >
-                  {item.trend}
-                </AppText>
-              </View>
-            </View>
-          ))}
-
-        <AppText variant='content' style={styles.lastUpdatedText}>
-          {t('common.last_updated', { timestamp: '11.00 am, 25/12/2025' })}
-        </AppText>
-      </View>
+          <AppText variant='content' style={styles.lastUpdatedText}>
+            {t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}
+          </AppText>
+        </View>
+      )}
 
 
       {/* Historical Prices */}
@@ -173,7 +251,7 @@ export default function Market() {
           {["30D", "60D", "90D"].map(label => (
             <TouchableOpacity
               key={label}
-              onPress={() => setActiveTime(label)}
+              onPress={() => setActiveTime(label as '30D' | '60D' | '90D')}
               style={[
                 styles.timeBtn,
                 activeTime === label && styles.timeBtnActive,
@@ -192,33 +270,114 @@ export default function Market() {
           ))}        
           </View>
 
+        {/* Loading State */}
+        {forecastLoading && (
+          <View style={styles.chartLoadingContainer}>
+            <ActivityIndicator size="large" color="#156349" />
+            <AppText variant='content' style={styles.chartLoadingText}>{t('common.loading')}</AppText>
+          </View>
+        )}
+
+        {/* Error State */}
+        {forecastError && (
+          <View style={styles.chartErrorContainer}>
+            <Feather name="alert-circle" size={20} color="#DC3545" />
+            <AppText variant='content' style={styles.chartErrorText}>{forecastError}</AppText>
+          </View>
+        )}
+
         {/* Chart */}
-        <View pointerEvents="box-none">
-          <LineChart
-            data={{
-              labels,
-              datasets: [{ data: prices }],
-            }}
-            width={screenWidth}
-            height={200}
-            yAxisLabel="₹"
-            chartConfig={{
-              backgroundColor: "#CFE9F1",
-              backgroundGradientFrom: "#CFE9F1",
-              backgroundGradientTo: "#CFE9F1",
-              decimalPlaces: 0,
-              color: (opacity = 1) => `rgba(21, 99, 73, ${opacity})`,
-              labelColor: () => "#156349",
-              propsForDots: {
-                r: "4",
-                strokeWidth: "2",
-                stroke: "#156349",
-              },
-            }}
-            style={styles.chart}
-          />
+        {/* Chart */}
+{chartData && !forecastLoading && (() => {
+  const anchoredHistorical = [...chartData.historicalPrices];
+  const anchoredForecast = [...chartData.forecastPrices];
+
+  // 1. Ensure visual continuity: Historical ends exactly where Forecast begins
+  if (anchoredHistorical.length > 0 && anchoredForecast.length > 0) {
+    anchoredHistorical[anchoredHistorical.length - 1] = anchoredForecast[0];
+  }
+
+  const histLen = anchoredHistorical.length;
+  const foreLen = anchoredForecast.length;
+  // Total unique points on the X-axis (they share the 'Today' point)
+  const totalLen = histLen + foreLen - 1;
+
+  // 2. Build labels based on the shared point
+  const labels = Array(totalLen).fill("").map((_, i) => {
+    if (i === 0) return `Past ${activeTime}`;
+    if (i === histLen - 1) return "Today";
+    if (i === totalLen - 1) return `Next ${activeTime}`;
+    return "";
+  });
+
+  // 3. Create datasets with nulls to prevent "ghost" lines
+  // Historical line: Values from 0 to 'Today', then null
+  const historicalDataset = Array(totalLen).fill(null);
+  anchoredHistorical.forEach((val, i) => {
+    historicalDataset[i] = val;
+  });
+
+  // Forecast line: null until 'Today', then actual values
+  const forecastDataset = Array(totalLen).fill(null);
+  anchoredForecast.forEach((val, i) => {
+    forecastDataset[i + (histLen - 1)] = val;
+  });
+
+  return (
+    <View pointerEvents="box-none">
+      <LineChart
+        data={{
+          labels,
+          datasets: [
+            {
+              data: historicalDataset,
+              color: () => "#156349",
+              strokeWidth: 3, // Slightly thicker for better visibility
+            },
+            {
+              data: forecastDataset,
+              color: () => "#FF9500",
+              strokeWidth: 3,
+            },
+          ],
+        }}
+        width={screenWidth}
+        height={220}
+        yAxisLabel="₹"
+        fromZero={false}
+        segments={4}
+        chartConfig={{
+          backgroundColor: "#CFE9F1",
+          backgroundGradientFrom: "#CFE9F1",
+          backgroundGradientTo: "#CFE9F1",
+          decimalPlaces: 0,
+          color: (opacity = 1) => `rgba(21, 99, 73, ${opacity})`,
+          labelColor: () => "#156349",
+          propsForDots: {
+            r: "0", // Keeps dots hidden as per your original design
+          },
+        }}
+        style={styles.chart}
+        withDots={false}
+        withVerticalLines={false}
+      />
+
+      {/* Legend */}
+      <View style={styles.legend}>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendDot, { backgroundColor: "#156349" }]} />
+          <AppText variant='content' style={styles.legendLabel}>Past {activeTime}</AppText>
         </View>
-        <AppText variant='content' style={styles.lastUpdatedText}>{t('common.last_updated', { timestamp: '11.00 am, 25/12/2025' })}</AppText>
+        <View style={styles.legendItem}>
+          <View style={[styles.legendDot, { backgroundColor: "#FF9500" }]} />
+          <AppText variant='content' style={styles.legendLabel}>Next {activeTime}</AppText>
+        </View>
+      </View>
+    </View>
+  );
+})()}
+
+        <AppText variant='content' style={styles.lastUpdatedText}>{t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}</AppText>
       </View>
 
     </ScrollView>
@@ -473,5 +632,88 @@ const styles = StyleSheet.create({
   },
   timeBtnTextActive: {
     color: "#FFFFFF",
+  },
+  // Loading states
+  loadingContainer: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 20,
+    padding: 40,
+    borderWidth: 0.8,
+    borderColor: '#186F71',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  loadingText: {
+    marginTop: 12,
+    color: '#186F71',
+    fontSize: 12,
+  },
+  chartLoadingContainer: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  chartLoadingText: {
+    marginTop: 12,
+    color: '#156349',
+    fontSize: 12,
+  },
+  // Error states
+  errorContainer: {
+    backgroundColor: '#FCE4E4',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#DC3545',
+    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  errorText: {
+    color: '#DC3545',
+    fontSize: 12,
+    flex: 1,
+  },
+  chartErrorContainer: {
+    height: 120,
+    backgroundColor: '#FCE4E4',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#DC3545',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 8,
+    flexDirection: 'row',
+    gap: 12,
+  },
+  chartErrorText: {
+    color: '#DC3545',
+    fontSize: 12,
+    flex: 1,
+  },
+  // Legend
+  legend: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 24,
+    marginVertical: 12,
+    paddingHorizontal: 8,
+  },
+  legendItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  legendDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  legendLabel: {
+    fontSize: 11,
+    color: '#156349',
+    fontFamily: 'OpenSans-Regular',
   },
 });

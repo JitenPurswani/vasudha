@@ -4,6 +4,7 @@ numpy>=1.26.0
 
 # Forecasting
 prophet
+statsmodels>=0.14.0
 
 # API (for later)
 fastapi>=0.110.0
