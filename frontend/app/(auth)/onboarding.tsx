@@ -67,53 +67,54 @@ export default function OnboardingScreen() {
     };
 
     const fetchLocation = async () => {
-    setIsFetching(true);
-    setLocationError(null);
+        setIsFetching(true);
+        setLocationError(null);
 
-    try {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-            setLocationError("Permission denied");
-            return;
-        }
-
-        let userLocation = await Location.getCurrentPositionAsync({
-            accuracy: Location.Accuracy.Balanced,
-        });
-
-        const { latitude, longitude } = userLocation.coords;
-
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1&accept-language=${i18n.language}`,
-            {
-                headers: {
-                    'User-Agent': 'Vasudha-App' 
-                }
+        try {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                setLocationError("Permission denied");
+                return;
             }
-        );
 
-        const data = await response.json();
+            let userLocation = await Location.getCurrentPositionAsync({
+                accuracy: Location.Accuracy.Balanced,
+            });
 
-        if (data && data.address) {
-            const addr = data.address;
-            
-            const detectedDistrict = addr.state_district || addr.county || addr.city || "";
-            const detectedState = addr.state || "";
+            const { latitude, longitude } = userLocation.coords;
 
-            setDistrict(detectedDistrict.replace(" District", "")); 
-            setStateName(detectedState);
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1&accept-language=en`,
+                {
+                    headers: {
+                        'User-Agent': 'Vasudha-App'
+                    }
+                }
+            );
 
-            setLocationFetched(true);
-            setManualEdit(false);
+            const data = await response.json();
+
+            if (data && data.address) {
+                const addr = data.address;
+
+                const toKey = (text: string) => text.toLowerCase().trim().replace(/[\s-]+/g, '_').replace(/[^\w]/g, '');
+                const rawDistrict = addr.state_district || addr.county || addr.city || "";
+                const rawState = addr.state || "";
+
+                setDistrict(toKey(rawDistrict.replace(" District", "")));
+                setStateName(toKey(rawState));
+
+                setLocationFetched(true);
+                setManualEdit(false);
+            }
+        } catch (error) {
+            console.error("Nominatim Error:", error);
+            setLocationError("Could not auto-fetch. Please enter manually.");
+            setManualEdit(true);
+        } finally {
+            setIsFetching(false);
         }
-    } catch (error) {
-        console.error("Nominatim Error:", error);
-        setLocationError("Could not auto-fetch. Please enter manually.");
-        setManualEdit(true);
-    } finally {
-        setIsFetching(false);
-    }
-};
+    };
     return (
         <View style={[styles.mainContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
             <KeyboardAwareScrollView
@@ -150,46 +151,48 @@ export default function OnboardingScreen() {
                             placeholderTextColor="#78909C"
                         />
                     </View>
-                    <View style={styles.labelRow}>
-                        <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
-                        <AppText variant="header" style={styles.label}>{t('onboarding.password')}</AppText>
+                    <View style={styles.inputGroup}>
+                        <View style={styles.labelRow}>
+                            <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
+                            <AppText variant="header" style={styles.label}>{t('onboarding.password')}</AppText>
+                        </View>
+                        <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
+                            <TextInput
+                                style={styles.passwordInput}
+                                placeholder={t('login.password_input')}
+                                placeholderTextColor="#78909C"
+                                value={password}
+                                onFocus={() => setFocusedInput('password')}
+                                onBlur={() => setFocusedInput(null)}
+                                onChangeText={setPassword}
+                                secureTextEntry={secureText}
+                            />
+                            <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
+                                <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
-                        <TextInput
-                            style={styles.passwordInput}
-                            placeholder={t('login.password_input')}
-                            placeholderTextColor="#78909C"
-                            value={password}
-                            onFocus={() => setFocusedInput('password')}
-                            onBlur={() => setFocusedInput(null)}
-                            onChangeText={setPassword}
-                            secureTextEntry={secureText}
-                        />
-                        <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
-                            <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
-                        </TouchableOpacity>
+                    <View style={styles.inputGroup}>
+                        <View style={styles.labelRow}>
+                            <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
+                            <AppText variant="header" style={styles.label}>{t('onboarding.confirm_password')}</AppText>
+                        </View>
+                        <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
+                            <TextInput
+                                style={styles.passwordInput}
+                                placeholder={t('login.password_input')}
+                                placeholderTextColor="#78909C"
+                                value={password}
+                                onFocus={() => setFocusedInput('password')}
+                                onBlur={() => setFocusedInput(null)}
+                                onChangeText={setPassword}
+                                secureTextEntry={secureText}
+                            />
+                            <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
+                                <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-
-                    <View style={styles.labelRow}>
-                        <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
-                        <AppText variant="header" style={styles.label}>{t('onboarding.confirm_password')}</AppText>
-                    </View>
-                    <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
-                        <TextInput
-                            style={styles.passwordInput}
-                            placeholder={t('login.password_input')}
-                            placeholderTextColor="#78909C"
-                            value={password}
-                            onFocus={() => setFocusedInput('password')}
-                            onBlur={() => setFocusedInput(null)}
-                            onChangeText={setPassword}
-                            secureTextEntry={secureText}
-                        />
-                        <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
-                            <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
-                        </TouchableOpacity>
-                    </View>
-
                     <View style={styles.inputGroup}>
                         <View style={styles.labelRow}>
                             <Ionicons name="globe-outline" size={20} color="#186F71" />
@@ -252,6 +255,7 @@ export default function OnboardingScreen() {
                                 {t("onboarding.location")}
                             </AppText>
                         </View>
+
                         {(locationFetched || locationError) && (
                             <View style={styles.locationCard}>
                                 <View style={styles.locationCardRow}>
@@ -260,187 +264,177 @@ export default function OnboardingScreen() {
                                         size={16}
                                         color={locationError ? "#D9534F" : "#28A745"}
                                     />
-
                                     <AppText variant="content" style={styles.locationCardText}>
-                                        {locationError
-                                            ? "Could not auto-detect location. Please enter manually."
-                                            : "Detected your location. You can edit if incorrect."}
+                                        {locationError ? locationError : t('onboarding.location_fetch')}
                                     </AppText>
                                 </View>
-
                                 {!locationError && (
                                     <View style={styles.locationActionRow}>
                                         <TouchableOpacity
                                             style={[styles.locationActionBtn, !manualEdit && styles.locationActionBtnActive]}
                                             onPress={() => setManualEdit(false)}
                                         >
-                                            <AppText
-                                                variant="content"
-                                                bold
-                                                style={[styles.locationActionText, !manualEdit && styles.textWhite]}
-                                            >
-                                                Use this
+                                            <AppText variant="content" bold style={[styles.locationActionText, !manualEdit && styles.textWhite]}>
+                                                {t('onboarding.use_this')}
                                             </AppText>
                                         </TouchableOpacity>
-
                                         <TouchableOpacity
                                             style={[styles.locationActionBtn, manualEdit && styles.locationActionBtnActive]}
                                             onPress={() => setManualEdit(true)}
                                         >
-                                            <AppText
-                                                variant="content"
-                                                bold
-                                                style={[styles.locationActionText, manualEdit && styles.textWhite]}
-                                            >
-                                                Edit
+                                            <AppText variant="content" bold style={[styles.locationActionText, manualEdit && styles.textWhite]}>
+                                                {t('onboarding.edit')}
                                             </AppText>
                                         </TouchableOpacity>
                                     </View>
                                 )}
                             </View>
                         )}
+                        <View style={styles.stackedLocationContainer}>
+                            <View style={styles.inputGroup}>
+                                <TextInput
+                                    style={[
+                                        styles.input,
+                                        focusedInput === "district" && styles.activeBorder,
+                                        !manualEdit && locationFetched && styles.disabledInput
+                                    ]}
+                                    placeholder={t("onboarding.district")}
+                                    value={manualEdit || !locationFetched
+                                        ? district
+                                        : t(`locations.districts.${stateName}.${district}`, { defaultValue: district })}
+                                    onChangeText={setDistrict}
+                                    editable={manualEdit || !locationFetched}
+                                    onFocus={() => setFocusedInput("district")}
+                                    onBlur={() => setFocusedInput(null)}
+                                    placeholderTextColor="#78909C"
+                                />
+                            </View>
 
-                        {/* Manual Inputs */}
-                        <View style={styles.locationFieldsRow}>
-                            <TextInput
-                                style={[
-                                    styles.input,
-                                    styles.halfInput,
-                                    focusedInput === "district" && styles.activeBorder,
-                                    !manualEdit && locationFetched && styles.disabledInput
-                                ]}
-                                placeholder={t("onboarding.district")}
-                                value={district}
-                                onChangeText={setDistrict}
-                                editable={manualEdit || !locationFetched}
-                                onFocus={() => setFocusedInput("district")}
-                                onBlur={() => setFocusedInput(null)}
-                                placeholderTextColor="#78909C"
-                            />
-
-                            <TextInput
-                                style={[
-                                    styles.input,
-                                    styles.halfInput,
-                                    focusedInput === "state" && styles.activeBorder,
-                                    !manualEdit && locationFetched && styles.disabledInput
-                                ]}
-                                placeholder={t("onboarding.state")}
-                                value={stateName}
-                                onChangeText={setStateName}
-                                editable={manualEdit || !locationFetched}
-                                onFocus={() => setFocusedInput("state")}
-                                onBlur={() => setFocusedInput(null)}
-                                placeholderTextColor="#78909C"
-                            />
+                            <View style={styles.inputGroup}>
+                                <TextInput
+                                    style={[
+                                        styles.input,
+                                        focusedInput === "state" && styles.activeBorder,
+                                        !manualEdit && locationFetched && styles.disabledInput
+                                    ]}
+                                    placeholder={t("onboarding.state")}
+                                    value={manualEdit || !locationFetched
+                                        ? stateName
+                                        : t(`locations.states.${stateName}`, { defaultValue: stateName })}
+                                    onChangeText={setStateName}
+                                    editable={manualEdit || !locationFetched}
+                                    onFocus={() => setFocusedInput("state")}
+                                    onBlur={() => setFocusedInput(null)}
+                                    placeholderTextColor="#78909C"
+                                />
+                            </View>
                         </View>
-                    </View>
-                    {/* Modernized Fetch Button */}
-                    {!locationFetched && (
-                        <TouchableOpacity
-                            onPress={fetchLocation}
-                            disabled={isFetching}
-                            style={styles.fetchBtn}
-                            activeOpacity={0.8}
-                        >
-                            {isFetching ? (
-                                <ActivityIndicator size="small" color="#FFF" />
-                            ) : (
-                                <View style={styles.btnContent}>
-                                    <Feather name="navigation" size={18} color="#FFF" />
-                                    <AppText variant="content" bold style={styles.fetchText}>
-                                        {t("onboarding.auto_fetch")}
-                                    </AppText>
-                                </View>
-                            )}
-                        </TouchableOpacity>
-                    )}
-                    <AppText variant="header" style={styles.questionText}>
-                        {t('onboarding.soil_report_availability')}
-                    </AppText>
-                    <View style={styles.toggleRow}>
-                        <TouchableOpacity
-                            style={[styles.toggleBtn, hasReport === true && styles.toggleBtnActive]}
-                            onPress={() => setHasReport(true)}
-                        >
-                            <AppText variant="content" style={[{ fontWeight: 'bold' }, styles.toggleText, hasReport === true && styles.textWhite]}>{t('onboarding.yes')}</AppText>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.toggleBtn, hasReport === false && styles.toggleBtnActive]}
-                            onPress={() => setHasReport(false)}
-                        >
-                            <AppText variant='content' style={[{ fontWeight: 'bold' }, styles.toggleText, hasReport === false && styles.textWhite]}>{t('onboarding.no')}</AppText>
-                        </TouchableOpacity>
-                    </View>
-
-                    {hasReport && (
-                        <View style={styles.soilSection}>
-                            <View style={styles.labelRow}>
-                                <MaterialCommunityIcons name="flask-outline" size={20} color="#186F71" />
-                                <AppText variant="header" style={styles.label}>{t('onboarding.soil_params')}</AppText>
-                            </View>
-
-                            <View style={styles.unitContainer}>
-                                <TouchableOpacity
-                                    style={[styles.unitTab, unit === 'kg/ha' && styles.unitTabActive]}
-                                    onPress={() => setUnit('kg/ha')}
-                                >
-                                    <AppText variant='content' style={[{ fontWeight: "bold" }, styles.unitTabText, unit === 'kg/ha' && styles.textWhite]}>kg/ha</AppText>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[styles.unitTab, unit === 'ppm' && styles.unitTabActive]}
-                                    onPress={() => setUnit('ppm')}
-                                >
-                                    <AppText variant='content' style={[{ fontWeight: "bold" }, styles.unitTabText, unit === 'ppm' && styles.textWhite]}>ppm</AppText>
-                                </TouchableOpacity>
-                            </View>
-
-                            <View style={styles.grid}>
-                                {['N', 'P', 'K', 'pH'].map((param) => (
-                                    <View key={param} style={styles.gridItem}>
-                                        <TextInput
-                                            style={[
-                                                styles.openSansBold,
-                                                {
-                                                    fontFamily: getFont('content', i18n.language),
-                                                    paddingVertical: i18n.language === 'en' ? 14 : 10
-                                                },
-                                                styles.gridInput,
-                                                focusedInput === param && styles.activeGridBorder
-                                            ]}
-                                            placeholder={param}
-                                            placeholderTextColor="#15634950"
-                                            keyboardType="numeric"
-                                            textAlign="center"
-                                            value={soilValues[param as keyof typeof soilValues]}
-                                            onFocus={() => setFocusedInput(param)}
-                                            onBlur={() => setFocusedInput(null)}
-                                            onChangeText={(val) => handleInputChange(param, val)}
-                                        />
+                        {!locationFetched && (
+                            <TouchableOpacity
+                                onPress={fetchLocation}
+                                disabled={isFetching}
+                                style={styles.fetchBtn}
+                                activeOpacity={0.8}
+                            >
+                                {isFetching ? (
+                                    <ActivityIndicator size="small" color="#FFF" />
+                                ) : (
+                                    <View style={styles.btnContent}>
+                                        <Feather name="navigation" size={18} color="#FFF" />
+                                        <AppText variant="content" bold style={styles.fetchText}>
+                                            {t("onboarding.auto_fetch")}
+                                        </AppText>
                                     </View>
-                                ))}
-                            </View>
-                        </View>
-                    )}
-
-                    <TouchableOpacity
-                        style={styles.continueBtn}
-                        activeOpacity={0.8}
-                        onPress={() => router.replace('/(main)/(tabs)/home')}
-                    >
-                        <AppText variant='content' style={[{ fontWeight: "bold" }, styles.continueBtnText]}>{t('onboarding.continue')}</AppText>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.linkContainer}
-                        onPress={() => router.push('/login')}
-                    >
-                        <AppText variant="content" style={styles.linkText}>
-                            {t('onboarding.already_have_account')}{' '}
-                            <AppText bold style={{ color: '#186F71', fontSize: 11 }}>
-                                {t('onboarding.login_here')}
-                            </AppText>
+                                )}
+                            </TouchableOpacity>
+                        )}
+                        <AppText variant="header" style={styles.questionText}>
+                            {t('onboarding.soil_report_availability')}
                         </AppText>
-                    </TouchableOpacity>
+                        <View style={styles.toggleRow}>
+                            <TouchableOpacity
+                                style={[styles.toggleBtn, hasReport === true && styles.toggleBtnActive]}
+                                onPress={() => setHasReport(true)}
+                            >
+                                <AppText variant="content" style={[{ fontWeight: 'bold' }, styles.toggleText, hasReport === true && styles.textWhite]}>{t('onboarding.yes')}</AppText>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.toggleBtn, hasReport === false && styles.toggleBtnActive]}
+                                onPress={() => setHasReport(false)}
+                            >
+                                <AppText variant='content' style={[{ fontWeight: 'bold' }, styles.toggleText, hasReport === false && styles.textWhite]}>{t('onboarding.no')}</AppText>
+                            </TouchableOpacity>
+                        </View>
+
+                        {hasReport && (
+                            <View style={styles.soilSection}>
+                                <View style={styles.labelRow}>
+                                    <MaterialCommunityIcons name="flask-outline" size={20} color="#186F71" />
+                                    <AppText variant="header" style={styles.label}>{t('onboarding.soil_params')}</AppText>
+                                </View>
+
+                                <View style={styles.unitContainer}>
+                                    <TouchableOpacity
+                                        style={[styles.unitTab, unit === 'kg/ha' && styles.unitTabActive]}
+                                        onPress={() => setUnit('kg/ha')}
+                                    >
+                                        <AppText variant='content' style={[{ fontWeight: "bold" }, styles.unitTabText, unit === 'kg/ha' && styles.textWhite]}>kg/ha</AppText>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={[styles.unitTab, unit === 'ppm' && styles.unitTabActive]}
+                                        onPress={() => setUnit('ppm')}
+                                    >
+                                        <AppText variant='content' style={[{ fontWeight: "bold" }, styles.unitTabText, unit === 'ppm' && styles.textWhite]}>ppm</AppText>
+                                    </TouchableOpacity>
+                                </View>
+
+                                <View style={styles.grid}>
+                                    {['N', 'P', 'K', 'pH'].map((param) => (
+                                        <View key={param} style={styles.gridItem}>
+                                            <TextInput
+                                                style={[
+                                                    styles.openSansBold,
+                                                    {
+                                                        fontFamily: getFont('content', i18n.language),
+                                                        paddingVertical: i18n.language === 'en' ? 14 : 10
+                                                    },
+                                                    styles.gridInput,
+                                                    focusedInput === param && styles.activeGridBorder
+                                                ]}
+                                                placeholder={param}
+                                                placeholderTextColor="#15634950"
+                                                keyboardType="numeric"
+                                                textAlign="center"
+                                                value={soilValues[param as keyof typeof soilValues]}
+                                                onFocus={() => setFocusedInput(param)}
+                                                onBlur={() => setFocusedInput(null)}
+                                                onChangeText={(val) => handleInputChange(param, val)}
+                                            />
+                                        </View>
+                                    ))}
+                                </View>
+                            </View>
+                        )}
+
+                        <TouchableOpacity
+                            style={styles.continueBtn}
+                            activeOpacity={0.8}
+                            onPress={() => router.replace('/(main)/(tabs)/home')}
+                        >
+                            <AppText variant='content' style={[{ fontWeight: "bold" }, styles.continueBtnText]}>{t('onboarding.continue')}</AppText>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.linkContainer}
+                            onPress={() => router.push('/login')}
+                        >
+                            <AppText variant="content" style={styles.linkText}>
+                                {t('onboarding.already_have_account')}{' '}
+                                <AppText bold style={{ color: '#186F71', fontSize: 11 }}>
+                                    {t('onboarding.login_here')}
+                                </AppText>
+                            </AppText>
+                        </TouchableOpacity>
+                    </View> 
                 </View>
             </KeyboardAwareScrollView>
         </View>
@@ -467,8 +461,33 @@ const styles = StyleSheet.create({
     welcomeSubtitle: { fontSize: 15, color: '#186F71', marginTop: 8, textAlign: 'center' },
 
     form: { width: '100%' },
-    inputGroup: { marginBottom: 22 },
-    labelRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
+    inputGroup: {
+        marginBottom: 16 
+    },
+    labelRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 6 
+    },
+    miniLabel: {
+        fontSize: 12,
+        color: '#186F71',
+        fontWeight: '600',
+        marginLeft: 4,
+    },
+    stackedLocationContainer: {
+        width: '100%',
+        marginTop: 10,
+    },
+    fetchBtn: {
+        backgroundColor: '#186F71',
+        borderRadius: 14,
+        height: 52,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 16, 
+    },
     label: { fontSize: 12, color: '#186F71' },
     input: {
         backgroundColor: 'rgba(255,255,255,0.7)',
@@ -476,11 +495,13 @@ const styles = StyleSheet.create({
         borderColor: '#186F71',
         borderRadius: 14,
         padding: 14,
-        fontSize: 14,
+        fontSize: 15,
         color: '#186F71',
-        paddingLeft: 16,
     },
-    passwordWrapper: {
+    disabledInput: {
+        backgroundColor: 'rgba(24, 111, 113, 0.05)',
+        opacity: 0.8,
+    }, passwordWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'rgba(255,255,255,0.7)',
@@ -633,14 +654,6 @@ const styles = StyleSheet.create({
     },
     halfInput: {
         flex: 1,
-    },
-    fetchBtn: {
-        backgroundColor: '#186F71',
-        borderRadius: 14,
-        height: 52,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 16,
     },
     btnContent: {
         flexDirection: 'row',

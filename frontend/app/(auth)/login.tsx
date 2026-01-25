@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  StyleSheet, View, TextInput, TouchableOpacity, 
-  KeyboardAvoidingView, Platform, ScrollView 
+import {
+  StyleSheet, View, TextInput, TouchableOpacity,
+  KeyboardAvoidingView, Platform, ScrollView
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
@@ -20,18 +20,20 @@ export default function LoginScreen() {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
 
   const handleLogin = () => {
-    router.replace('/(main)/(tabs)/home'); 
+    router.replace('/(main)/(tabs)/home');
   };
 
   return (
     <View style={[styles.mainContainer, { paddingBottom: insets.bottom }]}>
-      
+
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
-        
+
           <View style={styles.formCard}>
-            <AppText variant="content" bold style={styles.welcomeText}>{t('login.welcome')}</AppText>
-            
+            <AppText variant="content" bold style={styles.welcomeText}>
+              {t('login.welcome')}
+            </AppText>
+
             <View style={styles.inputGroup}>
               <View style={styles.labelRow}>
                 <Ionicons name="person" size={20} color="#186F71" />
@@ -47,9 +49,12 @@ export default function LoginScreen() {
                 onChangeText={setUsername}
                 autoCapitalize="none"
               />
+            </View>
+
+            <View style={styles.inputGroup}>
               <View style={styles.labelRow}>
                 <MaterialCommunityIcons name="lock" size={20} color="#186F71" />
-            <AppText variant="header" style={styles.label}>{t('login.password')}</AppText>
+                <AppText variant="header" style={styles.label}>{t('login.password')}</AppText>
               </View>
               <View style={[styles.passwordWrapper, focusedInput === 'password' && styles.activeBorder]}>
                 <TextInput
@@ -72,12 +77,12 @@ export default function LoginScreen() {
               <AppText variant="content" bold style={styles.continueBtnText}>{t('login.submit')}</AppText>
             </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={styles.linkContainer} 
+            <TouchableOpacity
+              style={styles.linkContainer}
               onPress={() => router.push('/onboarding')}
             >
               <AppText variant="content" style={styles.linkText}>
-                {t('login.new_user')} <AppText bold style={{color: '#186F71', fontSize:11}}>{t('login.create_account')}</AppText>
+                {t('login.new_user')} <AppText bold style={{ color: '#186F71', fontSize: 11 }}>{t('login.create_account')}</AppText>
               </AppText>
             </TouchableOpacity>
           </View>
@@ -89,7 +94,7 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   mainContainer: { flex: 1, backgroundColor: '#DDF1F9' },
-  scrollContent: { paddingHorizontal: 28, flexGrow: 1, padding: 80},
+  scrollContent: { paddingHorizontal: 28, flexGrow: 1, padding: 80 },
   formCard: { width: '100%' },
   welcomeText: { fontSize: 20, color: '#186F71', textAlign: 'center', marginBottom: 60 },
   inputGroup: { marginBottom: 20 },
