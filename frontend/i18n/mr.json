@@ -1,18 +1,45 @@
 {
-    "app_title": "वसुधा",
-    "onboarding":
-    {
-        "welcome": "वसुधा मध्ये आपले स्वागत आहे",
-        "set_up": "तुमचे प्रोफाइल सेट करा",
-        "username": "वापरकर्तानाव",
-        "username_input": "आपले नाव प्रविष्ट करा",
-        "language": "भाषा",
-        "soil_report_availability": "तुमच्याकडे माती चाचणी अहवाल आहे का?",
-        "soil_params": "मातीचे मापदंड",
-        "continue": "पुढे",
-        "yes": "हो",
-        "no": "नाही"
-    },
+  "app_title": "वसुधा",
+  "login": {
+    "welcome": "वसुधा मध्ये आपले स्वागत आहे",
+    "username": "युजरनेम",
+    "username_input": "तुमचे युजरनेम प्रविष्ट करा",
+    "password": "पासवर्ड",
+    "password_input": "तुमचा पासवर्ड प्रविष्ट करा",
+    "submit": "लॉगिन करा",
+    "new_user": "नवीन युजर?",
+    "create_account": "अकाउंट तयार करा",
+    "error_missing_fields": "युजरनेम आणि पासवर्ड दोन्ही टाका",
+    "error_unauthorized": "चुकीचे युजरनेम किंवा पासवर्ड",
+    "error_network": "सर्व्हरशी संपर्क होऊ शकला नाही"
+  },
+  "onboarding": {
+    "welcome": "वसुधा मध्ये आपले स्वागत आहे",
+    "set_up": "तुमचे प्रोफाइल सेट करा",
+    "username": "युजरनेम",
+    "username_input": "आपले युजरनेम प्रविष्ट करा",
+    "language": "भाषा",
+    "soil_report_availability": "तुमच्याकडे माती चाचणी अहवाल आहे का?",
+    "soil_params": "मातीचे मापदंड",
+    "continue": "पुढे",
+    "yes": "हो",
+    "no": "नाही",
+    "already_have_account": "तुमचे आधीच अकाउंट आहे का?",
+    "login_here": "लॉगिन करा",
+    "password": "पासवर्ड",
+    "password_input": "तुमचा पासवर्ड प्रविष्ट करा",
+    "confirm_password": "पासवर्डची पुष्टी करा",
+    "location": "स्थान",
+    "district": "जिल्हा",
+    "state": "राज्य",
+    "auto_fetch": "तुमचे स्थान मिळवा",
+    "use_this": "हे वापरा",
+    "edit": "बदला",
+    "confirm_password_input": "पासवर्ड पुन्हा टाका",
+    "error_required": "युजरनेम आणि पासवर्ड आवश्यक आहेत",
+    "password_mismatch": "पासवर्ड जुळत नाहीत",
+    "registration_success": "खाते यशस्वीरित्या तयार झाले!"
+  },
   "crops": {
     "rice": "तांदूळ",
     "wheat": "गहू",
@@ -63,15 +90,93 @@
     "arecanut": "सुपारी",
     "cashewnuts": "काजू"
   },
-    "locations":{
-      "kalyan_apmc": "कल्याण एपीएमसी",
-      "thane_apmc": "ठाणे एपीएमसी",
-      "panvel_apmc": "पनवेल एपीएमसी",
-      "default_region": "कल्याण, महाराष्ट्र"
+  "locations": {
+    "states": {
+      "andhra_pradesh": "आंध्र प्रदेश",
+      "arunachal_pradesh": "अरुणाचल प्रदेश",
+      "assam": "आसाम",
+      "bihar": "बिहार",
+      "chhattisgarh": "छत्तीसगड",
+      "goa": "गोवा",
+      "gujarat": "गुजरात",
+      "haryana": "हरियाणा",
+      "himachal_pradesh": "हिमाचल प्रदेश",
+      "jharkhand": "झारखंड",
+      "karnataka": "कर्नाटक",
+      "kerala": "केरळ",
+      "madhya_pradesh": "मध्य प्रदेश",
+      "maharashtra": "महाराष्ट्र",
+      "manipur": "मणिपूर",
+      "meghalaya": "मेघालय",
+      "mizoram": "मिझोराम",
+      "nagaland": "नागालँड",
+      "odisha": "ओडिशा",
+      "punjab": "पंजाब",
+      "rajasthan": "राजस्थान",
+      "sikkim": "सिक्कीम",
+      "tamil_nadu": "तमिळनाडू",
+      "telangana": "तेलंगणा",
+      "tripura": "त्रिपुरा",
+      "uttar_pradesh": "उत्तर प्रदेश",
+      "uttarakhand": "उत्तराखंड",
+      "west_bengal": "पश्चिम बंगाल",
+      "andaman_nicobar": "अंदमान आणि निकोबार द्वीपसमूह",
+      "chandigarh": "चंदीगड",
+      "dadra_nagar_haveli_daman_diu": "दादरा आणि नगर हवेली आणि दमण आणि दीव",
+      "delhi": "दिल्ली",
+      "jammu_kashmir": "जम्मू आणि काश्मीर",
+      "ladakh": "लडाख",
+      "lakshadweep": "लक्षद्वीप",
+      "puducherry": "पुडुचेरी"
+    },
+    "districts": {
+      "maharashtra": {
+        "ahmednagar": "अहमदनगर",
+        "akola": "अकोला",
+        "amravati": "अमरावती",
+        "aurangabad": "छत्रपती संभाजीनगर",
+        "beed": "बीड",
+        "bhandara": "भंडारा",
+        "buldhana": "बुलढाणा",
+        "chandrapur": "चंद्रपूर",
+        "dhule": "धुळे",
+        "gadchiroli": "गडचिरोली",
+        "gondia": "गोंदिया",
+        "hingoli": "हिंगोली",
+        "jalgaon": "जळगाव",
+        "jalna": "जालना",
+        "kolhapur": "कोल्हापूर",
+        "latur": "लातूर",
+        "mumbai_city": "मुंबई शहर",
+        "mumbai_suburban": "मुंबई उपनगर",
+        "nagpur": "नागपूर",
+        "nanded": "नांदेड",
+        "nandurbar": "नंदुरबार",
+        "nashik": "नाशिक",
+        "osmanabad": "धाराशिव",
+        "palghar": "पालघर",
+        "parbhani": "परभणी",
+        "pune": "पुणे",
+        "raigad": "रायगड",
+        "ratnagiri": "रत्नागिरी",
+        "sangli": "सांगली",
+        "satara": "सातारा",
+        "sindhudurg": "सिंधुदुर्ग",
+        "solapur": "सोलापूर",
+        "thane": "ठाणे",
+        "wardha": "वर्धा",
+        "washim": "वाशिम",
+        "yavatmal": "यवतमाळ"
+      }
+    },
+    "kalyan_apmc": "कल्याण एपीएमसी",
+    "thane_apmc": "ठाणे एपीएमसी",
+    "panvel_apmc": "पनवेल एपीएमसी",
+    "default_region": "कल्याण, महाराष्ट्र"
   },
   "common": {
-      "last_updated": "शेवटचे अपडेट: {{timestamp}}"
-    },
+    "last_updated": "शेवटचे अपडेट: {{timestamp}}"
+  },
   "home": {
     "greeting": "नमस्कार,",
     "sections": {
@@ -81,19 +186,19 @@
       "market": "बाजार भाव"
     },
     "weather": {
-        "temperature": "तापमान",
-        "precipitation": "पर्जन्य",
-        "humidity": "आर्द्रता",
-        "wind_speed": "वाऱ्याचा वेग"
+      "temperature": "तापमान",
+      "precipitation": "पर्जन्य",
+      "humidity": "आर्द्रता",
+      "wind_speed": "वाऱ्याचा वेग"
     },
-    "crop":{
-        "days_since": "लागवडीपासूनचे दिवस: {{days}}"
+    "crop": {
+      "days_since": "लागवडीपासूनचे दिवस: {{days}}"
     },
-    "market":{
+    "market": {
       "per_kg": "प्रति किलो"
     }
   },
-  "crop":{
+  "crop": {
     "title": "पीक शिफारसी",
     "subtitle": "तुमच्यासाठी शिफारस केलेली प्रमुख पिके",
     "seasonal": "हंगामी",
@@ -101,7 +206,7 @@
     "top_recommendation": "शीर्ष शिफारस",
     "why_this_crop": "हेच पीक का?"
   },
-  "market":{
+  "market": {
     "title": "बाज़ार भाव",
     "subtitle": "पीक दरांच्या कलमानाचा मागोवा घ्या",
     "per_kg": "प्रति किलो",
@@ -126,7 +231,7 @@
     "edit": "प्रोफाइल संपादित करा",
     "soil_params": "मातीचे मापदंड",
     "save": "सेव करा",
-    "username": "वापरकर्तानाव",
+    "username": "युजरनेम",
     "language": "भाषा",
     "location": "ठिकाण"
   },

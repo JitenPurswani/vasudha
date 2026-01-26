@@ -13,7 +13,8 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
+import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from "jwt-decode";
 
 const WeatherStatItem = ({ Icon, value, label }: any) => {
   const displayValue = value && String(value).trim() !== "" ? value : "-";
@@ -65,6 +66,16 @@ export default function Home() {
     setCurrentDate(date);
   }, []);
 
+  useEffect(() => {
+    const getUsername = async () => {
+      const token = await SecureStore.getItemAsync('userToken');
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        setUserName(decoded.sub || 'Farmer');
+      }
+    };
+    getUsername();
+  }, []);
   return (
     <View style={styles.container}>
       <ScrollView

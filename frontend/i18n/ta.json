@@ -1,18 +1,45 @@
 {
-    "app_title": "வசுதா",
-    "onboarding":
-    {
-        "welcome": "வசுதா-விற்கு உங்களை வரவேற்கிறோம்",
-        "set_up": "உங்கள் சுயவிவரத்தை நிரப்பவும்",
-        "username": "பயனர் பெயர்",
-        "username_input": "உங்கள் பெயரை உள்ளிடவும்",
-        "language": "மொழி",
-        "soil_report_availability": "உங்களிடம் மண் பரிசோதனை அறிக்கை உள்ளதா?",
-        "soil_params": "மண் அளவுரு மதிப்புகள்",
-        "continue": "அடுத்தது",
-        "yes": "ஆம்",
-        "no": "இல்லை"
-    },
+  "app_title": "வசுதா",
+  "login": {
+    "welcome": "வசுதாவிற்கு வரவேற்கிறோம்",
+    "username": "பயனர்பெயர்",
+    "username_input": "உங்கள் பயனர்பெயரை உள்ளிடவும்",
+    "password": "கடவுச்சொல்",
+    "password_input": "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
+    "submit": "உள்நுழை",
+    "new_user": "புதிய பயனரா?",
+    "create_account": "கணக்கை உருவாக்கவும்",
+    "error_missing_fields": "பயனர்பெயர் மற்றும் கடவுச்சொல் இரண்டையும் உள்ளிடவும்",
+    "error_unauthorized": "தவறான பயனர்பெயர் அல்லது கடவுச்சொல்",
+    "error_network": "சர்வரை இணைக்க முடியவில்லை"
+  },
+  "onboarding": {
+    "welcome": "வசுதா-விற்கு உங்களை வரவேற்கிறோம்",
+    "set_up": "உங்கள் சுயவிவரத்தை நிரப்பவும்",
+    "username": "பயனர் பெயர்",
+    "username_input": "உங்கள் பெயரை உள்ளிடவும்",
+    "language": "மொழி",
+    "soil_report_availability": "உங்களிடம் மண் பரிசோதனை அறிக்கை உள்ளதா?",
+    "soil_params": "மண் அளவுரு மதிப்புகள்",
+    "continue": "அடுத்தது",
+    "yes": "ஆம்",
+    "no": "இல்லை",
+    "already_have_account": "ஏற்கனவே கணக்கு உள்ளதா?",
+    "login_here": "உள்நுழை",
+    "password": "கடவுச்சொல்",
+    "password_input": "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
+    "confirm_password": "கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+    "location": "இருப்பிடம்",
+    "district": "மாவட்டம்",
+    "state": "மாநிலம்",
+    "auto_fetch": "உங்கள் இருப்பிடத்தைப் பெறவும்",
+    "use_this": "இதைப் பயன்படுத்து",
+    "edit": "திருத்து",
+    "confirm_password_input": "கடவுச்சொல்லை மீண்டும் உள்ளிடவும்",
+    "error_required": "பயனர்பெயர் மற்றும் கடவுச்சொல் தேவை",
+    "password_mismatch": "கடவுச்சொற்கள் பொருந்தவில்லை",
+    "registration_success": "கணக்கு வெற்றிகரமாக உருவாக்கப்பட்டது!"
+  },
   "crops": {
     "rice": "நெல் (அரிசி)",
     "wheat": "கோதுமை",
@@ -63,15 +90,93 @@
     "arecanut": "பாக்கு",
     "cashewnuts": "முந்திரி"
   },
-    "locations":{
-      "kalyan_apmc": "கல்யாண் APMC",
-      "thane_apmc": "தானே APMC",
-      "panvel_apmc": "பன்வெல் APMC",
-      "default_region": "கல்யாண், மகாராஷ்டிரா"
+  "locations": {
+    "states": {
+      "andhra_pradesh": "ஆந்திரப் பிரதேசம்",
+      "arunachal_pradesh": "அருணாச்சலப் பிரதேசம்",
+      "assam": "அசாம்",
+      "bihar": "பீகார்",
+      "chhattisgarh": "சத்தீஸ்கர்",
+      "goa": "கோவா",
+      "gujarat": "குஜராத்",
+      "haryana": "ஹரியானா",
+      "himachal_pradesh": "இமாச்சலப் பிரதேசம்",
+      "jharkhand": "ஜார்க்கண்ட்",
+      "karnataka": "கர்நாடகா",
+      "kerala": "கேரளா",
+      "madhya_pradesh": "மத்தியப் பிரதேசம்",
+      "maharashtra": "மகாராஷ்டிரா",
+      "manipur": "மணிப்பூர்",
+      "meghalaya": "மேகாலயா",
+      "mizoram": "மிசோரம்",
+      "nagaland": "நாகாலாந்து",
+      "odisha": "ஒடிசா",
+      "punjab": "பஞ்சாப்",
+      "rajasthan": "ராஜஸ்தான்",
+      "sikkim": "சிக்கிம்",
+      "tamil_nadu": "தமிழ்நாடு",
+      "telangana": "தெலங்கானா",
+      "tripura": "திரிபுரா",
+      "uttar_pradesh": "உத்தரப் பிரதேசம்",
+      "uttarakhand": "உத்தரகண்ட்",
+      "west_bengal": "மேற்கு வங்கம்",
+      "andaman_nicobar": "அந்தமான் நிக்கோபார் தீவுகள்",
+      "chandigarh": "சண்டிகர்",
+      "dadra_nagar_haveli_daman_diu": "தாத்ரா மற்றும் நகர் ஹவேலி மற்றும் தாமன் மற்றும் தியூ",
+      "delhi": "டெல்லி",
+      "jammu_kashmir": "ஜம்மு காஷ்மீர்",
+      "ladakh": "லடாக்",
+      "lakshadweep": "லட்சத்தீவு",
+      "puducherry": "புதுச்சேரி"
+    },
+    "districts": {
+      "maharashtra": {
+        "ahmednagar": "அகமதுநகர்",
+        "akola": "அகோலா",
+        "amravati": "அமராவதி",
+        "aurangabad": "சத்ரபதி சம்பாஜிநகர்",
+        "beed": "பீடு",
+        "bhandara": "பண்டாரா",
+        "buldhana": "புல்தானா",
+        "chandrapur": "சந்திரபூர்",
+        "dhule": "துலே",
+        "gadchiroli": "கட்சிரோலி",
+        "gondia": "கோண்டியா",
+        "hingoli": "ஹிங்கோலி",
+        "jalgaon": "ஜல்கான்",
+        "jalna": "ஜால்னா",
+        "kolhapur": "கோலாப்பூர்",
+        "latur": "லாத்தூர்",
+        "mumbai_city": "மும்பை நகரம்",
+        "mumbai_suburban": "மும்பை புறநகர்",
+        "nagpur": "நாக்பூர்",
+        "nanded": "நாந்தேடு",
+        "nandurbar": "நந்துர்பார்",
+        "nashik": "நாசிக்",
+        "osmanabad": "தாராஷிவ்",
+        "palghar": "பால்கர்",
+        "parbhani": "பர்பானி",
+        "pune": "புனே",
+        "raigad": "ராய்காட்",
+        "ratnagiri": "ரத்னகிரி",
+        "sangli": "சாங்லி",
+        "satara": "சதாரா",
+        "sindhudurg": "சிந்துதுர்க்",
+        "solapur": "சோலாப்பூர்",
+        "thane": "தானே",
+        "wardha": "வார்தா",
+        "washim": "வாஷிம்",
+        "yavatmal": "யவத்மால்"
+      }
+    },
+    "kalyan_apmc": "கல்யாண் APMC",
+    "thane_apmc": "தானே APMC",
+    "panvel_apmc": "பன்வெல் APMC",
+    "default_region": "கல்யாண், மகாராஷ்டிரா"
   },
   "common": {
-      "last_updated": "கடைசியாக புதுப்பிக்கப்பட்டது: {{timestamp}}"
-    },
+    "last_updated": "கடைசியாக புதுப்பிக்கப்பட்டது: {{timestamp}}"
+  },
   "home": {
     "greeting": "வணக்கம்,",
     "sections": {
@@ -80,21 +185,20 @@
       "crop": "தற்போதைய பயிர்",
       "market": "சந்தை விலை"
     },
-    
     "weather": {
-        "temperature": "வெப்பநிலை",
-        "precipitation": "மழைப்பொழிவு",
-        "humidity": "ஈரப்பதம்",
-        "wind_speed": "காற்றின் வேகம்"
+      "temperature": "வெப்பநிலை",
+      "precipitation": "மழைப்பொழிவு",
+      "humidity": "ஈரப்பதம்",
+      "wind_speed": "காற்றின் வேகம்"
     },
-    "crop":{
-        "days_since": "நடவு செய்து {{days}} நாட்கள்"
+    "crop": {
+      "days_since": "நடவு செய்து {{days}} நாட்கள்"
     },
-    "market":{
+    "market": {
       "per_kg": "ஒரு கிலோவிற்கு"
     }
   },
-  "crop":{
+  "crop": {
     "title": "பயிர் பரிந்துரைகள்",
     "subtitle": "உங்களுக்காக பரிந்துரைக்கப்பட்ட சிறந்த பயிர்கள்",
     "seasonal": "பருவகால",
@@ -102,7 +206,7 @@
     "top_recommendation": "சிறந்த பரிந்துரை",
     "why_this_crop": "ஏன் இந்தப் பயிர்?"
   },
-  "market":{
+  "market": {
     "title": "சந்தை விலைகள்",
     "subtitle": "பயிர் விலை மாற்றங்களைக் கண்காணிக்கவும்",
     "per_kg": "ஒரு கிலோவிற்கு",
