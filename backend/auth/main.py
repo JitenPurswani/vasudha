@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from database import get_connection, init_db
 import security
 from pydantic import BaseModel
 from typing import Optional
 
 app = FastAPI(title="Vasudha Auth Agent")
+
+# Add CORS middleware to allow frontend requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 init_db()
 

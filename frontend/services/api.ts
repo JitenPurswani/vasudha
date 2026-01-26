@@ -171,6 +171,9 @@ const api = {
     const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
     const url = `${base}${path}`;
 
+    console.log("[API] POST to:", url);
+    console.log("[API] Request body:", JSON.stringify(body, null, 2));
+
     const token = await SecureStore.getItemAsync('userToken');
     const response = await fetch(url, {
       method: "POST",
@@ -181,7 +184,28 @@ const api = {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    console.log("[API] Response status:", response.status);
+    const responseText = await response.text();
+    console.log("[API] Response text:", responseText.substring(0, 200));
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("[API] JSON parse error:", parseError);
+      console.error("[API] Response was:", responseText);
+      throw new Error(`Server returned invalid response: ${responseText.substring(0, 100)}`);
+    }
+
+    if (!response.ok) {
+      throw {
+        response: {
+          status: response.status,
+          data: data
+        }
+      };
+    }
+
     return {
       status: response.status,
       data: data,

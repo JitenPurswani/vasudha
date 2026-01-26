@@ -88,7 +88,7 @@ yarn-error.log*
 *.env
 secrets.json
 config.json # Add if it contains secrets
-
+.expo
 # Model files (can be large, consider Git LFS or not committing)
 # *.pkl
 # *.h5
