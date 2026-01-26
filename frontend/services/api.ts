@@ -172,8 +172,11 @@ const api = {
     const url = `${base}${path}`;
 
     console.log("[API] POST to:", url);
-    console.log("[API] Request body:", JSON.stringify(body, null, 2));
-
+    if (!endpoint.includes('login') && !endpoint.includes('register')) {
+      console.log(`[API] Request to ${endpoint}:`, body);
+    } else {
+      console.log(`[API] Secure request to ${endpoint} (body hidden)`);
+    }
     const token = await SecureStore.getItemAsync('userToken');
     const response = await fetch(url, {
       method: "POST",

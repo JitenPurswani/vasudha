@@ -39,7 +39,9 @@
     "confirm_password_input": "Re-enter your password",
     "error_required": "Username and password are required",
     "password_mismatch": "Passwords do not match",
-    "registration_success": "Account created successfully!"
+    "registration_success": "Account created successfully!",
+    "fetch_soil_params": "Fetch Soil Parameters",
+    "soil_params_fetched": "Soil parameters fetched successfully"
   },
   "crops": {
     "rice": "Rice",

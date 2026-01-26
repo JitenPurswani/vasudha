@@ -38,7 +38,10 @@
     "confirm_password_input": "ਪਾਸਵਰਡ ਦੁਬਾਰਾ ਭਰੋ",
     "error_required": "ਯੂਜ਼ਰਨੇਮ ਅਤੇ ਪਾਸਵਰਡ ਲਾਜ਼ਮੀ ਹਨ",
     "password_mismatch": "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ",
-    "registration_success": "ਖਾਤਾ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ!"
+    "registration_success": "ਖਾਤਾ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ!",
+    "location_fetch": "ਸਥਾਨ ਪ੍ਰਾਪਤ ਕੀਤਾ ਗਿਆ",
+    "fetch_soil_params": "ਮਿੱਟੀ ਦੇ ਮਾਪਦੰਡ ਪ੍ਰਾਪਤ ਕਰੋ",
+    "soil_params_fetched": "ਮਿੱਟੀ ਦੇ ਮਾਪਦੰਡ ਸਫਲਤਾਪੂਰਵਕ ਪ੍ਰਾਪਤ ਕੀਤੇ ਗਏ"
   },
   "crops": {
     "rice": "ਝੋਨਾ (ਚਾਵਲ)",

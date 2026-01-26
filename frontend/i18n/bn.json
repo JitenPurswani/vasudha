@@ -38,7 +38,10 @@
     "confirm_password_input": "আবার পাসওয়ার্ড লিখুন",
     "error_required": "ইউজারনেম এবং পাসওয়ার্ড প্রয়োজন",
     "password_mismatch": "পাসওয়ার্ড মেলেনি",
-    "registration_success": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!"
+    "registration_success": "অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!",
+    "location_fetch": "অবস্থান পাওয়া গেছে",
+    "fetch_soil_params": "মাটির পরামিতি পান",
+    "soil_params_fetched": "মাটির পরামিতি সফলভাবে পাওয়া গেছে"
   },
   "crops": {
     "rice": "ধান",

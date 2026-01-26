@@ -38,7 +38,10 @@
     "confirm_password_input": "పాస్‌వర్డ్‌ను మళ్ళీ నమోదు చేయండి",
     "error_required": "యూజర్ నేమ్ మరియు పాస్‌వర్డ్ అవసరం",
     "password_mismatch": "పాస్‌వర్డ్‌లు సరిపోలలేదు",
-    "registration_success": "ఖాతా విజయవంతంగా సృష్టించబడింది!"
+    "registration_success": "ఖాతా విజయవంతంగా సృష్టించబడింది!",
+    "location_fetch": "స్థానం పొందబడింది",
+    "fetch_soil_params": "నేల పారామితులను పొందండి",
+    "soil_params_fetched": "నేల పారామితులు విజయవంతంగా పొందబడ్డాయి"
   },
   "crops": {
     "rice": "వరి (బియ్యం)",

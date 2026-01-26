@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function LoginScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -43,6 +43,13 @@ export default function LoginScreen() {
         ...response.data.profile 
       };
       await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
+      
+      // Apply user's language preference from profile
+      if (response.data.profile && response.data.profile.language) {
+        const userLanguage = response.data.profile.language;
+        await i18n.changeLanguage(userLanguage);
+        await AsyncStorage.setItem('user-language', userLanguage);
+      }
       }
     } catch (error: any) {
       console.error("[Login Error]", error);

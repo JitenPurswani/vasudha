@@ -38,7 +38,10 @@
     "confirm_password_input": "પાસવર્ડ ફરીથી દાખલ કરો",
     "error_required": "યુઝરનેમ અને પાસવર્ડ જરૂરી છે",
     "password_mismatch": "પાસવર્ડ મેળ ખાતા નથી",
-    "registration_success": "ખાતું સફળતાપૂર્વક બની ગયું!"
+    "registration_success": "ખાતું સફળતાપૂર્વક બની ગયું!",
+    "location_fetch": "સ્થાન મેળવાયું",
+    "fetch_soil_params": "માટીના પરિમાણો મેળવો",
+    "soil_params_fetched": "માટીના પરિમાણો સફલતાપૂર્વક મેળવાયા"
   },
   "crops": {
     "rice": "ડાંગર (ચોખા)",

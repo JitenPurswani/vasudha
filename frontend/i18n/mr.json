@@ -38,7 +38,10 @@
     "confirm_password_input": "पासवर्ड पुन्हा टाका",
     "error_required": "युजरनेम आणि पासवर्ड आवश्यक आहेत",
     "password_mismatch": "पासवर्ड जुळत नाहीत",
-    "registration_success": "खाते यशस्वीरित्या तयार झाले!"
+    "registration_success": "खाते यशस्वीरित्या तयार झाले!",
+    "location_fetch": "स्थान मिळवले",
+    "fetch_soil_params": "मातीचे मापदंड मिळवा",
+    "soil_params_fetched": "मातीचे मापदंड यशस्वीरित्या मिळवले"
   },
   "crops": {
     "rice": "तांदूळ",

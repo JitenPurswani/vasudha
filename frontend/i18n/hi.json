@@ -38,7 +38,10 @@
     "confirm_password_input": "पासवर्ड दोबारा डालें",
     "error_required": "यूजरनेम और पासवर्ड जरूरी हैं",
     "password_mismatch": "पासवर्ड मेल नहीं खाते",
-    "registration_success": "खाता सफलतापूर्वक बन गया!"
+    "registration_success": "खाता सफलतापूर्वक बन गया!",
+    "location_fetch": "स्थान प्राप्त हुआ",
+    "fetch_soil_params": "मिट्टी के मापदंड प्राप्त करें",
+    "soil_params_fetched": "मिट्टी के मापदंड सफलतापूर्वक प्राप्त हुए"
   },
   "crops": {
     "rice": "चावल",

@@ -1,6 +1,7 @@
 import { AppText } from '@/components/AppText';
 import { useAuth } from '@/context/AuthContext';
 import api from '@/services/api';
+import { getSoilParams } from '@/services/soilApi';
 import { getFont } from '@/constants/Typography';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,14 +24,31 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
 
+const toBackendKey = (text: string) =>
+    text.toLowerCase()
+        .trim()
+        .replace(/\s+district/gi, '')
+        .replace(/[\s-]+/g, '_')
+        .replace(/[^\w]/g, '');
+
+const toTitleCase = (text: string) =>
+    text.split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
 export default function OnboardingScreen() {
+    const [isFetchingSoil, setIsFetchingSoil] = useState(false);
+    const [soilFetched, setSoilFetched] = useState(false);
+    const [soilManualEdit, setSoilManualEdit] = useState(false);
+    const [fetchedSoil, setFetchedSoil] = useState<{ N: string, P: string, K: string, pH: string } | null>(null);
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const { t, i18n } = useTranslation();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [secureText, setSecureText] = useState(true);
+    const [secureTextPassword, setSecureTextPassword] = useState(true);
+    const [secureTextConfirm, setSecureTextConfirm] = useState(true);
     const [hasReport, setHasReport] = useState<boolean | null>(true);
     const [unit, setUnit] = useState<'kg/ha' | 'ppm'>('kg/ha');
     const currentContentFont = getFont('content', i18n.language);
@@ -43,6 +61,20 @@ export default function OnboardingScreen() {
 
     const [district, setDistrict] = useState('');
     const [stateName, setStateName] = useState('');
+    const [districtDisplay, setDistrictDisplay] = useState('');
+    const [stateNameDisplay, setStateNameDisplay] = useState('');
+
+    // Helper to get translated or fallback to title case
+    const getTranslatedDistrict = () => {
+        const key = `locations.districts.${stateName}.${district}`;
+        const translated = t(key);
+        return translated !== key ? translated : toTitleCase(district);
+    };
+    const getTranslatedState = () => {
+        const key = `locations.states.${stateName}`;
+        const translated = t(key);
+        return translated !== key ? translated : toTitleCase(stateName);
+    };
     const [isFetching, setIsFetching] = useState(false);
     const [locationFetched, setLocationFetched] = useState(false);
     const [manualEdit, setManualEdit] = useState(false);
@@ -65,6 +97,30 @@ export default function OnboardingScreen() {
 
     const handleInputChange = (key: string, value: string) => {
         setSoilValues(prev => ({ ...prev, [key]: value }));
+    };
+
+    // Fetch soil params from soil agent
+    const fetchSoilParams = async () => {
+        if (!district || !stateName) {
+            alert('Please enter/select your district and state first.');
+            return;
+        }
+        setIsFetchingSoil(true);
+        try {
+            const data = await getSoilParams(district, stateName);
+            setFetchedSoil(data);
+            setSoilValues(data);
+            setSoilFetched(true);
+            setSoilManualEdit(false);
+        } catch (e: any) {
+            alert(e.message || 'Could not fetch soil parameters.');
+        } finally {
+            setIsFetchingSoil(false);
+        }
+    };
+
+    const editFetchedSoil = () => {
+        setSoilManualEdit(true);
     };
 
     const handleLanguageSelect = async (langCode: string, langLabel: string) => {
@@ -142,8 +198,15 @@ export default function OnboardingScreen() {
                 const rawDistrict = addr.state_district || addr.county || addr.city || "";
                 const rawState = addr.state || "";
 
-                setDistrict(toKey(rawDistrict.replace(" District", "")));
-                setStateName(toKey(rawState));
+                const cleanedDistrict = rawDistrict.replace(" District", "");
+
+                const dKey = toBackendKey(cleanedDistrict);
+                const sKey = toBackendKey(rawState);
+                setDistrict(dKey);
+                setStateName(sKey);
+
+                setDistrictDisplay(toTitleCase(dKey));
+                setStateNameDisplay(toTitleCase(sKey));
                 setLocationFetched(true);
                 setManualEdit(false);
             }
@@ -203,10 +266,10 @@ export default function OnboardingScreen() {
                                 onFocus={() => setFocusedInput('password')}
                                 onBlur={() => setFocusedInput(null)}
                                 onChangeText={setPassword}
-                                secureTextEntry={secureText}
+                                secureTextEntry={secureTextPassword}
                             />
-                            <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
-                                <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                            <TouchableOpacity onPress={() => setSecureTextPassword(!secureTextPassword)} style={styles.eyeIcon}>
+                                <Feather name={secureTextPassword ? "eye-off" : "eye"} size={18} color="#186F71" />
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -225,10 +288,10 @@ export default function OnboardingScreen() {
                                 onFocus={() => setFocusedInput('confirm')}
                                 onBlur={() => setFocusedInput(null)}
                                 onChangeText={setConfirmPassword}
-                                secureTextEntry={secureText}
+                                secureTextEntry={secureTextConfirm}
                             />
-                            <TouchableOpacity onPress={() => setSecureText(!secureText)} style={styles.eyeIcon}>
-                                <Feather name={secureText ? "eye-off" : "eye"} size={18} color="#186F71" />
+                            <TouchableOpacity onPress={() => setSecureTextConfirm(!secureTextConfirm)} style={styles.eyeIcon}>
+                                <Feather name={secureTextConfirm ? "eye-off" : "eye"} size={18} color="#186F71" />
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -289,21 +352,33 @@ export default function OnboardingScreen() {
                             <TextInput
                                 style={[styles.input, focusedInput === "district" && styles.activeBorder, !manualEdit && locationFetched && styles.disabledInput, { marginBottom: 10 }]}
                                 placeholder={t("onboarding.district")}
-                                value={manualEdit || !locationFetched ? district : t(`locations.districts.${stateName}.${district}`, { defaultValue: district })}
-                                onChangeText={setDistrict}
+                                value={manualEdit ? toTitleCase(district) : getTranslatedDistrict()}
+                                onChangeText={(text) => {
+                                    setDistrictDisplay(text);
+                                    setDistrict(toBackendKey(text));
+                                }}
                                 editable={manualEdit || !locationFetched}
                                 onFocus={() => setFocusedInput("district")}
-                                onBlur={() => setFocusedInput(null)}
+                                onBlur={() => {
+                                    setFocusedInput(null);
+                                    setDistrictDisplay(toTitleCase(district));
+                                }}
                                 placeholderTextColor="#78909C"
                             />
                             <TextInput
                                 style={[styles.input, focusedInput === "state" && styles.activeBorder, !manualEdit && locationFetched && styles.disabledInput]}
                                 placeholder={t("onboarding.state")}
-                                value={manualEdit || !locationFetched ? stateName : t(`locations.states.${stateName}`, { defaultValue: stateName })}
-                                onChangeText={setStateName}
+                                value={manualEdit ? toTitleCase(stateName) : getTranslatedState()}
+                                onChangeText={(text) => {
+                                    setStateNameDisplay(text);
+                                    setStateName(toBackendKey(text));
+                                }}
                                 editable={manualEdit || !locationFetched}
                                 onFocus={() => setFocusedInput("state")}
-                                onBlur={() => setFocusedInput(null)}
+                                onBlur={() => {
+                                    setFocusedInput(null);
+                                    setStateNameDisplay(toTitleCase(stateName));
+                                }}
                                 placeholderTextColor="#78909C"
                             />
                         </View>
@@ -362,6 +437,77 @@ export default function OnboardingScreen() {
                                         />
                                     </View>
                                 ))}
+                            </View>
+                        </View>
+                    )}
+
+                    {!hasReport && (
+                        <View style={{ marginBottom: 20 }}>
+                            {!soilFetched && (
+                                <TouchableOpacity onPress={fetchSoilParams} disabled={isFetchingSoil} style={[styles.fetchBtn, { marginTop: 10 }]}>
+                                    {isFetchingSoil ? (
+                                        <ActivityIndicator size="small" color="#FFF" />
+                                    ) : (
+                                        <View style={styles.btnContent}>
+                                            <MaterialCommunityIcons name="flask-outline" size={18} color="#FFF" />
+                                            <AppText variant="content" bold style={styles.fetchText}>{t('onboarding.fetch_soil_params')}</AppText>
+                                        </View>
+                                    )}
+                                </TouchableOpacity>
+                            )}
+
+                            {soilFetched && fetchedSoil && (
+                                <View style={styles.locationCard}>
+                                    <View style={styles.locationCardRow}>
+                                        <Feather name="check-circle" size={16} color="#28A745" />
+                                        <AppText variant="content" style={styles.locationCardText}>
+                                            {t('onboarding.soil_params_fetched')}
+                                        </AppText>
+                                    </View>
+                                    <View style={styles.locationActionRow}>
+                                        <TouchableOpacity
+                                            style={[styles.locationActionBtn, !soilManualEdit && styles.locationActionBtnActive]}
+                                            onPress={() => setSoilManualEdit(false)}
+                                        >
+                                            <AppText variant="content" bold style={[styles.locationActionText, !soilManualEdit && styles.textWhite]}>
+                                                {t('onboarding.use_this')}
+                                            </AppText>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            style={[styles.locationActionBtn, soilManualEdit && styles.locationActionBtnActive]}
+                                            onPress={editFetchedSoil}
+                                        >
+                                            <AppText variant="content" bold style={[styles.locationActionText, soilManualEdit && styles.textWhite]}>
+                                                {t('onboarding.edit')}
+                                            </AppText>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )}
+
+                            <View style={styles.soilSection}>
+                                <View style={styles.labelRow}>
+                                    <MaterialCommunityIcons name="flask-outline" size={20} color="#186F71" />
+                                    <AppText variant="header" style={styles.label}>{t('onboarding.soil_params')}</AppText>
+                                </View>
+                                <View style={styles.grid}>
+                                    {['N', 'P', 'K', 'pH'].map((param) => (
+                                        <View key={param} style={styles.gridItem}>
+                                            <TextInput
+                                                style={[styles.gridInput, focusedInput === param && styles.activeGridBorder, soilFetched && !soilManualEdit && styles.disabledInput, { fontFamily: getFont('content', i18n.language) }]}
+                                                placeholder={param}
+                                                placeholderTextColor="#15634950"
+                                                keyboardType="numeric"
+                                                textAlign="center"
+                                                value={soilValues[param as keyof typeof soilValues]}
+                                                onFocus={() => setFocusedInput(param)}
+                                                onBlur={() => setFocusedInput(null)}
+                                                onChangeText={(val) => handleInputChange(param, val)}
+                                                editable={!soilFetched || soilManualEdit}
+                                            />
+                                        </View>
+                                    ))}
+                                </View>
                             </View>
                         </View>
                     )}
@@ -447,7 +593,7 @@ const styles = StyleSheet.create({
     unitTabText: { fontSize: 12, color: '#186F71' },
     grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
     gridItem: { width: '47%', marginBottom: 15 },
-    gridInput: { backgroundColor: 'rgba(189, 219, 232, 0.8)', borderWidth: 1, borderColor: '#186F71', borderRadius: 12, padding: 15, textAlign: 'center', fontSize: 16, color: '#186F71' },
+    gridInput: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#186F71', borderRadius: 12, padding: 15, textAlign: 'center', fontSize: 16, color: '#186F71' },
     activeGridBorder: { borderColor: '#186F71', borderWidth: 1.5, backgroundColor: 'rgba(216, 235, 244, 0.2)' },
     continueBtn: { backgroundColor: '#186F71', borderRadius: 10, height: 50, width: 180, alignSelf: 'center', margin: 20, justifyContent: 'center', alignItems: 'center' },
     continueBtnText: { color: '#FFF', fontSize: 18 },

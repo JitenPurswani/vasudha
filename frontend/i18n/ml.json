@@ -38,7 +38,10 @@
     "confirm_password_input": "പാസ്‌വേഡ് വീണ്ടും നൽകുക",
     "error_required": "യൂസർനെയിമും പാസ്‌വേഡും ആവശ്യമാണ്",
     "password_mismatch": "പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല",
-    "registration_success": "അക്കൗണ്ട് വിജയകരമായി സൃഷ്ടിച്ചു!"
+    "registration_success": "അക്കൗണ്ട് വിജയകരമായി സൃഷ്ടിച്ചു!",
+    "location_fetch": "സ്ഥാനം ലഭിച്ചു",
+    "fetch_soil_params": "മണ്ണിന്റെ പരാമീറ്ററുകൾ നേടുക",
+    "soil_params_fetched": "മണ്ണിന്റെ പരാമീറ്ററുകൾ വിജയകരമായി നേടി"
   },
   "crops": {
     "rice": "നെൽ (അരി)",
