@@ -143,6 +143,29 @@ export default function OnboardingScreen() {
 
         setIsSubmitting(true);
         try {
+            // If location was auto-fetched, coordinates are already stored
+            // If location was manually entered, we need to geocode it
+            if (!locationFetched && district && stateName) {
+                console.log('[Onboarding] Manually entered location - geocoding...');
+                try {
+                    const query = `${toTitleCase(district)}, ${toTitleCase(stateName)}, India`;
+                    const response = await fetch(
+                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`,
+                        { headers: { 'User-Agent': 'Vasudha-App' } }
+                    );
+                    const results = await response.json();
+                    if (results && results[0]) {
+                        const { lat, lon } = results[0];
+                        await AsyncStorage.setItem('userLatitude', String(lat));
+                        await AsyncStorage.setItem('userLongitude', String(lon));
+                        console.log(`[Onboarding] Geocoded and stored location: lat=${lat}, lon=${lon}`);
+                    }
+                } catch (geocodeError) {
+                    console.error('[Onboarding] Geocoding error:', geocodeError);
+                    // Continue anyway - location can be re-done on Home page
+                }
+            }
+
             const payload = {
                 username,
                 password,
@@ -184,6 +207,11 @@ export default function OnboardingScreen() {
             });
 
             const { latitude, longitude } = userLocation.coords;
+
+            // Store location coordinates for use in Home page
+            await AsyncStorage.setItem('userLatitude', String(latitude));
+            await AsyncStorage.setItem('userLongitude', String(longitude));
+            console.log(`[Onboarding] Stored location: lat=${latitude}, lon=${longitude}`);
 
             const response = await fetch(
                 `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1&accept-language=en`,
