@@ -3,6 +3,7 @@ from market_logic import evaluate_market_logic
 from datetime import datetime, timedelta
 import sqlite3
 import logging
+from db.database import get_connection
 
 # Setup logging
 logging.basicConfig(level=logging.DEBUG)
@@ -16,18 +17,26 @@ app = FastAPI(
 DB_PATH = "../../../data/market/sqlite/market.db"
 
 @app.get("/market/evaluate")
+@app.get("/market/evaluate/")
 def evaluate_market(crop: str, state: str):
     logger.info(f"[Market Evaluate] crop={crop}, state={state}")
-    result = evaluate_market_logic(crop, state)
+    try:
+        result = evaluate_market_logic(crop, state)
 
-    if result is None:
-        logger.warning(f"[Market Evaluate] No data found for crop={crop}, state={state}")
-        raise HTTPException(status_code=404, detail="No market data found")
+        if result is None:
+            logger.warning(f"[Market Evaluate] No data found for crop={crop}, state={state}")
+            raise HTTPException(status_code=404, detail="No market data found")
 
-    logger.info(f"[Market Evaluate] Success: {result}")
-    return result
+        logger.info(f"[Market Evaluate] Success: {result}")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"[Market Evaluate] Error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Evaluation error: {str(e)}")
 
 @app.get("/market/debug")
+@app.get("/market/debug/")
 def debug_info():
     """Debug endpoint to see available crops and states"""
     conn = sqlite3.connect(DB_PATH)
@@ -55,6 +64,7 @@ def debug_info():
 
 
 @app.get("/market/forecast")
+@app.get("/market/forecast/")
 def market_forecast(crop: str, state: str):
     logger.info(f"[Market Forecast] crop={crop}, state={state}")
     
@@ -129,3 +139,175 @@ def market_forecast(crop: str, state: str):
         "confidence": confidence,
         **forecasts
     }
+
+
+@app.get("/market/data")
+@app.get("/market/data/")
+def get_market_data():
+    """Fetch market dropdowns: states, APMCs by state, commodities by APMC"""
+    logger.info("[Market Data] Fetching market data...")
+    
+    try:
+        import time
+        start_time = time.time()
+        
+        logger.info("[Market Data] Opening database connection...")
+        conn = get_connection()
+        cur = conn.cursor()
+        
+        logger.info("[Market Data] Executing query on metadata table...")
+        # ULTRA-OPTIMIZED: Query the small metadata table (141K rows) instead of market_prices (71.8M rows)
+        cur.execute("""
+            SELECT DISTINCT state, market, commodity FROM market_metadata 
+            ORDER BY state, market, commodity
+        """)
+        
+        logger.info("[Market Data] Fetching results...")
+        rows = cur.fetchall()
+        elapsed_query = time.time() - start_time
+        logger.info(f"[Market Data] Got {len(rows)} rows from metadata table in {elapsed_query:.3f}s")
+        
+        states_set = set()
+        apmcs_by_state = {}
+        commodities_by_apmc = {}
+        all_commodities_set = set()
+        
+        logger.info("[Market Data] Building data structures...")
+        # Build all structures from single result set (single database round-trip)
+        for state, market, commodity in rows:
+            states_set.add(state)
+            all_commodities_set.add(commodity)
+            
+            if state not in apmcs_by_state:
+                apmcs_by_state[state] = []
+            if market not in apmcs_by_state[state]:
+                apmcs_by_state[state].append(market)
+            
+            if market not in commodities_by_apmc:
+                commodities_by_apmc[market] = []
+            if commodity not in commodities_by_apmc[market]:
+                commodities_by_apmc[market].append(commodity)
+        
+        states = sorted(list(states_set))
+        all_commodities = sorted(list(all_commodities_set))
+        
+        conn.close()
+        
+        elapsed = time.time() - start_time
+        logger.info(f"[Market Data] SUCCESS - Found {len(states)} states, {len(commodities_by_apmc)} APMCs, {len(all_commodities)} commodities (took {elapsed:.3f}s)")
+        return {
+            "states": states,
+            "apmcs_by_state": apmcs_by_state,
+            "commodities_by_apmc": commodities_by_apmc,
+            "all_commodities": all_commodities
+        }
+    
+    except Exception as e:
+        logger.error(f"[Market Data] Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch market data: {str(e)}")
+
+
+@app.get("/market/current-prices")
+@app.get("/market/current-prices/")
+def get_current_prices(state: str = None, commodity: str = None, limit: int = 3):
+    """Fetch current market prices with 10-day average and price change percentage
+    
+    Parameters:
+    - state: Filter by state (optional)
+    - commodity: Filter by commodity (optional)
+    - limit: Number of results per APMC (default: 3)
+    """
+    logger.info(f"[Market Current Prices] state={state}, commodity={commodity}")
+    
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        
+        # Get the latest date in database
+        cur.execute("SELECT MAX(arrival_date) FROM market_prices")
+        latest_date = cur.fetchone()[0]
+        logger.info(f"[Market Current Prices] Latest date in DB: {latest_date}")
+        
+        if not latest_date:
+            raise HTTPException(status_code=404, detail="No market data available")
+        
+        latest_datetime = datetime.strptime(latest_date, "%Y-%m-%d")
+        ten_days_ago = (latest_datetime - timedelta(days=10)).strftime("%Y-%m-%d")
+        
+        # Build dynamic query
+        query = """
+            SELECT 
+                state,
+                market,
+                commodity,
+                modal_price as current_price,
+                arrival_date as date,
+                ROUND(
+                    (
+                        SELECT AVG(modal_price) 
+                        FROM market_prices mp2
+                        WHERE mp2.state = mp1.state
+                        AND mp2.market = mp1.market
+                        AND mp2.commodity = mp1.commodity
+                        AND mp2.arrival_date >= ? AND mp2.arrival_date <= ?
+                    ),
+                    2
+                ) as avg_price_10d
+            FROM market_prices mp1
+            WHERE arrival_date = ?
+        """
+        
+        params = [ten_days_ago, latest_date, latest_date]
+        
+        # Add optional filters
+        if state:
+            query += " AND LOWER(state) = LOWER(?)"
+            params.append(state)
+        
+        if commodity:
+            query += " AND LOWER(commodity) = LOWER(?)"
+            params.append(commodity)
+        
+        query += " ORDER BY state, market, commodity"
+        
+        cur.execute(query, params)
+        rows = cur.fetchall()
+        logger.info(f"[Market Current Prices] Found {len(rows)} price records")
+        
+        # Format results with price change percentage
+        results = []
+        for row in rows:
+            current_price = row["current_price"]
+            avg_price_10d = row["avg_price_10d"]
+            
+            # Calculate price change percentage
+            if avg_price_10d and avg_price_10d > 0:
+                price_change_pct = round(
+                    ((current_price - avg_price_10d) / avg_price_10d) * 100,
+                    2
+                )
+            else:
+                price_change_pct = 0
+            
+            results.append({
+                "state": row["state"],
+                "apmc": row["market"],
+                "commodity": row["commodity"],
+                "current_price": round(current_price, 2) if current_price else None,
+                "avg_price_10d": round(avg_price_10d, 2) if avg_price_10d else None,
+                "price_change_percent": price_change_pct,
+                "date": row["date"]
+            })
+        
+        conn.close()
+        
+        logger.info("[Market Current Prices] Successfully fetched current prices")
+        return {
+            "latest_date": latest_date,
+            "prices": results
+        }
+    
+    except Exception as e:
+        logger.error(f"[Market Current Prices] Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch current prices: {str(e)}")
+

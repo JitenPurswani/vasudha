@@ -21,7 +21,7 @@ const MARKET_API_BASE_URL =
 
 // Request timeout in milliseconds (30 seconds)
 // Market Agent is fast; should respond within seconds
-const MARKET_REQUEST_TIMEOUT = 30000;
+const MARKET_REQUEST_TIMEOUT = 90000; // 90 seconds for evaluation queries // 60 seconds for evaluation/forecast
 
 /**
  * Market evaluation response from backend
@@ -121,10 +121,7 @@ export async function fetchMarketEvaluation(
       );
     }
 
-    if (
-      error instanceof DOMException &&
-      error.name === "AbortError"
-    ) {
+    if (error instanceof Error && error.name === "AbortError") {
       throw new TimeoutError(
         `Market evaluation request timed out after ${MARKET_REQUEST_TIMEOUT}ms`
       );
@@ -199,10 +196,7 @@ export async function fetchMarketForecast(
       );
     }
 
-    if (
-      error instanceof DOMException &&
-      error.name === "AbortError"
-    ) {
+    if (error instanceof Error && error.name === "AbortError") {
       throw new TimeoutError(
         `Market forecast request timed out after ${MARKET_REQUEST_TIMEOUT}ms`
       );
