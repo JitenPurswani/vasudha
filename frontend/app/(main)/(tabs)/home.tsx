@@ -1,23 +1,35 @@
-import AlertIcon from '@/assets/images/alert.svg';
 import HumidityIcon from '@/assets/images/humidity.svg';
 import RainIcon from '@/assets/images/rain.svg';
 import SaplingIcon from '@/assets/images/sapling.svg';
 import SceneryHeader from '@/assets/images/scenery_home.svg';
 import WindIcon from '@/assets/images/wind.svg';
-import Alert from '@/components/Alert';
 import { AppText } from '@/components/AppText';
 import { getFont } from '@/constants/Typography';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { format, differenceInDays, addDays } from 'date-fns';
+import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert as RNAlert,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as SecureStore from 'expo-secure-store';
-import { jwtDecode } from "jwt-decode";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { jwtDecode } from 'jwt-decode';
+import { fetchWeather, WeatherResponse } from '@/services/weatherApi';
+import { useCrop } from '@/context/CropContext';
 
 const WeatherStatItem = ({ Icon, value, label }: any) => {
-  const displayValue = value && String(value).trim() !== "" ? value : "-";
+  const displayValue = value && String(value).trim() !== '' ? value : '-';
 
   return (
     <View style={styles.statBox}>
@@ -31,35 +43,55 @@ const WeatherStatItem = ({ Icon, value, label }: any) => {
 export default function Home() {
   const insets = useSafeAreaInsets();
   const { t, i18n } = useTranslation();
+  const { selectedCrop, plantingDate, setPlantingDate } = useCrop();
+
   const [userName, setUserName] = useState('User');
   const [currentDate, setCurrentDate] = useState('');
+  const [weather, setWeather] = useState<WeatherResponse | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(true);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
 
-    const currentContentFont = getFont('content',i18n.language);
-  const weatherStats = [
-    { id: '1', label: t('home.weather.precipitation'), value: '80%', Icon: RainIcon },
-    { id: '2', label: t('home.weather.humidity'), value: '10%', Icon: HumidityIcon },
-    { id: '3', label: t('home.weather.wind_speed'), value: '10 km/h', Icon: WindIcon },
-  ];
+  const [showPlantingDateModal, setShowPlantingDateModal] = useState(false);
+  const [tempPlantingDate, setTempPlantingDate] = useState<Date>(
+    plantingDate || new Date()
+  );
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const marketData = [
-    { id: '1', location: 'Kalyan APMC', price: '2500', trend: '+6%', isUp: true },
-    { id: '2', location: 'Thane APMC', price: '1500', trend: '-10%', isUp: false },
-  ];
+  const currentContentFont = getFont('content', i18n.language);
 
-  const alertsData = [
-    {
-      id: '1',
-      title: 'Strong winds expected',
-      description: 'Avoid spraying and protect saplings',
-      icon: AlertIcon,
-    },
-    {
-      id: '2',
-      title: 'Heavy Rainfall Expected in next 24 hours',
-      description: 'Prepare for proper drainage',
-      icon: AlertIcon,
-    }
-  ];
+  // Fetch weather on component mount
+  useEffect(() => {
+    const loadWeather = async () => {
+      try {
+        setWeatherLoading(true);
+        setWeatherError(null);
+
+        // Get stored location coordinates
+        const lat = await AsyncStorage.getItem('userLatitude');
+        const lon = await AsyncStorage.getItem('userLongitude');
+
+        if (!lat || !lon) {
+          console.log('[Home] No location data found in storage');
+          setWeatherError('Location not set. Please complete onboarding first.');
+          setWeatherLoading(false);
+          return;
+        }
+
+        console.log(`[Home] Loading weather for lat=${lat}, lon=${lon}`);
+
+        const weatherData = await fetchWeather(parseFloat(lat), parseFloat(lon), 'kharif');
+        setWeather(weatherData);
+        console.log('[Home] Weather loaded successfully:', weatherData);
+      } catch (error: any) {
+        console.error('[Home] Weather fetch error:', error);
+        setWeatherError(error.message || 'Failed to load weather');
+      } finally {
+        setWeatherLoading(false);
+      }
+    };
+
+    loadWeather();
+  }, []);
 
   useEffect(() => {
     const date = format(new Date(), 'EEEE, dd MMM yyyy');
@@ -76,12 +108,67 @@ export default function Home() {
     };
     getUsername();
   }, []);
+
+  // Calculate days since/to planting with better formatting
+  const getDaysPlantingInfo = useCallback(() => {
+    if (!plantingDate) return null;
+
+    const today = new Date();
+    const days = differenceInDays(today, plantingDate);
+
+    if (days > 0) {
+      if (days === 1) {
+        return { label: t('home.crop.planting_yesterday'), days, dateStr: format(plantingDate, 'MMM dd, yyyy') };
+      }
+      return { label: t('home.crop.days_since', { days }), days, dateStr: format(plantingDate, 'MMM dd, yyyy') };
+    } else if (days < 0) {
+      const absDays = Math.abs(days);
+      if (absDays === 1) {
+        return { label: t('home.crop.planting_tomorrow'), days, dateStr: format(plantingDate, 'MMM dd, yyyy') };
+      }
+      return { label: t('home.crop.days_to', { days: absDays }), days, dateStr: format(plantingDate, 'MMM dd, yyyy') };
+    } else {
+      return { label: t('home.crop.planting_today'), days: 0, dateStr: format(plantingDate, 'MMM dd, yyyy') };
+    }
+  }, [plantingDate, t]);
+
+  // Handle date picker change
+  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      // Enforce 7-day window
+      const today = new Date();
+      const daysDiff = differenceInDays(selectedDate, today);
+
+      if (Math.abs(daysDiff) > 7) {
+        RNAlert.alert(
+          'Invalid Date',
+          'Planting date must be within 7 days (past or future)',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+
+      setTempPlantingDate(selectedDate);
+    }
+  };
+
+  // Confirm planting date
+  const handleConfirmPlantingDate = async () => {
+    setPlantingDate(tempPlantingDate);
+    await AsyncStorage.setItem('plantingDate', tempPlantingDate.toISOString());
+    setShowPlantingDateModal(false);
+  };
+
+  const daysInfo = getDaysPlantingInfo();
+
   return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={[styles.scrollContent, { paddingTop: 0 }]}
         showsVerticalScrollIndicator={false}
       >
+        {/* Header Section */}
         <View style={styles.headerWrapper}>
           <View style={styles.imageContainer}>
             <SceneryHeader width="100%" height={200} preserveAspectRatio="xMidYMid slice" />
@@ -91,89 +178,180 @@ export default function Home() {
             <AppText variant="content" style={styles.welcomeText}>
               {t('home.greeting')} <Text style={styles.nameText}>{userName}</Text>
             </AppText>
-            <AppText variant='content' style={styles.dateText}>{currentDate}</AppText>
+            <AppText variant="content" style={styles.dateText}>
+              {currentDate}
+            </AppText>
           </View>
         </View>
 
         <View style={styles.contentPadding}>
-          <AppText variant='header' style={styles.sectionTitle}>{t('home.sections.weather')}</AppText>
-
-          <ImageBackground
-            source={require('@/assets/images/weather_gradient.png')}
-            style={styles.weatherCard}
-            imageStyle={{ borderRadius: 20 }}
-          >
-            <View style={styles.weatherInfo}>
-              <AppText variant='content' bold style={styles.weatherLabel}>{t('home.weather.temperature')}</AppText>
-              <View style={styles.tempContainer}>
-                <AppText variant="content" bold style={styles.tempText}>22{"\u00B0"}C</AppText>
-              </View>
-              <AppText variant='content' style={styles.locationText}>{t('locations.default_region')}</AppText>
-            </View>
-          </ImageBackground>
-
-          <View style={styles.statsRow}>
-            {weatherStats.map((stat) => (
-              <WeatherStatItem key={stat.id} {...stat} />
-            ))}
-          </View>
-
-          <AppText variant='content' style={styles.lastUpdatedText}>
-            {t('common.last_updated', { timestamp: '11.00 am, 25/12/2025' })}
+          {/* Weather Section */}
+          <AppText variant="header" style={styles.sectionTitle}>
+            {t('home.sections.weather')}
           </AppText>
 
-          <AppText variant="header" style={styles.sectionTitle}>{t('home.sections.alerts')}</AppText>
-          {alertsData.map((item) => (
-            <Alert
-              key={item.id}
-              IconComponent={item.icon}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
-
-          <AppText variant='header' style={styles.sectionTitle}>{t('home.sections.crop')}</AppText>
-          <View style={styles.cropCard}>
-            <View style={styles.cropInfoLeft}>
-              <SaplingIcon height={20} width={20} />
-              <AppText variant='content' style={styles.cropName}>Tomato</AppText>
+          {weatherLoading ? (
+            <View style={styles.weatherLoadingContainer}>
+              <ActivityIndicator size="large" color="#186F71" />
+              <AppText variant="content" style={styles.weatherLoadingText}>
+                {t('common.loading', { defaultValue: 'Loading weather...' })}
+              </AppText>
             </View>
-            <View style={styles.cropInfoRight}>
-              <Ionicons name="time-outline" size={20} color="#186F71" />
-              <Text style={styles.cropDays}>{t('home.crop.days_since', { days: 7 })}</Text>
+          ) : weatherError ? (
+            <View style={styles.weatherErrorContainer}>
+              <Ionicons name="alert-circle" size={32} color="#DC3545" />
+              <AppText variant="content" style={styles.weatherErrorText}>
+                {weatherError}
+              </AppText>
             </View>
-          </View>
-
-          <AppText variant='header' style={styles.sectionTitle}>{t('home.sections.market')}</AppText>
-          <View style={styles.marketCard}>
-            <AppText variant='content' style={styles.currentPriceLabel}>Current Price</AppText>
-
-            {marketData.map((item) => (
-              <View key={item.id} style={styles.marketRow}>
-                <AppText variant='content' style={styles.locationTextMarket}>{item.location}</AppText>
-                
-                <AppText variant='content' style={styles.priceValueText}>
-                  ₹{item.price} <Text style={styles.perKgText}>{t('market.per_kg')}</Text>
-                </AppText>
-
-                <View style={styles.trendCapsule}>
-                  <Feather 
-                    name={item.isUp ? "trending-up" : "trending-down"} 
-                    size={16} 
-                    color={item.isUp ? "#28A745" : "#DC3545"} 
-                  />
-                  <AppText variant='content' style={[styles.trendText, { color: item.isUp ? "#28A745" : "#DC3545" }]}>
-                    {item.trend}
+          ) : weather ? (
+            <>
+              <ImageBackground
+                source={require('@/assets/images/weather_gradient.png')}
+                style={styles.weatherCard}
+                imageStyle={{ borderRadius: 20 }}
+              >
+                <View style={styles.weatherInfo}>
+                  <AppText variant="content" bold style={styles.weatherLabel}>
+                    {t('home.weather.temperature')}
+                  </AppText>
+                  <View style={styles.tempContainer}>
+                    <AppText variant="content" bold style={styles.tempText}>
+                      {weather.temperature_celsius ? `${Math.round(weather.temperature_celsius)}°C` : '-'}
+                    </AppText>
+                  </View>
+                  <AppText variant="content" style={styles.locationText}>
+                    {weather.district && weather.state 
+                      ? `${weather.district}, ${weather.state}`
+                      : weather.district || weather.state || t('locations.default_region')}
                   </AppText>
                 </View>
-              </View>
-            ))}
-          </View>
+              </ImageBackground>
 
-          <AppText variant='content' style={styles.lastUpdatedText}>{t('common.last_updated', { timestamp: '11.00 am, 25/12/2025' })}
-          </AppText>
+              <View style={styles.statsRow}>
+                <WeatherStatItem
+                  key="humidity"
+                  label={t('home.weather.humidity')}
+                  value={weather.humidity_percent ? `${Math.round(weather.humidity_percent)}%` : '-'}
+                  Icon={HumidityIcon}
+                />
+                <WeatherStatItem
+                  key="rainfall"
+                  label={t('home.weather.precipitation')}
+                  value={weather.avg_seasonal_rainfall_mm ? `${Math.round(weather.avg_seasonal_rainfall_mm)} mm` : '-'}
+                  Icon={RainIcon}
+                />
+                <WeatherStatItem
+                  key="wind"
+                  label={t('home.weather.wind_speed', { defaultValue: 'Wind Speed' })}
+                  value={weather.wind_speed_kmh ? `${Math.round(weather.wind_speed_kmh)} km/h` : '-'}
+                  Icon={WindIcon}
+                />
+              </View>
+
+              <AppText variant="content" style={styles.lastUpdatedText}>
+                {t('common.last_updated', { timestamp: format(new Date(), 'hh:mm a, dd/MM/yyyy') })}
+              </AppText>
+            </>
+          ) : null}
+
+          {/* Current Crop Section - Only show if crop selected */}
+          {selectedCrop && (
+            <>
+              <AppText variant="header" style={styles.sectionTitle}>
+                {t('home.sections.crop')}
+              </AppText>
+              <TouchableOpacity
+                style={styles.cropCard}
+                onPress={() => {
+                  setTempPlantingDate(plantingDate || new Date());
+                  setShowPlantingDateModal(true);
+                }}
+              >
+                <View style={styles.cropInfoLeft}>
+                  <SaplingIcon height={20} width={20} />
+                  <AppText variant="content" style={styles.cropName}>
+                    {selectedCrop}
+                  </AppText>
+                </View>
+                <View style={styles.cropInfoRight}>
+                  <Ionicons name="time-outline" size={20} color="#186F71" />
+                  <Text style={styles.cropDays}>
+                    {daysInfo ? daysInfo.label : t('home.crop.select_date')}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </ScrollView>
+
+      {/* Planting Date Modal */}
+      <Modal
+        visible={showPlantingDateModal}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowPlantingDateModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <AppText variant="header" style={styles.modalTitle}>
+              {t('home.crop.select_planting_date')}
+            </AppText>
+            <AppText variant="content" style={styles.modalSubtitle}>
+              {t('home.crop.date_window_note')}
+            </AppText>
+
+            {showDatePicker && (
+              <DateTimePicker
+                value={tempPlantingDate}
+                mode="date"
+                display="spinner"
+                onChange={handleDateChange}
+                maximumDate={addDays(new Date(), 7)}
+                minimumDate={addDays(new Date(), -7)}
+              />
+            )}
+
+            {!showDatePicker && (
+              <>
+                <TouchableOpacity
+                  style={styles.dateButton}
+                  onPress={() => setShowDatePicker(true)}
+                >
+                  <AppText variant="content" bold style={styles.dateButtonText}>
+                    {format(tempPlantingDate, 'MMM dd, yyyy')}
+                  </AppText>
+                </TouchableOpacity>
+
+                <AppText variant="content" style={styles.selectedDateInfo}>
+                  {format(tempPlantingDate, 'EEEE')} - {daysInfo?.label}
+                </AppText>
+              </>
+            )}
+
+            <View style={styles.modalButtonRow}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setShowPlantingDateModal(false)}
+              >
+                <AppText variant="content" bold style={styles.cancelButtonText}>
+                  {t('common.cancel')}
+                </AppText>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.modalButton, styles.confirmButton]}
+                onPress={handleConfirmPlantingDate}
+              >
+                <AppText variant="content" bold style={styles.confirmButtonText}>
+                  {t('common.confirm')}
+                </AppText>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -184,7 +362,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DDF1F9',
   },
   kronaFont: {
-    fontFamily: 'KronaOne'
+    fontFamily: 'KronaOne',
   },
   scrollContent: {
     paddingHorizontal: 0,
@@ -218,7 +396,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#156349',
     marginTop: 2,
-    fontFamily: 'OpenSans-Regular'
+    fontFamily: 'OpenSans-Regular',
   },
   contentPadding: {
     paddingHorizontal: 20,
@@ -231,9 +409,38 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingTop: 28,
   },
+  weatherLoadingContainer: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 20,
+    padding: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 120,
+  },
+  weatherLoadingText: {
+    marginTop: 12,
+    color: '#186F71',
+    fontSize: 14,
+  },
+  weatherErrorContainer: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 120,
+    borderColor: '#DC3545',
+    borderWidth: 1,
+  },
+  weatherErrorText: {
+    marginTop: 12,
+    color: '#DC3545',
+    fontSize: 12,
+    textAlign: 'center',
+  },
   weatherCard: {
-    width: '108%', 
-    padding: 24,
+    width: '108%',
+    padding: 16,
     justifyContent: 'center',
     elevation: 5,
     shadowColor: '#042f30',
@@ -246,51 +453,51 @@ const styles = StyleSheet.create({
   },
   weatherLabel: {
     color: '#ffffff',
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'OpenSans-Bold',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   tempContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   tempText: {
     color: '#FFFFFF',
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: 'KronaOne',
   },
   locationText: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'OpenSans-Regular',
     opacity: 0.9,
   },
-  statsRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    marginTop: 15, 
-    gap: 10 
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    gap: 8,
   },
-  statBox: { 
-    flex: 1, 
-    backgroundColor: '#BDDBE8', 
-    borderRadius: 16, 
-    borderColor: '#186F71', 
-    borderWidth: 0.8, 
-    paddingVertical: 15, 
-    alignItems: 'center', 
-    minHeight: 85 
+  statBox: {
+    flex: 1,
+    backgroundColor: '#BDDBE8',
+    borderRadius: 16,
+    borderColor: '#186F71',
+    borderWidth: 0.8,
+    paddingVertical: 12,
+    alignItems: 'center',
+    minHeight: 75,
   },
-  statValue: { 
-    fontSize: 12, 
-    color: '#186F71', 
-    marginTop: 6 
+  statValue: {
+    fontSize: 11,
+    color: '#186F71',
+    marginTop: 4,
   },
-  statLabel: { 
-    fontSize: 10, 
-    color: '#186F71', 
-    opacity: 0.7 
+  statLabel: {
+    fontSize: 9,
+    color: '#186F71',
+    opacity: 0.7,
   },
   cropCard: {
     flexDirection: 'row',
@@ -299,7 +506,6 @@ const styles = StyleSheet.create({
     padding: 15,
     justifyContent: 'space-between',
     alignItems: 'center',
-    opacity: 0.9,
     borderColor: '#186F71',
     borderWidth: 0.8,
     elevation: 5,
@@ -312,63 +518,6 @@ const styles = StyleSheet.create({
   cropInfoRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   cropName: { fontSize: 14, fontFamily: 'OpenSans-Bold', color: '#186F71' },
   cropDays: { fontSize: 12, color: '#186F71' },
-  marketCard: {
-    backgroundColor: '#BDDBE8',
-    borderRadius: 20,
-    padding: 20,
-    borderWidth: 0.8,
-    borderColor: '#186F71',
-    elevation: 5,
-    shadowColor: '#042f30',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  currentPriceLabel: {
-    fontSize: 14,
-    fontFamily: 'OpenSans-Bold',
-    color: '#186F71',
-    marginBottom: 15,
-  },
-  marketRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  locationTextMarket: {
-    flex: 1.5,
-    fontSize: 12,
-    color: '#186F71',
-    fontFamily: 'OpenSans-Regular',
-  },
-  priceValueText: {
-    flex: 1.5,
-    fontSize: 12,
-    fontFamily: 'OpenSans-Bold',
-    color: '#186F71',
-    marginLeft: 12,
-  },
-  perKgText: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Italic',
-    fontWeight: 'normal',
-  },
-  trendCapsule: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.05)', 
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    borderRadius: 20,
-    gap: 5,
-    minWidth: 75,
-    justifyContent: 'center',
-  },
-  trendText: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Bold',
-  },
   lastUpdatedText: {
     textAlign: 'right',
     fontSize: 10,
@@ -377,5 +526,72 @@ const styles = StyleSheet.create({
     marginTop: 8,
     opacity: 0.6,
     paddingRight: 5,
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalTitle: {
+    fontSize: 18,
+    color: '#156349',
+    marginBottom: 8,
+  },
+  modalSubtitle: {
+    fontSize: 12,
+    color: '#78909C',
+    marginBottom: 20,
+  },
+  dateButton: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 12,
+    padding: 15,
+    alignItems: 'center',
+    borderColor: '#186F71',
+    borderWidth: 1,
+    marginBottom: 12,
+  },
+  dateButtonText: {
+    fontSize: 14,
+    color: '#186F71',
+  },
+  selectedDateInfo: {
+    fontSize: 12,
+    color: '#78909C',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  modalButtonRow: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 20,
+  },
+  modalButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: '#BDDBE8',
+    borderColor: '#186F71',
+    borderWidth: 1,
+  },
+  cancelButtonText: {
+    color: '#186F71',
+  },
+  confirmButton: {
+    backgroundColor: '#186F71',
+  },
+  confirmButtonText: {
+    color: '#fff',
   },
 });

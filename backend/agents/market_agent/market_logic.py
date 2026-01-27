@@ -31,17 +31,24 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         return None
 
     # 2️⃣ Normalize price across states
-    min_price, max_price = sqlite3.connect(DB_PATH).execute(
-        """
-        SELECT MIN(p), MAX(p) FROM (
-            SELECT AVG(avg_modal_price) AS p
-            FROM state_daily_prices
-            WHERE LOWER(commodity) = LOWER(?)
-            GROUP BY state
-        )
-        """,
-        (crop,)
-    ).fetchone()
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        min_price, max_price = conn.execute(
+            """
+            SELECT MIN(p), MAX(p) FROM (
+                SELECT AVG(avg_modal_price) AS p
+                FROM state_daily_prices
+                WHERE LOWER(commodity) = LOWER(?)
+                GROUP BY state
+            )
+            """,
+            (crop,)
+        ).fetchone()
+    finally:
+        conn.close()
+
+    if min_price is None or max_price is None:
+        return None
 
     price_norm = (
         (price_raw - min_price) / (max_price - min_price)
@@ -78,7 +85,14 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         (crop,)
     )
 
-    vol_norm = (variance / max_variance) if max_variance else 0
+    # Handle None values for variance
+    if variance is None:
+        variance = 0
+    if max_variance is None or max_variance == 0:
+        vol_norm = 0
+    else:
+        vol_norm = variance / max_variance
+    
     stability = 1 - vol_norm
 
     # 4️⃣ Trend

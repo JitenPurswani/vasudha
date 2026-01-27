@@ -38,6 +38,7 @@ class WeatherDataOutput(BaseModel):
     temperature_celsius: float | None
     humidity_percent: float | None
     avg_seasonal_rainfall_mm: float | None
+    wind_speed_kmh: float | None
     status: str
 
 # --- 5. Reverse Geocoding ---
@@ -107,7 +108,7 @@ def get_district_from_coordinates(lat: float, lon: float) -> tuple[str | None, s
 # --- 6. Get Live Weather ---
 def get_live_weather(lat: float, lon: float) -> dict:
     if not API_KEY:
-        return {"temp": None, "humidity": None, "status": "APIKeyMissing"}
+        return {"temp": None, "humidity": None, "wind_speed": None, "status": "APIKeyMissing"}
 
     base_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {"lat": lat, "lon": lon, "appid": API_KEY, "units": "metric"}
@@ -116,14 +117,20 @@ def get_live_weather(lat: float, lon: float) -> dict:
         response = requests.get(base_url, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
+        
+        # Extract wind speed in m/s from OpenWeatherMap and convert to km/h (multiply by 3.6)
+        wind_speed_ms = data.get("wind", {}).get("speed")
+        wind_speed_kmh = (wind_speed_ms * 3.6) if wind_speed_ms is not None else None
+        
         return {
             "temp": data.get("main", {}).get("temp"),
             "humidity": data.get("main", {}).get("humidity"),
+            "wind_speed": wind_speed_kmh,
             "status": "OK"
         }
     except requests.exceptions.RequestException as e:
         print(f"❌ API Request Error: {e}")
-        return {"temp": None, "humidity": None, "status": "APIError"}
+        return {"temp": None, "humidity": None, "wind_speed": None, "status": "APIError"}
 
 # --- 7. Get Seasonal Rainfall ---
 def get_seasonal_rainfall(district: str, season: str) -> float | None:
@@ -190,6 +197,7 @@ async def get_combined_weather_data(
         temperature_celsius=weather_data["temp"],
         humidity_percent=weather_data["humidity"],
         avg_seasonal_rainfall_mm=rainfall_data,
+        wind_speed_kmh=weather_data["wind_speed"],
         status=status
     )
 

@@ -1,124 +1,206 @@
 import { AppText } from '@/components/AppText';
 import { Feather } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
   Dimensions,
+  Modal,
+  Pressable,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { useRoute } from '@react-navigation/native';
 import { fetchMarketEvaluation, fetchMarketForecast } from '@/services/marketApi';
 import { adaptMarketCard, adaptDualViewChart, validateChartData } from '@/services/marketAdapter';
+import { fetchMarketData } from '@/services/marketDataApi';
 import { APIError, NetworkError, TimeoutError } from '@/services/types';
 
 const screenWidth = Dimensions.get("window").width - 64;
 
-// Default state (Maharashtra) for market data
-const DEFAULT_STATE = "Maharashtra";
-
 export default function Market() {
+  const route = useRoute<any>();
+  const { t } = useTranslation();
+
+  // ===== DROPDOWN DATA (from API) =====
+  const [states, setStates] = useState<string[]>([]);
+  const [apmcsByState, setApmcsByState] = useState<Record<string, string[]>>({});
+  const [commoditiesByApmc, setCommoditiesByApmc] = useState<Record<string, string[]>>({});
+  const [dataLoading, setDataLoading] = useState(true);
+
+  // ===== MANUAL SELECTION STATE (dropdowns update these) =====
+  const [manualState, setManualState] = useState<string | null>(null);
+  const [manualApmc, setManualApmc] = useState<string | null>(null);
+  const [manualCrop, setManualCrop] = useState<string | null>(null);
+
+  // ===== ACTIVE STATE (APIs use these - only set on Evaluate or Redirect) =====
+  const [activeState, setActiveState] = useState<string | null>(null);
+  const [activeApmc, setActiveApmc] = useState<string | null>(null);
+  const [activeCrop, setActiveCrop] = useState<string | null>(null);
+
+  // ===== DROPDOWN OPEN/CLOSE =====
+  const [stateOpen, setStateOpen] = useState(false);
+  const [apmcOpen, setApmcOpen] = useState(false);
   const [cropOpen, setCropOpen] = useState(false);
-  const [selectedCrop, setSelectedCrop] = useState('Rice');
-  const { t, i18n } = useTranslation();
 
-  const crops = ['Rice', 'Wheat', 'Maize', 'Cotton'];
+  // ===== REDIRECT MODE FLAG =====
+  const [isRedirectMode, setIsRedirectMode] = useState(false);
+  const hasProcessedRedirect = useRef(false);
 
-  // Market evaluation state
+  // ===== EVALUATION STATE =====
   const [evaluationLoading, setEvaluationLoading] = useState(false);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [marketCard, setMarketCard] = useState<any>(null);
 
-  // Market forecast state
+  // ===== FORECAST STATE =====
   const [forecastLoading, setForecastLoading] = useState(false);
   const [forecastError, setForecastError] = useState<string | null>(null);
   const [chartData, setChartData] = useState<any>(null);
-
-  // Active time range
-  const [activeTime, setActiveTime] = useState<'30D' | '60D' | '90D'>('30D');
-
-  // Cached forecast data (to avoid re-fetching when switching time ranges)
   const [cachedForecast, setCachedForecast] = useState<any>(null);
 
-  // Fetch market evaluation when crop changes
+  // ===== TIME RANGE =====
+  const [activeTime, setActiveTime] = useState<'30D' | '60D' | '90D'>('30D');
+
+  // ===== ABORT CONTROLLER FOR CANCELLATION =====
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // ===== INITIALIZE DROPDOWN DATA =====
   useEffect(() => {
-    const fetchEvaluation = async () => {
-      setEvaluationLoading(true);
-      setEvaluationError(null);
+    const loadDropdownData = async () => {
       try {
-        console.log(`[Market Screen] Fetching evaluation for crop=${selectedCrop}, state=${DEFAULT_STATE}`);
-        const response = await fetchMarketEvaluation(selectedCrop, DEFAULT_STATE);
-        const card = adaptMarketCard(response);
-        console.log(`[Market Screen] Evaluation success:`, card);
-        setMarketCard(card);
+        console.log('[Market] Loading dropdown data...');
+        setDataLoading(true);
+        const response = await fetchMarketData();
+        setStates(response.states);
+        setApmcsByState(response.apmcs_by_state);
+        setCommoditiesByApmc(response.commodities_by_apmc);
+        console.log('[Market] Dropdown data loaded:', response.states.length, 'states');
       } catch (error) {
-        console.error(`[Market Screen] Evaluation error:`, error);
-        let errorMsg = "Failed to load market data";
-        if (error instanceof APIError) {
-          errorMsg = error.statusCode === 404 
-            ? "No market data available for this crop"
-            : `Error: ${error.message}`;
-        } else if (error instanceof TimeoutError) {
-          errorMsg = "Market data request timed out";
-        } else if (error instanceof NetworkError) {
-          errorMsg = "Network error loading market data";
-        }
-        setEvaluationError(errorMsg);
-        setMarketCard(null);
+        console.error('[Market] Failed to load dropdown data:', error);
       } finally {
-        setEvaluationLoading(false);
+        setDataLoading(false);
       }
     };
 
-    fetchEvaluation();
-  }, [selectedCrop]);
+    loadDropdownData();
+  }, []);
 
-  // Fetch market forecast when crop changes
+  // ===== HANDLE REDIRECT MODE (from Recommendation page) =====
   useEffect(() => {
-    const fetchForecast = async () => {
-      setForecastLoading(true);
-      setForecastError(null);
-      try {
-        console.log(`[Market Screen] Fetching forecast for crop=${selectedCrop}, state=${DEFAULT_STATE}`);
-        const response = await fetchMarketForecast(selectedCrop, DEFAULT_STATE);
-        console.log(`[Market Screen] Forecast response:`, response);
-        setCachedForecast(response);
+    // Only process redirect once, after dropdown data is loaded
+    if (dataLoading || hasProcessedRedirect.current) return;
 
-        // Adapt for current active time
-        const adapted = adaptDualViewChart(response, activeTime === '30D' ? 30 : activeTime === '60D' ? 60 : 90);
-        console.log(`[Market Screen] Adapted chart data:`, adapted);
-        if (validateChartData(adapted)) {
-          setChartData(adapted);
-        } else {
-          console.error(`[Market Screen] Chart data validation failed`);
-          setForecastError("Chart data validation failed");
-        }
-      } catch (error) {
-        console.error(`[Market Screen] Forecast error:`, error);
-        let errorMsg = "Failed to load price forecast";
-        if (error instanceof APIError) {
-          errorMsg = error.statusCode === 404
-            ? "Insufficient market history for this crop"
-            : `Error: ${error.message}`;
-        } else if (error instanceof TimeoutError) {
-          errorMsg = "Forecast request timed out";
-        } else if (error instanceof NetworkError) {
-          errorMsg = "Network error loading forecast";
-        }
-        setForecastError(errorMsg);
-        setChartData(null);
-      } finally {
-        setForecastLoading(false);
+    const cropFromRoute = route.params?.crop;
+    const stateFromRoute = route.params?.state;
+
+    if (cropFromRoute && stateFromRoute) {
+      console.log('[Market] REDIRECT MODE - crop:', cropFromRoute, 'state:', stateFromRoute);
+      hasProcessedRedirect.current = true;
+      setIsRedirectMode(true);
+
+      // Find first APMC for this state (for redirect only)
+      const firstApmc = apmcsByState[stateFromRoute]?.[0] || null;
+
+      // Set BOTH manual and active states immediately
+      setManualState(stateFromRoute);
+      setManualApmc(firstApmc);
+      setManualCrop(cropFromRoute);
+
+      setActiveState(stateFromRoute);
+      setActiveApmc(firstApmc);
+      setActiveCrop(cropFromRoute);
+
+      // Trigger evaluation automatically for redirect
+      runEvaluation(cropFromRoute, stateFromRoute);
+    }
+  }, [dataLoading, route.params?.crop, route.params?.state, apmcsByState]);
+
+  // ===== CORE EVALUATION FUNCTION =====
+  const runEvaluation = useCallback(async (crop: string, state: string) => {
+    // Cancel any existing request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
+    console.log('[Market] Running evaluation - crop:', crop, 'state:', state);
+
+    setEvaluationLoading(true);
+    setForecastLoading(true);
+    setEvaluationError(null);
+    setForecastError(null);
+    setMarketCard(null);
+    setChartData(null);
+
+    try {
+      // Fetch evaluation and forecast in parallel
+      const [evalResponse, forecastResponse] = await Promise.all([
+        fetchMarketEvaluation(crop, state),
+        fetchMarketForecast(crop, state),
+      ]);
+
+      // Check if aborted
+      if (abortControllerRef.current?.signal.aborted) {
+        console.log('[Market] Request was aborted, ignoring results');
+        return;
       }
-    };
 
-    fetchForecast();
-  }, [selectedCrop]);
+      // Process evaluation
+      const card = adaptMarketCard(evalResponse);
+      setMarketCard(card);
 
-  // Update chart when active time changes (using cached data)
+      // Process forecast
+      setCachedForecast(forecastResponse);
+      const adapted = adaptDualViewChart(forecastResponse, 30);
+      if (validateChartData(adapted)) {
+        setChartData(adapted);
+      }
+
+      console.log('[Market] Evaluation complete');
+    } catch (error: any) {
+      if (error?.name === 'AbortError') {
+        console.log('[Market] Request cancelled');
+        return;
+      }
+
+      console.error('[Market] Evaluation error:', error);
+      let errorMsg = 'Failed to load market data';
+      if (error instanceof APIError) {
+        errorMsg = error.statusCode === 404 
+          ? 'No market data available for this crop/state combination' 
+          : `Error: ${error.message}`;
+      } else if (error instanceof TimeoutError) {
+        errorMsg = 'Request timed out. Please try again.';
+      } else if (error instanceof NetworkError) {
+        errorMsg = 'Network error. Check your connection.';
+      }
+      setEvaluationError(errorMsg);
+    } finally {
+      setEvaluationLoading(false);
+      setForecastLoading(false);
+    }
+  }, []);
+
+  // ===== HANDLE "EVALUATE MARKET" BUTTON CLICK =====
+  const handleEvaluateClick = useCallback(() => {
+    if (!manualState || !manualApmc || !manualCrop) {
+      setEvaluationError('Please select State, APMC, and Commodity first');
+      return;
+    }
+
+    // Copy manual → active
+    setActiveState(manualState);
+    setActiveApmc(manualApmc);
+    setActiveCrop(manualCrop);
+
+    // Run evaluation with manual values
+    runEvaluation(manualCrop, manualState);
+  }, [manualState, manualApmc, manualCrop, runEvaluation]);
+
+  // ===== UPDATE CHART WHEN TIME RANGE CHANGES =====
   useEffect(() => {
     if (cachedForecast) {
       const horizon = activeTime === '30D' ? 30 : activeTime === '60D' ? 60 : 90;
@@ -127,258 +209,477 @@ export default function Market() {
         setChartData(adapted);
       }
     }
-  }, [activeTime]);
+  }, [activeTime, cachedForecast]);
+
+  // ===== DROPDOWN SELECTION HANDLERS (with dependency locking) =====
+  const handleStateSelect = useCallback((state: string) => {
+    console.log('[Market] State selected:', state);
+    setManualState(state);
+    // Clear dependent selections (NO auto-select)
+    setManualApmc(null);
+    setManualCrop(null);
+    setStateOpen(false);
+  }, []);
+
+  const handleApmcSelect = useCallback((apmc: string) => {
+    console.log('[Market] APMC selected:', apmc);
+    setManualApmc(apmc);
+    // Clear dependent selection (NO auto-select)
+    setManualCrop(null);
+    setApmcOpen(false);
+  }, []);
+
+  const handleCropSelect = useCallback((crop: string) => {
+    console.log('[Market] Crop selected:', crop);
+    setManualCrop(crop);
+    setCropOpen(false);
+  }, []);
+
+  // ===== CLOSE ALL DROPDOWNS =====
+  const closeAllDropdowns = useCallback(() => {
+    setStateOpen(false);
+    setApmcOpen(false);
+    setCropOpen(false);
+  }, []);
+
+  // ===== COMPUTED VALUES =====
+  const availableApmcs = manualState ? (apmcsByState[manualState] || []) : [];
+  const availableCrops = manualApmc ? (commoditiesByApmc[manualApmc] || []) : [];
+  const canEvaluate = manualState && manualApmc && manualCrop && !evaluationLoading && !forecastLoading;
+  const isLoading = evaluationLoading || forecastLoading;
+
+  // ===== RENDER =====
+  // Check if any dropdown is open
+  const anyDropdownOpen = stateOpen || apmcOpen || cropOpen;
 
   return (
-    <ScrollView style={{ backgroundColor: "#DDF1F9" }}
-      contentContainerStyle={{
-        padding: 16,
-        paddingBottom: 80,
-      }}
+    <ScrollView 
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
-      nestedScrollEnabled>
-
+      keyboardShouldPersistTaps="handled"
+    >
       {/* Header */}
       <AppText variant="header" style={styles.title}>{t('market.title')}</AppText>
       <AppText variant="content" style={styles.subtitle}>{t('market.subtitle')}</AppText>
 
-      {/* Filters */}
-      <View style={styles.filterRow}>
-        <View style={[styles.dropdown, styles.locationBox]}>
-          <Feather name="map-pin" size={16} color="#156349" />
-          <AppText variant="content" bold style={styles.dropdownText}>{t('locations.default_region')}</AppText>
-        </View>
-        <View style={styles.cropWrapper}>
-
-          <TouchableOpacity
-            style={styles.dropdown}
-            onPress={() => setCropOpen(!cropOpen)}
-            activeOpacity={0.7}>
-            <AppText variant='content' bold style={styles.dropdownText}>{t('crops.'+selectedCrop.toLowerCase())}</AppText>
-
-            <Feather
-              name={cropOpen ? 'chevron-up' : 'chevron-down'}
-              size={16}
-              color="#156349"
-            />
-          </TouchableOpacity>
-
-          {cropOpen && (
-            <View style={styles.dropdownMenu}>
-              {crops.map(crop => (
-                <TouchableOpacity
-                  key={crop}
-                  style={styles.dropdownItem}
-                  onPress={() => {
-                    setSelectedCrop(crop);
-                    setCropOpen(false);
-                  }}
-                >
-                  <AppText style={styles.dropdownItemText}>{t('crops.'+crop.toLowerCase())}</AppText>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-        </View>
-
-      </View>
-
-      {/* Current Market */}
-
-      <AppText variant='header' style={ styles.sectionTitle }>{t('market.current_market')}</AppText>
-
-      {evaluationLoading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#156349" />
-          <AppText variant='content' style={styles.loadingText}>{t('common.loading')}</AppText>
+      {/* Loading dropdown data */}
+      {dataLoading && (
+        <View style={styles.dataLoadingContainer}>
+          <ActivityIndicator size="small" color="#156349" />
+          <AppText variant="content" style={styles.dataLoadingText}>Loading market data...</AppText>
         </View>
       )}
 
-      {evaluationError && (
-        <View style={styles.errorContainer}>
-          <Feather name="alert-circle" size={20} color="#DC3545" />
-          <AppText variant='content' style={styles.errorText}>{evaluationError}</AppText>
-        </View>
-      )}
-
-      {marketCard && !evaluationLoading && (
-        <View style={styles.marketCard}>
-          {/* Current Price */}
-          <AppText variant='content' bold style={styles.currentPriceLabel}>{t('market.current_price')}</AppText>
-
-          <View style={styles.marketRow}>
-            <AppText variant='content' bold style={styles.locationTextMarket}>{marketCard.location}</AppText>
-
-            <AppText variant='content' bold style={styles.priceValueText}>
-              {marketCard.price} <AppText variant='content' style={styles.perKgText}>{t('market.per_kg')}</AppText>
-            </AppText>
-
-            <View style={styles.trendCapsule}>
-              <Feather
-                name={marketCard.isUp ? 'trending-up' : 'trending-down'}
-                size={16}
-                color={marketCard.isUp ? '#28A745' : '#DC3545'}
-              />
-              <AppText
-              variant='content' bold
-                style={[
-                  styles.trendText,
-                  { color: marketCard.isUp ? '#28A745' : '#DC3545' },
-                ]}
-              >
-                {marketCard.trend}
+      {/* Dropdowns Row */}
+      {!dataLoading && (
+        <View style={styles.dropdownsContainer}>
+          {/* STATE DROPDOWN */}
+          <View style={[styles.dropdownWrapper, { zIndex: 3000 }]}>
+            <TouchableOpacity
+              style={styles.dropdown}
+              onPress={() => {
+                setApmcOpen(false);
+                setCropOpen(false);
+                setStateOpen(!stateOpen);
+              }}
+              activeOpacity={0.7}
+            >
+              <AppText variant="content" bold style={styles.dropdownText} numberOfLines={1}>
+                {manualState || 'Select State'}
               </AppText>
-            </View>
+              <Feather name={stateOpen ? 'chevron-up' : 'chevron-down'} size={14} color="#156349" />
+            </TouchableOpacity>
+
+            {stateOpen && states.length > 0 && (
+              <Modal
+                visible={stateOpen}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setStateOpen(false)}
+              >
+                <Pressable style={styles.modalOverlay} onPress={() => setStateOpen(false)}>
+                  <View style={[styles.modalDropdown, { top: 140, left: 16, right: 16, maxWidth: (Dimensions.get('window').width - 32) / 3 - 4 }]}>
+                    <ScrollView
+                      style={styles.dropdownMenu}
+                      showsVerticalScrollIndicator={true}
+                      bounces={false}
+                    >
+                      {states.map(state => (
+                        <TouchableOpacity
+                          key={state}
+                          style={styles.dropdownItem}
+                          onPress={() => handleStateSelect(state)}
+                          activeOpacity={0.6}
+                        >
+                          <AppText style={[
+                            styles.dropdownItemText,
+                            manualState === state && styles.dropdownItemTextSelected
+                          ]}>
+                            {state}
+                          </AppText>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  </View>
+                </Pressable>
+              </Modal>
+            )}
           </View>
 
-          <AppText variant='content' style={styles.lastUpdatedText}>
-            {t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}
+          {/* APMC DROPDOWN - Disabled until State selected */}
+          <View style={[styles.dropdownWrapper, { zIndex: 2000 }]}>
+            <TouchableOpacity
+              style={[styles.dropdown, !manualState && styles.dropdownDisabled]}
+              onPress={() => {
+                if (!manualState) return;
+                setStateOpen(false);
+                setCropOpen(false);
+                setApmcOpen(!apmcOpen);
+              }}
+              activeOpacity={manualState ? 0.7 : 1}
+              disabled={!manualState}
+            >
+              <AppText 
+                variant="content" 
+                bold 
+                style={[styles.dropdownText, !manualState && styles.dropdownTextDisabled]} 
+                numberOfLines={1}
+              >
+                {!manualState ? 'Select State First' : (manualApmc || 'Select APMC')}
+              </AppText>
+              <Feather 
+                name={apmcOpen ? 'chevron-up' : 'chevron-down'} 
+                size={14} 
+                color={manualState ? "#156349" : "#999"} 
+              />
+            </TouchableOpacity>
+
+            {apmcOpen && manualState && availableApmcs.length > 0 && (
+              <Modal
+                visible={apmcOpen}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setApmcOpen(false)}
+              >
+                <Pressable style={styles.modalOverlay} onPress={() => setApmcOpen(false)}>
+                  <View style={[styles.modalDropdown, { top: 140, left: 16 + (Dimensions.get('window').width - 32) / 3, maxWidth: (Dimensions.get('window').width - 32) / 3 - 4 }]}>
+                    <ScrollView
+                      style={styles.dropdownMenu}
+                      showsVerticalScrollIndicator={true}
+                      bounces={false}
+                    >
+                      {availableApmcs.map(apmc => (
+                        <TouchableOpacity
+                          key={apmc}
+                          style={styles.dropdownItem}
+                          onPress={() => handleApmcSelect(apmc)}
+                          activeOpacity={0.6}
+                        >
+                          <AppText style={[
+                            styles.dropdownItemText,
+                            manualApmc === apmc && styles.dropdownItemTextSelected
+                          ]}>
+                            {apmc}
+                          </AppText>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  </View>
+                </Pressable>
+              </Modal>
+            )}
+          </View>
+
+          {/* CROP DROPDOWN - Disabled until APMC selected */}
+          <View style={[styles.dropdownWrapper, { zIndex: 1000 }]}>
+            <TouchableOpacity
+              style={[styles.dropdown, !manualApmc && styles.dropdownDisabled]}
+              onPress={() => {
+                if (!manualApmc) return;
+                setStateOpen(false);
+                setApmcOpen(false);
+                setCropOpen(!cropOpen);
+              }}
+              activeOpacity={manualApmc ? 0.7 : 1}
+              disabled={!manualApmc}
+            >
+              <AppText 
+                variant="content" 
+                bold 
+                style={[styles.dropdownText, !manualApmc && styles.dropdownTextDisabled, { fontSize: 11 }]} 
+                numberOfLines={1}
+              >
+                {!manualState ? 'Select State First' : (!manualApmc ? 'Select APMC First' : (manualCrop || 'Select Commodity'))}
+              </AppText>
+              <Feather 
+                name={cropOpen ? 'chevron-up' : 'chevron-down'} 
+                size={14} 
+                color={manualApmc ? "#156349" : "#999"} 
+              />
+            </TouchableOpacity>
+
+            {cropOpen && manualApmc && availableCrops.length > 0 && (
+              <Modal
+                visible={cropOpen}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setCropOpen(false)}
+              >
+                <Pressable style={styles.modalOverlay} onPress={() => setCropOpen(false)}>
+                  <View style={[styles.modalDropdown, { top: 140, right: 16, maxWidth: (Dimensions.get('window').width - 32) / 3 - 4 }]}>
+                    <ScrollView
+                      style={styles.dropdownMenu}
+                      showsVerticalScrollIndicator={true}
+                      bounces={false}
+                    >
+                      {availableCrops.map(crop => (
+                        <TouchableOpacity
+                          key={crop}
+                          style={styles.dropdownItem}
+                          onPress={() => handleCropSelect(crop)}
+                          activeOpacity={0.6}
+                        >
+                          <AppText style={[
+                            styles.dropdownItemText,
+                            manualCrop === crop && styles.dropdownItemTextSelected
+                          ]}>
+                            {crop}
+                          </AppText>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  </View>
+                </Pressable>
+              </Modal>
+            )}
+          </View>
+        </View>
+      )}
+
+      {/* EVALUATE BUTTON */}
+      {!dataLoading && (
+        <TouchableOpacity
+          style={[styles.evaluateButton, !canEvaluate && styles.evaluateButtonDisabled]}
+          onPress={handleEvaluateClick}
+          disabled={!canEvaluate}
+          activeOpacity={canEvaluate ? 0.7 : 1}
+        >
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#FFFFFF" />
+          ) : (
+            <AppText variant="content" bold style={styles.evaluateButtonText}>
+              {t('market.evaluate_button', { defaultValue: 'Evaluate Market' })}
+            </AppText>
+          )}
+        </TouchableOpacity>
+      )}
+
+      {/* Selection Summary - shows current selection (manual) OR active evaluation */}
+      {(manualCrop && manualState && manualApmc) && (
+        <View style={styles.selectionSummary}>
+          <AppText variant="content" style={styles.selectionText}>
+            {activeCrop && activeState ? (
+              // Show what's currently being displayed (evaluated)
+              <>Showing: <AppText bold>{activeCrop}</AppText> in <AppText bold>{activeState}</AppText>{activeApmc && <AppText> ({activeApmc})</AppText>}</>
+            ) : (
+              // Show what's selected but not yet evaluated
+              <>Selected: <AppText bold>{manualCrop}</AppText> in <AppText bold>{manualState}</AppText> ({manualApmc}) - Tap Evaluate</>
+            )}
           </AppText>
         </View>
       )}
 
+      {/* ERROR STATE */}
+      {evaluationError && (
+        <View style={styles.errorContainer}>
+          <Feather name="alert-circle" size={18} color="#DC3545" />
+          <AppText variant="content" style={styles.errorText}>{evaluationError}</AppText>
+        </View>
+      )}
 
-      {/* Historical Prices */}
-      <AppText variant='header' style={ styles.sectionTitle }>{t('market.historical_prices')}</AppText>
-
-      <View style={styles.chartCard}>
-        <AppText style={styles.chartDesc}>
-          {t('market.graph_title')}
-        </AppText>
-
-        {/* Time Filters */}
-        <View style={styles.timeRow}>
-          {["30D", "60D", "90D"].map(label => (
-            <TouchableOpacity
-              key={label}
-              onPress={() => setActiveTime(label as '30D' | '60D' | '90D')}
-              style={[
-                styles.timeBtn,
-                activeTime === label && styles.timeBtnActive,
-              ]}
-            >
-              <AppText
-              variant='content' bold
-                style={[
-                  styles.timeBtnText,
-                  activeTime === label && styles.timeBtnTextActive,
-                ]}
-              >
-                {label}
+      {/* CURRENT MARKET - Only show when we have data */}
+      {marketCard && !evaluationLoading && (
+        <>
+          <AppText variant="header" style={styles.sectionTitle}>{t('market.current_market')}</AppText>
+          <View style={styles.marketCard}>
+            <AppText variant="content" bold style={styles.currentPriceLabel}>{t('market.current_price')}</AppText>
+            <View style={styles.marketRow}>
+              <AppText variant="content" bold style={styles.locationTextMarket}>{marketCard.location}</AppText>
+              <AppText variant="content" bold style={styles.priceValueText}>
+                {marketCard.price} <AppText variant="content" style={styles.perKgText}>{t('market.per_kg')}</AppText>
               </AppText>
-            </TouchableOpacity>
-          ))}        
+              <View style={styles.trendCapsule}>
+                <Feather
+                  name={marketCard.isUp ? 'trending-up' : 'trending-down'}
+                  size={14}
+                  color={marketCard.isUp ? '#28A745' : '#DC3545'}
+                />
+                <AppText
+                  variant="content" bold
+                  style={[styles.trendText, { color: marketCard.isUp ? '#28A745' : '#DC3545' }]}
+                >
+                  {marketCard.trend}
+                </AppText>
+              </View>
+            </View>
+            <AppText variant="content" style={styles.lastUpdatedText}>
+              {t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}
+            </AppText>
           </View>
+        </>
+      )}
 
-        {/* Loading State */}
-        {forecastLoading && (
-          <View style={styles.chartLoadingContainer}>
-            <ActivityIndicator size="large" color="#156349" />
-            <AppText variant='content' style={styles.chartLoadingText}>{t('common.loading')}</AppText>
-          </View>
-        )}
-
-        {/* Error State */}
-        {forecastError && (
-          <View style={styles.chartErrorContainer}>
-            <Feather name="alert-circle" size={20} color="#DC3545" />
-            <AppText variant='content' style={styles.chartErrorText}>{forecastError}</AppText>
-          </View>
-        )}
-
-        {/* Chart */}
-        {/* Chart */}
-{chartData && !forecastLoading && (() => {
-  const anchoredHistorical = [...chartData.historicalPrices];
-  const anchoredForecast = [...chartData.forecastPrices];
-
-  // 1. Ensure visual continuity: Historical ends exactly where Forecast begins
-  if (anchoredHistorical.length > 0 && anchoredForecast.length > 0) {
-    anchoredHistorical[anchoredHistorical.length - 1] = anchoredForecast[0];
-  }
-
-  const histLen = anchoredHistorical.length;
-  const foreLen = anchoredForecast.length;
-  // Total unique points on the X-axis (they share the 'Today' point)
-  const totalLen = histLen + foreLen - 1;
-
-  // 2. Build labels based on the shared point
-  const labels = Array(totalLen).fill("").map((_, i) => {
-    if (i === 0) return `Past ${activeTime}`;
-    if (i === histLen - 1) return "Today";
-    if (i === totalLen - 1) return `Next ${activeTime}`;
-    return "";
-  });
-
-  // 3. Create datasets with nulls to prevent "ghost" lines
-  // Historical line: Values from 0 to 'Today', then null
-  const historicalDataset = Array(totalLen).fill(null);
-  anchoredHistorical.forEach((val, i) => {
-    historicalDataset[i] = val;
-  });
-
-  // Forecast line: null until 'Today', then actual values
-  const forecastDataset = Array(totalLen).fill(null);
-  anchoredForecast.forEach((val, i) => {
-    forecastDataset[i + (histLen - 1)] = val;
-  });
-
-  return (
-    <View pointerEvents="box-none">
-      <LineChart
-        data={{
-          labels,
-          datasets: [
-            {
-              data: historicalDataset,
-              color: () => "#156349",
-              strokeWidth: 3, // Slightly thicker for better visibility
-            },
-            {
-              data: forecastDataset,
-              color: () => "#FF9500",
-              strokeWidth: 3,
-            },
-          ],
-        }}
-        width={screenWidth}
-        height={220}
-        yAxisLabel="₹"
-        fromZero={false}
-        segments={4}
-        chartConfig={{
-          backgroundColor: "#CFE9F1",
-          backgroundGradientFrom: "#CFE9F1",
-          backgroundGradientTo: "#CFE9F1",
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(21, 99, 73, ${opacity})`,
-          labelColor: () => "#156349",
-          propsForDots: {
-            r: "0", // Keeps dots hidden as per your original design
-          },
-        }}
-        style={styles.chart}
-        withDots={false}
-        withVerticalLines={false}
-      />
-
-      {/* Legend */}
-      <View style={styles.legend}>
-        <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: "#156349" }]} />
-          <AppText variant='content' style={styles.legendLabel}>Past {activeTime}</AppText>
+      {/* LOADING STATE FOR EVALUATION */}
+      {evaluationLoading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#156349" />
+          <AppText variant="content" style={styles.loadingText}>Evaluating market...</AppText>
         </View>
-        <View style={styles.legendItem}>
-          <View style={[styles.legendDot, { backgroundColor: "#FF9500" }]} />
-          <AppText variant='content' style={styles.legendLabel}>Next {activeTime}</AppText>
-        </View>
-      </View>
-    </View>
-  );
-})()}
+      )}
 
-        <AppText variant='content' style={styles.lastUpdatedText}>{t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}</AppText>
-      </View>
+      {/* PRICE TREND (formerly Historical Prices) - Only show when we have chart data */}
+      {(chartData || forecastLoading) && (
+        <>
+          <AppText variant="header" style={styles.sectionTitle}>
+            {t('market.price_trend', { defaultValue: 'Price Trend' })}
+          </AppText>
+
+          <View style={styles.chartCard}>
+            <AppText style={styles.chartDesc}>{t('market.graph_title')}</AppText>
+
+            {/* Time Filters */}
+            <View style={styles.timeRow}>
+              {["30D", "60D", "90D"].map(label => (
+                <TouchableOpacity
+                  key={label}
+                  onPress={() => setActiveTime(label as '30D' | '60D' | '90D')}
+                  style={[styles.timeBtn, activeTime === label && styles.timeBtnActive]}
+                >
+                  <AppText
+                    variant="content" bold
+                    style={[styles.timeBtnText, activeTime === label && styles.timeBtnTextActive]}
+                  >
+                    {label}
+                  </AppText>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Chart Loading */}
+            {forecastLoading && (
+              <View style={styles.chartLoadingContainer}>
+                <ActivityIndicator size="large" color="#156349" />
+                <AppText variant="content" style={styles.chartLoadingText}>{t('common.loading')}</AppText>
+              </View>
+            )}
+
+            {/* Chart Error */}
+            {forecastError && (
+              <View style={styles.chartErrorContainer}>
+                <Feather name="alert-circle" size={18} color="#DC3545" />
+                <AppText variant="content" style={styles.chartErrorText}>{forecastError}</AppText>
+              </View>
+            )}
+
+            {/* Chart - DO NOT TOUCH THIS LOGIC */}
+            {chartData && !forecastLoading && (() => {
+              const anchoredHistorical = [...chartData.historicalPrices];
+              const anchoredForecast = [...chartData.forecastPrices];
+
+              if (anchoredHistorical.length > 0 && anchoredForecast.length > 0) {
+                anchoredHistorical[anchoredHistorical.length - 1] = anchoredForecast[0];
+              }
+
+              const histLen = anchoredHistorical.length;
+              const foreLen = anchoredForecast.length;
+              const totalLen = histLen + foreLen - 1;
+
+              const labels = Array(totalLen).fill("").map((_, i) => {
+                if (i === 0) return `Past ${activeTime}`;
+                if (i === histLen - 1) return "Today";
+                if (i === totalLen - 1) return `Next ${activeTime}`;
+                return "";
+              });
+
+              const historicalDataset = Array(totalLen).fill(null);
+              anchoredHistorical.forEach((val, i) => {
+                historicalDataset[i] = val;
+              });
+
+              const forecastDataset = Array(totalLen).fill(null);
+              anchoredForecast.forEach((val, i) => {
+                forecastDataset[i + (histLen - 1)] = val;
+              });
+
+              return (
+                <View pointerEvents="box-none">
+                  <LineChart
+                    data={{
+                      labels,
+                      datasets: [
+                        {
+                          data: historicalDataset,
+                          color: () => "#156349",
+                          strokeWidth: 3,
+                        },
+                        {
+                          data: forecastDataset,
+                          color: () => "#FF9500",
+                          strokeWidth: 3,
+                        },
+                      ],
+                    }}
+                    width={screenWidth}
+                    height={220}
+                    yAxisLabel="₹"
+                    fromZero={false}
+                    segments={4}
+                    chartConfig={{
+                      backgroundColor: "#CFE9F1",
+                      backgroundGradientFrom: "#CFE9F1",
+                      backgroundGradientTo: "#CFE9F1",
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `rgba(21, 99, 73, ${opacity})`,
+                      labelColor: () => "#156349",
+                      propsForDots: { r: "0" },
+                    }}
+                    style={styles.chart}
+                    withDots={false}
+                    withVerticalLines={false}
+                  />
+
+                  {/* Legend */}
+                  <View style={styles.legend}>
+                    <View style={styles.legendItem}>
+                      <View style={[styles.legendDot, { backgroundColor: "#156349" }]} />
+                      <AppText variant="content" style={styles.legendLabel}>Past {activeTime}</AppText>
+                    </View>
+                    <View style={styles.legendItem}>
+                      <View style={[styles.legendDot, { backgroundColor: "#FF9500" }]} />
+                      <AppText variant="content" style={styles.legendLabel}>Next {activeTime}</AppText>
+                    </View>
+                  </View>
+                </View>
+              );
+            })()}
+
+            <AppText variant="content" style={styles.lastUpdatedText}>
+              {t('common.last_updated', { timestamp: new Date().toLocaleTimeString() })}
+            </AppText>
+          </View>
+        </>
+      )}
+
+      {/* Empty State - No evaluation yet */}
+      {!evaluationLoading && !marketCard && !evaluationError && !isRedirectMode && (
+        <View style={styles.emptyState}>
+          <Feather name="bar-chart-2" size={48} color="#BDDBE8" />
+          <AppText variant="content" style={styles.emptyStateText}>
+            Select State, APMC, and Commodity{'\n'}then tap "Evaluate Market"
+          </AppText>
+        </View>
+      )}
 
     </ScrollView>
   );
@@ -386,225 +687,284 @@ export default function Market() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#DDF1F9"
+    flex: 1,
+    backgroundColor: "#DDF1F9",
   },
-  kronaFont: {
-    fontFamily: 'KronaOne'
+  contentContainer: {
+    padding: 16,
+    paddingBottom: 100,
   },
   title: {
     fontSize: 15,
     color: '#156349',
-    marginTop: 12,
-    alignSelf: 'flex-start',
-    marginLeft: 2,
-    width: 500,
+    marginTop: 8,
+    marginBottom: 4,
   },
   subtitle: {
     fontFamily: 'OpenSans-Bold',
     fontStyle: 'italic',
     fontSize: 11,
     color: '#186F71',
-    marginBottom: 12,
-    alignSelf: 'flex-start',
-    marginLeft: 12,
-    width: '100%',
-  },
-  filterRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
     marginBottom: 16,
   },
-  cropWrapper: {
-    width: '48%',
-    position: 'relative'
-  },
-  dropdown: {
-    backgroundColor: '#FFFFFF',
-    padding: 12,
-    borderRadius: 12,
+
+  // Data Loading
+  dataLoadingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    elevation: 2,
+    justifyContent: 'center',
+    padding: 20,
+    gap: 10,
+  },
+  dataLoadingText: {
+    color: '#156349',
+    fontSize: 13,
   },
 
-  dropdownMenu: {
+  // Dropdowns Container
+  dropdownsContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12,
+  },
+
+  // Dropdown Wrapper
+  dropdownWrapper: {
+    flex: 1,
+    position: 'relative',
+  },
+
+  // Dropdown Button
+  dropdown: {
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 4,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    minHeight: 42,
+  },
+  dropdownDisabled: {
+    backgroundColor: '#F0F0F0',
+    opacity: 0.7,
+  },
+  dropdownText: {
+    color: '#156349',
+    fontSize: 11,
+    flex: 1,
+  },
+  dropdownTextDisabled: {
+    color: '#999',
+  },
+
+  // Dropdown Menu
+  dropdownMenuContainer: {
     position: 'absolute',
     top: '100%',
     left: 0,
     right: 0,
+    marginTop: 4,
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginTop: 2,
-    elevation: 4,
-    zIndex: 1000,
-    overflow: 'hidden',
-  },
-
-  dropdownItem: {
-    padding: 12,
-    borderBottomWidth: 0.5,
+    borderRadius: 10,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    borderWidth: 1,
     borderColor: '#E0E0E0',
   },
-  dropdownText: {
-    color: '#156349',
-    fontSize: 14,
-    fontFamily: 'OpenSans-SemiBold',
+  modalOverlay: {
     flex: 1,
-    marginHorizontal: 10,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  modalDropdown: {
+    position: 'absolute',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    maxHeight: 250,
+  },
+  dropdownMenu: {
+    maxHeight: 240,
+  },
+  dropdownItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E8E8E8',
   },
   dropdownItemText: {
+    fontSize: 12,
+    color: '#333',
+  },
+  dropdownItemTextSelected: {
     color: '#156349',
+    fontWeight: '600',
+  },
+
+  // Evaluate Button
+  evaluateButton: {
+    backgroundColor: '#156349',
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+  },
+  evaluateButtonDisabled: {
+    backgroundColor: '#B0B0B0',
+  },
+  evaluateButtonText: {
+    color: '#FFFFFF',
     fontSize: 14,
   },
+
+  // Selection Summary
+  selectionSummary: {
+    backgroundColor: '#E8F5E9',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 16,
+    borderLeftWidth: 3,
+    borderLeftColor: '#156349',
+  },
+  selectionText: {
+    fontSize: 12,
+    color: '#333',
+  },
+
+  // Section Title
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "600",
     color: "#156349",
-    marginVertical: 10,
-  },
-  card: {
-    backgroundColor: "#CFE9F1",
-    padding: 14,
-    borderRadius: 14,
+    marginTop: 8,
     marginBottom: 10,
   },
-  marketName: {
-    fontWeight: "600",
-    color: "#156349",
-    marginBottom: 6,
-  },
+
+  // Market Card
   marketCard: {
     backgroundColor: '#BDDBE8',
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: 16,
+    padding: 16,
     borderWidth: 0.8,
     borderColor: '#186F71',
-    elevation: 5,
-    shadowColor: '#042f30',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    marginBottom: 2,
+    elevation: 3,
+    marginBottom: 16,
   },
   currentPriceLabel: {
-    fontSize: 14,
-    fontFamily: 'OpenSans-Bold',
+    fontSize: 13,
     color: '#186F71',
-    marginBottom: 15,
+    marginBottom: 12,
   },
   marketRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  locationBox: {
-    width: '48%',
-    pointerEvents: 'none',
+    marginBottom: 10,
   },
   locationTextMarket: {
     flex: 1.5,
-    fontSize: 12,
+    fontSize: 11,
     color: '#186F71',
-    fontFamily: 'OpenSans-Regular',
   },
   priceValueText: {
     flex: 1.5,
     fontSize: 12,
-    fontFamily: 'OpenSans-Bold',
+    fontWeight: 'bold',
     color: '#186F71',
-    marginLeft: 12,
   },
   perKgText: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Italic',
+    fontSize: 10,
     fontWeight: 'normal',
   },
   trendCapsule: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.05)',
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    borderRadius: 20,
-    gap: 5,
-    minWidth: 75,
-    justifyContent: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 12,
+    gap: 4,
   },
   trendText: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Bold',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: 'rgba(24,111,113,0.2)',
-    marginVertical: 12,
+    fontSize: 11,
+    fontWeight: 'bold',
   },
 
-  lastUpdatedText: {
-    textAlign: 'right',
-    fontSize: 10,
+  // Loading Container
+  loadingContainer: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 16,
+    padding: 32,
+    borderWidth: 0.8,
+    borderColor: '#186F71',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  loadingText: {
+    marginTop: 10,
     color: '#186F71',
-    fontFamily: 'OpenSans-Italic',
-    marginTop: 8,
-    opacity: 0.6,
-    paddingRight: 5,
-  },
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#156349",
-  },
-  unit: {
     fontSize: 12,
-    fontWeight: "400",
   },
-  badgePositive: {
-    backgroundColor: "#DFF5E1",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
+
+  // Error Container
+  errorContainer: {
+    backgroundColor: '#FCE4E4',
+    borderRadius: 10,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#DC3545',
+    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
-  badgeNegative: {
-    backgroundColor: "#FBE1E1",
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 20,
-  },
-  badgeText: {
+  errorText: {
+    color: '#DC3545',
     fontSize: 12,
-    fontWeight: "600",
+    flex: 1,
   },
+
+  // Chart Card
   chartCard: {
     backgroundColor: "#CFE9F1",
-    borderRadius: 16,
+    borderRadius: 14,
     borderWidth: 0.8,
     borderColor: "#186F71",
     padding: 12,
-    marginBottom: 40,
+    marginBottom: 24,
     overflow: "hidden",
   },
   chartDesc: {
-    fontSize: 13,
+    fontSize: 12,
     color: "#4A6F7C",
     marginBottom: 8,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   chart: {
-    borderRadius: 12,
+    borderRadius: 10,
     marginVertical: 8,
-  },
-  updated: {
-    textAlign: "center",
-    fontSize: 11,
-    color: "#4A6F7C",
-    marginTop: 6,
   },
   timeRow: {
     flexDirection: "row",
@@ -616,104 +976,89 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
     paddingVertical: 6,
-    borderRadius: 12,
+    borderRadius: 8,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
   },
   timeBtnActive: {
     backgroundColor: "#186F71",
-    borderColor: "#186F71",
   },
   timeBtnText: {
-    fontSize: 12,
+    fontSize: 11,
     color: "#156349",
-    fontFamily: 'OpenSans-SemiBold',
   },
   timeBtnTextActive: {
     color: "#FFFFFF",
   },
-  // Loading states
-  loadingContainer: {
-    backgroundColor: '#BDDBE8',
-    borderRadius: 20,
-    padding: 40,
-    borderWidth: 0.8,
-    borderColor: '#186F71',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  loadingText: {
-    marginTop: 12,
-    color: '#186F71',
-    fontSize: 12,
-  },
   chartLoadingContainer: {
-    height: 200,
+    height: 180,
     justifyContent: 'center',
     alignItems: 'center',
   },
   chartLoadingText: {
-    marginTop: 12,
+    marginTop: 10,
     color: '#156349',
     fontSize: 12,
   },
-  // Error states
-  errorContainer: {
-    backgroundColor: '#FCE4E4',
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#DC3545',
-    marginBottom: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  errorText: {
-    color: '#DC3545',
-    fontSize: 12,
-    flex: 1,
-  },
   chartErrorContainer: {
-    height: 120,
+    height: 100,
     backgroundColor: '#FCE4E4',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#DC3545',
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 8,
     flexDirection: 'row',
-    gap: 12,
+    gap: 10,
+    paddingHorizontal: 16,
   },
   chartErrorText: {
     color: '#DC3545',
     fontSize: 12,
     flex: 1,
   },
+
   // Legend
   legend: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 24,
-    marginVertical: 12,
-    paddingHorizontal: 8,
+    gap: 20,
+    marginVertical: 10,
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   legendDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
   legendLabel: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#156349',
-    fontFamily: 'OpenSans-Regular',
+  },
+
+  // Last Updated
+  lastUpdatedText: {
+    textAlign: 'right',
+    fontSize: 9,
+    color: '#186F71',
+    opacity: 0.6,
+    marginTop: 6,
+  },
+
+  // Empty State
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 48,
+    paddingHorizontal: 24,
+  },
+  emptyStateText: {
+    marginTop: 16,
+    fontSize: 13,
+    color: '#7A9DA8',
+    textAlign: 'center',
+    lineHeight: 20,
   },
 });
