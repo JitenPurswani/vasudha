@@ -234,9 +234,12 @@
     "edit": "ਪ੍ਰੋਫਾਈਲ ਸੋਧੋ",
     "soil_params": "ਮਿੱਟੀ ਦੇ ਤੱਤਾਂ ਦੀ ਮਾਤਰਾ",
     "save": "ਸੰਭਾਲੋ",
+    "cancel": "ਰੱਦ ਕਰੋ",
     "username": "ਯੂਜ਼ਰਨੇਮ",
     "language": "ਭਾਸ਼ਾ",
-    "location": "ਸਥਾਨ"
+    "location": "ਸਥਾਨ",
+    "update_success": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਅੱਪਡੇਟ ਕੀਤੀ ਗਈ",
+    "update_error": "ਪ੍ਰੋਫਾਈਲ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
   },
   "notifications": {
     "title": "ਸੂਚਨਾਵਾਂ"

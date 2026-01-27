@@ -16,3 +16,7 @@ def create_access_token(data: dict):
     expire = datetime.now(timezone.utc) + timedelta(days=Config.EXPIRE_DAYS)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, Config.SECRET_KEY, algorithm=Config.ALGORITHM)
+
+def decode_access_token(token: str):
+    """Decode and validate JWT token"""
+    return jwt.decode(token, Config.SECRET_KEY, algorithms=[Config.ALGORITHM])

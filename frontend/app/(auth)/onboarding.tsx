@@ -64,7 +64,6 @@ export default function OnboardingScreen() {
     const [districtDisplay, setDistrictDisplay] = useState('');
     const [stateNameDisplay, setStateNameDisplay] = useState('');
 
-    // Helper to get translated or fallback to title case
     const getTranslatedDistrict = () => {
         const key = `locations.districts.${stateName}.${district}`;
         const translated = t(key);

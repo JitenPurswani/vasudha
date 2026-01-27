@@ -213,6 +213,23 @@ const api = {
       status: response.status,
       data: data,
     };
+  },
+ patch: async (endpoint: string, body: any, currentUsername: string) => {
+    const url = `${AUTH_URL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
+    const token = await SecureStore.getItemAsync('userToken');
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw { response: { status: response.status, data } };
+    return { status: response.status, data };
   }
 };
 
