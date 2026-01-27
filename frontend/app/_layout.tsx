@@ -43,6 +43,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '@/context/AuthContext';
+import { CropProvider } from '@/context/CropContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -89,13 +90,15 @@ export default function RootLayout() {
   }
   return (
     <AuthProvider>
-    <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(main)" />
-      </Stack>
-    </SafeAreaProvider>
+      <CropProvider>
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(main)" />
+          </Stack>
+        </SafeAreaProvider>
+      </CropProvider>
     </AuthProvider>
   );
 }

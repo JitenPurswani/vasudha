@@ -178,7 +178,10 @@
     "default_region": "Kalyan, Maharashtra"
   },
   "common": {
-    "last_updated": "Last Updated: {{timestamp}}"
+    "last_updated": "Last Updated: {{timestamp}}",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "status": "Status"
   },
   "home": {
     "greeting": "Hello,",
@@ -195,7 +198,14 @@
       "wind_speed": "Wind Speed"
     },
     "crop": {
-      "days_since": "{{days}} since planting"
+      "days_since": "{{days}} days since planting",
+      "days_to": "{{days}} days until planting",
+      "planting_today": "Planting today",
+      "planting_yesterday": "Planted yesterday",
+      "planting_tomorrow": "Planting tomorrow",
+      "select_date": "Select planting date",
+      "select_planting_date": "When will you plant?",
+      "date_window_note": "Choose a date within 7 days (past or future)"
     },
     "market": {
       "per_kg": "per kg"
@@ -207,7 +217,10 @@
     "seasonal": "Seasonal",
     "all_season": "All Seasons",
     "top_recommendation": "Top Recommendation",
-    "why_this_crop": "Why This Crop?"
+    "why_this_crop": "Why This Crop?",
+    "sustainability_score": "Sustainability",
+    "market": "Market",
+    "select": "Select"
   },
   "market": {
     "title": "Market Prices",
