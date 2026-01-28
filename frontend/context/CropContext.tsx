@@ -1,4 +1,8 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const CROP_STORAGE_KEY = 'vasudha_selected_crop';
+const PLANTING_DATE_KEY = 'vasudha_planting_date';
 
 interface CropContextType {
   selectedCrop: string | null;
@@ -11,12 +15,55 @@ interface CropContextType {
 const CropContext = createContext<CropContextType | null>(null);
 
 export const CropProvider = ({ children }: { children: React.ReactNode }) => {
-  const [selectedCrop, setSelectedCrop] = useState<string | null>(null);
-  const [plantingDate, setPlantingDate] = useState<Date | null>(null);
+  const [selectedCrop, setSelectedCropState] = useState<string | null>(null);
+  const [plantingDate, setPlantingDateState] = useState<Date | null>(null);
 
-  const clearCrop = () => {
-    setSelectedCrop(null);
-    setPlantingDate(null);
+  // Load persisted data on mount
+  useEffect(() => {
+    const loadPersistedData = async () => {
+      try {
+        const storedCrop = await AsyncStorage.getItem(CROP_STORAGE_KEY);
+        const storedDate = await AsyncStorage.getItem(PLANTING_DATE_KEY);
+        
+        if (storedCrop) {
+          setSelectedCropState(storedCrop);
+        }
+        if (storedDate) {
+          setPlantingDateState(new Date(storedDate));
+        }
+      } catch (error) {
+        console.error('[CropContext] Failed to load persisted data:', error);
+      }
+    };
+    loadPersistedData();
+  }, []);
+
+  const setSelectedCrop = async (crop: string) => {
+    setSelectedCropState(crop);
+    try {
+      await AsyncStorage.setItem(CROP_STORAGE_KEY, crop);
+    } catch (error) {
+      console.error('[CropContext] Failed to persist crop:', error);
+    }
+  };
+
+  const setPlantingDate = async (date: Date) => {
+    setPlantingDateState(date);
+    try {
+      await AsyncStorage.setItem(PLANTING_DATE_KEY, date.toISOString());
+    } catch (error) {
+      console.error('[CropContext] Failed to persist planting date:', error);
+    }
+  };
+
+  const clearCrop = async () => {
+    setSelectedCropState(null);
+    setPlantingDateState(null);
+    try {
+      await AsyncStorage.multiRemove([CROP_STORAGE_KEY, PLANTING_DATE_KEY]);
+    } catch (error) {
+      console.error('[CropContext] Failed to clear persisted data:', error);
+    }
   };
 
   return (

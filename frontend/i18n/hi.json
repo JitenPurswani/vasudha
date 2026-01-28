@@ -201,7 +201,20 @@
       "wind_speed": "हवा की गति"
     },
     "crop": {
-      "days_since": "रोपण से {{days}} दिन"
+      "days_since": "रोपण से {{days}} दिन",
+      "days_to": "रोपण में {{days}} दिन बाकी",
+      "planting_today": "आज रोपण",
+      "planting_yesterday": "कल रोपण किया",
+      "planting_tomorrow": "कल रोपण करना है",
+      "select_date": "रोपण तिथि चुनें",
+      "select_planting_date": "कब रोपण करेंगे?",
+      "date_window_note": "7 दिनों के भीतर तिथि चुनें",
+      "day_n": "दिन {{n}}",
+      "days_to_harvest": "कटाई में {{days}} दिन बाकी",
+      "ready_to_harvest": "कटाई के लिए तैयार!",
+      "next_stage": "अगला: {{stage}} {{days}} दिनों में",
+      "view_all_crops": "सभी {{count}} फसलें देखें",
+      "tap_to_select": "फसल चुनने के लिए टैप करें"
     },
     "market": {
       "per_kg": "प्रति किलो"

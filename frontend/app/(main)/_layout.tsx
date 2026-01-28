@@ -4,6 +4,29 @@ import ProfileIcon from '@/assets/images/profile.svg';
 import { Stack, usePathname, useRouter } from 'expo-router';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { NotificationProvider, useNotifications } from '@/context/NotificationContext';
+
+function NotificationBell() {
+  const router = useRouter();
+  const { unreadCount } = useNotifications();
+  
+  return (
+    <TouchableOpacity onPress={() => router.push('/(main)/notifications')}>
+      <View style={styles.bellContainer}>
+        <View style={styles.iconCircle}>
+          <NotificationsIcon width={24} height={24} />
+        </View>
+        {unreadCount > 0 && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </Text>
+          </View>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+}
 
 export default function MainLayout() {
   const router = useRouter();
@@ -18,6 +41,7 @@ export default function MainLayout() {
    const fabBottom = isFullPage ? 20 + insets.bottom : 85 + insets.bottom;
   
   return (
+    <NotificationProvider>
     <View style={{flex: 1}}>
     <Stack
       screenOptions={{
@@ -38,11 +62,7 @@ export default function MainLayout() {
               <ProfileIcon width={24} height={24} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('/(main)/notifications')}>
-              <View style={styles.iconCircle}>
-              <NotificationsIcon width={24} height={24} />
-              </View>
-            </TouchableOpacity>
+            <NotificationBell />
           </View>
         ),
       }}
@@ -74,6 +94,7 @@ export default function MainLayout() {
         </View>
       </TouchableOpacity> */}
   </View>
+  </NotificationProvider>
   );
 }
 
@@ -93,6 +114,13 @@ const styles = StyleSheet.create({
     gap: 15, 
     marginRight: 15 
   },
+  bellContainer: {
+    position: 'relative',
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   iconCircle: {
     width: 36,
     height: 36,
@@ -100,6 +128,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2FBFF',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  badge: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: '#E53935',
+    borderRadius: 9,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+    borderWidth: 2,
+    borderColor: '#DDF1F9',
+  },
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 9,
+    fontFamily: 'OpenSans-Bold',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
   fab: {
     position: 'absolute',

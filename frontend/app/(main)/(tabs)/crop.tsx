@@ -13,6 +13,7 @@ import {
   Modal,
   Text,
   Alert as RNAlert,
+  TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +22,8 @@ import SaplingIcon from '../../../assets/images/sapling.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchRecommendationsWithSustainability, CropRecommendation, SustainabilityResult } from '@/services/recommendationApi';
 import { useCrop } from '@/context/CropContext';
+import { useActiveCrops, CropGrowthState } from '@/context/ActiveCropsContext';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -182,9 +185,16 @@ export default function Crop() {
   const [selectedSustainability, setSelectedSustainability] = useState<SustainabilityResult | null>(null);
   const [showSustainabilityModal, setShowSustainabilityModal] = useState(false);
   const [userState, setUserState] = useState<string | null>(null);
+  
+  // Crop selection modal state
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [selectedCropForModal, setSelectedCropForModal] = useState<string | null>(null);
+  const [plantingDate, setPlantingDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const { t, i18n } = useTranslation();
   const { setSelectedCrop } = useCrop();
+  const { addCrop, getCropProfile, activeCrops } = useActiveCrops();
 
   // Get current season
   const getCurrentSeason = useCallback((): "kharif" | "rabi" | "zaid" => {
@@ -267,15 +277,59 @@ export default function Crop() {
     return () => { isMounted = false; };
   }, [mode, retryKey, getCurrentSeason]);
 
-  // Handle crop selection
+  // Handle crop selection - show modal first
   const handleSelectCrop = useCallback((cropName: string) => {
-    setSelectedCrop(cropName);
-    RNAlert.alert(
-      'Crop Selected',
-      `${cropName} selected! You can now set your planting date on the Home screen.`,
-      [{ text: 'OK' }]
-    );
-  }, [setSelectedCrop]);
+    setSelectedCropForModal(cropName.toLowerCase());
+    setPlantingDate(new Date());
+    setShowCropModal(true);
+  }, []);
+
+  // Handle confirm crop selection with planting date
+  const handleConfirmCropSelection = useCallback(async () => {
+    if (!selectedCropForModal) return;
+    
+    try {
+      // Get user location
+      const lat = await AsyncStorage.getItem('userLatitude');
+      const lon = await AsyncStorage.getItem('userLongitude');
+      const locationStr = await AsyncStorage.getItem('userLocation');
+      
+      let location: { state?: string; district?: string } = {};
+      if (locationStr) {
+        try {
+          const parsed = JSON.parse(locationStr);
+          location = { state: parsed.state, district: parsed.district };
+        } catch (e) {}
+      }
+      
+      // Add crop to active crops
+      await addCrop({
+        cropKey: selectedCropForModal,
+        plantingDate: plantingDate,
+        latitude: lat ? parseFloat(lat) : 0,
+        longitude: lon ? parseFloat(lon) : 0,
+        location,
+      });
+      
+      // Also update old CropContext for backward compatibility
+      setSelectedCrop(selectedCropForModal);
+      
+      setShowCropModal(false);
+      
+      const profile = getCropProfile(selectedCropForModal);
+      const displayName = profile?.displayName || selectedCropForModal;
+      const duration = profile?.growthDurationDays || 0;
+      
+      RNAlert.alert(
+        '🌱 Crop Added',
+        `${displayName} has been added to your active crops!\n\nGrowth duration: ~${duration} days\nPlanting date: ${plantingDate.toLocaleDateString()}`,
+        [{ text: 'OK' }]
+      );
+    } catch (error) {
+      console.error('[Crop] Failed to add crop:', error);
+      RNAlert.alert('Error', 'Failed to add crop. Please try again.');
+    }
+  }, [selectedCropForModal, plantingDate, addCrop, setSelectedCrop, getCropProfile]);
 
   return (
     <View style={styles.page}>
@@ -490,6 +544,102 @@ export default function Crop() {
                 Close
               </AppText>
             </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Crop Selection Modal with Planting Date */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showCropModal}
+        onRequestClose={() => setShowCropModal(false)}
+      >
+        <View style={styles.cropModalOverlay}>
+          <View style={styles.cropModalContent}>
+            <View style={styles.cropModalHeader}>
+              <AppText variant="header" style={styles.cropModalTitle}>
+                Add Crop
+              </AppText>
+              <TouchableOpacity onPress={() => setShowCropModal(false)}>
+                <Ionicons name="close" size={24} color="#186F71" />
+              </TouchableOpacity>
+            </View>
+
+            {selectedCropForModal && (
+              <>
+                <View style={styles.cropModalInfo}>
+                  <View style={styles.cropModalIcon}>
+                    <CropIcon width={40} height={40} />
+                  </View>
+                  <View style={styles.cropModalDetails}>
+                    <AppText variant="content" bold style={styles.cropModalName}>
+                      {getCropProfile(selectedCropForModal)?.displayName || selectedCropForModal}
+                    </AppText>
+                    <AppText variant="content" style={styles.cropModalDuration}>
+                      Growth duration: ~{getCropProfile(selectedCropForModal)?.growthDurationDays || '?'} days
+                    </AppText>
+                    <AppText variant="content" style={styles.cropModalCategory}>
+                      Category: {getCropProfile(selectedCropForModal)?.category || 'Unknown'}
+                    </AppText>
+                  </View>
+                </View>
+
+                <View style={styles.cropModalDateSection}>
+                  <AppText variant="content" bold style={styles.cropModalLabel}>
+                    When did you plant this crop?
+                  </AppText>
+                  <TouchableOpacity 
+                    style={styles.datePickerButton}
+                    onPress={() => setShowDatePicker(true)}
+                  >
+                    <Ionicons name="calendar-outline" size={20} color="#186F71" />
+                    <AppText variant="content" style={styles.datePickerText}>
+                      {plantingDate.toLocaleDateString('en-IN', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                      })}
+                    </AppText>
+                    <Ionicons name="chevron-down" size={16} color="#666" />
+                  </TouchableOpacity>
+                </View>
+
+                {showDatePicker && (
+                  <DateTimePicker
+                    value={plantingDate}
+                    mode="date"
+                    display="default"
+                    maximumDate={new Date()}
+                    minimumDate={new Date(Date.now() - 365 * 24 * 60 * 60 * 1000)}
+                    onChange={(event, date) => {
+                      setShowDatePicker(false);
+                      if (date) setPlantingDate(date);
+                    }}
+                  />
+                )}
+
+                <View style={styles.cropModalActions}>
+                  <TouchableOpacity 
+                    style={styles.cropModalCancelBtn}
+                    onPress={() => setShowCropModal(false)}
+                  >
+                    <AppText variant="content" style={styles.cropModalCancelText}>
+                      Cancel
+                    </AppText>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.cropModalConfirmBtn}
+                    onPress={handleConfirmCropSelection}
+                  >
+                    <Ionicons name="add" size={20} color="#FFF" />
+                    <AppText variant="content" bold style={styles.cropModalConfirmText}>
+                      Add Crop
+                    </AppText>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
           </View>
         </View>
       </Modal>
@@ -908,5 +1058,117 @@ const styles = StyleSheet.create({
   modalCloseText: {
     color: '#FFFFFF',
     fontSize: 16,
+  },
+  // Crop Selection Modal Styles
+  cropModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+  },
+  cropModalContent: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 24,
+    paddingBottom: 40,
+  },
+  cropModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  cropModalTitle: {
+    fontSize: 18,
+    color: '#186F71',
+  },
+  cropModalInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F2FBFF',
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 24,
+  },
+  cropModalIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#E8F5E9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  cropModalDetails: {
+    flex: 1,
+  },
+  cropModalName: {
+    fontSize: 18,
+    color: '#186F71',
+    marginBottom: 4,
+  },
+  cropModalDuration: {
+    fontSize: 14,
+    color: '#156349',
+    marginBottom: 2,
+  },
+  cropModalCategory: {
+    fontSize: 12,
+    color: '#666',
+    textTransform: 'capitalize',
+  },
+  cropModalDateSection: {
+    marginBottom: 24,
+  },
+  cropModalLabel: {
+    fontSize: 14,
+    color: '#186F71',
+    marginBottom: 12,
+  },
+  datePickerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F2FBFF',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#B5D4E0',
+    gap: 12,
+  },
+  datePickerText: {
+    flex: 1,
+    fontSize: 16,
+    color: '#156349',
+  },
+  cropModalActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  cropModalCancelBtn: {
+    flex: 1,
+    backgroundColor: '#F2FBFF',
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#B5D4E0',
+  },
+  cropModalCancelText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  cropModalConfirmBtn: {
+    flex: 2,
+    backgroundColor: '#186F71',
+    borderRadius: 12,
+    paddingVertical: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  cropModalConfirmText: {
+    fontSize: 14,
+    color: '#FFFFFF',
   },
 });

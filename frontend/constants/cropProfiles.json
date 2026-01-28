@@ -1,0 +1,717 @@
+{
+  "rice": {
+    "displayName": "Rice",
+    "category": "cereal",
+    "growthDurationDays": 120,
+    "marketNames": ["Rice", "Paddy", "Paddy(Dhan)"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 21, "description": "Nursery & transplanting" },
+      { "name": "tillering", "startDay": 22, "endDay": 45, "description": "Active tillering phase" },
+      { "name": "vegetative", "startDay": 46, "endDay": 70, "description": "Stem elongation" },
+      { "name": "reproductive", "startDay": 71, "endDay": 95, "description": "Panicle initiation & flowering" },
+      { "name": "ripening", "startDay": 96, "endDay": 120, "description": "Grain filling & maturity" }
+    ]
+  },
+  "maize": {
+    "displayName": "Maize",
+    "category": "cereal",
+    "growthDurationDays": 100,
+    "marketNames": ["Maize", "Corn", "Makka"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Seed emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 45, "description": "Leaf development" },
+      { "name": "tasseling", "startDay": 46, "endDay": 60, "description": "Tassel & silk emergence" },
+      { "name": "grain-fill", "startDay": 61, "endDay": 85, "description": "Kernel development" },
+      { "name": "maturity", "startDay": 86, "endDay": 100, "description": "Drying & harvest ready" }
+    ]
+  },
+  "moong": {
+    "displayName": "Green Gram (Moong)",
+    "category": "pulse",
+    "growthDurationDays": 70,
+    "marketNames": ["Moong", "Green Gram", "Mung Bean", "Moong Dal"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 7, "description": "Seed emergence" },
+      { "name": "vegetative", "startDay": 8, "endDay": 30, "description": "Leaf & branch development" },
+      { "name": "flowering", "startDay": 31, "endDay": 45, "description": "Flower formation" },
+      { "name": "pod-formation", "startDay": 46, "endDay": 60, "description": "Pod development" },
+      { "name": "maturity", "startDay": 61, "endDay": 70, "description": "Pod drying & harvest" }
+    ]
+  },
+  "sesamum": {
+    "displayName": "Sesame",
+    "category": "oilseed",
+    "growthDurationDays": 90,
+    "marketNames": ["Sesamum", "Sesame", "Til", "Gingelly"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Seed emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 35, "description": "Plant establishment" },
+      { "name": "flowering", "startDay": 36, "endDay": 55, "description": "Flowering phase" },
+      { "name": "capsule-formation", "startDay": 56, "endDay": 75, "description": "Capsule development" },
+      { "name": "maturity", "startDay": 76, "endDay": 90, "description": "Capsule drying & harvest" }
+    ]
+  },
+  "wheat": {
+    "displayName": "Wheat",
+    "category": "cereal",
+    "growthDurationDays": 130,
+    "marketNames": ["Wheat", "Gehun"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 14, "description": "Seed emergence" },
+      { "name": "tillering", "startDay": 15, "endDay": 45, "description": "Tiller formation" },
+      { "name": "jointing", "startDay": 46, "endDay": 75, "description": "Stem elongation" },
+      { "name": "heading", "startDay": 76, "endDay": 100, "description": "Head emergence & flowering" },
+      { "name": "ripening", "startDay": 101, "endDay": 130, "description": "Grain fill & maturity" }
+    ]
+  },
+  "rapeseed": {
+    "displayName": "Rapeseed/Mustard",
+    "category": "oilseed",
+    "growthDurationDays": 120,
+    "marketNames": ["Rapeseed", "Mustard", "Sarson", "Rai"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Seed emergence" },
+      { "name": "rosette", "startDay": 11, "endDay": 35, "description": "Leaf rosette formation" },
+      { "name": "bolting", "startDay": 36, "endDay": 60, "description": "Stem elongation" },
+      { "name": "flowering", "startDay": 61, "endDay": 90, "description": "Flowering & pod initiation" },
+      { "name": "maturity", "startDay": 91, "endDay": 120, "description": "Pod filling & ripening" }
+    ]
+  },
+  "jowar": {
+    "displayName": "Sorghum (Jowar)",
+    "category": "cereal",
+    "growthDurationDays": 110,
+    "marketNames": ["Jowar", "Sorghum", "Juar"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Seed emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 45, "description": "Leaf development" },
+      { "name": "boot", "startDay": 46, "endDay": 65, "description": "Flag leaf & panicle formation" },
+      { "name": "flowering", "startDay": 66, "endDay": 85, "description": "Anthesis & pollination" },
+      { "name": "maturity", "startDay": 86, "endDay": 110, "description": "Grain filling & drying" }
+    ]
+  },
+  "potato": {
+    "displayName": "Potato",
+    "category": "vegetable",
+    "growthDurationDays": 100,
+    "marketNames": ["Potato", "Aloo", "Batata"],
+    "seasons": ["rabi", "kharif"],
+    "stages": [
+      { "name": "sprout", "startDay": 1, "endDay": 15, "description": "Sprout emergence" },
+      { "name": "vegetative", "startDay": 16, "endDay": 40, "description": "Stem & leaf growth" },
+      { "name": "tuber-initiation", "startDay": 41, "endDay": 60, "description": "Tuber formation begins" },
+      { "name": "tuber-bulking", "startDay": 61, "endDay": 85, "description": "Tuber enlargement" },
+      { "name": "maturity", "startDay": 86, "endDay": 100, "description": "Skin set & harvest" }
+    ]
+  },
+  "onion": {
+    "displayName": "Onion",
+    "category": "vegetable",
+    "growthDurationDays": 130,
+    "marketNames": ["Onion", "Pyaz", "Kanda"],
+    "seasons": ["rabi", "kharif"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 30, "description": "Nursery growth" },
+      { "name": "transplant", "startDay": 31, "endDay": 50, "description": "Establishment after transplant" },
+      { "name": "bulb-initiation", "startDay": 51, "endDay": 75, "description": "Bulb formation begins" },
+      { "name": "bulb-development", "startDay": 76, "endDay": 115, "description": "Bulb enlargement" },
+      { "name": "maturity", "startDay": 116, "endDay": 130, "description": "Top fall & curing" }
+    ]
+  },
+  "sunflower": {
+    "displayName": "Sunflower",
+    "category": "oilseed",
+    "growthDurationDays": 100,
+    "marketNames": ["Sunflower", "Surajmukhi"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 12, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 13, "endDay": 40, "description": "Leaf development" },
+      { "name": "bud-stage", "startDay": 41, "endDay": 55, "description": "Head formation" },
+      { "name": "flowering", "startDay": 56, "endDay": 75, "description": "Bloom & pollination" },
+      { "name": "maturity", "startDay": 76, "endDay": 100, "description": "Seed fill & drying" }
+    ]
+  },
+  "cotton": {
+    "displayName": "Cotton",
+    "category": "fiber",
+    "growthDurationDays": 180,
+    "marketNames": ["Cotton", "Kapas", "Narma"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 14, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 15, "endDay": 50, "description": "Canopy development" },
+      { "name": "squaring", "startDay": 51, "endDay": 80, "description": "Square formation" },
+      { "name": "flowering", "startDay": 81, "endDay": 120, "description": "Bloom & boll setting" },
+      { "name": "boll-opening", "startDay": 121, "endDay": 180, "description": "Boll maturation & picking" }
+    ]
+  },
+  "barley": {
+    "displayName": "Barley",
+    "category": "cereal",
+    "growthDurationDays": 120,
+    "marketNames": ["Barley", "Jau", "Jav"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 12, "description": "Emergence" },
+      { "name": "tillering", "startDay": 13, "endDay": 40, "description": "Tiller formation" },
+      { "name": "stem-extension", "startDay": 41, "endDay": 70, "description": "Jointing & elongation" },
+      { "name": "heading", "startDay": 71, "endDay": 95, "description": "Head emergence" },
+      { "name": "ripening", "startDay": 96, "endDay": 120, "description": "Grain fill & maturity" }
+    ]
+  },
+  "ragi": {
+    "displayName": "Finger Millet (Ragi)",
+    "category": "cereal",
+    "growthDurationDays": 110,
+    "marketNames": ["Ragi", "Finger Millet", "Nachni", "Mandua"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 25, "description": "Nursery & transplanting" },
+      { "name": "vegetative", "startDay": 26, "endDay": 55, "description": "Tillering & growth" },
+      { "name": "ear-emergence", "startDay": 56, "endDay": 75, "description": "Panicle development" },
+      { "name": "flowering", "startDay": 76, "endDay": 90, "description": "Anthesis" },
+      { "name": "maturity", "startDay": 91, "endDay": 110, "description": "Grain fill & harvest" }
+    ]
+  },
+  "sweetpotato": {
+    "displayName": "Sweet Potato",
+    "category": "tuber",
+    "growthDurationDays": 120,
+    "marketNames": ["Sweet Potato", "Shakarkand", "Ratalu"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 20, "description": "Vine establishment" },
+      { "name": "vine-growth", "startDay": 21, "endDay": 50, "description": "Vine spread" },
+      { "name": "root-initiation", "startDay": 51, "endDay": 75, "description": "Storage root begins" },
+      { "name": "root-bulking", "startDay": 76, "endDay": 105, "description": "Root enlargement" },
+      { "name": "maturity", "startDay": 106, "endDay": 120, "description": "Harvest ready" }
+    ]
+  },
+  "horsegram": {
+    "displayName": "Horse Gram",
+    "category": "pulse",
+    "growthDurationDays": 90,
+    "marketNames": ["Horse Gram", "Kulthi", "Kollu"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 35, "description": "Branch development" },
+      { "name": "flowering", "startDay": 36, "endDay": 55, "description": "Flower formation" },
+      { "name": "pod-development", "startDay": 56, "endDay": 80, "description": "Pod filling" },
+      { "name": "maturity", "startDay": 81, "endDay": 90, "description": "Pod drying" }
+    ]
+  },
+  "turmeric": {
+    "displayName": "Turmeric",
+    "category": "spice",
+    "growthDurationDays": 270,
+    "marketNames": ["Turmeric", "Haldi"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "sprouting", "startDay": 1, "endDay": 30, "description": "Rhizome sprouting" },
+      { "name": "vegetative", "startDay": 31, "endDay": 120, "description": "Leaf & tiller growth" },
+      { "name": "rhizome-formation", "startDay": 121, "endDay": 180, "description": "Active rhizome development" },
+      { "name": "rhizome-bulking", "startDay": 181, "endDay": 240, "description": "Rhizome enlargement" },
+      { "name": "maturity", "startDay": 241, "endDay": 270, "description": "Leaf yellowing & harvest" }
+    ]
+  },
+  "banana": {
+    "displayName": "Banana",
+    "category": "fruit",
+    "growthDurationDays": 365,
+    "marketNames": ["Banana", "Kela"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 60, "description": "Sucker establishment" },
+      { "name": "vegetative", "startDay": 61, "endDay": 210, "description": "Leaf production & growth" },
+      { "name": "flowering", "startDay": 211, "endDay": 240, "description": "Bunch emergence" },
+      { "name": "fruit-development", "startDay": 241, "endDay": 330, "description": "Fruit filling" },
+      { "name": "maturity", "startDay": 331, "endDay": 365, "description": "Harvest ready" }
+    ]
+  },
+  "soyabean": {
+    "displayName": "Soybean",
+    "category": "oilseed",
+    "growthDurationDays": 100,
+    "marketNames": ["Soyabean", "Soybean", "Soya"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 40, "description": "Node & leaf development" },
+      { "name": "flowering", "startDay": 41, "endDay": 60, "description": "Bloom stage" },
+      { "name": "pod-fill", "startDay": 61, "endDay": 85, "description": "Seed development" },
+      { "name": "maturity", "startDay": 86, "endDay": 100, "description": "Pod drying" }
+    ]
+  },
+  "coriander": {
+    "displayName": "Coriander",
+    "category": "spice",
+    "growthDurationDays": 100,
+    "marketNames": ["Coriander", "Dhania"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 15, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 16, "endDay": 45, "description": "Leaf development" },
+      { "name": "flowering", "startDay": 46, "endDay": 65, "description": "Umbel formation" },
+      { "name": "seed-formation", "startDay": 66, "endDay": 85, "description": "Seed development" },
+      { "name": "maturity", "startDay": 86, "endDay": 100, "description": "Seed drying" }
+    ]
+  },
+  "garlic": {
+    "displayName": "Garlic",
+    "category": "vegetable",
+    "growthDurationDays": 150,
+    "marketNames": ["Garlic", "Lahsun", "Vellulli"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "sprouting", "startDay": 1, "endDay": 20, "description": "Clove sprouting" },
+      { "name": "vegetative", "startDay": 21, "endDay": 60, "description": "Leaf growth" },
+      { "name": "bulb-initiation", "startDay": 61, "endDay": 90, "description": "Bulbing begins" },
+      { "name": "bulb-development", "startDay": 91, "endDay": 130, "description": "Bulb enlargement" },
+      { "name": "maturity", "startDay": 131, "endDay": 150, "description": "Top drying & harvest" }
+    ]
+  },
+  "arecanut": {
+    "displayName": "Arecanut",
+    "category": "plantation",
+    "growthDurationDays": 2555,
+    "marketNames": ["Arecanut", "Supari", "Betelnut"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "nursery", "startDay": 1, "endDay": 365, "description": "Nursery stage" },
+      { "name": "juvenile", "startDay": 366, "endDay": 1825, "description": "Non-bearing phase" },
+      { "name": "bearing", "startDay": 1826, "endDay": 2555, "description": "Fruit bearing begins" }
+    ]
+  },
+  "tapioca": {
+    "displayName": "Tapioca (Cassava)",
+    "category": "tuber",
+    "growthDurationDays": 300,
+    "marketNames": ["Tapioca", "Cassava", "Kappa"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 30, "description": "Stake sprouting" },
+      { "name": "canopy-development", "startDay": 31, "endDay": 90, "description": "Leaf growth" },
+      { "name": "root-initiation", "startDay": 91, "endDay": 150, "description": "Tuber formation" },
+      { "name": "root-bulking", "startDay": 151, "endDay": 270, "description": "Tuber enlargement" },
+      { "name": "maturity", "startDay": 271, "endDay": 300, "description": "Harvest ready" }
+    ]
+  },
+  "jute": {
+    "displayName": "Jute",
+    "category": "fiber",
+    "growthDurationDays": 120,
+    "marketNames": ["Jute", "Pat"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 60, "description": "Rapid stem growth" },
+      { "name": "fiber-development", "startDay": 61, "endDay": 100, "description": "Fiber maturation" },
+      { "name": "maturity", "startDay": 101, "endDay": 120, "description": "Harvest for fiber" }
+    ]
+  },
+  "cashewnuts": {
+    "displayName": "Cashew",
+    "category": "plantation",
+    "growthDurationDays": 1825,
+    "marketNames": ["Cashewnuts", "Cashew", "Kaju"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Tree establishment" },
+      { "name": "juvenile", "startDay": 366, "endDay": 1095, "description": "Pre-bearing growth" },
+      { "name": "initial-bearing", "startDay": 1096, "endDay": 1825, "description": "First fruiting years" }
+    ]
+  },
+  "blackpepper": {
+    "displayName": "Black Pepper",
+    "category": "spice",
+    "growthDurationDays": 1095,
+    "marketNames": ["Black Pepper", "Pepper", "Kali Mirch"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Vine establishment" },
+      { "name": "juvenile", "startDay": 366, "endDay": 730, "description": "Vine growth" },
+      { "name": "bearing", "startDay": 731, "endDay": 1095, "description": "Initial berry production" }
+    ]
+  },
+  "mango": {
+    "displayName": "Mango",
+    "category": "fruit",
+    "growthDurationDays": 1825,
+    "marketNames": ["Mango", "Aam", "Manga"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Tree establishment" },
+      { "name": "juvenile", "startDay": 366, "endDay": 1460, "description": "Vegetative growth" },
+      { "name": "initial-bearing", "startDay": 1461, "endDay": 1825, "description": "First fruiting" }
+    ]
+  },
+  "tomato": {
+    "displayName": "Tomato",
+    "category": "vegetable",
+    "growthDurationDays": 90,
+    "marketNames": ["Tomato", "Tamatar"],
+    "seasons": ["rabi", "kharif"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 25, "description": "Nursery & transplant" },
+      { "name": "vegetative", "startDay": 26, "endDay": 45, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 46, "endDay": 55, "description": "Flower clusters" },
+      { "name": "fruiting", "startDay": 56, "endDay": 80, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 81, "endDay": 90, "description": "Picking begins" }
+    ]
+  },
+  "brinjal": {
+    "displayName": "Brinjal (Eggplant)",
+    "category": "vegetable",
+    "growthDurationDays": 100,
+    "marketNames": ["Brinjal", "Baingan", "Eggplant"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 30, "description": "Nursery & transplant" },
+      { "name": "vegetative", "startDay": 31, "endDay": 50, "description": "Plant growth" },
+      { "name": "flowering", "startDay": 51, "endDay": 65, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 66, "endDay": 90, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 91, "endDay": 100, "description": "Multiple pickings" }
+    ]
+  },
+  "papaya": {
+    "displayName": "Papaya",
+    "category": "fruit",
+    "growthDurationDays": 300,
+    "marketNames": ["Papaya", "Papita"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 45, "description": "Nursery stage" },
+      { "name": "vegetative", "startDay": 46, "endDay": 120, "description": "Stem & leaf growth" },
+      { "name": "flowering", "startDay": 121, "endDay": 150, "description": "First flowering" },
+      { "name": "fruiting", "startDay": 151, "endDay": 270, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 271, "endDay": 300, "description": "First harvest" }
+    ]
+  },
+  "cardamom": {
+    "displayName": "Cardamom",
+    "category": "spice",
+    "growthDurationDays": 1095,
+    "marketNames": ["Cardamom", "Elaichi"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Rhizome establishment" },
+      { "name": "vegetative", "startDay": 366, "endDay": 730, "description": "Tiller production" },
+      { "name": "bearing", "startDay": 731, "endDay": 1095, "description": "Capsule production begins" }
+    ]
+  },
+  "ladyfinger": {
+    "displayName": "Okra (Lady Finger)",
+    "category": "vegetable",
+    "growthDurationDays": 60,
+    "marketNames": ["Lady Finger", "Okra", "Bhindi"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 7, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 8, "endDay": 30, "description": "Plant growth" },
+      { "name": "flowering", "startDay": 31, "endDay": 40, "description": "Flower formation" },
+      { "name": "fruiting", "startDay": 41, "endDay": 55, "description": "Pod development" },
+      { "name": "harvest", "startDay": 56, "endDay": 60, "description": "Continuous picking" }
+    ]
+  },
+  "orange": {
+    "displayName": "Orange",
+    "category": "fruit",
+    "growthDurationDays": 1825,
+    "marketNames": ["Orange", "Santra", "Narangi"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Tree establishment" },
+      { "name": "juvenile", "startDay": 366, "endDay": 1460, "description": "Canopy development" },
+      { "name": "initial-bearing", "startDay": 1461, "endDay": 1825, "description": "First fruiting" }
+    ]
+  },
+  "cabbage": {
+    "displayName": "Cabbage",
+    "category": "vegetable",
+    "growthDurationDays": 90,
+    "marketNames": ["Cabbage", "Patta Gobhi", "Bandh Gobhi"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 25, "description": "Nursery stage" },
+      { "name": "vegetative", "startDay": 26, "endDay": 50, "description": "Leaf development" },
+      { "name": "heading", "startDay": 51, "endDay": 75, "description": "Head formation" },
+      { "name": "maturity", "startDay": 76, "endDay": 90, "description": "Head maturation" }
+    ]
+  },
+  "pineapple": {
+    "displayName": "Pineapple",
+    "category": "fruit",
+    "growthDurationDays": 540,
+    "marketNames": ["Pineapple", "Ananas"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 60, "description": "Sucker planting" },
+      { "name": "vegetative", "startDay": 61, "endDay": 360, "description": "Leaf rosette growth" },
+      { "name": "flowering", "startDay": 361, "endDay": 420, "description": "Inflorescence emergence" },
+      { "name": "fruiting", "startDay": 421, "endDay": 510, "description": "Fruit development" },
+      { "name": "maturity", "startDay": 511, "endDay": 540, "description": "Harvest ready" }
+    ]
+  },
+  "cauliflower": {
+    "displayName": "Cauliflower",
+    "category": "vegetable",
+    "growthDurationDays": 90,
+    "marketNames": ["Cauliflower", "Phool Gobhi"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "seedling", "startDay": 1, "endDay": 25, "description": "Nursery stage" },
+      { "name": "vegetative", "startDay": 26, "endDay": 50, "description": "Frame development" },
+      { "name": "curd-initiation", "startDay": 51, "endDay": 65, "description": "Curd formation" },
+      { "name": "curd-development", "startDay": 66, "endDay": 85, "description": "Curd enlargement" },
+      { "name": "maturity", "startDay": 86, "endDay": 90, "description": "Harvest ready" }
+    ]
+  },
+  "grapes": {
+    "displayName": "Grapes",
+    "category": "fruit",
+    "growthDurationDays": 730,
+    "marketNames": ["Grapes", "Angur", "Draksh"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Vine training" },
+      { "name": "bearing", "startDay": 366, "endDay": 730, "description": "First commercial harvest" }
+    ]
+  },
+  "jackfruit": {
+    "displayName": "Jackfruit",
+    "category": "fruit",
+    "growthDurationDays": 2190,
+    "marketNames": ["Jackfruit", "Kathal", "Phanas"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 730, "description": "Tree establishment" },
+      { "name": "juvenile", "startDay": 731, "endDay": 1825, "description": "Vegetative growth" },
+      { "name": "bearing", "startDay": 1826, "endDay": 2190, "description": "Initial fruiting" }
+    ]
+  },
+  "drumstick": {
+    "displayName": "Drumstick (Moringa)",
+    "category": "vegetable",
+    "growthDurationDays": 300,
+    "marketNames": ["Drumstick", "Moringa", "Sahjan", "Munaga"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 60, "description": "Seedling stage" },
+      { "name": "vegetative", "startDay": 61, "endDay": 180, "description": "Tree growth" },
+      { "name": "flowering", "startDay": 181, "endDay": 240, "description": "First flowering" },
+      { "name": "fruiting", "startDay": 241, "endDay": 300, "description": "Pod development" }
+    ]
+  },
+  "cucumber": {
+    "displayName": "Cucumber",
+    "category": "vegetable",
+    "growthDurationDays": 55,
+    "marketNames": ["Cucumber", "Kheera", "Kakdi"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 7, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 8, "endDay": 25, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 26, "endDay": 35, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 36, "endDay": 50, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 51, "endDay": 55, "description": "Picking" }
+    ]
+  },
+  "bittergourd": {
+    "displayName": "Bitter Gourd",
+    "category": "vegetable",
+    "growthDurationDays": 70,
+    "marketNames": ["Bitter Gourd", "Karela"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 8, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 9, "endDay": 30, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 31, "endDay": 45, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 46, "endDay": 65, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 66, "endDay": 70, "description": "Picking" }
+    ]
+  },
+  "watermelon": {
+    "displayName": "Watermelon",
+    "category": "fruit",
+    "growthDurationDays": 85,
+    "marketNames": ["Watermelon", "Tarbooz", "Tarbuj"],
+    "seasons": ["summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 35, "description": "Vine spread" },
+      { "name": "flowering", "startDay": 36, "endDay": 50, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 51, "endDay": 75, "description": "Fruit development" },
+      { "name": "maturity", "startDay": 76, "endDay": 85, "description": "Harvest ready" }
+    ]
+  },
+  "bottlegourd": {
+    "displayName": "Bottle Gourd",
+    "category": "vegetable",
+    "growthDurationDays": 70,
+    "marketNames": ["Bottle Gourd", "Lauki", "Dudhi", "Ghia"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 8, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 9, "endDay": 30, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 31, "endDay": 45, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 46, "endDay": 65, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 66, "endDay": 70, "description": "Picking" }
+    ]
+  },
+  "blackgram": {
+    "displayName": "Black Gram (Urad)",
+    "category": "pulse",
+    "growthDurationDays": 80,
+    "marketNames": ["Black Gram", "Urad", "Urad Dal"],
+    "seasons": ["kharif", "rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 7, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 8, "endDay": 30, "description": "Plant growth" },
+      { "name": "flowering", "startDay": 31, "endDay": 50, "description": "Flowering" },
+      { "name": "pod-formation", "startDay": 51, "endDay": 70, "description": "Pod development" },
+      { "name": "maturity", "startDay": 71, "endDay": 80, "description": "Pod drying" }
+    ]
+  },
+  "radish": {
+    "displayName": "Radish",
+    "category": "vegetable",
+    "growthDurationDays": 45,
+    "marketNames": ["Radish", "Mooli", "Mula"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 5, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 6, "endDay": 20, "description": "Leaf growth" },
+      { "name": "root-development", "startDay": 21, "endDay": 40, "description": "Root enlargement" },
+      { "name": "maturity", "startDay": 41, "endDay": 45, "description": "Harvest ready" }
+    ]
+  },
+  "pumpkin": {
+    "displayName": "Pumpkin",
+    "category": "vegetable",
+    "growthDurationDays": 100,
+    "marketNames": ["Pumpkin", "Kaddu", "Sitaphal"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 40, "description": "Vine spread" },
+      { "name": "flowering", "startDay": 41, "endDay": 55, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 56, "endDay": 90, "description": "Fruit development" },
+      { "name": "maturity", "startDay": 91, "endDay": 100, "description": "Shell hardening" }
+    ]
+  },
+  "ashgourd": {
+    "displayName": "Ash Gourd",
+    "category": "vegetable",
+    "growthDurationDays": 100,
+    "marketNames": ["Ash Gourd", "Petha", "Safed Kaddu", "Kumbalanga"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 40, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 41, "endDay": 55, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 56, "endDay": 90, "description": "Fruit development" },
+      { "name": "maturity", "startDay": 91, "endDay": 100, "description": "Wax coating develops" }
+    ]
+  },
+  "carrot": {
+    "displayName": "Carrot",
+    "category": "vegetable",
+    "growthDurationDays": 90,
+    "marketNames": ["Carrot", "Gajar"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 12, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 13, "endDay": 40, "description": "Leaf growth" },
+      { "name": "root-development", "startDay": 41, "endDay": 70, "description": "Root enlargement" },
+      { "name": "root-maturity", "startDay": 71, "endDay": 85, "description": "Color development" },
+      { "name": "harvest", "startDay": 86, "endDay": 90, "description": "Harvest ready" }
+    ]
+  },
+  "pomegranate": {
+    "displayName": "Pomegranate",
+    "category": "fruit",
+    "growthDurationDays": 1095,
+    "marketNames": ["Pomegranate", "Anar", "Dalimb"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Bush establishment" },
+      { "name": "juvenile", "startDay": 366, "endDay": 730, "description": "Canopy development" },
+      { "name": "bearing", "startDay": 731, "endDay": 1095, "description": "Commercial fruiting" }
+    ]
+  },
+  "ridgegourd": {
+    "displayName": "Ridge Gourd",
+    "category": "vegetable",
+    "growthDurationDays": 60,
+    "marketNames": ["Ridge Gourd", "Turai", "Jhinge", "Beerakaya"],
+    "seasons": ["kharif", "summer"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 7, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 8, "endDay": 25, "description": "Vine growth" },
+      { "name": "flowering", "startDay": 26, "endDay": 38, "description": "Flowering" },
+      { "name": "fruiting", "startDay": 39, "endDay": 55, "description": "Fruit development" },
+      { "name": "harvest", "startDay": 56, "endDay": 60, "description": "Picking" }
+    ]
+  },
+  "ginger": {
+    "displayName": "Ginger",
+    "category": "spice",
+    "growthDurationDays": 240,
+    "marketNames": ["Ginger", "Adrak", "Allam"],
+    "seasons": ["kharif"],
+    "stages": [
+      { "name": "sprouting", "startDay": 1, "endDay": 30, "description": "Rhizome sprouting" },
+      { "name": "vegetative", "startDay": 31, "endDay": 120, "description": "Tiller production" },
+      { "name": "rhizome-development", "startDay": 121, "endDay": 180, "description": "Rhizome enlargement" },
+      { "name": "maturity", "startDay": 181, "endDay": 240, "description": "Leaf yellowing & harvest" }
+    ]
+  },
+  "beetroot": {
+    "displayName": "Beetroot",
+    "category": "vegetable",
+    "growthDurationDays": 90,
+    "marketNames": ["Beetroot", "Chukandar", "Beet"],
+    "seasons": ["rabi"],
+    "stages": [
+      { "name": "germination", "startDay": 1, "endDay": 10, "description": "Emergence" },
+      { "name": "vegetative", "startDay": 11, "endDay": 35, "description": "Leaf growth" },
+      { "name": "root-swelling", "startDay": 36, "endDay": 65, "description": "Root enlargement" },
+      { "name": "root-maturity", "startDay": 66, "endDay": 85, "description": "Color intensification" },
+      { "name": "harvest", "startDay": 86, "endDay": 90, "description": "Harvest ready" }
+    ]
+  },
+  "coffee": {
+    "displayName": "Coffee",
+    "category": "plantation",
+    "growthDurationDays": 1460,
+    "marketNames": ["Coffee", "Kaapi"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "nursery", "startDay": 1, "endDay": 365, "description": "Nursery stage" },
+      { "name": "establishment", "startDay": 366, "endDay": 730, "description": "Field establishment" },
+      { "name": "juvenile", "startDay": 731, "endDay": 1095, "description": "Pre-bearing phase" },
+      { "name": "initial-bearing", "startDay": 1096, "endDay": 1460, "description": "First harvest" }
+    ]
+  },
+  "apple": {
+    "displayName": "Apple",
+    "category": "fruit",
+    "growthDurationDays": 1825,
+    "marketNames": ["Apple", "Seb"],
+    "seasons": ["perennial"],
+    "stages": [
+      { "name": "establishment", "startDay": 1, "endDay": 365, "description": "Tree planting" },
+      { "name": "juvenile", "startDay": 366, "endDay": 1460, "description": "Vegetative growth" },
+      { "name": "initial-bearing", "startDay": 1461, "endDay": 1825, "description": "First fruiting" }
+    ]
+  }
+}

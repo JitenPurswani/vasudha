@@ -211,7 +211,13 @@
       "planting_tomorrow": "Planting tomorrow",
       "select_date": "Select planting date",
       "select_planting_date": "When will you plant?",
-      "date_window_note": "Choose a date within 7 days (past or future)"
+      "date_window_note": "Choose a date within 7 days (past or future)",
+      "day_n": "Day {{n}}",
+      "days_to_harvest": "{{days}} days to harvest",
+      "ready_to_harvest": "Ready to harvest!",
+      "next_stage": "Next: {{stage}} in {{days}} days",
+      "view_all_crops": "View all {{count}} crops",
+      "tap_to_select": "Tap to select a crop"
     },
     "market": {
       "per_kg": "per kg"

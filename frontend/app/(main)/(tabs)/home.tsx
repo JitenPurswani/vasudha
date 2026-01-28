@@ -5,7 +5,7 @@ import SceneryHeader from '@/assets/images/scenery_home.svg';
 import WindIcon from '@/assets/images/wind.svg';
 import { AppText } from '@/components/AppText';
 import { getFont } from '@/constants/Typography';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, differenceInDays, addDays } from 'date-fns';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +27,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { jwtDecode } from 'jwt-decode';
 import { fetchWeather, WeatherResponse } from '@/services/weatherApi';
 import { useCrop } from '@/context/CropContext';
+import { useActiveCrops, CropGrowthState } from '@/context/ActiveCropsContext';
+import { useRouter } from 'expo-router';
 
 const WeatherStatItem = ({ Icon, value, label }: any) => {
   const displayValue = value && String(value).trim() !== '' ? value : '-';
@@ -44,12 +46,15 @@ export default function Home() {
   const insets = useSafeAreaInsets();
   const { t, i18n } = useTranslation();
   const { selectedCrop, plantingDate, setPlantingDate } = useCrop();
+  const { activeCrops, primaryCrop, getCropGrowthState, getCropProfile } = useActiveCrops();
+  const router = useRouter();
 
   const [userName, setUserName] = useState('User');
   const [currentDate, setCurrentDate] = useState('');
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
   const [weatherError, setWeatherError] = useState<string | null>(null);
+  const [growthState, setGrowthState] = useState<CropGrowthState | null>(null);
 
   const [showPlantingDateModal, setShowPlantingDateModal] = useState(false);
   const [tempPlantingDate, setTempPlantingDate] = useState<Date>(
@@ -108,6 +113,16 @@ export default function Home() {
     };
     getUsername();
   }, []);
+
+  // Calculate growth state when primary crop changes
+  useEffect(() => {
+    if (primaryCrop) {
+      const state = getCropGrowthState(primaryCrop);
+      setGrowthState(state);
+    } else {
+      setGrowthState(null);
+    }
+  }, [primaryCrop, getCropGrowthState]);
 
   // Calculate days since/to planting with better formatting
   const getDaysPlantingInfo = useCallback(() => {
@@ -255,22 +270,119 @@ export default function Home() {
             </>
           ) : null}
 
-          {/* Current Crop Section - Only show if crop selected */}
-          {selectedCrop && (
+          {/* Current Crop Section - Show if primary crop exists */}
+          {primaryCrop && growthState && (
+            <>
+              <AppText variant="header" style={styles.sectionTitle}>
+                {t('home.sections.crop')}
+              </AppText>
+              <TouchableOpacity
+                style={styles.cropCardExpanded}
+                onPress={() => router.push('/(main)/(tabs)/crop')}
+              >
+                {/* Top row: Crop name and stage badge */}
+                <View style={styles.cropHeader}>
+                  <View style={styles.cropNameRow}>
+                    <SaplingIcon height={22} width={22} />
+                    <AppText variant="content" bold style={styles.cropName}>
+                      {primaryCrop.displayName}
+                    </AppText>
+                  </View>
+                  {growthState.currentStage && (
+                    <View style={styles.stageBadge}>
+                      <MaterialCommunityIcons name="leaf" size={14} color="#fff" />
+                      <Text style={styles.stageBadgeText}>
+                        {growthState.currentStage.name}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+
+                {/* Progress bar */}
+                <View style={styles.progressContainer}>
+                  <View style={styles.progressBar}>
+                    <View 
+                      style={[
+                        styles.progressFill, 
+                        { width: `${Math.min(100, growthState.progressPercent)}%` }
+                      ]} 
+                    />
+                  </View>
+                  <Text style={styles.progressText}>
+                    {Math.round(growthState.progressPercent)}%
+                  </Text>
+                </View>
+
+                {/* Stats row */}
+                <View style={styles.cropStatsRow}>
+                  <View style={styles.cropStatItem}>
+                    <Ionicons name="calendar-outline" size={16} color="#186F71" />
+                    <Text style={styles.cropStatText}>
+                      {t('home.crop.day_n', { n: growthState.daysSincePlanting })}
+                    </Text>
+                  </View>
+                  <View style={styles.cropStatItem}>
+                    <Ionicons name="time-outline" size={16} color="#186F71" />
+                    <Text style={styles.cropStatText}>
+                      {growthState.daysRemaining > 0 
+                        ? t('home.crop.days_to_harvest', { days: growthState.daysRemaining })
+                        : t('home.crop.ready_to_harvest')}
+                    </Text>
+                  </View>
+                </View>
+
+                {/* Stage tip */}
+                {growthState.currentStage?.description && (
+                  <View style={styles.stageTipContainer}>
+                    <MaterialCommunityIcons name="lightbulb-outline" size={16} color="#F7B035" />
+                    <Text style={styles.stageTipText}>
+                      {growthState.currentStage.description}
+                    </Text>
+                  </View>
+                )}
+
+                {/* Next stage indicator */}
+                {growthState.nextStage && growthState.daysToNextStage > 0 && (
+                  <View style={styles.nextStageRow}>
+                    <Feather name="arrow-right" size={14} color="#78909C" />
+                    <Text style={styles.nextStageText}>
+                      {t('home.crop.next_stage', { 
+                        stage: growthState.nextStage.name, 
+                        days: growthState.daysToNextStage 
+                      })}
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+
+              {/* Show if user has multiple crops */}
+              {activeCrops.length > 1 && (
+                <TouchableOpacity 
+                  style={styles.moreCropsLink}
+                  onPress={() => router.push('/(main)/(tabs)/crop')}
+                >
+                  <Text style={styles.moreCropsText}>
+                    {t('home.crop.view_all_crops', { count: activeCrops.length })}
+                  </Text>
+                  <Feather name="chevron-right" size={16} color="#186F71" />
+                </TouchableOpacity>
+              )}
+            </>
+          )}
+
+          {/* Fallback: Use old CropContext if no active crops (backward compatibility) */}
+          {!primaryCrop && selectedCrop && (
             <>
               <AppText variant="header" style={styles.sectionTitle}>
                 {t('home.sections.crop')}
               </AppText>
               <TouchableOpacity
                 style={styles.cropCard}
-                onPress={() => {
-                  setTempPlantingDate(plantingDate || new Date());
-                  setShowPlantingDateModal(true);
-                }}
+                onPress={() => router.push('/(main)/(tabs)/crop')}
               >
                 <View style={styles.cropInfoLeft}>
                   <SaplingIcon height={20} width={20} />
-                  <AppText variant="content" style={styles.cropName}>
+                  <AppText variant="content" style={styles.cropNameOld}>
                     {selectedCrop}
                   </AppText>
                 </View>
@@ -280,6 +392,25 @@ export default function Home() {
                     {daysInfo ? daysInfo.label : t('home.crop.select_date')}
                   </Text>
                 </View>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {/* No crop selected */}
+          {!primaryCrop && !selectedCrop && (
+            <>
+              <AppText variant="header" style={styles.sectionTitle}>
+                {t('home.sections.crop')}
+              </AppText>
+              <TouchableOpacity
+                style={styles.noCropCard}
+                onPress={() => router.push('/(main)/(tabs)/crop')}
+              >
+                <SaplingIcon height={24} width={24} />
+                <AppText variant="content" style={styles.noCropText}>
+                  {t('home.crop.tap_to_select')}
+                </AppText>
+                <Feather name="chevron-right" size={20} color="#186F71" />
               </TouchableOpacity>
             </>
           )}
@@ -514,9 +645,142 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
+  cropCardExpanded: {
+    backgroundColor: '#BDDBE8',
+    borderRadius: 15,
+    padding: 15,
+    borderColor: '#186F71',
+    borderWidth: 0.8,
+    elevation: 5,
+    shadowColor: '#042f30',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  cropHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  cropNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stageBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#186F71',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    gap: 4,
+  },
+  stageBadgeText: {
+    color: '#fff',
+    fontSize: 11,
+    fontFamily: 'OpenSans-Bold',
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 12,
+  },
+  progressBar: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#186F71',
+    borderRadius: 4,
+  },
+  progressText: {
+    fontSize: 12,
+    fontFamily: 'OpenSans-Bold',
+    color: '#186F71',
+    minWidth: 35,
+  },
+  cropStatsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  cropStatItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  cropStatText: {
+    fontSize: 12,
+    color: '#186F71',
+    fontFamily: 'OpenSans-Regular',
+  },
+  stageTipContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: 'rgba(247, 176, 53, 0.15)',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 4,
+    gap: 8,
+  },
+  stageTipText: {
+    flex: 1,
+    fontSize: 11,
+    color: '#5D4037',
+    fontFamily: 'OpenSans-Regular',
+    lineHeight: 16,
+  },
+  nextStageRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    gap: 6,
+  },
+  nextStageText: {
+    fontSize: 11,
+    color: '#78909C',
+    fontFamily: 'OpenSans-Italic',
+  },
+  moreCropsLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    gap: 4,
+  },
+  moreCropsText: {
+    fontSize: 12,
+    color: '#186F71',
+    fontFamily: 'OpenSans-Bold',
+  },
+  noCropCard: {
+    flexDirection: 'row',
+    backgroundColor: '#BDDBE8',
+    borderRadius: 15,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#186F71',
+    borderWidth: 0.8,
+    borderStyle: 'dashed',
+    gap: 10,
+  },
+  noCropText: {
+    fontSize: 14,
+    color: '#186F71',
+    fontFamily: 'OpenSans-Regular',
+  },
   cropInfoLeft: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   cropInfoRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  cropName: { fontSize: 14, fontFamily: 'OpenSans-Bold', color: '#186F71' },
+  cropName: { fontSize: 16, fontFamily: 'OpenSans-Bold', color: '#186F71' },
+  cropNameOld: { fontSize: 14, fontFamily: 'OpenSans-Bold', color: '#186F71' },
   cropDays: { fontSize: 12, color: '#186F71' },
   lastUpdatedText: {
     textAlign: 'right',

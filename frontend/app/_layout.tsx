@@ -44,6 +44,7 @@ import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '@/context/AuthContext';
 import { CropProvider } from '@/context/CropContext';
+import { ActiveCropsProvider } from '@/context/ActiveCropsContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -91,13 +92,15 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <CropProvider>
-        <SafeAreaProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" />
-            <Stack.Screen name="(auth)" />
-            <Stack.Screen name="(main)" />
-          </Stack>
-        </SafeAreaProvider>
+        <ActiveCropsProvider>
+          <SafeAreaProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(main)" />
+            </Stack>
+          </SafeAreaProvider>
+        </ActiveCropsProvider>
       </CropProvider>
     </AuthProvider>
   );
