@@ -2,9 +2,10 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_connection, init_db
 import security
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, validator
 from typing import Optional
 from fastapi import Header
+import logging
 
 app = FastAPI(title="Vasudha Auth Agent")
 
@@ -18,9 +19,12 @@ app.add_middleware(
 
 init_db()
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("auth_agent")
+
 class RegisterSchema(BaseModel):
-    username: str
-    password: str
+    username: str = Field(..., min_length=3, max_length=20)
+    password: str = Field(..., min_length=8)
     state: str
     district: str
     language: str
@@ -28,13 +32,30 @@ class RegisterSchema(BaseModel):
     P: Optional[float] = None
     K: Optional[float] = None
     pH: Optional[float] = None
+    @validator('username')
+    def validate_username(cls, v):
+        v = v.strip()
+        if not re.match(r'^[a-zA-Z0-9_]+$', v):
+            logger.warning(f"Validation failed: Invalid username format '{v}'")
+            raise ValueError('Username must be alphanumeric or underscores only')
+        return v
+
+    @validator('password')
+    def validate_password(cls, v):
+        if not any(char.isdigit() for char in v):
+            raise ValueError('Password must contain at least one number')
+        if not any(char.isupper() for char in v):
+            raise ValueError('Password must contain at least one uppercase letter')
+        if not any(char.islower() for char in v):
+            raise ValueError('Password must contain at least one lowercase letter')
+        return v
 
 class LoginSchema(BaseModel):
-    username: str
-    password: str
-
+    username: str = Field(..., min_length=3, max_length=20)
+    password: str = Field(..., min_length=8)
+    
 class UpdateProfileSchema(BaseModel):
-    username: Optional[str] = None
+    username: Optional[str] = Field(None, min_length=3, max_length=20)
     language: Optional[str] = None
     state: Optional[str] = None
     district: Optional[str] = None
@@ -71,7 +92,6 @@ async def update_profile(
     conn = get_connection()
     cursor = conn.cursor()
     try:
-        # Check if the new username is already taken by someone else
         if data.username and data.username != username:
             cursor.execute("SELECT id FROM users WHERE username = ?", (data.username,))
             if cursor.fetchone():
@@ -90,7 +110,6 @@ async def update_profile(
         
         updates = []
         values = []
-        # Build the dynamic query using ONLY ONE loop
         for field, col in mapping.items():
             val = getattr(data, field)
             if val is not None:
@@ -105,7 +124,6 @@ async def update_profile(
         cursor.execute(query, values)
         conn.commit()
         
-        # Fetch fresh data (using the NEW username if it was changed)
         search_name = data.username if data.username else username
         cursor.execute("SELECT * FROM users WHERE username = ?", (search_name,))
         u = cursor.fetchone()
@@ -128,6 +146,7 @@ async def update_profile(
 
 @app.post("/register")
 async def register(user: RegisterSchema):
+    logger.info(f"Register attempt for username: {user.username}")
     conn = get_connection()
     cursor = conn.cursor()
     try:

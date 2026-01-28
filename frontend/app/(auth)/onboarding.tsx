@@ -130,22 +130,36 @@ export default function OnboardingScreen() {
     };
 
     const handleContinue = async () => {
-        if (!username || !password) {
-            alert(t('onboarding.error_required') || "Credentials required");
+        // 1. SANITIZATION: Trim whitespace from credentials
+        const cleanUsername = username.trim();
+        const cleanPassword = password.trim();
+
+        // 2. FRONTEND VALIDATION: Match Backend Restrictions
+        // Username: 3-20 alphanumeric/underscores
+        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+        if (!usernameRegex.test(cleanUsername)) {
+            alert(t('onboarding.username_hint'));
             return;
         }
 
-        if (password !== confirmPassword) {
-            alert(t('onboarding.password_mismatch') || "Passwords do not match");
+        // Password: Min 8 chars, 1 Upper, 1 Lower, 1 Number
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (!passwordRegex.test(cleanPassword)) {
+            alert(t('onboarding.pw_hint'));
+            return;
+        }
+
+        if (cleanPassword !== confirmPassword.trim()) {
+            alert(t('onboarding.password_mismatch'));
             return;
         }
 
         setIsSubmitting(true);
+        console.log(`[Onboarding] Attempting registration for: ${cleanUsername}`);
+
         try {
-            // If location was auto-fetched, coordinates are already stored
-            // If location was manually entered, we need to geocode it
+            // Geocoding Logic
             if (!locationFetched && district && stateName) {
-                console.log('[Onboarding] Manually entered location - geocoding...');
                 try {
                     const query = `${toTitleCase(district)}, ${toTitleCase(stateName)}, India`;
                     const response = await fetch(
@@ -157,19 +171,18 @@ export default function OnboardingScreen() {
                         const { lat, lon } = results[0];
                         await AsyncStorage.setItem('userLatitude', String(lat));
                         await AsyncStorage.setItem('userLongitude', String(lon));
-                        console.log(`[Onboarding] Geocoded and stored location: lat=${lat}, lon=${lon}`);
                     }
                 } catch (geocodeError) {
                     console.error('[Onboarding] Geocoding error:', geocodeError);
-                    // Continue anyway - location can be re-done on Home page
                 }
             }
 
+            // 3. PAYLOAD SYNC: Ensure keys (N, P, K, pH) match backend UpdateProfileSchema
             const payload = {
-                username,
-                password,
+                username: cleanUsername,
+                password: cleanPassword,
                 state: stateName,
-                district,
+                district: district,
                 language: i18n.language,
                 N: parseFloat(soilValues.N) || 0,
                 P: parseFloat(soilValues.P) || 0,
@@ -178,13 +191,22 @@ export default function OnboardingScreen() {
             };
 
             const response = await api.post('/register', payload);
-
             if (response.status === 200 || response.status === 201) {
                 router.replace('/(auth)/login');
             }
+
         } catch (error: any) {
-            const msg = error.response?.data?.detail || "Registration failed";
-            alert(msg);
+            if (error.response && error.response.status === 422) {
+                // Parse Pydantic validation errors into readable strings
+                const validationErrors = error.response.data.detail;
+                const errorMessages = validationErrors.map((err: any) => {
+                    return `${err.loc[1]}: ${err.msg}`;
+                }).join('\n');
+                alert(errorMessages);
+            } else {
+                const msg = error.response?.data?.detail || "Registration failed";
+                alert(msg);
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -244,6 +266,22 @@ export default function OnboardingScreen() {
             setIsFetching(false);
         }
     };
+    const getPasswordStrength = (pw: string) => {
+        if (!pw) return { score: 0, label: '', color: '#E0E0E0' };
+        let score = 0;
+        if (pw.length >= 8) score++;
+        if (/[A-Z]/.test(pw)) score++;
+        if (/[0-9]/.test(pw)) score++;
+        if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+        switch (score) {
+            case 1: return { score: 1, label: t('onboarding.weak'), color: '#FF4D4D' };
+            case 2: return { score: 2, label: t('onboarding.fair'), color: '#FFA500' };
+            case 3: return { score: 3, label: t('onboarding.good'), color: '#FFD700' };
+            case 4: return { score: 4, label: t('onboarding.strong'), color: '#28A745' };
+            default: return { score: 0, label: '', color: '#E0E0E0' };
+        }
+    };
 
     return (
         <View style={[styles.mainContainer, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
@@ -277,6 +315,7 @@ export default function OnboardingScreen() {
                             onChangeText={setUsername}
                             placeholderTextColor="#78909C"
                         />
+                        <AppText style={styles.hintText}>{t('onboarding.username_hint')}</AppText>
                     </View>
 
                     <View style={styles.inputGroup}>
@@ -299,8 +338,32 @@ export default function OnboardingScreen() {
                                 <Feather name={secureTextPassword ? "eye-off" : "eye"} size={18} color="#186F71" />
                             </TouchableOpacity>
                         </View>
-                    </View>
 
+                        <View style={styles.strengthContainerRow}>
+                            <View style={styles.strengthBarWrapper}>
+                                {[1, 2, 3, 4].map((index) => {
+                                    const strength = getPasswordStrength(password);
+                                    return (
+                                        <View
+                                            key={index}
+                                            style={[
+                                                styles.strengthSegment,
+                                                index <= strength.score && { backgroundColor: strength.color }
+                                            ]}
+                                        />
+                                    );
+                                })}
+                            </View>
+
+                            {password.length > 0 && (
+                                <AppText style={[styles.strengthTextSide, { color: getPasswordStrength(password).color }]}>
+                                    {getPasswordStrength(password).label}
+                                </AppText>
+                            )}
+                        </View>
+
+                        <AppText style={styles.hintText}>{t('onboarding.pw_hint')}</AppText>
+                    </View>
                     <View style={styles.inputGroup}>
                         <View style={styles.labelRow}>
                             <MaterialCommunityIcons name="lock-check" size={20} color="#186F71" />
@@ -633,5 +696,36 @@ const styles = StyleSheet.create({
     modalTitle: { fontSize: 18, color: '#186F71', marginBottom: 20, textAlign: 'center' },
     languageOption: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: 'rgba(24, 111, 113, 0.1)' },
     optionText: { fontSize: 16, color: '#186F71' },
-    englishSublabel: { fontSize: 10, color: '#186F71', opacity: 0.6, marginTop: -2 }
+    englishSublabel: { fontSize: 10, color: '#186F71', opacity: 0.6, marginTop: -2 },
+    strengthContainerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        gap: 8, // Space between segments and the label
+    },
+    strengthBarWrapper: {
+        flex: 1, // Takes up remaining space
+        flexDirection: 'row',
+        height: 6,
+    },
+    strengthSegment: {
+        flex: 1,
+        height: '100%',
+        borderRadius: 3,
+        marginHorizontal: 2,
+        backgroundColor: 'rgba(24, 111, 113, 0.1)',
+    },
+    strengthTextSide: {
+        fontSize: 11,
+        fontFamily: 'OpenSans-Bold',
+        minWidth: 55, // Ensures the label doesn't jump when text changes
+        textAlign: 'right',
+    },
+    hintText: {
+        fontSize: 10,
+        color: '#186F71',
+        marginTop: 4,
+        opacity: 0.8,
+        fontFamily: 'OpenSans-Regular',
+    },
 });

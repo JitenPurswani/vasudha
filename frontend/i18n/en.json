@@ -41,7 +41,13 @@
     "password_mismatch": "Passwords do not match",
     "registration_success": "Account created successfully!",
     "fetch_soil_params": "Fetch Soil Parameters",
-    "soil_params_fetched": "Soil parameters fetched successfully"
+    "soil_params_fetched": "Soil parameters fetched successfully",
+    "username_hint": "3-20 chars: letters, numbers, or underscores only in the username",
+    "pw_hint": "Min. 8 chars: include 1 uppercase and 1 number in the password",
+    "weak": "Weak",
+    "fair": "Fair",
+    "good": "Good",
+    "strong": "Strong"
   },
   "crops": {
     "rice": "Rice",

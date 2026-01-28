@@ -102,3 +102,5 @@ logs/
 # Market raw data (large, regenerated)
 data/market/raw/
 data/market/sqlite/market.db
+
+backend/auth/users.db

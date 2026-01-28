@@ -686,7 +686,7 @@ const styles = StyleSheet.create({
   },
   marketButton: {
     flex: 1,
-    backgroundColor: '#FF9800',
+    backgroundColor: '#6b9fb6',
     borderRadius: 8,
     paddingVertical: 8,
     flexDirection: 'row',
