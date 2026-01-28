@@ -92,7 +92,7 @@ config.json # Add if it contains secrets
 # Model files (can be large, consider Git LFS or not committing)
 # *.pkl
 # *.h5
-/backend/auth/users.db
+backend/auth/users.db
 # Data files (can be large, consider not committing)
 # data/*.csv
 
