@@ -184,7 +184,11 @@
     "default_region": "कल्याण, महाराष्ट्र"
   },
   "common": {
-    "last_updated": "अंतिम अपडेट: {{timestamp}}"
+    "last_updated": "अंतिम अपडेट: {{timestamp}}",
+    "cancel": "रद्द करें",
+    "confirm": "पुष्टि करें",
+    "status": "स्थिति",
+    "loading": "लोड हो रहा है..."
   },
   "home": {
     "greeting": "नमस्ते,",
@@ -255,7 +259,10 @@
     "save": "सेव करें",
     "username": "यूज़रनेम",
     "language": "भाषा",
-    "location": "स्थान"
+    "location": "स्थान",
+    "logout": "लॉग आउट",
+    "logout_confirm": "क्या आप वाकई अपने खाते से लॉग आउट करना चाहते हैं?",
+    "logout_description": "अपने सत्र से सुरक्षित रूप से लॉग आउट करें"
   },
   "notifications": {
     "title": "सूचनाएं"

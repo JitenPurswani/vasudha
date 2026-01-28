@@ -1,6 +1,8 @@
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AppText } from '@/components/AppText';
 import { Feather, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import {
   Modal,
@@ -42,11 +44,13 @@ const toTitleCase = (str: string) =>
   str ? str.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') : '';
 
 export default function Profile() {
+  const { logout } = useAuth();
+  const insets = useSafeAreaInsets();
   const { t, i18n } = useTranslation();
   const [editVisible, setEditVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFetchingSoil, setIsFetchingSoil] = useState(false);
-
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   const [profile, setProfile] = useState({
     username: '', languageCode: 'en', districtKey: '', stateKey: '', n: '-', p: '-', k: '-', ph: '-'
   });
@@ -56,6 +60,7 @@ export default function Profile() {
   useEffect(() => {
     loadFullProfile();
   }, []);
+
 
   const loadFullProfile = async () => {
     const savedData = await AsyncStorage.getItem('userProfile');
@@ -116,7 +121,7 @@ export default function Profile() {
 
       if (res.status === 200) {
         const updated = res.data.profile;
-        
+
         // Immediate Sync: Language, AsyncStorage, and State
         if (updated.language !== i18n.language) {
           await i18n.changeLanguage(updated.language);
@@ -124,7 +129,7 @@ export default function Profile() {
         }
 
         await AsyncStorage.setItem('userProfile', JSON.stringify(updated));
-        
+
         setProfile({
           username: updated.name,
           languageCode: updated.language,
@@ -150,9 +155,13 @@ export default function Profile() {
     ? `${t(`locations.districts.${profile.stateKey}.${profile.districtKey}`)}, ${t(`locations.states.${profile.stateKey}`)}`
     : t('locations.default_region');
 
+  const handleLogoutPress = () => {
+    setLogoutModalVisible(true);
+  };
+
   return (
     <View style={styles.mainContainer}>
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: insets.bottom+40 }} showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
           <View style={{ flex: 1 }}>
             <AppText variant="header" style={styles.title} numberOfLines={1}>{t('profile.title')}</AppText>
@@ -178,8 +187,57 @@ export default function Profile() {
             <SoilCard label="pH" value={profile.ph} />
           </View>
         </View>
+        <TouchableOpacity
+          style={styles.logoutBtn}
+          onPress={handleLogoutPress}
+          activeOpacity={0.7}
+        >
+          <View style={styles.logoutIconContainer}>
+            <Feather name="log-out" size={20} color="#DC3545" />
+          </View>
+          <View style={styles.logoutTextContainer}>
+            <AppText variant="content" bold style={styles.logoutTitle}>
+              {t('profile.logout')}
+            </AppText>
+            <AppText style={styles.logoutSubtitle}>
+              {t('profile.logout_description') || "Sign out of your session"}
+            </AppText>
+          </View>
+          <Feather name="chevron-right" size={18} color="#DC3545" style={{ opacity: 0.3 }} />
+        </TouchableOpacity>
       </ScrollView>
+      <Modal visible={logoutModalVisible} transparent animationType="fade">
+        <View style={styles.alertOverlay}>
+          <View style={styles.alertBox}>
+            <View style={styles.alertIconBg}>
+              <MaterialCommunityIcons name="logout" size={40} color="#156349" />
+            </View>
 
+            <AppText variant="header" style={styles.alertTitle}>{t('profile.logout')}</AppText>
+            <AppText variant="content" style={styles.alertMessage}>{t('profile.logout_confirm')}</AppText>
+
+            <View style={styles.alertFooter}>
+              <TouchableOpacity
+                style={styles.alertCancelBtn}
+                onFocus={() => { }}
+                onPress={() => setLogoutModalVisible(false)}
+              >
+                <Text style={styles.alertCancelText}>{t('common.cancel')}</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.alertConfirmBtn}
+                onPress={() => {
+                  setLogoutModalVisible(false);
+                  logout();
+                }}
+              >
+                <Text style={styles.alertConfirmText}>{t('profile.logout')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
       {/* Polished Edit Modal */}
       <Modal visible={editVisible} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
@@ -289,7 +347,7 @@ const styles = StyleSheet.create({
   soilCard: { width: '48%', backgroundColor: '#EAF6FB', borderRadius: 12, padding: 16, alignItems: 'center', marginBottom: 12 },
   soilLabel: { fontSize: 14, fontWeight: '700', color: '#156349', marginBottom: 4 },
   soilValue: { fontSize: 12, color: '#4A6F7C' },
-  
+
   // Modal Specific
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', padding: 20 },
   modalContent: { backgroundColor: '#FFFFFF', borderRadius: 28, maxHeight: '90%', overflow: 'hidden' },
@@ -315,5 +373,103 @@ const styles = StyleSheet.create({
   modernSaveBtn: { flex: 2, backgroundColor: '#156349', padding: 16, borderRadius: 16, alignItems: 'center' },
   modernCancelBtn: { flex: 1, backgroundColor: '#F5F7F8', padding: 16, borderRadius: 16, alignItems: 'center' },
   saveText: { color: '#FFF', fontWeight: 'bold' },
-  cancelText: { color: '#156349', fontWeight: 'bold' }
+  cancelText: { color: '#156349', fontWeight: 'bold' },
+  logoutBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 16,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: '#F0F0F0',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+  },
+  logoutIconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: '#EAF6FB',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoutTextContainer: {
+    flex: 1,
+    marginLeft: 15,
+  },
+  logoutTitle: {
+    color: '#156349',
+    fontSize: 16,
+  },
+  logoutSubtitle: {
+    color: '#A0A0A0',
+    fontSize: 12,
+    marginTop: 2,
+  },
+
+  alertOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
+  },
+  alertBox: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 30,
+    padding: 25,
+    alignItems: 'center',
+    elevation: 10,
+  },
+  alertIconBg: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#DDF1F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  alertTitle: {
+    fontSize: 22,
+    color: '#156349',
+    marginBottom: 10,
+  },
+  alertMessage: {
+    textAlign: 'center',
+    color: '#4A6F7C',
+    lineHeight: 20,
+    marginBottom: 30,
+  },
+  alertFooter: {
+    flexDirection: 'row',
+    gap: 15,
+  },
+  alertCancelBtn: {
+    flex: 1,
+    paddingVertical: 15,
+    borderRadius: 15,
+    backgroundColor: '#F5F7F8',
+    alignItems: 'center',
+  },
+  alertCancelText: {
+    color: '#156349',
+    fontWeight: 'bold',
+  },
+  alertConfirmBtn: {
+    flex: 1,
+    paddingVertical: 15,
+    borderRadius: 15,
+    backgroundColor: '#156349',
+    alignItems: 'center',
+  },
+  alertConfirmText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
 });

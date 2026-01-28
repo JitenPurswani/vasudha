@@ -184,7 +184,11 @@
     "default_region": "కళ్యాణ్, మహారాష్ట్ర"
   },
   "common": {
-    "last_updated": "చివరి అప్‌డేట్: {{timestamp}}"
+    "last_updated": "చివరి అప్‌డేట్: {{timestamp}}",
+    "cancel": "రద్దు చేయి",
+    "confirm": "ధృవీకరించు",
+    "status": "స్థితి",
+    "loading": "లోడ్ అవుతోంది..."
   },
   "home": {
     "greeting": "నమస్కారం,",
@@ -245,7 +249,10 @@
     "language": "భాష",
     "location": "ప్రాంతం",
     "update_success": "ప్రొఫైల్ విజయవంతంగా నవీకరించబడింది",
-    "update_error": "ప్రొఫైల్ నవీకరించడంలో విఫలమైంది"
+    "update_error": "ప్రొఫైల్ నవీకరించడంలో విఫలమైంది",
+    "logout": "లాగ్ అవుట్",
+    "logout_confirm": "మీరు ఖచ్చితంగా మీ ఖాతా నుండి లాగ్ అవుట్ చేయాలనుకుంటున్నారా?",
+    "logout_description": "సురక్షితంగా లాగ్ అవుట్ చేయండి"
   },
   "notifications": {
     "title": "నోటిఫికేషన్లు"

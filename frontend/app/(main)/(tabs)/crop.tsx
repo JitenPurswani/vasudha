@@ -155,7 +155,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
               });
             }}
           >
-            <Ionicons name="storefront-outline" size={16} color="#FFFFFF" />
+            <Ionicons name="storefront-outline" size={16} color="#186F71" />
             <AppText variant="content" bold style={styles.marketButtonText}>
               {t('crop.market', { defaultValue: 'Market' })}
             </AppText>
@@ -692,7 +692,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#186F71',
-    borderWidth: 0.5,
+    borderWidth: 1,
   },
   toggleBtnActive: {
     backgroundColor: '#186F71',
@@ -836,16 +836,19 @@ const styles = StyleSheet.create({
   },
   marketButton: {
     flex: 1,
-    backgroundColor: '#6b9fb6',
+    backgroundColor: 'rgba(189, 219, 232, 0.8)',
+    borderColor: '#186F71',
+    borderWidth: 0.5,
     borderRadius: 8,
     paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
+    
   },
   marketButtonText: {
-    color: '#FFFFFF',
+    color: '#186F71',
     fontSize: 11,
   },
   selectButton: {

@@ -9,6 +9,7 @@ import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, differenceInDays, addDays } from 'date-fns';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFocusEffect } from 'expo-router';
 import {
   ImageBackground,
   ScrollView,
@@ -63,6 +64,18 @@ export default function Home() {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const currentContentFont = getFont('content', i18n.language);
+  useFocusEffect(
+  useCallback(() => {
+    const refreshUser = async () => {
+      const savedData = await AsyncStorage.getItem('userProfile');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        setUserName(data.name || 'Farmer');
+      }
+    };
+    refreshUser();
+  }, [])
+);
 
   // Fetch weather on component mount
   useEffect(() => {
@@ -104,15 +117,28 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const getUsername = async () => {
-      const token = await SecureStore.getItemAsync('userToken');
-      if (token) {
-        const decoded: any = jwtDecode(token);
-        setUserName(decoded.sub || 'Farmer');
+  const fetchUserDetails = async () => {
+    try {
+      const savedData = await AsyncStorage.getItem('userProfile');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        // data.name contains the actual up-to-date username from Profile.tsx
+        setUserName(data.name || 'Farmer');
+      } else {
+        // Fallback to JWT only if storage is empty
+        const token = await SecureStore.getItemAsync('userToken');
+        if (token) {
+          const decoded: any = jwtDecode(token);
+          setUserName(decoded.sub || 'Farmer');
+        }
       }
-    };
-    getUsername();
-  }, []);
+    } catch (error) {
+      console.error('[Home] Error fetching user details:', error);
+    }
+  };
+
+  fetchUserDetails();
+}, []);
 
   // Calculate growth state when primary crop changes
   useEffect(() => {

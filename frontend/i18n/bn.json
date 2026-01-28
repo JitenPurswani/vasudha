@@ -184,7 +184,11 @@
     "default_region": "কল্যাণ, মহারাষ্ট্র"
   },
   "common": {
-    "last_updated": "সর্বশেষ আপডেট: {{timestamp}}"
+    "last_updated": "সর্বশেষ আপডেট: {{timestamp}}",
+    "cancel": "বাতিল করুন",
+    "confirm": "নিশ্চিত করুন",
+    "status": "অবস্থা",
+    "loading": "লোড হচ্ছে..."
   },
   "home": {
     "greeting": "নমস্কার,",
@@ -245,7 +249,10 @@
     "language": "ভাষা",
     "location": "অবস্থান",
     "update_success": "প্রোফাইল সফলভাবে আপডেট করা হয়েছে",
-    "update_error": "প্রোফাইল আপডেট করতে ব্যর্থ হয়েছে"
+    "update_error": "প্রোফাইল আপডেট করতে ব্যর্থ হয়েছে",
+    "logout": "লগ আউট",
+    "logout_confirm": "আপনি কি নিশ্চিত যে আপনি আপনার অ্যাকাউন্ট থেকে লগ আউট করতে চান?",
+    "logout_description": "আপনার সেশন থেকে নিরাপদে লগ আউট করুন"
   },
   "notifications": {
     "title": "নোটিফিকেশন"

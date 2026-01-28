@@ -242,7 +242,10 @@
     "save": "સાચવો",
     "username": "યુઝરનેમ",
     "language": "ભાષા",
-    "location": "સ્થળ"
+    "location": "સ્થળ",
+    "logout": "લોગ આઉટ",
+    "logout_confirm": "શું તમે ખરેખર તમારા એકાઉન્ટમાંથી લોગ આઉટ કરવા માંગો છો?",
+    "logout_description": "તમારા સત્રમાંથી સુરક્ષિત રીતે લોગ આઉટ કરો"
   },
   "notifications": {
     "title": "સૂચનાઓ"

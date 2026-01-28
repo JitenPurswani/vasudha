@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, validator
 from typing import Optional
 from fastapi import Header
 import logging
+import re
 
 app = FastAPI(title="Vasudha Auth Agent")
 

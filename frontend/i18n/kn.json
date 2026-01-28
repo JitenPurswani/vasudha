@@ -184,7 +184,11 @@
     "default_region": "ಕಲ್ಯಾಣ್, ಮಹಾರಾಷ್ಟ್ರ"
   },
   "common": {
-    "last_updated": "ಕೊನೆಯ ಅಪ್‌ಡೇಟ್: {{timestamp}}"
+    "last_updated": "ಕೊನೆಯ ಅಪ್‌ಡೇಟ್: {{timestamp}}",
+    "cancel": "ರದ್ದುಮಾಡು",
+    "confirm": "ಖಚಿತಪಡಿಸಿ",
+    "status": "ಸ್ಥಿತಿ",
+    "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ..."
   },
   "home": {
     "greeting": "ನಮಸ್ಕಾರ,",
@@ -245,7 +249,10 @@
     "language": "ಭಾಷೆ",
     "location": "ಸ್ಥಳ",
     "update_success": "ಪ್ರೊಫೈಲ್ ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ",
-    "update_error": "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ"
+    "update_error": "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ",
+    "logout": "ಲಾಗ್ ಔಟ್",
+    "logout_confirm": "ನಿಮ್ಮ ಖಾತೆಯಿಂದ ಲಾಗ್ ಔಟ್ ಮಾಡಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?",
+    "logout_description": "ಸುರಕ್ಷಿತವಾಗಿ ಲಾಗ್ ಔಟ್ ಮಾಡಿ"
   },
   "notifications": {
     "title": "ಸೂಚನೆಗಳು"

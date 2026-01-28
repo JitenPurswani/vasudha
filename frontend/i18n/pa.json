@@ -184,7 +184,11 @@
     "default_region": "ਕਲਿਆਣ, ਮਹਾਰਾਸ਼ਟਰ"
   },
   "common": {
-    "last_updated": "ਆਖਰੀ ਅੱਪਡੇਟ: {{timestamp}}"
+    "last_updated": "ਆਖਰੀ ਅੱਪਡੇਟ: {{timestamp}}",
+    "cancel": "રદ કરો",
+    "confirm": "પુષ્ટિ કરો",
+    "status": "સ્થિતિ",
+    "loading": "લોડ થઈ રહ્યું છે..."
   },
   "home": {
     "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ,",
@@ -245,7 +249,10 @@
     "language": "ਭਾਸ਼ਾ",
     "location": "ਸਥਾਨ",
     "update_success": "ਪ੍ਰੋਫਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਅੱਪਡੇਟ ਕੀਤੀ ਗਈ",
-    "update_error": "ਪ੍ਰੋਫਾਈਲ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+    "update_error": "ਪ੍ਰੋਫਾਈਲ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "logout": "ਲੌਗ ਆਉਟ",
+    "logout_confirm": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ 'ਤੇ ਆਪਣੇ ਖਾਤੇ ਤੋਂ ਲੌਗ ਆਉਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+    "logout_description": "ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਲੌਗ ਆਉਟ ਕਰੋ"
   },
   "notifications": {
     "title": "ਸੂਚਨਾਵਾਂ"

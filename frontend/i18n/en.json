@@ -187,7 +187,8 @@
     "last_updated": "Last Updated: {{timestamp}}",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "status": "Status"
+    "status": "Status",
+    "loading": "Loading..."
   },
   "home": {
     "greeting": "Hello,",
@@ -261,7 +262,10 @@
     "save": "Save",
     "username": "Username",
     "language": "Language",
-    "location": "Location"
+    "location": "Location",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to log out of your account?",
+    "logout_description": "Sign out of your session securely"
   },
   "notifications": {
     "title": "Notifications"

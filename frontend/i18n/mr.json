@@ -184,7 +184,11 @@
     "default_region": "कल्याण, महाराष्ट्र"
   },
   "common": {
-    "last_updated": "शेवटचे अपडेट: {{timestamp}}"
+    "last_updated": "शेवटचे अपडेट: {{timestamp}}",
+    "cancel": "रद्द करा",
+    "confirm": "पुष्टी करा",
+    "status": "स्थिती",
+    "loading": "लोड होत आहे..."
   },
   "home": {
     "greeting": "नमस्कार,",
@@ -245,7 +249,10 @@
     "language": "भाषा",
     "location": "ठिकाण",
     "update_success": "प्रोफाइल यशस्वीरित्या अपडेट झाली",
-    "update_error": "प्रोफाइल अपडेट करण्यात अपयश"
+    "update_error": "प्रोफाइल अपडेट करण्यात अपयश",
+    "logout": "लॉग आउट",
+    "logout_confirm": "आपण खात्रीने आपल्या खात्यातून बाहेर पडू इच्छिता?",
+    "logout_description": "तुमच्या खात्यातून सुरक्षितपणे बाहेर पडा"
   },
   "notifications": {
     "title": "सूचना"
