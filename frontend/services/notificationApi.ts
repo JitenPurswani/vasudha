@@ -5,6 +5,7 @@
 
 import * as SecureStore from 'expo-secure-store';
 import i18n from '@/i18n';
+import { translateClimateRisk, getClimateActions } from './i18nHelpers';
 
 const CLIMATE_AGENT_URL = process.env.EXPO_PUBLIC_CLIMATE_AGENT_URL || "http://localhost:8007";
 const MARKET_AGENT_URL = process.env.EXPO_PUBLIC_MARKET_API_URL || "http://localhost:8004";
@@ -107,6 +108,18 @@ export async function fetchClimateAlerts(
         const riskName = risk.risk || 'unknown';
         const riskKey = riskName.toLowerCase().replace(/\s+/g, '_');
         
+        // Translate risk name
+        const translatedRiskName = translateClimateRisk(riskName);
+        
+        // Get translated climate actions based on severity
+        const severityKey = risk.severity?.toLowerCase() as 'high' | 'medium' | 'low' || 'high';
+        const translatedActions = getClimateActions(riskKey, severityKey);
+        
+        // Use translated actions if available, otherwise fall back to backend actions
+        const description = translatedActions.length > 0 
+          ? translatedActions[0] 
+          : (risk.trigger || risk.preventive_actions?.[0] || i18n.t('errors.no_data'));
+        
         // Use index + random to ensure unique keys
         const uniqueId = `climate_${riskKey}_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 5)}`;
         
@@ -114,8 +127,8 @@ export async function fetchClimateAlerts(
           id: uniqueId,
           type: 'climate',
           severity,
-          title: riskName,
-          description: risk.trigger || risk.preventive_actions?.[0] || 'Climate risk detected',
+          title: translatedRiskName,
+          description,
           crop,
           timestamp: Date.now(),
           read: false,
@@ -123,6 +136,7 @@ export async function fetchClimateAlerts(
             agent: 'climate-adaptation',
             riskType: riskKey,
             data: risk,
+            translatedActions, // Include all actions for detail view
           },
         });
       });

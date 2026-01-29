@@ -213,6 +213,125 @@ export function translateCrops(cropKeys: string[]): Record<string, string> {
 }
 
 /**
+ * Translates XAI feature explanations based on feature name and effect
+ * @param feature - Feature name (nitrogen, phosphorus, potassium, ph, rainfall, temperature)
+ * @param effect - Effect type ('positive', 'negative', 'neutral')
+ * @returns Translated explanation string
+ */
+export function getFeatureExplanation(feature: string, effect: 'positive' | 'negative' | 'neutral' = 'positive'): string {
+  if (!feature) return '';
+  
+  const normalizedFeature = feature.toLowerCase().replace(/\s+/g, '_');
+  const translationKey = `xai.feature_explanations.${normalizedFeature}.${effect}`;
+  const translated = i18n.t(translationKey);
+  
+  // If specific feature translation not found, try generic
+  if (translated === translationKey) {
+    const genericKey = `xai.feature_explanations.generic_${effect}`;
+    const genericTranslated = i18n.t(genericKey);
+    
+    if (genericTranslated !== genericKey) {
+      return genericTranslated;
+    }
+    
+    // Fallback to English default
+    const fallbackKey = `xai.feature_explanations.fallback`;
+    const fallbackTranslated = i18n.t(fallbackKey);
+    return fallbackTranslated !== fallbackKey 
+      ? fallbackTranslated 
+      : 'Recommendation based on soil and climate conditions for your location';
+  }
+  
+  return translated;
+}
+
+/**
+ * Translates climate preventive actions based on risk type and severity
+ * @param riskType - Climate risk type (heat_stress, cold_stress, frost_risk, dry_spell, waterlogging, high_humidity)
+ * @param severity - Severity level ('high', 'medium', 'low')
+ * @returns Array of translated action strings
+ */
+export function getClimateActions(riskType: string, severity: 'high' | 'medium' | 'low' = 'high'): string[] {
+  if (!riskType) return [];
+  
+  const normalizedRisk = riskType.toLowerCase().replace(/\s+/g, '_');
+  const translationKey = `climate_actions.${normalizedRisk}.${severity}`;
+  const translated = i18n.t(translationKey, { returnObjects: true });
+  
+  // i18next returns an array when returnObjects is true
+  if (Array.isArray(translated) && translated.every(item => typeof item === 'string')) {
+    return translated as string[];
+  }
+  
+  // If no translation found for this severity, try 'high' as default
+  if (severity !== 'high') {
+    const highKey = `climate_actions.${normalizedRisk}.high`;
+    const highTranslated = i18n.t(highKey, { returnObjects: true });
+    if (Array.isArray(highTranslated) && highTranslated.every(item => typeof item === 'string')) {
+      return highTranslated as string[];
+    }
+  }
+  
+  return [];
+}
+
+/**
+ * Translates sustainability summary text
+ * @param summaryType - Type of summary ('high_water', 'positive_soil', 'balanced')
+ * @returns Translated summary string
+ */
+export function getSustainabilitySummary(summaryType: string): string {
+  if (!summaryType) return '';
+  
+  const normalizedType = summaryType.toLowerCase().replace(/\s+/g, '_');
+  const translationKey = `sustainability_text.summary.${normalizedType}`;
+  const translated = i18n.t(translationKey);
+  
+  if (translated === translationKey) {
+    // Return empty string if translation not found
+    return '';
+  }
+  
+  return translated;
+}
+
+/**
+ * Translates sustainability detail text with level interpolation
+ * @param detailType - Type of detail ('water_intensity', 'soil_impact', 'cultivation_intensity')
+ * @param level - The level value to interpolate
+ * @returns Translated detail string with level
+ */
+export function getSustainabilityDetail(detailType: string, level: string): string {
+  if (!detailType) return '';
+  
+  const normalizedType = detailType.toLowerCase().replace(/\s+/g, '_');
+  const translationKey = `sustainability_text.details.${normalizedType}`;
+  const translatedLevel = translateSustainabilityLevel(level);
+  const translated = i18n.t(translationKey, { level: translatedLevel });
+  
+  if (translated === translationKey) {
+    return '';
+  }
+  
+  return translated;
+}
+
+/**
+ * Gets the sustainability disclaimer text
+ * @returns Translated disclaimer string
+ */
+export function getSustainabilityDisclaimer(): string {
+  const translationKey = 'sustainability_text.disclaimer';
+  const translated = i18n.t(translationKey);
+  
+  if (translated === translationKey) {
+    return 'This sustainability score reflects intrinsic crop characteristics and does not account for local climate, irrigation practices, or soil chemistry.';
+  }
+  
+  return translated;
+}
+
+/**
  * Get all translated crop names as an array of { key, label } for dropdowns
  */
 export function getCropOptions(): Array<{ key: string; label: string }> {

@@ -24,6 +24,7 @@ import { fetchRecommendationsWithSustainability, CropRecommendation, Sustainabil
 import { useCrop } from '@/context/CropContext';
 import { useActiveCrops, CropGrowthState } from '@/context/ActiveCropsContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { translateSustainabilityLevel } from '@/services/i18nHelpers';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -422,7 +423,7 @@ export default function Crop() {
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <AppText variant="header" style={styles.modalTitle}>
-                Sustainability Details
+                {t('sustainability.details')}
               </AppText>
               <TouchableOpacity onPress={() => setShowSustainabilityModal(false)}>
                 <Ionicons name="close" size={28} color="#186F71" />
@@ -433,7 +434,7 @@ export default function Crop() {
               {/* Score Display */}
               <View style={styles.scoreSection}>
                 <AppText variant="content" bold style={styles.sectionTitle}>
-                  Sustainability Score
+                  {t('sustainability.score')}
                 </AppText>
                 <View style={styles.scoreDisplayRow}>
                   <AppText variant="content" style={styles.scorePercentage}>
@@ -457,7 +458,7 @@ export default function Crop() {
               {selectedSustainability?.explanation && (
                 <>
                   <AppText variant="content" bold style={[styles.sectionTitle, { marginTop: 20 }]}>
-                    Summary
+                    {t('sustainability.summary')}
                   </AppText>
                   <AppText variant="content" style={styles.summaryText}>
                     {selectedSustainability.explanation.summary}
@@ -469,7 +470,7 @@ export default function Crop() {
               {selectedSustainability?.explanation?.details && selectedSustainability.explanation.details.length > 0 && (
                 <>
                   <AppText variant="content" bold style={[styles.sectionTitle, { marginTop: 20 }]}>
-                    Key Points
+                    {t('sustainability.key_points')}
                   </AppText>
                   {selectedSustainability.explanation.details.map((detail, idx) => (
                     <AppText key={idx} variant="content" style={styles.detailText}>
@@ -483,18 +484,18 @@ export default function Crop() {
               {selectedSustainability?.dimensions && (
                 <>
                   <AppText variant="content" bold style={[styles.sectionTitle, { marginTop: 20 }]}>
-                    Impact Factors
+                    {t('sustainability.impact_factors')}
                   </AppText>
                   
                   <View style={styles.dimensionCard}>
                     <View style={styles.dimensionHeader}>
                       <Ionicons name="water" size={20} color="#2196F3" />
                       <AppText variant="content" bold style={styles.dimensionTitle}>
-                        Water Intensity
+                        {t('sustainability.water_intensity')}
                       </AppText>
                     </View>
                     <AppText variant="content" style={styles.dimensionCategory}>
-                      Category: {selectedSustainability.dimensions.water_intensity.category}
+                      {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.water_intensity.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
                       {selectedSustainability.dimensions.water_intensity.impact}
@@ -505,11 +506,11 @@ export default function Crop() {
                     <View style={styles.dimensionHeader}>
                       <Ionicons name="leaf" size={20} color="#4CAF50" />
                       <AppText variant="content" bold style={styles.dimensionTitle}>
-                        Soil Impact
+                        {t('sustainability.soil_impact')}
                       </AppText>
                     </View>
                     <AppText variant="content" style={styles.dimensionCategory}>
-                      Category: {selectedSustainability.dimensions.soil_impact.category}
+                      {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.soil_impact.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
                       {selectedSustainability.dimensions.soil_impact.impact}
@@ -520,11 +521,11 @@ export default function Crop() {
                     <View style={styles.dimensionHeader}>
                       <Ionicons name="flash" size={20} color="#FF9800" />
                       <AppText variant="content" bold style={styles.dimensionTitle}>
-                        Cultivation Intensity
+                        {t('sustainability.cultivation_intensity')}
                       </AppText>
                     </View>
                     <AppText variant="content" style={styles.dimensionCategory}>
-                      Category: {selectedSustainability.dimensions.cultivation_intensity.category}
+                      {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.cultivation_intensity.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
                       {selectedSustainability.dimensions.cultivation_intensity.impact}
@@ -541,7 +542,7 @@ export default function Crop() {
               onPress={() => setShowSustainabilityModal(false)}
             >
               <AppText variant="content" bold style={styles.modalCloseText}>
-                Close
+                {t('sustainability.close')}
               </AppText>
             </TouchableOpacity>
           </View>

@@ -367,6 +367,12 @@
   },
   "sustainability": {
     "score": "Sustainability Score",
+    "details": "Sustainability Details",
+    "summary": "Summary",
+    "key_points": "Key Points",
+    "impact_factors": "Impact Factors",
+    "category": "Category",
+    "close": "Close",
     "water_intensity": "Water Intensity",
     "soil_impact": "Soil Impact",
     "cultivation_intensity": "Cultivation Intensity",
@@ -385,7 +391,114 @@
   "xai": {
     "agronomic_match": "Agronomic Match",
     "market_viability": "Market Viability",
-    "overall_fit": "Overall Fit"
+    "overall_fit": "Overall Fit",
+    "feature_explanations": {
+      "nitrogen": {
+        "positive": "Adequate nitrogen levels support healthy vegetative growth.",
+        "negative": "Low nitrogen availability limits plant growth and yield potential.",
+        "neutral": "Nitrogen levels are not a major influencing factor for this crop."
+      },
+      "phosphorus": {
+        "positive": "Phosphorus supports strong root development and early plant vigor.",
+        "negative": "Insufficient phosphorus may restrict root growth and flowering.",
+        "neutral": "Phosphorus levels are within a tolerable range for this crop."
+      },
+      "potassium": {
+        "positive": "Potassium improves stress tolerance and overall crop resilience.",
+        "negative": "Low potassium can reduce disease resistance and crop quality.",
+        "neutral": "Potassium has a limited effect on this recommendation."
+      },
+      "ph": {
+        "positive": "Soil pH is well suited for nutrient uptake and crop growth.",
+        "negative": "Soil pH may restrict nutrient availability for this crop.",
+        "neutral": "Soil pH does not strongly influence this crop's suitability."
+      },
+      "rainfall": {
+        "positive": "Rainfall levels align well with this crop's water requirements.",
+        "negative": "Excess or insufficient rainfall reduces suitability for this crop.",
+        "neutral": "Rainfall does not significantly affect this recommendation."
+      },
+      "temperature": {
+        "positive": "Temperature conditions are favorable for this crop's growth cycle.",
+        "negative": "Temperature stress may negatively impact crop performance.",
+        "neutral": "Temperature plays a minor role for this crop in current conditions."
+      },
+      "generic_positive": "This factor contributes positively.",
+      "generic_negative": "This factor contributes negatively.",
+      "generic_neutral": "This factor has minimal impact.",
+      "fallback": "Recommendation based on soil and climate conditions for your location"
+    }
+  },
+  "climate_actions": {
+    "heat_stress": {
+      "high": [
+        "Apply mulching to reduce soil temperature and retain moisture",
+        "Increase irrigation frequency with smaller water volumes",
+        "Use shading nets or temporary shade where possible",
+        "Avoid fertilizer application during extreme heat"
+      ],
+      "medium": [
+        "Monitor soil moisture regularly",
+        "Apply light mulching",
+        "Avoid midday irrigation"
+      ]
+    },
+    "cold_stress": {
+      "high": [
+        "Use crop covers or mulch to retain heat",
+        "Avoid irrigation during night or early morning",
+        "Provide wind protection if possible"
+      ],
+      "medium": [
+        "Monitor night temperatures",
+        "Avoid excess irrigation"
+      ]
+    },
+    "frost_risk": {
+      "high": [
+        "Use crop covers or mulching to protect plants",
+        "Avoid irrigation during night hours",
+        "Harvest mature crops early if possible"
+      ]
+    },
+    "dry_spell": {
+      "high": [
+        "Apply mulching to conserve soil moisture",
+        "Adjust irrigation schedule to reduce stress",
+        "Reduce soil exposure to direct sunlight"
+      ],
+      "medium": [
+        "Monitor moisture levels",
+        "Optimize irrigation timing"
+      ]
+    },
+    "waterlogging": {
+      "high": [
+        "Improve field drainage immediately",
+        "Delay irrigation until soil drains",
+        "Avoid field operations on saturated soil"
+      ]
+    },
+    "high_humidity": {
+      "low": [
+        "Improve air circulation around crops",
+        "Avoid excess irrigation",
+        "Monitor crop health closely"
+      ]
+    }
+  },
+  "sustainability_text": {
+    "summary": {
+      "high_water": "Lower sustainability due to high water requirements.",
+      "positive_soil": "High sustainability driven by soil-restorative properties.",
+      "balanced": "Moderate sustainability based on balanced resource usage."
+    },
+    "details": {
+      "water_intensity": "Water intensity is classified as {{level}}.",
+      "soil_impact": "Soil impact is considered {{level}}.",
+      "cultivation_intensity": "Cultivation intensity is rated as {{level}}."
+    },
+    "disclaimer": "This sustainability score reflects intrinsic crop characteristics and does not account for local climate, irrigation practices, or soil chemistry."
   },
   "errors": {
     "network_error": "Network error. Please check your connection.",

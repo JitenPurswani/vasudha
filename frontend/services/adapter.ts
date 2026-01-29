@@ -16,6 +16,8 @@ import {
   CropCard,
   AdaptedRecommendationResponse,
 } from "./types";
+import { getFeatureExplanation } from "./i18nHelpers";
+import i18n from "@/i18n";
 
 // ============================================
 // HELPER FUNCTIONS
@@ -59,21 +61,8 @@ function scoreToHeaderBg(score: number): string {
 }
 
 /**
- * Feature name to explanation string mapping
- * Used as fallback when XAI data is not available
- */
-const FEATURE_EXPLANATION_MAP: Record<string, string> = {
-  nitrogen: "Adequate nitrogen levels support healthy crop growth",
-  phosphorus: "Phosphorus supports strong root development",
-  potassium: "Potassium improves stress tolerance and crop resilience",
-  ph: "Soil pH is well suited for nutrient uptake",
-  rainfall: "Rainfall levels align well with crop water requirements",
-  temperature: "Temperature conditions are favorable for crop growth",
-};
-
-/**
- * Converts SHAP feature names to explanation strings
- * Falls back to generic message if feature not in map
+ * Converts SHAP feature names to translated explanation strings
+ * Uses i18n translations for proper localization
  */
 function shapFeaturesToExplanations(
   shapSummary: BackendSHAPSummary | null
@@ -84,19 +73,15 @@ function shapFeaturesToExplanations(
 
   const explanations: string[] = [];
 
-  // Add positive features
+  // Add positive features with translated explanations
   for (const feature of shapSummary.top_positive_features || []) {
-    const explanation =
-      FEATURE_EXPLANATION_MAP[feature.toLowerCase()] ||
-      `${capitalize(feature)} contributes positively to this recommendation`;
+    const explanation = getFeatureExplanation(feature, 'positive');
     explanations.push(explanation);
   }
 
-  // Add negative features (with different wording)
+  // Add negative features with translated explanations
   for (const feature of shapSummary.top_negative_features || []) {
-    const explanation =
-      FEATURE_EXPLANATION_MAP[feature.toLowerCase()] ||
-      `${capitalize(feature)} may limit suitability but other factors compensate`;
+    const explanation = getFeatureExplanation(feature, 'negative');
     explanations.push(explanation);
   }
 
@@ -168,7 +153,9 @@ function buildWhyArray(
   }
 
   // Priority 3: Generic fallback (guarantees at least 1 item)
-  return ["Recommendation based on soil and climate conditions for your location"];
+  const fallbackKey = 'xai.feature_explanations.fallback';
+  const fallbackTranslation = i18n.t(fallbackKey);
+  return [fallbackTranslation !== fallbackKey ? fallbackTranslation : "Recommendation based on soil and climate conditions for your location"];
 }
 
 // ============================================
