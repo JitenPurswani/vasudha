@@ -4,6 +4,7 @@
  */
 
 import * as SecureStore from 'expo-secure-store';
+import i18n from '@/i18n';
 
 const CLIMATE_AGENT_URL = process.env.EXPO_PUBLIC_CLIMATE_AGENT_URL || "http://localhost:8007";
 const MARKET_AGENT_URL = process.env.EXPO_PUBLIC_MARKET_API_URL || "http://localhost:8004";
@@ -173,8 +174,8 @@ export async function fetchMarketAlerts(
         id: `market_volatility_${Date.now()}`,
         type: 'market',
         severity: 'warning',
-        title: 'High Price Volatility',
-        description: `${crop} prices in ${state} are highly volatile. Consider timing your sale carefully.`,
+        title: i18n.t('market_alerts.price_volatility_title'),
+        description: i18n.t('market_alerts.price_volatility_desc', { crop, state }),
         crop,
         timestamp: Date.now(),
         read: false,
@@ -192,8 +193,8 @@ export async function fetchMarketAlerts(
         id: `market_rising_${Date.now()}`,
         type: 'market',
         severity: 'info',
-        title: 'Price Rising',
-        description: `${crop} prices in ${state} are trending upward. Good time to consider selling.`,
+        title: i18n.t('market_alerts.price_rising_title'),
+        description: i18n.t('market_alerts.price_rising_desc', { crop, state }),
         crop,
         timestamp: Date.now(),
         read: false,
@@ -208,8 +209,8 @@ export async function fetchMarketAlerts(
         id: `market_falling_${Date.now()}`,
         type: 'market',
         severity: 'warning',
-        title: 'Price Dropping',
-        description: `${crop} prices in ${state} are declining. You may want to hold or explore other markets.`,
+        title: i18n.t('market_alerts.price_falling_title'),
+        description: i18n.t('market_alerts.price_falling_desc', { crop, state }),
         crop,
         timestamp: Date.now(),
         read: false,
@@ -227,8 +228,13 @@ export async function fetchMarketAlerts(
         id: `market_demand_${Date.now()}`,
         type: 'market',
         severity: 'info',
-        title: 'High Market Demand',
-        description: `Strong demand for ${crop} in ${state}. Average price: ₹${Math.round(data.avg_price)}/quintal`,
+        title: i18n.t('market_alerts.high_demand_title', { defaultValue: 'High Market Demand' }),
+        description: i18n.t('market_alerts.high_demand_desc', { 
+          crop, 
+          state, 
+          price: Math.round(data.avg_price),
+          defaultValue: `Strong demand for ${crop} in ${state}. Average price: ₹${Math.round(data.avg_price)}/quintal` 
+        }),
         crop,
         timestamp: Date.now(),
         read: false,

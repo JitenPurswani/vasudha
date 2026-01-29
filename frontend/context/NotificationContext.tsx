@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import { jwtDecode } from 'jwt-decode';
 import { AppState, AppStateStatus } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ToastData, ToastContainer, ToastType } from '@/components/Toast';
 import { 
   NotificationData, 
@@ -11,58 +12,7 @@ import {
   generateTestNotifications 
 } from '@/services/notificationApi';
 import cropProfiles from '@/constants/cropProfiles.json';
-
-// Stage-specific tips for different risk types
-const STAGE_RISK_TIPS: Record<string, Record<string, string>> = {
-  germination: {
-    heat_stress: 'Seedlings are very sensitive to heat. Provide shade if possible and water in early morning/evening.',
-    cold_stress: 'Young seedlings may die from cold exposure. Use mulch or row covers for protection.',
-    frost_risk: 'Frost can kill germinating seeds. Cover soil with straw or plastic sheets.',
-    waterlogging: 'Waterlogging at germination causes seed rot. Ensure proper drainage immediately.',
-    dry_spell: 'Seeds need consistent moisture for germination. Light frequent irrigation recommended.',
-    high_humidity: 'High humidity may cause damping-off disease. Avoid overwatering.',
-  },
-  seedling: {
-    heat_stress: 'Transplant shock is worsened by heat. Consider temporary shade nets.',
-    cold_stress: 'Protect seedlings from cold with mulch. Avoid night-time irrigation.',
-    frost_risk: 'Cover seedlings with plastic tunnels or cloches overnight.',
-    waterlogging: 'Seedling roots are shallow and can drown easily. Improve drainage.',
-    dry_spell: 'Water stress stunts seedling growth. Maintain soil moisture.',
-    high_humidity: 'Watch for fungal diseases. Ensure good air circulation between plants.',
-  },
-  vegetative: {
-    heat_stress: 'Increase irrigation frequency. Plants transpire more in heat.',
-    cold_stress: 'Slow growth is normal in cold. Do not over-fertilize during cold spells.',
-    frost_risk: 'Vegetative growth can recover from light frost. Protect growing tips.',
-    waterlogging: 'Saturated soil reduces nutrient uptake. Apply foliar nutrition if needed.',
-    dry_spell: 'Critical period for leaf development. Deep watering every few days is better than light daily watering.',
-    high_humidity: 'Perfect conditions for foliar diseases. Consider preventive fungicide spray.',
-  },
-  flowering: {
-    heat_stress: 'CRITICAL: Heat during flowering causes flower drop and poor fruit set. Irrigate frequently, consider shade nets.',
-    cold_stress: 'Cold reduces pollinator activity. Hand pollination may help.',
-    frost_risk: 'Frost kills flowers and young fruits. Protection is essential!',
-    waterlogging: 'Excess water during flowering causes flower drop. Maintain light moisture only.',
-    dry_spell: 'Water stress during flowering drastically reduces yield. Do not skip irrigation!',
-    high_humidity: 'May affect pollen viability and promote flower diseases.',
-  },
-  fruiting: {
-    heat_stress: 'Heat can cause fruit sunburn. Maintain leaf cover over fruits.',
-    cold_stress: 'Fruit development slows in cold. Extend harvest estimate accordingly.',
-    frost_risk: 'Frost damages developing fruits. Harvest early if frost is imminent.',
-    waterlogging: 'Can cause fruit cracking and rot. Ensure drainage.',
-    dry_spell: 'Fruit size is determined now. Consistent watering is critical.',
-    high_humidity: 'Watch for fruit rot diseases. Good ventilation helps.',
-  },
-  maturity: {
-    heat_stress: 'Hot weather speeds up maturity. Prepare for earlier harvest.',
-    cold_stress: 'May delay maturity. Monitor crop readiness carefully.',
-    frost_risk: 'Harvest before frost if possible to avoid crop damage.',
-    waterlogging: 'Stop irrigation before harvest for better quality.',
-    dry_spell: 'Dry conditions at maturity are often beneficial. Reduces disease risk.',
-    high_humidity: 'High humidity delays drying. May need post-harvest drying assistance.',
-  },
-};
+import i18n from '@/i18n';
 
 // Simplified stage names for matching
 function getSimplifiedStage(stageName: string): string {
@@ -410,16 +360,21 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
       userData.season || 'kharif'
     );
     
-    // Add stage-specific tips to each alert
+    // Add stage-specific tips to each alert using i18n
     if (userData.currentStage && alerts.length > 0) {
       alerts.forEach(alert => {
         const riskType = alert.source?.riskType || '';
-        const stageTips = STAGE_RISK_TIPS[userData.currentStage!];
+        const tipKey = `climate_tips.${userData.currentStage}.${riskType}`;
+        const stageTip = i18n.t(tipKey);
         
-        if (stageTips && stageTips[riskType]) {
+        // Only add tip if translation exists (not returning the key itself)
+        if (stageTip && stageTip !== tipKey) {
+          // Get translated stage name
+          const stageKey = `stages.${userData.currentStage}`;
+          const stageName = i18n.t(stageKey, { defaultValue: userData.currentStage });
+          
           // Append stage-specific tip to description
-          const stageTip = stageTips[riskType];
-          alert.description = `${alert.description}\n\n📌 Stage tip (${userData.currentStage}): ${stageTip}`;
+          alert.description = `${alert.description}\n\n📌 ${stageName}: ${stageTip}`;
           
           // Also store stage info in source
           alert.source.data = {
