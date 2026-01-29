@@ -37,19 +37,26 @@ export default function LoginScreen() {
       });
 
       if (response.data && response.data.token) {
-        await login(response.data.token);
+        // Build user profile with the actual username being logged in
         const userProfile = {
-        name: username,
-        ...response.data.profile 
-      };
-      await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
-      
-      // Apply user's language preference from profile
-      if (response.data.profile && response.data.profile.language) {
-        const userLanguage = response.data.profile.language;
-        await i18n.changeLanguage(userLanguage);
-        await AsyncStorage.setItem('user-language', userLanguage);
-      }
+          name: username,
+          ...response.data.profile 
+        };
+        
+        // Save user profile FIRST (before login navigates away)
+        // login() no longer clears userProfile, only crop data
+        await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
+        console.log('[Login] Saved userProfile:', userProfile);
+        
+        // Apply user's language preference from profile
+        if (response.data.profile && response.data.profile.language) {
+          const userLanguage = response.data.profile.language;
+          await i18n.changeLanguage(userLanguage);
+          await AsyncStorage.setItem('user-language', userLanguage);
+        }
+        
+        // Now call login - this clears old CROP data and navigates to home
+        await login(response.data.token);
       }
     } catch (error: any) {
       console.error("[Login Error]", error);

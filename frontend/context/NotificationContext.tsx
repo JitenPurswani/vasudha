@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useRef, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from 'jwt-decode';
 import { AppState, AppStateStatus } from 'react-native';
 import { ToastData, ToastContainer, ToastType } from '@/components/Toast';
 import { 
@@ -271,8 +273,28 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
 
   const getUserData = async (): Promise<UserData> => {
     try {
-      // First check for ActiveCropsContext data
-      const activeCropsStr = await AsyncStorage.getItem('vasudha_active_crops');
+      // Get userId from JWT token
+      const token = await SecureStore.getItemAsync('userToken');
+      console.log(`[NotificationContext] Token found: ${!!token}`);
+      let userId: string | null = null;
+      if (token) {
+        try {
+          const decoded: any = jwtDecode(token);
+          userId = decoded.sub || null;
+          console.log(`[NotificationContext] Decoded userId: ${userId}`);
+        } catch (e) {
+          console.warn('[NotificationContext] Failed to decode token:', e);
+        }
+      }
+
+      // Get active crops - use user-specific key if userId available
+      const activeCropsKey = userId ? `vasudha_active_crops_${userId}` : 'vasudha_active_crops';
+      const activeCropsStr = await AsyncStorage.getItem(activeCropsKey);
+      console.log(`[NotificationContext] Loading crops from key: ${activeCropsKey}, found: ${!!activeCropsStr}`);
+      
+      // Get selected crop - use user-specific key if userId available
+      const selectedCropKey = userId ? `vasudha_selected_crop_${userId}` : 'vasudha_selected_crop';
+      const selectedCrop = await AsyncStorage.getItem(selectedCropKey);
       
       // Get profile data
       const profileStr = await AsyncStorage.getItem('userProfile');
@@ -280,9 +302,6 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
       // Get location coordinates (stored separately during onboarding)
       const latStr = await AsyncStorage.getItem('userLatitude');
       const lonStr = await AsyncStorage.getItem('userLongitude');
-      
-      // Get selected crop (stored by CropContext) as fallback
-      const selectedCrop = await AsyncStorage.getItem('vasudha_selected_crop');
       
       // Get current season based on month
       const month = new Date().getMonth();

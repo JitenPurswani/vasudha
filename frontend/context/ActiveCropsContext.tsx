@@ -1,8 +1,16 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import { jwtDecode } from 'jwt-decode';
 import cropProfiles from '@/constants/cropProfiles.json';
 
-const ACTIVE_CROPS_KEY = 'vasudha_active_crops';
+const BASE_ACTIVE_CROPS_KEY = 'vasudha_active_crops';
+
+// Generate user-specific storage key
+const getUserStorageKey = (userId: string | null): string => {
+  if (!userId) return BASE_ACTIVE_CROPS_KEY;
+  return `${BASE_ACTIVE_CROPS_KEY}_${userId}`;
+};
 
 // Type for crop profile from JSON
 export interface CropStage {
@@ -76,6 +84,9 @@ interface ActiveCropsContextType {
   // Primary crop (for backward compatibility with single crop selection)
   primaryCrop: ActiveCrop | null;
   setPrimaryCrop: (id: string) => void;
+  
+  // Refresh data (for use after login)
+  refreshUserData: () => Promise<void>;
 }
 
 const ActiveCropsContext = createContext<ActiveCropsContextType | null>(null);
@@ -83,97 +94,100 @@ const ActiveCropsContext = createContext<ActiveCropsContextType | null>(null);
 // Cast the imported JSON to proper type
 const profiles = cropProfiles as Record<string, CropProfile>;
 
+// Get current user ID from token
+const getCurrentUserId = async (): Promise<string | null> => {
+  try {
+    const token = await SecureStore.getItemAsync('userToken');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      return decoded.sub || decoded.username || null;
+    }
+  } catch (error) {
+    console.error('[ActiveCropsContext] Error getting user ID:', error);
+  }
+  return null;
+};
+
 export const ActiveCropsProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeCrops, setActiveCrops] = useState<ActiveCrop[]>([]);
   const [primaryCropId, setPrimaryCropId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   // Load from storage on mount
   useEffect(() => {
     loadFromStorage();
   }, []);
 
-  // Save to storage whenever crops change
+  // Save to storage whenever crops change (only if we have a user and not loading)
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && currentUserId) {
       saveToStorage();
     }
-  }, [activeCrops, primaryCropId, isLoading]);
+  }, [activeCrops, primaryCropId, isLoading, currentUserId]);
 
   const loadFromStorage = async () => {
     try {
-      const stored = await AsyncStorage.getItem(ACTIVE_CROPS_KEY);
+      setIsLoading(true);
+      const userId = await getCurrentUserId();
+      setCurrentUserId(userId);
+      
+      if (!userId) {
+        // No user logged in, clear state
+        console.log('[ActiveCropsContext] No user logged in, clearing crops');
+        setActiveCrops([]);
+        setPrimaryCropId(null);
+        setIsLoading(false);
+        return;
+      }
+
+      const storageKey = getUserStorageKey(userId);
+      const stored = await AsyncStorage.getItem(storageKey);
+      
+      console.log(`[ActiveCropsContext] Loading for user ${userId}, key=${storageKey}`);
+      
       if (stored) {
         const data = JSON.parse(stored);
         setActiveCrops(data.crops || []);
         setPrimaryCropId(data.primaryCropId || null);
+        console.log(`[ActiveCropsContext] Loaded ${data.crops?.length || 0} crops for user ${userId}`);
+      } else {
+        // No data for this user - start fresh
+        console.log(`[ActiveCropsContext] No crop data found for user ${userId}`);
+        setActiveCrops([]);
+        setPrimaryCropId(null);
       }
       
-      // Migration: Check for old single-crop format
-      await migrateOldCropData();
+      // Don't migrate old data - that was causing the issue
+      // Each user should only see their own crops
     } catch (error) {
       console.error('[ActiveCropsContext] Load error:', error);
+      setActiveCrops([]);
+      setPrimaryCropId(null);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const migrateOldCropData = async () => {
-    try {
-      const oldCrop = await AsyncStorage.getItem('vasudha_selected_crop');
-      const oldDate = await AsyncStorage.getItem('vasudha_planting_date');
-      const latStr = await AsyncStorage.getItem('userLatitude');
-      const lonStr = await AsyncStorage.getItem('userLongitude');
-      const profileStr = await AsyncStorage.getItem('userProfile');
-      
-      if (oldCrop && !activeCrops.find(c => c.cropKey === oldCrop.toLowerCase())) {
-        // Get profile data for location
-        let state = '';
-        let district = '';
-        if (profileStr) {
-          const profile = JSON.parse(profileStr);
-          state = profile.state || '';
-          district = profile.district || '';
-        }
-        
-        const lat = latStr ? parseFloat(latStr) : 0;
-        const lon = lonStr ? parseFloat(lonStr) : 0;
-        const plantingDate = oldDate ? new Date(oldDate) : new Date();
-        
-        const cropKey = oldCrop.toLowerCase();
-        const profile = profiles[cropKey];
-        
-        if (profile) {
-          const newCrop: ActiveCrop = {
-            id: `${cropKey}-${Date.now()}`,
-            cropKey,
-            displayName: profile.displayName,
-            plantingDate: plantingDate.toISOString(),
-            expectedHarvestDate: calculateHarvestDate(plantingDate, profile.growthDurationDays),
-            latitude: lat,
-            longitude: lon,
-            location: { state, district },
-            status: 'active',
-            createdAt: new Date().toISOString(),
-          };
-          
-          setActiveCrops(prev => [...prev, newCrop]);
-          setPrimaryCropId(newCrop.id);
-          
-          console.log('[ActiveCropsContext] Migrated old crop data:', newCrop);
-        }
-      }
-    } catch (error) {
-      console.error('[ActiveCropsContext] Migration error:', error);
-    }
-  };
+  // Refresh user data - call this after login
+  const refreshUserData = useCallback(async () => {
+    console.log('[ActiveCropsContext] Refreshing user data...');
+    await loadFromStorage();
+  }, []);
 
   const saveToStorage = async () => {
     try {
-      await AsyncStorage.setItem(ACTIVE_CROPS_KEY, JSON.stringify({
+      if (!currentUserId) {
+        console.log('[ActiveCropsContext] No user ID, skipping save');
+        return;
+      }
+      
+      const storageKey = getUserStorageKey(currentUserId);
+      await AsyncStorage.setItem(storageKey, JSON.stringify({
         crops: activeCrops,
         primaryCropId,
       }));
+      console.log(`[ActiveCropsContext] Saved ${activeCrops.length} crops for user ${currentUserId}`);
     } catch (error) {
       console.error('[ActiveCropsContext] Save error:', error);
     }
@@ -218,10 +232,6 @@ export const ActiveCropsProvider = ({ children }: { children: React.ReactNode })
     if (activeCrops.length === 0) {
       setPrimaryCropId(newCrop.id);
     }
-    
-    // Also update old storage keys for backward compatibility
-    await AsyncStorage.setItem('vasudha_selected_crop', cropKey.toLowerCase());
-    await AsyncStorage.setItem('vasudha_planting_date', plantingDate.toISOString());
     
     console.log('[ActiveCropsContext] Added crop:', newCrop);
     return newCrop;
@@ -352,6 +362,7 @@ export const ActiveCropsProvider = ({ children }: { children: React.ReactNode })
         getCropKeyFromMarketName,
         primaryCrop,
         setPrimaryCrop,
+        refreshUserData,
       }}
     >
       {children}

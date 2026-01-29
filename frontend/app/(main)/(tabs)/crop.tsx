@@ -217,14 +217,14 @@ export default function Crop() {
         const lat = await AsyncStorage.getItem('userLatitude');
         const lon = await AsyncStorage.getItem('userLongitude');
         
-        // Try to get user state from AsyncStorage
-        const locationStr = await AsyncStorage.getItem('userLocation');
-        if (locationStr) {
+        // Get user state from userProfile (stored during login/onboarding)
+        const profileStr = await AsyncStorage.getItem('userProfile');
+        if (profileStr) {
           try {
-            const location = JSON.parse(locationStr);
-            setUserState(location.state || null);
+            const profile = JSON.parse(profileStr);
+            setUserState(profile.state || null);
           } catch (e) {
-            console.error('[Crop Screen] Failed to parse location:', e);
+            console.error('[Crop Screen] Failed to parse profile:', e);
           }
         }
 
@@ -292,12 +292,12 @@ export default function Crop() {
       // Get user location
       const lat = await AsyncStorage.getItem('userLatitude');
       const lon = await AsyncStorage.getItem('userLongitude');
-      const locationStr = await AsyncStorage.getItem('userLocation');
+      const profileStr = await AsyncStorage.getItem('userProfile');
       
       let location: { state?: string; district?: string } = {};
-      if (locationStr) {
+      if (profileStr) {
         try {
-          const parsed = JSON.parse(locationStr);
+          const parsed = JSON.parse(profileStr);
           location = { state: parsed.state, district: parsed.district };
         } catch (e) {}
       }

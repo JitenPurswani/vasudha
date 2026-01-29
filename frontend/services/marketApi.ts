@@ -209,3 +209,97 @@ export async function fetchMarketForecast(
     clearTimeout(timeoutId);
   }
 }
+
+/**
+ * Nearby market price data for home screen
+ */
+export interface NearbyMarketPrice {
+  state: string;
+  apmc: string;
+  commodity: string;
+  current_price: number;
+  avg_price_10d: number | null;
+  price_change_percent: number;
+  date: string;
+}
+
+/**
+ * Fetches nearby market prices for a commodity in a state
+ * 
+ * Uses the /market/current-prices endpoint to get latest prices
+ * with 10-day average and price change percentage
+ * 
+ * @param state - State name (e.g., "Maharashtra")
+ * @param commodity - Commodity name (e.g., "Rice", "Wheat")
+ * @param limit - Number of markets to return (default: 3)
+ * @returns Array of nearby market prices
+ * @throws APIError for HTTP errors
+ * @throws NetworkError for network failures
+ * @throws TimeoutError for request timeouts
+ */
+export async function fetchNearbyMarketPrices(
+  state: string,
+  commodity: string,
+  limit: number = 3
+): Promise<NearbyMarketPrice[]> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), MARKET_REQUEST_TIMEOUT);
+
+  try {
+    const url = new URL("/market/current-prices", MARKET_API_BASE_URL);
+    url.searchParams.append("state", state);
+    url.searchParams.append("commodity", commodity);
+    url.searchParams.append("limit", String(limit));
+
+    console.log(`[Market API] Fetching nearby prices: ${url.toString()}`);
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      signal: controller.signal,
+    });
+
+    console.log(`[Market API] Nearby prices response status: ${response.status}`);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error(`[Market API] Nearby prices error:`, errorData);
+      throw new APIError(
+        `Failed to fetch nearby prices: ${errorData.detail || response.statusText}`,
+        response.status,
+        errorData
+      );
+    }
+
+    const data = await response.json();
+    console.log(`[Market API] Nearby prices data:`, data);
+    
+    // Return the prices array, limited to requested number
+    const prices = data.prices || [];
+    return prices.slice(0, limit) as NearbyMarketPrice[];
+  } catch (error) {
+    if (error instanceof APIError) {
+      throw error;
+    }
+
+    if (error instanceof TypeError && error.message.includes("fetch")) {
+      throw new NetworkError(
+        `Network error fetching nearby prices: ${error.message}`
+      );
+    }
+
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new TimeoutError(
+        `Nearby prices request timed out after ${MARKET_REQUEST_TIMEOUT}ms`
+      );
+    }
+
+    throw new NetworkError(
+      `Unexpected error fetching nearby prices: ${error instanceof Error ? error.message : String(error)}`
+    );
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
