@@ -1,9 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from market_logic import evaluate_market_logic
 from datetime import datetime, timedelta
+from typing import List, Optional
 import sqlite3
 import logging
 from db.database import get_connection
+from functools import lru_cache
+import time
 
 # Setup logging
 logging.basicConfig(level=logging.DEBUG)
@@ -16,10 +19,35 @@ app = FastAPI(
 )
 DB_PATH = "../../../data/market/sqlite/market.db"
 
+# Simple in-memory cache with TTL
+_cache = {}
+_cache_ttl = 300  # 5 minutes
+
+def get_cached(key: str):
+    """Get value from cache if not expired"""
+    if key in _cache:
+        value, timestamp = _cache[key]
+        if time.time() - timestamp < _cache_ttl:
+            return value
+        del _cache[key]
+    return None
+
+def set_cached(key: str, value):
+    """Set value in cache with current timestamp"""
+    _cache[key] = (value, time.time())
+
 @app.get("/market/evaluate")
 @app.get("/market/evaluate/")
 def evaluate_market(crop: str, state: str):
     logger.info(f"[Market Evaluate] crop={crop}, state={state}")
+    
+    # Check cache first
+    cache_key = f"eval:{crop.lower()}:{state.lower()}"
+    cached = get_cached(cache_key)
+    if cached is not None:
+        logger.info(f"[Market Evaluate] Cache hit for {cache_key}")
+        return cached
+    
     try:
         result = evaluate_market_logic(crop, state)
 
@@ -28,12 +56,44 @@ def evaluate_market(crop: str, state: str):
             raise HTTPException(status_code=404, detail="No market data found")
 
         logger.info(f"[Market Evaluate] Success: {result}")
+        set_cached(cache_key, result)
         return result
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"[Market Evaluate] Error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Evaluation error: {str(e)}")
+
+
+@app.get("/market/evaluate/batch")
+@app.get("/market/evaluate/batch/")
+def evaluate_market_batch(
+    crops: List[str] = Query(..., description="List of crop names"),
+    state: str = Query(..., description="State name")
+):
+    """Batch evaluate multiple crops for a single state - much faster than individual calls"""
+    logger.info(f"[Market Batch] crops={crops}, state={state}")
+    
+    results = {}
+    for crop in crops:
+        cache_key = f"eval:{crop.lower()}:{state.lower()}"
+        cached = get_cached(cache_key)
+        
+        if cached is not None:
+            results[crop] = cached
+        else:
+            try:
+                result = evaluate_market_logic(crop, state)
+                if result:
+                    set_cached(cache_key, result)
+                    results[crop] = result
+                else:
+                    results[crop] = None
+            except Exception as e:
+                logger.error(f"[Market Batch] Error for {crop}: {str(e)}")
+                results[crop] = None
+    
+    return {"state": state, "results": results}
 
 @app.get("/market/debug")
 @app.get("/market/debug/")
@@ -67,6 +127,13 @@ def debug_info():
 @app.get("/market/forecast/")
 def market_forecast(crop: str, state: str):
     logger.info(f"[Market Forecast] crop={crop}, state={state}")
+    
+    # Check cache first
+    cache_key = f"forecast:{crop.lower()}:{state.lower()}"
+    cached = get_cached(cache_key)
+    if cached is not None:
+        logger.info(f"[Market Forecast] Cache hit for {cache_key}")
+        return cached
     
     # Normalize inputs
     crop = crop.strip()
@@ -132,13 +199,18 @@ def market_forecast(crop: str, state: str):
 
     confidence = 0.8
 
-    return {
+    result = {
         "crop": crop,
         "state": state,
         "trend_percent": round(base_trend_pct * 100, 2),
         "confidence": confidence,
         **forecasts
     }
+    
+    # Cache the result
+    set_cached(cache_key, result)
+    
+    return result
 
 
 @app.get("/market/data")

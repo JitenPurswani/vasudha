@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import httpx
 import os
+import asyncio
 from typing import Optional
 
 # ==================================================
@@ -347,7 +348,7 @@ MARKET_CROP_MAP = {
 @app.post("/get_full_recommendation/")
 async def get_full_recommendation(input: AppInput):
 
-    async with httpx.AsyncClient(timeout=15.0) as client:
+    async with httpx.AsyncClient(timeout=20.0) as client:
 
         # ---------- Weather ----------
         weather_data = (await client.get(
@@ -406,39 +407,58 @@ async def get_full_recommendation(input: AppInput):
             boost = compute_score_boost(crop, meta, flags, input.mode)
             agro_score = prob + boost
 
-            # 4️⃣ Market agent (via mapping)
-            market_score = None
-            market_crop = MARKET_CROP_MAP.get(crop)
+            # Store for parallel market fetch
+            filtered.append({
+                "crop": crop,
+                "agronomic_score": agro_score,
+                "raw_probability": prob,
+                "shap_summary": shap_summary,
+                "market_crop": MARKET_CROP_MAP.get(crop)
+            })
 
-            if market_crop:
-                try:
-                    market_resp = await client.get(
-                        f"{MARKET_AGENT_URL}/market/evaluate",
-                        params={
-                            "crop": market_crop,
-                            "state": weather_data["state"]
-                        }
-                    )
-                    if market_resp.status_code == 200:
-                        market_score = market_resp.json()["market_score"] / 100.0
-                except Exception:
-                    market_score = None
+        # 4️⃣ Parallel Market Agent calls for all filtered crops
+        async def fetch_market_score(client, market_crop, state):
+            """Fetch market score for a single crop - returns (market_crop, score) or (market_crop, None)"""
+            if not market_crop:
+                return (None, None)
+            try:
+                market_resp = await client.get(
+                    f"{MARKET_AGENT_URL}/market/evaluate",
+                    params={"crop": market_crop, "state": state}
+                )
+                if market_resp.status_code == 200:
+                    return (market_crop, market_resp.json()["market_score"] / 100.0)
+            except Exception:
+                pass
+            return (market_crop, None)
 
-            # 5️⃣ Final rank score (55 / 45)
+        # Fetch all market scores in parallel
+        state = weather_data["state"]
+        market_tasks = [
+            fetch_market_score(client, item["market_crop"], state) 
+            for item in filtered
+        ]
+        market_results = await asyncio.gather(*market_tasks)
+        
+        # Build market score lookup
+        market_scores = {crop: score for crop, score in market_results if crop}
+
+        # 5️⃣ Calculate final scores with market data
+        for item in filtered:
+            market_crop = item.pop("market_crop", None)
+            market_score = market_scores.get(market_crop) if market_crop else None
+            agro_score = item["agronomic_score"]
+            
             if market_score is not None:
                 final_rank_score = 0.55 * market_score + 0.45 * agro_score
             else:
                 # mild penalty if market unknown
                 final_rank_score = 0.85 * agro_score
 
-            filtered.append({
-                "crop": crop,
-                "final_score": round(final_rank_score, 4),
-                "agronomic_score": round(agro_score, 4),
-                "market_score": round(market_score, 3) if market_score is not None else None,
-                "raw_probability": round(prob, 4),
-                "shap_summary": shap_summary
-            })
+            item["final_score"] = round(final_rank_score, 4)
+            item["agronomic_score"] = round(agro_score, 4)
+            item["market_score"] = round(market_score, 3) if market_score is not None else None
+            item["raw_probability"] = round(item["raw_probability"], 4)
 
         filtered.sort(key=lambda x: x["final_score"], reverse=True)
         # ---------- Sustainability Scoring (Advisory Only) ----------

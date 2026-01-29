@@ -4,9 +4,42 @@ import pandas as pd
 import numpy as np
 import shap
 import traceback
+import hashlib
+import time
 
 # ✅ Import EVERYTHING needed from model_loader
 from model_loader import pipeline, label_encoder, FEATURE_COLUMNS, model_classifier, model_preprocessor
+
+# --------------------------------------------------
+# Simple Cache for predictions (avoids repeated SHAP computation)
+# --------------------------------------------------
+_prediction_cache = {}
+_cache_ttl = 600  # 10 minutes - longer since model inputs change less frequently
+
+def get_cache_key(features_dict: dict, top_n: int) -> str:
+    """Generate cache key from input features"""
+    # Round features to reduce cache misses from minor float differences
+    rounded = {k: round(v, 1) for k, v in features_dict.items()}
+    key_str = f"{sorted(rounded.items())}:{top_n}"
+    return hashlib.md5(key_str.encode()).hexdigest()
+
+def get_cached_prediction(key: str):
+    """Get prediction from cache if not expired"""
+    if key in _prediction_cache:
+        value, timestamp = _prediction_cache[key]
+        if time.time() - timestamp < _cache_ttl:
+            print(f"[CACHE] Hit for key {key[:8]}...")
+            return value
+        del _prediction_cache[key]
+    return None
+
+def set_cached_prediction(key: str, value):
+    """Cache prediction result"""
+    _prediction_cache[key] = (value, time.time())
+    # Limit cache size
+    if len(_prediction_cache) > 100:
+        oldest_key = min(_prediction_cache, key=lambda k: _prediction_cache[k][1])
+        del _prediction_cache[oldest_key]
 
 # --------------------------------------------------
 # SHAP Explainer (initialized once)
@@ -165,6 +198,12 @@ async def predict_crops(
 ):
     print(f"\n[PREDICT] Received request: top_n={top_n}, features={features}")
     
+    # Check cache first
+    cache_key = get_cache_key(features.model_dump(), top_n)
+    cached = get_cached_prediction(cache_key)
+    if cached is not None:
+        return cached
+    
     if pipeline is None or label_encoder is None:
         raise HTTPException(
             status_code=500,
@@ -211,11 +250,16 @@ async def predict_crops(
                 "shap_summary": shap_summary
             })
 
-        return {
+        response = {
             "status": "OK",
             "top_n": top_n,
             "predictions": results
         }
+        
+        # Cache the result
+        set_cached_prediction(cache_key, response)
+        
+        return response
 
     except Exception as e:
         print(f"❌ [PREDICT] Prediction error: {type(e).__name__}: {e}")
