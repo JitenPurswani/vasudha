@@ -31,7 +31,6 @@ import { useCrop } from '@/context/CropContext';
 import { useActiveCrops, CropGrowthState, ActiveCrop } from '@/context/ActiveCropsContext';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'expo-router';
-import { fetchNearbyMarketPrices, NearbyMarketPrice } from '@/services/marketApi';
 
 const WeatherStatItem = ({ Icon, value, label }: any) => {
   const displayValue = value && String(value).trim() !== '' ? value : '-';
@@ -45,33 +44,7 @@ const WeatherStatItem = ({ Icon, value, label }: any) => {
   );
 };
 
-// Market Price Card Component
-const MarketPriceCard = ({ item }: { item: NearbyMarketPrice }) => {
-  const { t } = useTranslation();
-  const trendColor = item.price_change_percent >= 0 ? '#28A745' : '#DC3545';
-  const trendIcon = item.price_change_percent >= 0 ? 'trending-up' : 'trending-down';
-  
-  return (
-    <View style={styles.marketCard}>
-      <View style={styles.marketCardHeader}>
-        <Text style={styles.marketName} numberOfLines={1}>{item.apmc}</Text>
-        <View style={[styles.trendBadge, { backgroundColor: trendColor + '20' }]}>
-          <Feather name={trendIcon} size={12} color={trendColor} />
-          <Text style={[styles.trendText, { color: trendColor }]}>
-            {item.price_change_percent >= 0 ? '+' : ''}{item.price_change_percent.toFixed(1)}%
-          </Text>
-        </View>
-      </View>
-      <View style={styles.marketCardBody}>
-        <Text style={styles.commodityName}>{item.commodity}</Text>
-        <Text style={styles.priceText}>₹{item.current_price.toLocaleString()}/q</Text>
-      </View>
-      <Text style={styles.marketDate}>
-        {t('common.as_of', { defaultValue: 'As of' })} {item.date}
-      </Text>
-    </View>
-  );
-};
+
 
 // Crop History Modal Component
 const CropHistoryModal = ({ 
@@ -170,10 +143,6 @@ export default function Home() {
   const [weatherError, setWeatherError] = useState<string | null>(null);
   const [growthState, setGrowthState] = useState<CropGrowthState | null>(null);
   
-  // Market prices state
-  const [marketPrices, setMarketPrices] = useState<NearbyMarketPrice[]>([]);
-  const [marketLoading, setMarketLoading] = useState(false);
-  const [marketError, setMarketError] = useState<string | null>(null);
   const [userState, setUserState] = useState<string | null>(null);
 
   const [showPlantingDateModal, setShowPlantingDateModal] = useState(false);
@@ -261,36 +230,7 @@ export default function Home() {
     setCurrentDate(date);
   }, []);
 
-  // Load market prices when user has a primary crop and state
-  useEffect(() => {
-    const loadMarketPrices = async () => {
-      if (!primaryCrop || !userState) {
-        setMarketPrices([]);
-        return;
-      }
 
-      try {
-        setMarketLoading(true);
-        setMarketError(null);
-        
-        // Get market name for the crop
-        const cropName = primaryCrop.displayName || primaryCrop.cropKey;
-        console.log(`[Home] Fetching market prices for ${cropName} in ${userState}`);
-        
-        const prices = await fetchNearbyMarketPrices(userState, cropName, 3);
-        setMarketPrices(prices);
-        console.log(`[Home] Loaded ${prices.length} market prices`);
-      } catch (error: any) {
-        console.error('[Home] Market prices error:', error);
-        setMarketError(error.message || 'Failed to load market prices');
-        setMarketPrices([]);
-      } finally {
-        setMarketLoading(false);
-      }
-    };
-
-    loadMarketPrices();
-  }, [primaryCrop, userState]);
 
   // Calculate growth state when primary crop changes
   useEffect(() => {
@@ -567,61 +507,7 @@ export default function Home() {
             </>
           )}
 
-          {/* Market Prices Section - Show if user has a crop selected */}
-          {primaryCrop && (
-            <>
-              <AppText variant="header" style={styles.sectionTitle}>
-                {t('home.sections.market', { defaultValue: 'Market Prices' })}
-              </AppText>
-              
-              {marketLoading ? (
-                <View style={styles.marketLoadingContainer}>
-                  <ActivityIndicator size="small" color="#186F71" />
-                  <AppText variant="content" style={styles.marketLoadingText}>
-                    {t('common.loading_markets', { defaultValue: 'Loading nearby markets...' })}
-                  </AppText>
-                </View>
-              ) : marketError ? (
-                <View style={styles.marketErrorContainer}>
-                  <Ionicons name="alert-circle-outline" size={24} color="#78909C" />
-                  <AppText variant="content" style={styles.marketErrorText}>
-                    {t('home.market.no_data', { defaultValue: 'Market data unavailable for your crop' })}
-                  </AppText>
-                </View>
-              ) : marketPrices.length > 0 ? (
-                <>
-                  <ScrollView 
-                    horizontal 
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.marketCardsContainer}
-                  >
-                    {marketPrices.map((item, index) => (
-                      <MarketPriceCard key={`${item.apmc}-${index}`} item={item} />
-                    ))}
-                  </ScrollView>
-                  <TouchableOpacity 
-                    style={styles.viewMoreMarkets}
-                    onPress={() => router.push({
-                      pathname: '/market',
-                      params: { crop: primaryCrop.displayName, state: userState }
-                    })}
-                  >
-                    <Text style={styles.viewMoreMarketsText}>
-                      {t('home.market.view_more', { defaultValue: 'View detailed market analysis' })}
-                    </Text>
-                    <Feather name="arrow-right" size={14} color="#186F71" />
-                  </TouchableOpacity>
-                </>
-              ) : (
-                <View style={styles.marketErrorContainer}>
-                  <Ionicons name="storefront-outline" size={24} color="#78909C" />
-                  <AppText variant="content" style={styles.marketErrorText}>
-                    {t('home.market.no_nearby', { defaultValue: 'No nearby market data found' })}
-                  </AppText>
-                </View>
-              )}
-            </>
-          )}
+
         </View>
       </ScrollView>
 
@@ -1090,97 +976,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 10,
-  },
-  marketLoadingText: {
-    color: '#186F71',
-    fontSize: 12,
-  },
-  marketErrorContainer: {
-    backgroundColor: '#BDDBE8',
-    borderRadius: 15,
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    borderColor: '#186F71',
-    borderWidth: 0.5,
-    borderStyle: 'dashed',
-  },
-  marketErrorText: {
-    color: '#78909C',
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  marketCardsContainer: {
-    paddingRight: 20,
-    gap: 12,
-  },
-  marketCard: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 12,
-    width: 160,
-    elevation: 3,
-    shadowColor: '#042f30',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  marketCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  marketName: {
-    fontSize: 12,
-    fontFamily: 'OpenSans-Bold',
-    color: '#186F71',
-    flex: 1,
-    marginRight: 4,
-  },
-  trendBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 8,
-    gap: 2,
-  },
-  trendText: {
-    fontSize: 10,
-    fontFamily: 'OpenSans-Bold',
-  },
-  marketCardBody: {
-    marginBottom: 6,
-  },
-  commodityName: {
-    fontSize: 11,
-    color: '#78909C',
-    fontFamily: 'OpenSans-Regular',
-  },
-  priceText: {
-    fontSize: 16,
-    fontFamily: 'OpenSans-Bold',
-    color: '#156349',
-    marginTop: 2,
-  },
-  marketDate: {
-    fontSize: 9,
-    color: '#A0A0A0',
-    fontFamily: 'OpenSans-Regular',
-  },
-  viewMoreMarkets: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 12,
-    gap: 4,
-  },
-  viewMoreMarketsText: {
-    fontSize: 12,
-    color: '#186F71',
-    fontFamily: 'OpenSans-SemiBold',
   },
   // Crop History Modal Styles
   historyModalOverlay: {
