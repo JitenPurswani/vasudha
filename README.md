@@ -478,6 +478,66 @@ curl "http://127.0.0.1:8004/market/evaluate?crop=Cotton&state=Maharashtra"
 curl "http://127.0.0.1:8004/market/forecast?crop=Cotton&state=Maharashtra"
 ```
 
+#### Step 6: Setup Automated Daily Updates (RECOMMENDED) ⭐
+
+**Keep your market data current automatically!** Your data will become stale in 5-8 days without updates.
+
+**Prerequisites:**
+1. **Kaggle API Setup:**
+   - Go to https://www.kaggle.com/settings
+   - Scroll to "API" → Click "Create New Token" (Legacy API)
+   - Downloads `kaggle.json` → Move to `C:\Users\<YourUsername>\.kaggle\kaggle.json`
+   - Install: `pip install kaggle`
+
+2. **Test Kaggle API:**
+   ```bash
+   cd backend/agents/market_agent
+   .\venv\Scripts\Activate.ps1
+   kaggle datasets list -s "commodity"
+   # Should show list of datasets
+   ```
+
+**Setup Daily Auto-Updates:**
+
+```bash
+# Test the update script (preview only)
+cd backend/agents/market_agent
+.\venv\Scripts\Activate.ps1
+python update_market_db.py --dry-run
+
+# If it looks good, do a real update
+python update_market_db.py
+```
+
+**Automation Options:**
+
+**Option A: Windows Task Scheduler (Recommended)**
+1. Open Task Scheduler (`Win+R` → `taskschd.msc`)
+2. Right-click "Task Scheduler Library" → "Import Task"
+3. Import: `backend/agents/market_agent/scheduler/VasudhaMarketUpdate.xml`
+4. Task runs daily at 6 PM automatically
+
+**Option B: Manual Daily Updates**
+```bash
+# Just run this daily when you want fresh data
+cd backend/agents/market_agent
+.\venv\Scripts\Activate.ps1
+python update_market_db.py
+```
+
+**What the automation does:**
+- Downloads ONLY 2026.csv (~500MB, not 6GB)
+- Adds only new records (typically 2K-5K per day)
+- Updates forecasting tables
+- Completes in ~10-15 minutes
+- Logs everything to `logs/` directory
+
+**Monitor Updates:**
+```powershell
+# Check today's update log
+Get-Content backend/agents/market_agent/logs/market_update_20260130.log -Tail 20
+```
+
 ---
 
 ### 5️⃣ Climate Adaptation Agent (Port 8007)
@@ -842,17 +902,65 @@ frontend/
     └── te.json (Telugu)
 ```
 
-### Configure API URLs
+### Configure Frontend Environment Variables
 
-Edit `frontend/services/marketApi.ts` and `frontend/services/api.ts`:
+**IMPORTANT:** Before running the frontend, create a `.env` file with your backend service URLs.
 
-```typescript
-// Change this:
-const API_BASE_URL = "http://192.168.x.x:8004"; // Market Agent IP
-const ORCHESTRATOR_URL = "http://192.168.x.x:8000"; // Orchestrator IP
+#### Step 1: Find Your Machine's IP Address
 
-// To your machine's actual IP (check with: ipconfig on Windows)
+```bash
+# Windows:
+ipconfig
+# Look for "IPv4 Address: 192.168.x.x" (usually under Wi-Fi or Ethernet adapter)
+
+# macOS/Linux:
+ifconfig | grep "inet 192"
+# Look for "inet 192.168.x.x"
 ```
+
+#### Step 2: Create Frontend .env File
+
+Create `frontend/.env` with your actual IP address:
+
+```bash
+cd frontend
+
+# Create .env file (replace 192.168.1.100 with YOUR machine's IP)
+cat > .env << 'EOF'
+EXPO_PUBLIC_API_URL=http://192.168.1.100:8000
+EXPO_PUBLIC_MARKET_API_URL=http://192.168.1.100:8004
+EXPO_PUBLIC_AUTH_URL=http://192.168.1.100:8008
+EXPO_PUBLIC_SOIL_AGENT_URL=http://192.168.1.100:8002
+EXPO_PUBLIC_WEATHER_API_URL=http://192.168.1.100:8001
+EXPO_PUBLIC_CLIMATE_AGENT_URL=http://192.168.1.100:8007
+EOF
+```
+
+**Windows PowerShell version:**
+```powershell
+cd frontend
+
+# Create .env file (replace 192.168.1.100 with YOUR machine's IP)
+@"
+EXPO_PUBLIC_API_URL=http://192.168.1.100:8000
+EXPO_PUBLIC_MARKET_API_URL=http://192.168.1.100:8004
+EXPO_PUBLIC_AUTH_URL=http://192.168.1.100:8008
+EXPO_PUBLIC_SOIL_AGENT_URL=http://192.168.1.100:8002
+EXPO_PUBLIC_WEATHER_API_URL=http://192.168.1.100:8001
+EXPO_PUBLIC_CLIMATE_AGENT_URL=http://192.168.1.100:8007
+"@ | Out-File -FilePath ".env" -Encoding UTF8
+```
+
+#### Step 3: Verify .env File
+
+```bash
+# Check the file was created correctly
+cat .env
+# or on Windows:
+type .env
+```
+
+**⚠️ CRITICAL:** Replace `192.168.1.100` with your actual machine's IP address from Step 1!
 
 ### Running on Device/Emulator
 
