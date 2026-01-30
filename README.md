@@ -256,7 +256,7 @@ curl "http://127.0.0.1:8002/soil/data?district=Wardha&state=Maharashtra"
 # Extract all CSV files to: data/market/raw/
 ```
 
-#### Step 2: Setup
+#### Step 2: Setup Environment
 
 ```bash
 cd backend/agents/market_agent
@@ -274,151 +274,166 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#### Step 3: Create Database & Tables
+#### Step 3: Run Complete Database Setup (RECOMMENDED) ⭐
 
+We provide a Python script that handles **everything** automatically:
+- Creates all tables and schema
+- Ingests CSV data (~71 million records)
+- Creates all required indexes
+- Creates market_metadata table
+- Creates persistence tables for forecasting
+
+```bash
+# From backend/agents/market_agent directory:
+python setup_market_db.py
+```
+
+**Options:**
+```bash
+# Full setup (default) - takes 2-4 hours
+python setup_market_db.py
+
+# Skip data ingestion (if you already have data)
+python setup_market_db.py --skip-ingest
+
+# Only create persistence tables (if base data exists)
+python setup_market_db.py --persistence-only
+
+# Only create indexes
+python setup_market_db.py --indexes-only
+
+# Just verify setup (no changes made) - recommended to check existing setup
+python setup_market_db.py --verify-only
+```
+
+The script will show progress and verify everything at the end.
+
+---
+
+#### Alternative: Manual Setup (For Advanced Users)
+
+<details>
+<summary>Click to expand manual SQL commands</summary>
+
+If you prefer manual setup, here are the exact SQL commands:
+
+**Step 3a: Create Base Schema**
 ```bash
 # Create directory
 mkdir -p ..\..\..\data\market\sqlite
 
 # Initialize schema
-# Windows:
 sqlite3 ..\..\..\data\market\sqlite\market.db < db\schema.sql
-
-# macOS/Linux:
-sqlite3 ../../../data/market/sqlite/market.db < db/schema.sql
 ```
 
-#### Step 4: Ingest Historical Data (⏱️ ~2-4 hours)
-
+**Step 3b: Ingest Data (⏱️ ~2-4 hours)**
 ```bash
 python ingest/ingest_prices.py
 ```
 
-This reads all CSVs from `data/market/raw/` and inserts ~71 million price records into the database.
-
-#### Step 5: Create Indexes (Faster Queries)
-
+**Step 3c: Create Indexes**
 ```bash
-# Windows:
 sqlite3 ..\..\..\data\market\sqlite\market.db
 ```
 
 Paste these SQL commands:
 ```sql
-CREATE INDEX IF NOT EXISTS idx_state_commodity_date
-ON market_prices(State, Commodity, Arrival_Date);
+-- Primary indexes for market_prices
+CREATE INDEX IF NOT EXISTS idx_state_commodity_date ON market_prices(State, Commodity, Arrival_Date);
+CREATE INDEX IF NOT EXISTS idx_state_district_market ON market_prices(State, District, Market);
+CREATE INDEX IF NOT EXISTS idx_arrival_date ON market_prices(Arrival_Date);
 
-CREATE INDEX IF NOT EXISTS idx_state_district_market
-ON market_prices(State, District, Market);
-
-CREATE INDEX IF NOT EXISTS idx_arrival_date
-ON market_prices(Arrival_Date);
+-- Indexes for state_daily_prices
+CREATE INDEX IF NOT EXISTS idx_state_daily_main ON state_daily_prices(State, Commodity, Arrival_Date);
+CREATE INDEX IF NOT EXISTS idx_state_daily_date ON state_daily_prices(Arrival_Date);
+CREATE INDEX IF NOT EXISTS idx_state_daily_lower ON state_daily_prices(LOWER(state), LOWER(commodity), arrival_date DESC);
 ```
 
-#### Step 6: Create Aggregated Tables (NEW - for Forecasting!)
+**Step 3d: Create Persistence Tables for Forecasting**
 
-**These are essential for the market forecasting algorithm:**
-
-```bash
-sqlite3 ..\..\..\data\market\sqlite\market.db
-```
-
-Paste these SQL commands to create the persistence tables:
+Run these SQL commands **one by one** (each may take several minutes):
 
 ```sql
--- Aggregate daily prices by state and commodity (used for forecasting)
-CREATE TABLE IF NOT EXISTS state_daily_prices AS
-SELECT
-  State,
-  Commodity,
-  Arrival_Date,
-  AVG(Modal_Price) AS avg_modal_price,
-  COUNT(*) AS record_count
-FROM market_prices
-GROUP BY State, Commodity, Arrival_Date
-ORDER BY State, Commodity, Arrival_Date;
-
--- Index for fast lookups
-CREATE INDEX IF NOT EXISTS idx_state_daily_main
-ON state_daily_prices(State, Commodity, Arrival_Date);
-
--- 30-day rolling average (helps smooth trends)
+-- 1. Create rolling 30-day averages
 CREATE TABLE IF NOT EXISTS state_30d_avg AS
 SELECT
-  State,
-  Commodity,
-  Arrival_Date,
-  AVG(avg_modal_price) OVER (
-    PARTITION BY State, Commodity 
-    ORDER BY Arrival_Date 
-    ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
-  ) AS avg_30d
-FROM state_daily_prices
-ORDER BY State, Commodity, Arrival_Date;
-
--- Trend calculation (momentum for 30-day forecast)
-CREATE TABLE IF NOT EXISTS state_30d_trends AS
-SELECT
-  State,
-  Commodity,
-  DATE(Arrival_Date) AS trend_date,
-  (
-    SELECT avg_modal_price FROM state_daily_prices sd1
-    WHERE sd1.State = sd2.State 
-    AND sd1.Commodity = sd2.Commodity
-    AND sd1.Arrival_Date = DATE(sd2.Arrival_Date, '-1 day')
-  ) AS yesterday_price,
-  (
-    SELECT avg_modal_price FROM state_daily_prices sd2a
-    WHERE sd2a.State = sd2.State 
-    AND sd2a.Commodity = sd2a.Commodity
-    AND sd2a.Arrival_Date = DATE(sd2.Arrival_Date, '-30 days')
-  ) AS price_30d_ago,
-  avg_modal_price AS current_price
-FROM state_daily_prices sd2
-ORDER BY State, Commodity, trend_date DESC;
-
--- Commodity trend persistence (for multi-day forecasting)
-CREATE TABLE IF NOT EXISTS crop_trend_persistence AS
-SELECT
-  State,
-  Commodity,
-  DATE(Arrival_Date) AS date,
-  avg_modal_price,
-  AVG(avg_modal_price) OVER (
-    PARTITION BY State, Commodity
-    ORDER BY Arrival_Date
-    ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
-  ) AS ma_30,
-  CASE 
-    WHEN avg_modal_price > AVG(avg_modal_price) OVER (
-      PARTITION BY State, Commodity
-      ORDER BY Arrival_Date
-      ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
-    ) THEN 'UP'
-    ELSE 'DOWN'
-  END AS trend_direction
-FROM state_daily_prices
-ORDER BY State, Commodity, Arrival_Date;
-
--- Create indexes for performance
-CREATE INDEX IF NOT EXISTS idx_state_30d_avg 
-ON state_30d_avg(State, Commodity, Arrival_Date);
-
-CREATE INDEX IF NOT EXISTS idx_state_30d_trends 
-ON state_30d_trends(State, Commodity, trend_date);
-
-CREATE INDEX IF NOT EXISTS idx_crop_trend_persistence 
-ON crop_trend_persistence(State, Commodity, date);
+    State,
+    Commodity,
+    Arrival_Date,
+    AVG(avg_modal_price) OVER (
+        PARTITION BY State, Commodity
+        ORDER BY Arrival_Date
+        ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+    ) AS avg_30
+FROM state_daily_prices;
 ```
 
-#### Step 7: Verify Ingestion
+⏳ Wait for this to complete before running the next command.
 
+```sql
+-- 2. Create trend continuation table
+CREATE TABLE IF NOT EXISTS state_30d_trends AS
+SELECT
+    a.State,
+    a.Commodity,
+    a.Arrival_Date AS start_date,
+    a.avg_30 AS avg_30_start,
+    b.avg_30 AS avg_30_next,
+    CASE
+        WHEN b.avg_30 > a.avg_30 THEN 1
+        ELSE 0
+    END AS continued_up
+FROM state_30d_avg a
+JOIN state_30d_avg b
+  ON a.State = b.State
+ AND a.Commodity = b.Commodity
+ AND b.Arrival_Date = DATE(a.Arrival_Date, '+30 day')
+WHERE a.avg_30 IS NOT NULL
+  AND b.avg_30 IS NOT NULL;
+```
+
+```sql
+-- 3. Create persistence scores
+CREATE TABLE IF NOT EXISTS crop_trend_persistence AS
+SELECT
+    State,
+    Commodity,
+    AVG(continued_up * 1.0) AS persistence_score,
+    COUNT(*) AS sample_size
+FROM state_30d_trends
+GROUP BY State, Commodity;
+```
+
+```sql
+-- 4. Apply safe defaults for small samples
+UPDATE crop_trend_persistence
+SET persistence_score = 0.5
+WHERE persistence_score IS NULL
+   OR sample_size < 20;
+```
+
+**Step 3e: Verify Setup**
+```sql
+SELECT * FROM crop_trend_persistence WHERE Commodity = 'Soyabean' LIMIT 5;
+```
+
+Expected output shows `persistence_score` values around 0.5–0.7.
+
+</details>
+
+---
+
+#### Step 4: Verify Setup
+
+```bash
+python setup_market_db.py --persistence-only
+```
+
+Or manually check:
 ```python
 python
 ```
 
-Then paste:
 ```python
 from db.database import get_connection
 
@@ -432,9 +447,9 @@ print(f"✅ Total price records: {count[0]:,}")
 agg_count = conn.execute("SELECT COUNT(*) FROM state_daily_prices;").fetchone()
 print(f"✅ Daily prices (aggregated): {agg_count[0]:,}")
 
-# Check latest date
-latest = conn.execute("SELECT MAX(Arrival_Date) FROM state_daily_prices;").fetchone()
-print(f"✅ Latest data date: {latest[0]}")
+# Check persistence table
+persist = conn.execute("SELECT * FROM crop_trend_persistence WHERE Commodity = 'Soyabean' LIMIT 3;").fetchall()
+print(f"✅ Persistence samples: {persist}")
 
 conn.close()
 ```
@@ -443,10 +458,10 @@ Expected output:
 ```
 ✅ Total price records: 71,000,000+
 ✅ Daily prices (aggregated): 500,000+
-✅ Latest data date: 2026-01-25 (or current date)
+✅ Persistence samples: [('Andhra Pradesh', 'Soyabean', 0.48, 284), ...]
 ```
 
-#### Step 8: Run the Service
+#### Step 5: Run the Service
 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8004
