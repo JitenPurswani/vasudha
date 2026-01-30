@@ -12,10 +12,9 @@ function NotificationBell() {
   
   return (
     <TouchableOpacity onPress={() => router.push('/(main)/notifications')}>
-      <View style={styles.bellContainer}>
         <View style={styles.iconCircle}>
           <NotificationsIcon width={24} height={24} />
-        </View>
+        
         {unreadCount > 0 && (
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
@@ -111,28 +110,23 @@ const styles = StyleSheet.create({
   },
   headerRightContainer: { 
     flexDirection: 'row', 
-    gap: 15, 
+    alignItems: 'center', 
+    gap: 12,              
     marginRight: 15 
   },
-  bellContainer: {
-    position: 'relative',
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   iconCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,            
+    height: 40,
+    borderRadius: 20,
     backgroundColor: '#F2FBFF',
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative', 
   },
   badge: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -2,              
+    right: -2,
     backgroundColor: '#E53935',
     borderRadius: 9,
     minWidth: 18,

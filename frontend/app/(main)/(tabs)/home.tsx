@@ -679,7 +679,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   weatherCard: {
-    width: '108%',
+    width: '105%',
     padding: 16,
     justifyContent: 'center',
     elevation: 5,
@@ -693,7 +693,7 @@ const styles = StyleSheet.create({
   },
   weatherLabel: {
     color: '#ffffff',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'OpenSans-Bold',
     marginBottom: 2,
   },
@@ -704,12 +704,12 @@ const styles = StyleSheet.create({
   },
   tempText: {
     color: '#FFFFFF',
-    fontSize: 28,
+    fontSize: 32,
     fontFamily: 'KronaOne',
   },
   locationText: {
     color: '#FFFFFF',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'OpenSans-Regular',
     opacity: 0.9,
   },
