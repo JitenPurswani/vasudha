@@ -188,7 +188,9 @@
     "cancel": "రద్దు చేయి",
     "confirm": "ధృవీకరించు",
     "status": "స్థితి",
-    "loading": "లోడ్ అవుతోంది..."
+    "loading": "లోడ్ అవుతోంది...",
+    "retry": "మళ్ళీ ప్రయత్నించండి",
+    "unknown": "తెలియదు"
   },
   "home": {
     "greeting": "నమస్కారం,",
@@ -205,10 +207,23 @@
       "wind_speed": "గాలి వేగం"
     },
     "crop": {
-      "days_since": "నాటినప్పటి నుండి {{days}} రోజులు"
+      "days_since": "నాటినప్పటి నుండి {{days}} రోజులు",
+      "days_to": "నాటడానికి ఇంకా {{days}} రోజులు ఉన్నాయి",
+      "planting_today": "ఈరోజు నాటడం",
+      "planting_yesterday": "నిన్న నాటారు",
+      "planting_tomorrow": "రేపు నాటాలి",
+      "select_date": "నాటిన తేదీని ఎంచుకోండి",
+      "select_planting_date": "ఎప్పుడు నాటుతారు?",
+      "date_window_note": "7 రోజుల లోపు ఒక తేదీని ఎంచుకోండి (గత లేదా భవిష్యత్తు)",
+      "day_n": "రోజు {{n}}",
+      "days_to_harvest": "కోతకు ఇంకా {{days}} రోజులు ఉన్నాయి",
+      "ready_to_harvest": "కోతకు సిద్ధంగా ఉంది!",
+      "next_stage": "తరువాత: {{days}} రోజుల్లో {{stage}}",
+      "view_all_crops": "మొత్తం {{count}} పంటలను చూడండి",
+      "tap_to_select": "పంటను ఎంచుకోవడానికి ట్యాప్ చేయండి"
     },
     "market": {
-      "per_kg": "కిలోకు"
+      "per_kg": "క్వింటాల్‌కు"
     }
   },
   "crop": {
@@ -217,17 +232,33 @@
     "seasonal": "సీజనల్",
     "all_season": "అన్ని కాలాలు",
     "top_recommendation": "ముఖ్యమైన సిఫార్సు",
-    "why_this_crop": "ఈ పంట ఎందుకు?"
+    "why_this_crop": "ఈ పంట ఎందుకు?",
+    "market": "మార్కెట్",
+    "select": "ఎంచుకోండి",
+    "loading_msg": "సిఫార్సులు లోడ్ అవుతున్నాయి...",
+    "no_recommendations": "సిఫార్సులు ఏవీ అందుబాటులో లేవు",
+    "add_crop_title": "పంటను జోడించండి",
+    "add_button": "పంటను జోడించండి",
+    "growth_duration_prefix": "పెరుగుదల కాలం: ~",
+    "days_suffix": " రోజులు",
+    "category_label": "వర్గం: ",
+    "planting_date_query": "మీరు ఈ పంటను ఎప్పుడు నాటారు?"
   },
   "market": {
     "title": "మార్కెట్ ధరలు",
     "subtitle": "పంట ధరల ట్రెండ్‌లను ట్రాక్ చేయండి",
-    "per_kg": "కిలోకు",
+    "per_kg": "క్వింటాల్‌కు",
     "current_market": "ప్రస్తుత మార్కెట్",
     "current_price": "ప్రస్తుత ధర",
     "nearby_markets": "దగ్గరలోని మార్కెట్లు",
     "historical_prices": "గత మార్కెట్ ధరలు",
-    "graph_title": "మీరు ఎంచుకున్న పంట ధరల కదలిక"
+    "graph_title": "మీరు ఎంచుకున్న పంట ధరల కదలిక",
+    "search_apmc": "APMC శోధించండి...",
+    "no_results": "ఫలితాలు లేవు",
+    "initial_prompt": "రాష్ట్రం, ఏపీఎంసీ మరియు వస్తువును ఎంచుకోండి\nతరువాత \"మార్కెట్ మూల్యాంకనం\" నొక్కండి",
+    "evaluating_status": "మార్కెట్ మూల్యాంకనం జరుగుతోంది...",
+    "past_time": "గత {{time}}",
+    "next_time": "తదుపరి {{time}}"
   },
   "disease": {
     "title": "వ్యాధి గుర్తింపు",
@@ -353,12 +384,14 @@
     "high_demand_desc": "{{state}}లో {{crop}}కు మంచి డిమాండ్. సగటు ధర: ₹{{price}}/క్వింటల్"
   },
   "sustainability": {
-    "score": "సుస్థిరత స్కోర్",    "details": "సుస్థిరత వివరాలు",
+    "score": "సుస్థిరత స్కోర్",
+    "details": "సుస్థిరత వివరాలు",
     "summary": "సారాంశం",
     "key_points": "ముఖ్య విషయాలు",
     "impact_factors": "ప్రభావ కారకాలు",
     "category": "వర్గం",
-    "close": "మూసివేయండి",    "water_intensity": "నీటి అవసరం",
+    "close": "మూసివేయండి",
+    "water_intensity": "నీటి అవసరం",
     "soil_impact": "మట్టిపై ప్రభావం",
     "cultivation_intensity": "సాగు తీవ్రత",
     "highly_sustainable": "అత్యంత సుస్థిరం",

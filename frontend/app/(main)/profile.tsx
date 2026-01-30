@@ -193,7 +193,7 @@ export default function Profile() {
           activeOpacity={0.7}
         >
           <View style={styles.logoutIconContainer}>
-            <Feather name="log-out" size={20} color="#DC3545" />
+            <Feather name="log-out" size={20} color="#156349" />
           </View>
           <View style={styles.logoutTextContainer}>
             <AppText variant="content" bold style={styles.logoutTitle}>
@@ -203,7 +203,7 @@ export default function Profile() {
               {t('profile.logout_description') || "Sign out of your session"}
             </AppText>
           </View>
-          <Feather name="chevron-right" size={18} color="#DC3545" style={{ opacity: 0.3 }} />
+          <Feather name="chevron-right" size={18} color="#156349" style={{ opacity: 0.3 }} />
         </TouchableOpacity>
       </ScrollView>
       <Modal visible={logoutModalVisible} transparent animationType="fade">

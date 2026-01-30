@@ -10,7 +10,7 @@
     "new_user": "नए यूज़र?",
     "create_account": "अकाउंट बनाएं",
     "error_missing_fields": "यूजरनेम और पासवर्ड दोनों डालें",
-    "error_unauthorized": "गलत यूजरनेम या पासवर्ड",
+    "error_unauthorized": "गलत यूज़रनेम या पासवर्ड",
     "error_network": "सर्वर से कनेक्ट नहीं हो पा रहा है"
   },
   "onboarding": {
@@ -188,7 +188,9 @@
     "cancel": "रद्द करें",
     "confirm": "पुष्टि करें",
     "status": "स्थिति",
-    "loading": "लोड हो रहा है..."
+    "loading": "लोड हो रहा है...",
+    "retry": "पुनः प्रयास करें",
+    "unknown": "अज्ञात"
   },
   "home": {
     "greeting": "नमस्ते,",
@@ -221,7 +223,7 @@
       "tap_to_select": "फसल चुनने के लिए टैप करें"
     },
     "market": {
-      "per_kg": "प्रति किलो"
+      "per_kg": "प्रति क्विंटल"
     }
   },
   "crop": {
@@ -230,17 +232,33 @@
     "seasonal": "मौसमी",
     "all_season": "बारहमासी",
     "top_recommendation": "शीर्ष सुझाव",
-    "why_this_crop": "यह फसल क्यों?"
+    "why_this_crop": "यह फसल क्यों?",
+    "market": "बाजार",
+    "select": "चुनें",
+    "loading_msg": "सिफारिशें लोड हो रही हैं...",
+    "no_recommendations": "कोई सिफारिश उपलब्ध नहीं है",
+    "add_crop_title": "फसल जोड़ें",
+    "add_button": "फसल जोड़ें",
+    "growth_duration_prefix": "विकास अवधि: ~",
+    "days_suffix": " दिन",
+    "category_label": "श्रेणी: ",
+    "planting_date_query": "आपने यह फसल कब लगाई थी?"
   },
   "market": {
     "title": "बाज़ार भाव",
     "subtitle": "फसल की कीमतों के बदलाव पर नज़र रखें",
-    "per_kg": "प्रति किलो",
+    "per_kg": "प्रति क्विंटल",
     "current_market": "वर्तमान मंडी भाव",
     "current_price": "वर्तमान कीमत",
     "nearby_markets": "आस-पास की मंडियां",
     "historical_prices": "ऐतिहासिक बाजार भाव",
-    "graph_title": "आपकी चुनी हुई फसल की कीमतों में बदलाव"
+    "graph_title": "आपकी चुनी हुई फसल की कीमतों में बदलाव",
+    "search_apmc": "एपीएमसी खोजें...",
+    "no_results": "कोई परिणाम नहीं",
+    "initial_prompt": "राज्य, एपीएमसी और वस्तु चुनें\nफिर \"बाजार मूल्यांकन\" पर टैप करें",
+    "evaluating_status": "बाजार का मूल्यांकन हो रहा है...",
+    "past_time": "पिछला {{time}}",
+    "next_time": "अगला {{time}}"
   },
   "disease": {
     "title": "रोग की पहचान",

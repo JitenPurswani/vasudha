@@ -188,7 +188,9 @@
     "cancel": "বাতিল করুন",
     "confirm": "নিশ্চিত করুন",
     "status": "অবস্থা",
-    "loading": "লোড হচ্ছে..."
+    "loading": "লোড হচ্ছে...",
+    "retry": "আবার চেষ্টা করুন",
+    "unknown": "অজানা"
   },
   "home": {
     "greeting": "নমস্কার,",
@@ -205,10 +207,23 @@
       "wind_speed": "বাতাসের গতি"
     },
     "crop": {
-      "days_since": "রোপণের পর {{days}} দিন"
+      "days_since": "রোপণের পর {{days}} দিন",
+      "days_to": "রোপণে {{days}} দিন বাকি",
+      "planting_today": "আজ রোপণ",
+      "planting_yesterday": "গতকাল রোপণ করা হয়েছে",
+      "planting_tomorrow": "আগামীকাল রোপণ করা হবে",
+      "select_date": "রোপণের তারিখ নির্বাচন করুন",
+      "select_planting_date": "আপনি কবে রোপণ করবেন?",
+      "date_window_note": "৭ দিনের মধ্যে একটি তারিখ বেছে নিন (অতীত বা ভবিষ্যৎ)",
+      "day_n": "{{n}} তম দিন",
+      "days_to_harvest": "ফসল কাটাতে {{days}} দিন বাকি",
+      "ready_to_harvest": "ফসল কাটার জন্য প্রস্তুত!",
+      "next_stage": "পরবর্তী: {{days}} দিনের মধ্যে {{stage}}",
+      "view_all_crops": "সব {{count}}টি ফসল দেখুন",
+      "tap_to_select": "একটি ফসল নির্বাচন করতে ট্যাপ করুন"
     },
     "market": {
-      "per_kg": "প্রতি কেজি"
+      "per_kg": "প্রতি কুইন্টাল"
     }
   },
   "crop": {
@@ -217,17 +232,33 @@
     "seasonal": "মৌসুমি",
     "all_season": "সব মৌসুম",
     "top_recommendation": "সেরা সুপারিশ",
-    "why_this_crop": "এই ফসল কেন?"
+    "why_this_crop": "এই ফসল কেন?",
+    "market": "বাজার",
+    "select": "নির্বাচন করুন",
+    "loading_msg": "সুপারিশ লোড হচ্ছে...",
+    "no_recommendations": "কোনো সুপারিশ নেই",
+    "add_crop_title": "ফসল যোগ করুন",
+    "add_button": "ফসল যোগ করুন",
+    "growth_duration_prefix": "বৃদ্ধির সময়কাল: ~",
+    "days_suffix": " দিন",
+    "category_label": "বিভাগ: ",
+    "planting_date_query": "আপনি এই ফসলটি কখন রোপণ করেছিলেন?"
   },
   "market": {
     "title": "বাজারদর",
     "subtitle": "ফসলের দামের প্রবণতা ট্র্যাক করুন",
-    "per_kg": "প্রতি কেজি",
+    "per_kg": "প্রতি কুইন্টাল",
     "current_market": "বর্তমান বাজার",
     "current_price": "বর্তমান দাম",
     "nearby_markets": "কাছাকাছি বাজার",
     "historical_prices": "পুরোনো বাজারদর",
-    "graph_title": "আপনার নির্বাচিত ফসলের দামের পরিবর্তন"
+    "graph_title": "আপনার নির্বাচিত ফসলের দামের পরিবর্তন",
+    "search_apmc": "APMC খুঁজুন...",
+    "no_results": "কোনো ফলাফল নেই",
+    "initial_prompt": "রাজ্য, এপিএমসি এবং পণ্য নির্বাচন করুন\nতারপর \"বাজার মূল্যায়ন\" ট্যাপ করুন",
+    "evaluating_status": "বাজার মূল্যায়ন করা হচ্ছে...",
+    "past_time": "গত {{time}}",
+    "next_time": "পরবর্তী {{time}}"
   },
   "disease": {
     "title": "রোগ শনাক্তকরণ",
@@ -353,12 +384,14 @@
     "high_demand_desc": "{{state}}-এ {{crop}}-এর জোরদার চাহিদা। গড় দাম: ₹{{price}}/কুইন্টাল"
   },
   "sustainability": {
-    "score": "টেকসই স্কোর",    "details": "টেকসইতা বিবরণ",
+    "score": "টেকসই স্কোর",
+    "details": "টেকসইতা বিবরণ",
     "summary": "সারসংক্ষেপ",
     "key_points": "মূল বিষয়গুলি",
     "impact_factors": "প্রভাব কারণ",
     "category": "বিভাগ",
-    "close": "বন্ধ করুন",    "water_intensity": "জলের প্রয়োজন",
+    "close": "বন্ধ করুন",
+    "water_intensity": "জলের প্রয়োজন",
     "soil_impact": "মাটিতে প্রভাব",
     "cultivation_intensity": "চাষের তীব্রতা",
     "highly_sustainable": "অত্যন্ত টেকসই",

@@ -10,7 +10,8 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View
+  View,
+  TextInput
 } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { useRoute } from '@react-navigation/native';
@@ -45,6 +46,8 @@ export default function Market() {
   const [stateOpen, setStateOpen] = useState(false);
   const [apmcOpen, setApmcOpen] = useState(false);
   const [cropOpen, setCropOpen] = useState(false);
+  // APMC search term for filtering APMC list in modal
+  const [apmcSearch, setApmcSearch] = useState('');
 
   // ===== REDIRECT MODE FLAG =====
   const [isRedirectMode, setIsRedirectMode] = useState(false);
@@ -169,8 +172,8 @@ export default function Market() {
       console.error('[Market] Evaluation error:', error);
       let errorMsg = 'Failed to load market data';
       if (error instanceof APIError) {
-        errorMsg = error.statusCode === 404 
-          ? 'No market data available for this crop/state combination' 
+        errorMsg = error.statusCode === 404
+          ? 'No market data available for this crop/state combination'
           : `Error: ${error.message}`;
       } else if (error instanceof TimeoutError) {
         errorMsg = 'Request timed out. Please try again.';
@@ -235,6 +238,11 @@ export default function Market() {
     setCropOpen(false);
   }, []);
 
+  // Clear APMC search when APMC modal closes
+  useEffect(() => {
+    if (!apmcOpen) setApmcSearch('');
+  }, [apmcOpen]);
+
   // ===== CLOSE ALL DROPDOWNS =====
   const closeAllDropdowns = useCallback(() => {
     setStateOpen(false);
@@ -245,6 +253,8 @@ export default function Market() {
   // ===== COMPUTED VALUES =====
   const availableApmcs = manualState ? (apmcsByState[manualState] || []) : [];
   const availableCrops = manualApmc ? (commoditiesByApmc[manualApmc] || []) : [];
+  // Filter APMCs using search term (case-insensitive)
+  const filteredApmcs = availableApmcs.filter(a => a.toLowerCase().includes(apmcSearch.trim().toLowerCase()));
   const canEvaluate = manualState && manualApmc && manualCrop && !evaluationLoading && !forecastLoading;
   const isLoading = evaluationLoading || forecastLoading;
 
@@ -253,7 +263,7 @@ export default function Market() {
   const anyDropdownOpen = stateOpen || apmcOpen || cropOpen;
 
   return (
-    <ScrollView 
+    <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
@@ -267,7 +277,7 @@ export default function Market() {
       {dataLoading && (
         <View style={styles.dataLoadingContainer}>
           <ActivityIndicator size="small" color="#156349" />
-          <AppText variant="content" style={styles.dataLoadingText}>Loading market data...</AppText>
+          <AppText variant="content" style={styles.dataLoadingText}>{t('common.loading', { defaultValue: 'Loading market data...' })}</AppText>
         </View>
       )}
 
@@ -340,18 +350,18 @@ export default function Market() {
               activeOpacity={manualState ? 0.7 : 1}
               disabled={!manualState}
             >
-              <AppText 
-                variant="content" 
-                bold 
-                style={[styles.dropdownText, !manualState && styles.dropdownTextDisabled]} 
+              <AppText
+                variant="content"
+                bold
+                style={[styles.dropdownText, !manualState && styles.dropdownTextDisabled]}
                 numberOfLines={1}
               >
                 {!manualState ? 'Select State First' : (manualApmc || 'Select APMC')}
               </AppText>
-              <Feather 
-                name={apmcOpen ? 'chevron-up' : 'chevron-down'} 
-                size={14} 
-                color={manualState ? "#156349" : "#999"} 
+              <Feather
+                name={apmcOpen ? 'chevron-up' : 'chevron-down'}
+                size={14}
+                color={manualState ? "#156349" : "#999"}
               />
             </TouchableOpacity>
 
@@ -364,26 +374,50 @@ export default function Market() {
               >
                 <Pressable style={styles.modalOverlay} onPress={() => setApmcOpen(false)}>
                   <View style={[styles.modalDropdown, { top: 140, left: 16 + (Dimensions.get('window').width - 32) / 3, maxWidth: (Dimensions.get('window').width - 32) / 3 - 4 }]}>
+                    <View style={styles.searchWrapper}>
+                      <Feather name="search" size={14} color="#156349" style={styles.searchIcon} />
+                      <TextInput
+                        placeholder={t('market.search_apmc')}
+                        value={apmcSearch}
+                        onChangeText={setApmcSearch}
+                        style={styles.searchInputRefined}
+                        placeholderTextColor="#78909C"
+                        returnKeyType="search"
+                      />
+                      {apmcSearch.length > 0 && (
+                        <TouchableOpacity onPress={() => setApmcSearch('')}>
+                          <Feather name="x-circle" size={14} color="#78909C" />
+                        </TouchableOpacity>
+                      )}
+                    </View>
                     <ScrollView
                       style={styles.dropdownMenu}
                       showsVerticalScrollIndicator={true}
-                      bounces={false}
+                      keyboardShouldPersistTaps="handled"
                     >
-                      {availableApmcs.map(apmc => (
-                        <TouchableOpacity
-                          key={apmc}
-                          style={styles.dropdownItem}
-                          onPress={() => handleApmcSelect(apmc)}
-                          activeOpacity={0.6}
-                        >
-                          <AppText style={[
-                            styles.dropdownItemText,
-                            manualApmc === apmc && styles.dropdownItemTextSelected
-                          ]}>
-                            {apmc}
+                      {filteredApmcs.length > 0 ? (
+                        filteredApmcs.map(apmc => (
+                          <TouchableOpacity
+                            key={apmc}
+                            style={styles.dropdownItem}
+                            onPress={() => handleApmcSelect(apmc)}
+                          >
+                            <AppText style={[
+                              styles.dropdownItemText,
+                              manualApmc === apmc && styles.dropdownItemTextSelected
+                            ]}>
+                              {apmc}
+                            </AppText>
+                          </TouchableOpacity>
+                        ))
+                      ) : (
+                        <View style={styles.noResultsContainer}>
+                          <Feather name="search" size={24} color="#BDDBE8" />
+                          <AppText style={styles.noResultsText}>
+                            {t('market.no_results') || 'No APMC found'}
                           </AppText>
-                        </TouchableOpacity>
-                      ))}
+                        </View>
+                      )}
                     </ScrollView>
                   </View>
                 </Pressable>
@@ -404,18 +438,18 @@ export default function Market() {
               activeOpacity={manualApmc ? 0.7 : 1}
               disabled={!manualApmc}
             >
-              <AppText 
-                variant="content" 
-                bold 
-                style={[styles.dropdownText, !manualApmc && styles.dropdownTextDisabled, { fontSize: 11 }]} 
+              <AppText
+                variant="content"
+                bold
+                style={[styles.dropdownText, !manualApmc && styles.dropdownTextDisabled, { fontSize: 11 }]}
                 numberOfLines={1}
               >
                 {!manualState ? 'Select State First' : (!manualApmc ? 'Select APMC First' : (manualCrop || 'Select Commodity'))}
               </AppText>
-              <Feather 
-                name={cropOpen ? 'chevron-up' : 'chevron-down'} 
-                size={14} 
-                color={manualApmc ? "#156349" : "#999"} 
+              <Feather
+                name={cropOpen ? 'chevron-up' : 'chevron-down'}
+                size={14}
+                color={manualApmc ? "#156349" : "#999"}
               />
             </TouchableOpacity>
 
@@ -534,7 +568,7 @@ export default function Market() {
       {evaluationLoading && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#156349" />
-          <AppText variant="content" style={styles.loadingText}>Evaluating market...</AppText>
+          <AppText variant="content" style={styles.loadingText}>{t('market.evaluating_status')}</AppText>
         </View>
       )}
 
@@ -596,9 +630,9 @@ export default function Market() {
               const totalLen = histLen + foreLen - 1;
 
               const labels = Array(totalLen).fill("").map((_, i) => {
-                if (i === 0) return `Past ${activeTime}`;
-                if (i === histLen - 1) return "Today";
-                if (i === totalLen - 1) return `Next ${activeTime}`;
+                if (i === 0) return t('market.past_time', { time: activeTime });
+                if (i === histLen - 1) return t('common.today');
+                if (i === totalLen - 1) return t('market.next_time', { time: activeTime });
                 return "";
               });
 
@@ -653,11 +687,11 @@ export default function Market() {
                   <View style={styles.legend}>
                     <View style={styles.legendItem}>
                       <View style={[styles.legendDot, { backgroundColor: "#156349" }]} />
-                      <AppText variant="content" style={styles.legendLabel}>Past {activeTime}</AppText>
+                      <AppText variant="content" style={styles.legendLabel}>{t('market.past_time', { time: activeTime })}</AppText>
                     </View>
                     <View style={styles.legendItem}>
                       <View style={[styles.legendDot, { backgroundColor: "#FF9500" }]} />
-                      <AppText variant="content" style={styles.legendLabel}>Next {activeTime}</AppText>
+                      <AppText variant="content" style={styles.legendLabel}>{t('market.next_time', { time: activeTime })}</AppText>
                     </View>
                   </View>
                 </View>
@@ -676,7 +710,7 @@ export default function Market() {
         <View style={styles.emptyState}>
           <Feather name="bar-chart-2" size={48} color="#BDDBE8" />
           <AppText variant="content" style={styles.emptyStateText}>
-            Select State, APMC, and Commodity{'\n'}then tap "Evaluate Market"
+            {t('market.initial_prompt')}
           </AppText>
         </View>
       )}
@@ -785,21 +819,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
-  modalDropdown: {
-    position: 'absolute',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    maxHeight: 250,
-  },
   dropdownMenu: {
     maxHeight: 240,
+  },
+  searchInput: {
+    backgroundColor: '#F6F6F6',
+    fontSize: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0',
   },
   dropdownItem: {
     paddingVertical: 10,
@@ -927,8 +958,6 @@ const styles = StyleSheet.create({
     color: '#186F71',
     fontSize: 12,
   },
-
-  // Error Container
   errorContainer: {
     backgroundColor: '#FCE4E4',
     borderRadius: 10,
@@ -945,8 +974,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     flex: 1,
   },
-
-  // Chart Card
   chartCard: {
     backgroundColor: "#CFE9F1",
     borderRadius: 14,
@@ -1015,8 +1042,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     flex: 1,
   },
-
-  // Legend
   legend: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -1037,8 +1062,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#156349',
   },
-
-  // Last Updated
   lastUpdatedText: {
     textAlign: 'right',
     fontSize: 9,
@@ -1046,8 +1069,6 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     marginTop: 6,
   },
-
-  // Empty State
   emptyState: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -1061,4 +1082,51 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
   },
+  searchWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8FAFB',
+    margin: 8,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    height: 36,
+  },
+  searchIcon: {
+    marginRight: 6,
+    opacity: 0.6,
+  },
+  searchInputRefined: {
+    flex: 1,
+    fontSize: 11,
+    color: '#156349',
+    height: '100%',
+    paddingVertical: 0,
+  },
+  noResultsContainer: {
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  noResultsText: {
+    fontSize: 10,
+    color: '#78909C',
+    textAlign: 'center',
+  },
+  modalDropdown: {
+    position: 'absolute',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    maxHeight: 300,
+    overflow: 'hidden',
+  }
 });

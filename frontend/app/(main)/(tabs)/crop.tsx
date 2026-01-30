@@ -39,11 +39,11 @@ interface CropCardProps {
 function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: CropCardProps) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  
+
   // Format crop name
   const cropName = item.crop.charAt(0).toUpperCase() + item.crop.slice(1);
   const percent = `${Math.round((item.raw_probability || 0) * 100)}%`;
-  const sustainabilityScore = item.sustainability?.sustainability_score ? 
+  const sustainabilityScore = item.sustainability?.sustainability_score ?
     Math.round(item.sustainability.sustainability_score * 100) : 0;
 
   // Colors based on score
@@ -56,16 +56,16 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
   const headerBg = getHeaderColor(item.raw_probability || 0);
 
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={[styles.cardWrap, { backgroundColor: headerBg }]}
-      onPress={() => onSelect?.(cropName)}
+      onPress={() => onSelect?.(item.crop)} // Pass the raw key back to the parent
     >
       {/* Header */}
       <View style={[styles.cardHeader, { backgroundColor: headerBg }]}>
         <View style={styles.cardHeaderLeft}>
           <View style={styles.cardTitleRow}>
             <CropIcon width={20} height={20} fill="#186F71" />
-            <AppText variant="content" style={styles.cardTitle}>{cropName}</AppText>
+            <AppText variant="content" style={styles.cardTitle}>{t(`crops.${cropName.toLowerCase()}`)}</AppText>
           </View>
           {isTop && (
             <View style={styles.cardTagRow}>
@@ -98,7 +98,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
                 {sustainabilityScore}%
               </AppText>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.infoButton}
               onPress={() => onSustainabilityPress?.(item.sustainability!)}
             >
@@ -110,7 +110,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
         {/* XAI Explanations */}
         <View style={styles.xaiSection}>
           <AppText variant='content' style={styles.xaiTitle}>{t('crop.why_this_crop')}</AppText>
-          
+
           {/* Display XAI feature explanations if available */}
           {item.xai_explanations && item.xai_explanations.length > 0 ? (
             <>
@@ -140,7 +140,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
 
         {/* Action Buttons */}
         <View style={styles.buttonsRow}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.marketButton}
             onPress={() => {
               // Always pass state - use userState if available, otherwise pass Maharashtra as default
@@ -148,7 +148,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
               console.log(`[Crop Screen] Navigating to market: crop=${item.crop}, state=${stateToPass}`);
               router.push({
                 pathname: '/market',
-                params: { 
+                params: {
                   crop: item.crop,
                   state: stateToPass,
                   selected: 'true'
@@ -162,7 +162,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
             </AppText>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.selectButton}
             onPress={() => onSelect?.(cropName)}
           >
@@ -182,11 +182,11 @@ export default function Crop() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [retryKey, setRetryKey] = useState<number>(0);
-  
+
   const [selectedSustainability, setSelectedSustainability] = useState<SustainabilityResult | null>(null);
   const [showSustainabilityModal, setShowSustainabilityModal] = useState(false);
   const [userState, setUserState] = useState<string | null>(null);
-  
+
   // Crop selection modal state
   const [showCropModal, setShowCropModal] = useState(false);
   const [selectedCropForModal, setSelectedCropForModal] = useState<string | null>(null);
@@ -217,7 +217,7 @@ export default function Crop() {
         // Get location from AsyncStorage (stored during onboarding)
         const lat = await AsyncStorage.getItem('userLatitude');
         const lon = await AsyncStorage.getItem('userLongitude');
-        
+
         // Get user state from userProfile (stored during login/onboarding)
         const profileStr = await AsyncStorage.getItem('userProfile');
         if (profileStr) {
@@ -288,21 +288,21 @@ export default function Crop() {
   // Handle confirm crop selection with planting date
   const handleConfirmCropSelection = useCallback(async () => {
     if (!selectedCropForModal) return;
-    
+
     try {
       // Get user location
       const lat = await AsyncStorage.getItem('userLatitude');
       const lon = await AsyncStorage.getItem('userLongitude');
       const profileStr = await AsyncStorage.getItem('userProfile');
-      
+
       let location: { state?: string; district?: string } = {};
       if (profileStr) {
         try {
           const parsed = JSON.parse(profileStr);
           location = { state: parsed.state, district: parsed.district };
-        } catch (e) {}
+        } catch (e) { }
       }
-      
+
       // Add crop to active crops
       await addCrop({
         cropKey: selectedCropForModal,
@@ -311,20 +311,20 @@ export default function Crop() {
         longitude: lon ? parseFloat(lon) : 0,
         location,
       });
-      
+
       // Also update old CropContext for backward compatibility
       setSelectedCrop(selectedCropForModal);
-      
+
       setShowCropModal(false);
-      
+
       const profile = getCropProfile(selectedCropForModal);
       const displayName = profile?.displayName || selectedCropForModal;
       const duration = profile?.growthDurationDays || 0;
-      
+
       RNAlert.alert(
-        '🌱 Crop Added',
-        `${displayName} has been added to your active crops!\n\nGrowth duration: ~${duration} days\nPlanting date: ${plantingDate.toLocaleDateString()}`,
-        [{ text: 'OK' }]
+        '🌱' + t('crop.success_title'),
+        `${t('crop.success_message', { name: displayName })}\n\n${t('crop.growth_duration_prefix')}${duration}${t('crop.days_suffix')}\n${t('crop.planting_date_label')}${plantingDate.toLocaleDateString()}`,
+        [{ text: t('common.ok') }]
       );
     } catch (error) {
       console.error('[Crop] Failed to add crop:', error);
@@ -366,7 +366,7 @@ export default function Crop() {
           <View style={styles.centerContainer}>
             <ActivityIndicator size="large" color="#186F71" />
             <AppText variant='content' style={styles.loadingText}>
-              Loading recommendations...
+              {t('crop.loading_msg')}
             </AppText>
           </View>
         )}
@@ -378,7 +378,7 @@ export default function Crop() {
             <AppText variant='content' style={styles.errorText}>{error}</AppText>
             <TouchableOpacity style={styles.retryButton} onPress={() => setRetryKey(prev => prev + 1)}>
               <AppText variant='content' bold style={styles.retryButtonText}>
-                Retry
+                {t('common.retry')}
               </AppText>
             </TouchableOpacity>
           </View>
@@ -389,16 +389,16 @@ export default function Crop() {
           <View style={styles.centerContainer}>
             <Ionicons name="leaf-outline" size={48} color="#186F71" />
             <AppText variant='content' style={styles.emptyText}>
-              No recommendations available
+              {t('crop.no_recommendations')}
             </AppText>
           </View>
         )}
 
         {/* Crop Cards */}
         {!loading && !error && crops.length > 0 && crops.map((crop, idx) => (
-          <CropCard 
-            key={crop.crop} 
-            item={crop} 
+          <CropCard
+            key={crop.crop}
+            item={crop}
             isTop={idx === 0}
             userState={userState}
             onSelect={handleSelectCrop}
@@ -441,14 +441,14 @@ export default function Crop() {
                     {Math.round((selectedSustainability?.sustainability_score || 0) * 100)}%
                   </AppText>
                   <View style={styles.scoreBarLarge}>
-                    <View 
+                    <View
                       style={[
                         styles.scoreBarFill,
-                        { 
+                        {
                           width: `${Math.round((selectedSustainability?.sustainability_score || 0) * 100)}%`,
                           backgroundColor: '#52C41A'
                         }
-                      ]} 
+                      ]}
                     />
                   </View>
                 </View>
@@ -486,7 +486,7 @@ export default function Crop() {
                   <AppText variant="content" bold style={[styles.sectionTitle, { marginTop: 20 }]}>
                     {t('sustainability.impact_factors')}
                   </AppText>
-                  
+
                   <View style={styles.dimensionCard}>
                     <View style={styles.dimensionHeader}>
                       <Ionicons name="water" size={20} color="#2196F3" />
@@ -537,7 +537,7 @@ export default function Crop() {
               <View style={{ height: 30 }} />
             </ScrollView>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.modalCloseButton}
               onPress={() => setShowSustainabilityModal(false)}
             >
@@ -560,7 +560,7 @@ export default function Crop() {
           <View style={styles.cropModalContent}>
             <View style={styles.cropModalHeader}>
               <AppText variant="header" style={styles.cropModalTitle}>
-                Add Crop
+                {t('crop.add_crop_title')}
               </AppText>
               <TouchableOpacity onPress={() => setShowCropModal(false)}>
                 <Ionicons name="close" size={24} color="#186F71" />
@@ -575,28 +575,28 @@ export default function Crop() {
                   </View>
                   <View style={styles.cropModalDetails}>
                     <AppText variant="content" bold style={styles.cropModalName}>
-                      {getCropProfile(selectedCropForModal)?.displayName || selectedCropForModal}
+                      {selectedCropForModal ? t(`crops.${selectedCropForModal.toLowerCase()}`) : ''}
                     </AppText>
                     <AppText variant="content" style={styles.cropModalDuration}>
-                      Growth duration: ~{getCropProfile(selectedCropForModal)?.growthDurationDays || '?'} days
+                      {t('crop.growth_duration_prefix')}{getCropProfile(selectedCropForModal)?.growthDurationDays || '?'}{t('crop.days_suffix')}
                     </AppText>
                     <AppText variant="content" style={styles.cropModalCategory}>
-                      Category: {getCropProfile(selectedCropForModal)?.category || 'Unknown'}
+                      {t('crop.category_label')}{getCropProfile(selectedCropForModal)?.category || t('common.unknown')}
                     </AppText>
                   </View>
                 </View>
 
                 <View style={styles.cropModalDateSection}>
                   <AppText variant="content" bold style={styles.cropModalLabel}>
-                    When did you plant this crop?
+                    {t('crop.planting_date_query')}
                   </AppText>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.datePickerButton}
                     onPress={() => setShowDatePicker(true)}
                   >
                     <Ionicons name="calendar-outline" size={20} color="#186F71" />
                     <AppText variant="content" style={styles.datePickerText}>
-                      {plantingDate.toLocaleDateString('en-IN', {
+                      {plantingDate.toLocaleDateString(i18n.language, {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric'
@@ -621,21 +621,21 @@ export default function Crop() {
                 )}
 
                 <View style={styles.cropModalActions}>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.cropModalCancelBtn}
                     onPress={() => setShowCropModal(false)}
                   >
                     <AppText variant="content" style={styles.cropModalCancelText}>
-                      Cancel
+                      {t('common.cancel')}
                     </AppText>
                   </TouchableOpacity>
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     style={styles.cropModalConfirmBtn}
                     onPress={handleConfirmCropSelection}
                   >
                     <Ionicons name="add" size={20} color="#FFF" />
                     <AppText variant="content" bold style={styles.cropModalConfirmText}>
-                      Add Crop
+                      {t('crop.add_button')}
                     </AppText>
                   </TouchableOpacity>
                 </View>
@@ -678,15 +678,15 @@ const styles = StyleSheet.create({
   },
   toggleRow: {
     flexDirection: 'row',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     textAlign: 'center',
     alignItems: 'center',
     width: '100%',
     marginVertical: 18,
-    gap: 12, 
+    gap: 12,
   },
   toggleBtn: {
-    minWidth: 120, 
+    minWidth: 120,
     height: 40,
     backgroundColor: 'rgba(189, 219, 232, 0.8)',
     borderRadius: 12,
@@ -846,7 +846,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 4,
-    
+
   },
   marketButtonText: {
     color: '#186F71',
@@ -932,7 +932,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     paddingHorizontal: 20,
   },
-  
+
   // Sustainability Modal Styles
   modalOverlay: {
     flex: 1,

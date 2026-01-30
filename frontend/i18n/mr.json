@@ -188,7 +188,9 @@
     "cancel": "रद्द करा",
     "confirm": "पुष्टी करा",
     "status": "स्थिती",
-    "loading": "लोड होत आहे..."
+    "loading": "लोड होत आहे...",
+    "retry": "पुन्हा प्रयत्न करा",
+    "unknown": "अज्ञात"
   },
   "home": {
     "greeting": "नमस्कार,",
@@ -205,10 +207,23 @@
       "wind_speed": "वाऱ्याचा वेग"
     },
     "crop": {
-      "days_since": "लागवडीपासूनचे दिवस: {{days}}"
+      "days_since": "लागवडीपासूनचे दिवस: {{days}}",
+      "days_to": "लागवडीसाठी {{days}} दिवस बाकी",
+      "planting_today": "आज लागवड",
+      "planting_yesterday": "काल लागवड केली",
+      "planting_tomorrow": "उद्या लागवड करायची आहे",
+      "select_date": "लागवडीची तारीख निवडा",
+      "select_planting_date": "तुम्ही कधी लागवड करणार?",
+      "date_window_note": "७ दिवसांच्या आतील तारीख निवडा (मागील किंवा पुढील)",
+      "day_n": "दिवस {{n}}",
+      "days_to_harvest": "काढणीसाठी {{days}} दिवस बाकी",
+      "ready_to_harvest": "काढणीसाठी तयार!",
+      "next_stage": "पुढील: {{days}} दिवसात {{stage}}",
+      "view_all_crops": "सर्व {{count}} पिके पहा",
+      "tap_to_select": "पीक निवडण्यासाठी टॅप करा"
     },
     "market": {
-      "per_kg": "प्रति किलो"
+      "per_kg": "प्रति क्विंटल"
     }
   },
   "crop": {
@@ -217,17 +232,33 @@
     "seasonal": "हंगामी",
     "all_season": "बारमाही",
     "top_recommendation": "शीर्ष शिफारस",
-    "why_this_crop": "हेच पीक का?"
+    "why_this_crop": "हेच पीक का?",
+    "market": "बाजार",
+    "select": "निवडा",
+    "loading_msg": "शिफारसी लोड होत आहेत...",
+    "no_recommendations": "कोणत्याही शिफारसी उपलब्ध नाहीत",
+    "add_crop_title": "पीक जोडा",
+    "add_button": "पीक जोडा",
+    "growth_duration_prefix": "वाढण्याचा कालावधी: ~",
+    "days_suffix": " दिवस",
+    "category_label": "श्रेणी: ",
+    "planting_date_query": "तुम्ही हे पीक कधी लावले?"
   },
   "market": {
     "title": "बाज़ार भाव",
     "subtitle": "पीक दरांच्या कलमानाचा मागोवा घ्या",
-    "per_kg": "प्रति किलो",
+    "per_kg": "प्रति क्विंटल",
     "current_market": "सध्याचा बाजार",
     "current_price": "चालू भाव",
     "nearby_markets": "जवळील बाजारपेठा",
     "historical_prices": "ऐतिहासिक बाजार भाव",
-    "graph_title": "तुमच्या निवडलेल्या पिकाचे दरातील चढ-उतार"
+    "graph_title": "तुमच्या निवडलेल्या पिकाचे दरातील चढ-उतार",
+    "search_apmc": "APMC शोधा...",
+    "no_results": "निकाल आढळले नाहीत",
+    "initial_prompt": "राज्य, एपीएमसी आणि वस्तू निवडा\nनंतर \"बाजार मूल्यांकन\" वर टॅप करा",
+    "evaluating_status": "बाजार मूल्यांकन चालू आहे...",
+    "past_time": "मागील {{time}}",
+    "next_time": "पुढील {{time}}"
   },
   "disease": {
     "title": "रोग ओळख",
@@ -353,12 +384,14 @@
     "high_demand_desc": "{{state}} मध्ये {{crop}} ला जोरदार मागणी. सरासरी भाव: ₹{{price}}/क्विंटल"
   },
   "sustainability": {
-    "score": "शाश्वतता स्कोअर",    "details": "शाश्वतता तपशील",
+    "score": "शाश्वतता स्कोअर",
+    "details": "शाश्वतता तपशील",
     "summary": "सारांश",
     "key_points": "मुख्य मुद्दे",
     "impact_factors": "प्रभाव घटक",
     "category": "वर्ग",
-    "close": "बंद करा",    "water_intensity": "पाण्याची गरज",
+    "close": "बंद करा",
+    "water_intensity": "पाण्याची गरज",
     "soil_impact": "मातीवरील परिणाम",
     "cultivation_intensity": "लागवडीची तीव्रता",
     "highly_sustainable": "अत्यंत शाश्वत",

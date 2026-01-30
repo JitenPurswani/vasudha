@@ -41,7 +41,7 @@
     "registration_success": "ખાતું સફળતાપૂર્વક બની ગયું!",
     "location_fetch": "સ્થાન મેળવાયું",
     "fetch_soil_params": "માટીના પરિમાણો મેળવો",
-    "soil_params_fetched": "માટીના પરિમાણો સફલતાપૂર્વક મેળવાયા",
+    "soil_params_fetched": "માટીના પરિમાણો સફળતાપૂર્વક મેળવાયા",
     "username_hint": "3-20 અક્ષરો: યુઝરનેમમાં ફક્ત અક્ષરો, સંખ્યાઓ અથવા અન્ડરસ્કોર",
     "pw_hint": "ઓછામાં ઓછા 8 અક્ષરો: પાસવર્ડમાં 1 મોટો અક્ષર અને 1 નંબર ઉમેરો",
     "weak": "નબળું",
@@ -201,10 +201,23 @@
       "wind_speed": "પવનની ગતિ"
     },
     "crop": {
-      "days_since": "વાવણીના {{days}} દિવસ"
+      "days_since": "વાવણીના {{days}} દિવસ",
+      "days_to": "વાવણીમાં {{days}} દિવસ બાકી",
+      "planting_today": "આજે વાવણી",
+      "planting_yesterday": "ગઈકાલે વાવણી કરી",
+      "planting_tomorrow": "આવતીકાલે વાવણી કરવાની છે",
+      "select_date": "વાવણીની તારીખ પસંદ કરો",
+      "select_planting_date": "તમે ક્યારે વાવણી કરશો?",
+      "date_window_note": "7 દિવસની અંદરની તારીખ પસંદ કરો (ભૂતકાળ અથવા ભવિષ્ય)",
+      "day_n": "દિવસ {{n}}",
+      "days_to_harvest": "લણણીમાં {{days}} દિવસ બાકી",
+      "ready_to_harvest": "લણણી માટે તૈયાર!",
+      "next_stage": "આગળ: {{days}} દિવસમાં {{stage}}",
+      "view_all_crops": "તમામ {{count}} પાક જુઓ",
+      "tap_to_select": "પાક પસંદ કરવા માટે ટેપ કરો"
     },
     "market": {
-      "per_kg": "પ્રતિ કિલો"
+      "per_kg": "પ્રતિ ક્વિન્ટલ"
     }
   },
   "crop": {
@@ -213,17 +226,33 @@
     "seasonal": "મોસમી",
     "all_season": "બારેમાસ",
     "top_recommendation": "શ્રેષ્ઠ ભલામણ",
-    "why_this_crop": "આ પાક શા માટે?"
+    "why_this_crop": "આ પાક શા માટે?",
+    "market": "બજાર",
+    "select": "પસંદ",
+    "loading_msg": "ભલામણો લોડ થઈ રહી છે...",
+    "no_recommendations": "કોઈ ભલામણો ઉપલબ્ધ નથી",
+    "add_crop_title": "પાક ઉમેરો",
+    "add_button": "પાક ઉમેરો",
+    "growth_duration_prefix": "વૃદ્ધિનો સમયગાળો: ~",
+    "days_suffix": " દિવસ",
+    "category_label": "શ્રેણી: ",
+    "planting_date_query": "તમે આ પાક ક્યારે વાવ્યો હતો?"
   },
   "market": {
     "title": "બજાર ભાવ",
     "subtitle": "પાકના ભાવના વલણો પર નજર રાખો",
-    "per_kg": "પ્રતિ કિલો",
+    "per_kg": "પ્રતિ ક્વિન્ટલ",
     "current_market": "વર્તમાન બજાર",
     "current_price": "વર્તમાન ભાવ",
     "nearby_markets": "નજીકના માર્કેટ યાર્ડ",
     "historical_prices": "ઐતિહાસિક બજાર ભાવ",
-    "graph_title": "તમારા પસંદ કરેલા પાકના ભાવમાં ફેરફાર"
+    "graph_title": "તમારા પસંદ કરેલા પાકના ભાવમાં ફેરફાર",
+    "search_apmc": "APMC શોધો...",
+    "no_results": "કોઈ પરિણામ મળ્યા નથી",
+    "initial_prompt": "રાજ્ય, એપીએમસી અને કોમોડિટી પસંદ કરો\nપછી \"બજાર મૂલ્યાંકન\" પર ટેપ કરો",
+    "evaluating_status": "બજારનું મૂલ્યાંકન થઈ રહ્યું છે...",
+    "past_time": "પાછલું {{time}}",
+    "next_time": "આગલું {{time}}"
   },
   "disease": {
     "title": "રોગની ઓળખ",
@@ -346,12 +375,14 @@
     "high_demand_desc": "{{state}}માં {{crop}}ની ભારે માંગ. સરેરાશ ભાવ: ₹{{price}}/ક્વિન્ટલ"
   },
   "sustainability": {
-    "score": "ટકાઉપણું સ્કોર",    "details": "ટકાઉપણું વિગતો",
+    "score": "ટકાઉપણું સ્કોર",
+    "details": "ટકાઉપણું વિગતો",
     "summary": "સારાંશ",
     "key_points": "મુખ્ય મુદ્દાઓ",
     "impact_factors": "અસર પરિબળો",
     "category": "શ્રેણી",
-    "close": "બંધ કરો",    "water_intensity": "પાણીની જરૂરિયાત",
+    "close": "બંધ કરો",
+    "water_intensity": "પાણીની જરૂરિયાત",
     "soil_impact": "માટી પર અસર",
     "cultivation_intensity": "ખેતીની તીવ્રતા",
     "highly_sustainable": "ખૂબ ટકાઉ",
@@ -423,7 +454,7 @@
     },
     "cold_stress": {
       "high": [
-        "ગરમી જાળવવા પાક આવરણ અથવા મલ્ચ વાપરો",
+        "ગરમી જાળવવા પાક આવરણ અથવા મલ્ચિંગ વાપરો",
         "રાત્રે અથવા વહેલી સવારે સિંચાઈ ટાળો",
         "શક્ય હોય તો પવનથી રક્ષણ આપો"
       ],

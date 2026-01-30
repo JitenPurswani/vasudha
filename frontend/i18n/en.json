@@ -188,7 +188,9 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "status": "Status",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "retry": "Retry",
+    "unknown": "Unknown"
   },
   "home": {
     "greeting": "Hello,",
@@ -221,7 +223,7 @@
       "tap_to_select": "Tap to select a crop"
     },
     "market": {
-      "per_kg": "per kg"
+      "per_kg": "per quintal"
     }
   },
   "crop": {
@@ -233,17 +235,31 @@
     "why_this_crop": "Why This Crop?",
     "sustainability_score": "Sustainability",
     "market": "Market",
-    "select": "Select"
+    "select": "Select",
+    "loading_msg": "Loading recommendations...",
+    "no_recommendations": "No recommendations available",
+    "add_crop_title": "Add Crop",
+    "add_button": "Add Crop",
+    "growth_duration_prefix": "Growth duration: ~",
+    "days_suffix": " days",
+    "category_label": "Category: ",
+    "planting_date_query": "When did you plant this crop?"
   },
   "market": {
     "title": "Market Prices",
     "subtitle": "Track Crop Price Trends",
-    "per_kg": "per kg",
+    "per_kg": "per quintal",
     "current_market": "Current Market",
     "current_price": "Current Price",
     "nearby_markets": "Nearby Markets",
     "historical_prices": "Historical Market Prices",
-    "graph_title": "Price movement of your selected crop"
+    "graph_title": "Price movement of your selected crop",
+    "search_apmc": "Search APMC...",
+    "no_results": "No results found",
+    "initial_prompt": "Select State, APMC, and Commodity\nthen tap \"Evaluate Market\"",
+    "evaluating_status": "Evaluating market...",
+    "past_time": "Past {{time}}",
+    "next_time": "Next {{time}}"
   },
   "disease": {
     "title": "Disease Detection",
@@ -358,7 +374,7 @@
     "price_volatility_desc": "{{crop}} prices in {{state}} are highly volatile. Consider timing your sale carefully.",
     "price_rising_title": "Price Rising",
     "price_rising_desc": "{{crop}} prices in {{state}} are trending upward. Good time to consider selling.",
-    "price_falling_title": "Price Falling", 
+    "price_falling_title": "Price Falling",
     "price_falling_desc": "{{crop}} prices in {{state}} are declining. Consider storage or alternative markets.",
     "low_demand_title": "Low Demand",
     "low_demand_desc": "{{crop}} demand in {{state}} is currently low. Monitor market conditions.",
@@ -377,7 +393,7 @@
     "soil_impact": "Soil Impact",
     "cultivation_intensity": "Cultivation Intensity",
     "highly_sustainable": "Highly Sustainable",
-    "moderately_sustainable": "Moderately Sustainable", 
+    "moderately_sustainable": "Moderately Sustainable",
     "marginally_sustainable": "Marginally Sustainable",
     "low_sustainability": "Low Sustainability",
     "very_high": "Very High",

@@ -141,7 +141,7 @@
     "districts": {
       "maharashtra": {
         "ahmednagar": "ਅਹਿਮਦਨਗਰ",
-        "akola": "ਅਕੋಲಾ",
+        "akola": "ਅਕੋਲಾ",
         "amravati": "ਅਮਰਾਵਤੀ",
         "aurangabad": "ਛਤਰਪਤੀ ਸੰਭਾਜੀਨਗਰ",
         "beed": "ਬੀਡ",
@@ -188,7 +188,9 @@
     "cancel": "રદ કરો",
     "confirm": "પુષ્ટિ કરો",
     "status": "સ્થિતિ",
-    "loading": "લોડ થઈ રહ્યું છે..."
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
+    "unknown": "ਅਣਜਾਣ"
   },
   "home": {
     "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ,",
@@ -205,10 +207,23 @@
       "wind_speed": "ਹਵਾ ਦੀ ਰਫ਼ਤਾਰ"
     },
     "crop": {
-      "days_since": "ਬਿਜਾਈ ਤੋਂ {{days}} ਦਿਨ"
+      "days_since": "ਬਿਜਾਈ ਤੋਂ {{days}} ਦਿਨ",
+      "days_to": "ਬਿਜਾਈ ਵਿੱਚ {{days}} ਦਿਨ ਬਾਕੀ",
+      "planting_today": "ਅੱਜ ਬਿਜਾਈ",
+      "planting_yesterday": "ਕੱਲ੍ਹ ਬਿਜਾਈ ਕੀਤੀ",
+      "planting_tomorrow": "ਕੱਲ੍ਹ ਬਿਜਾਈ ਕਰਨੀ ਹੈ",
+      "select_date": "ਬਿਜਾਈ ਦੀ ਤਾਰੀਖ ਚੁਣੋ",
+      "select_planting_date": "ਤੁਸੀਂ ਕਦੋਂ ਬਿਜਾਈ ਕਰੋਗੇ?",
+      "date_window_note": "7 ਦਿਨਾਂ ਦੇ ਅੰਦਰ ਤਾਰੀਖ ਚੁਣੋ (ਪਿਛਲੀ ਜਾਂ ਅਗਲੀ)",
+      "day_n": "ਦਿਨ {{n}}",
+      "days_to_harvest": "ਵਾਢੀ ਵਿੱਚ {{days}} ਦਿਨ ਬਾਕੀ",
+      "ready_to_harvest": "ਵਾਢੀ ਲਈ ਤਿਆਰ!",
+      "next_stage": "ਅਗਲਾ: {{days}} ਦਿਨਾਂ ਵਿੱਚ {{stage}}",
+      "view_all_crops": "ਸਾਰੀਆਂ {{count}} ਫ਼ਸਲਾਂ ਦੇਖੋ",
+      "tap_to_select": "ਫ਼ਸਲ ਚੁਣਨ ਲਈ ਟੈਪ ਕਰੋ"
     },
     "market": {
-      "per_kg": "ਪ੍ਰਤੀ ਕਿੱਲੋ"
+      "per_kg": "ਪ੍ਰਤੀ ਕਵਿੰਟਲ"
     }
   },
   "crop": {
@@ -217,17 +232,33 @@
     "seasonal": "ਮੌਸਮੀ",
     "all_season": "ਸਦਾਬਹਾਰ",
     "top_recommendation": "ਮੁੱਖ ਸਿਫ਼ਾਰਸ਼",
-    "why_this_crop": "ਇਹ ਫ਼ਸਲ ਕਿਉਂ?"
+    "why_this_crop": "ਇਹ ਫ਼ਸਲ ਕਿਉਂ?",
+    "market": "ਮੁੰਡੀ",
+    "select": "ਚੁਣੋ",
+    "loading_msg": "ਸਿਫਾਰਸ਼ਾਂ ਲੋਡ ਹੋ ਰਹੀਆਂ ਹਨ...",
+    "no_recommendations": "ਕੋਈ ਸਿਫਾਰਸ਼ ਉਪਲਬਧ ਨਹੀਂ ਹੈ",
+    "add_crop_title": "ਫਸਲ ਜੋੜੋ",
+    "add_button": "ਫਸਲ ਜੋੜੋ",
+    "growth_duration_prefix": "ਵਾਧੇ ਦਾ ਸਮਾਂ: ~",
+    "days_suffix": " ਦਿਨ",
+    "category_label": "ਸ਼੍ਰੇਣੀ: ",
+    "planting_date_query": "ਤੁਸੀਂ ਇਹ ਫਸਲ ਕਦੋਂ ਲਗਾਈ ਸੀ?"
   },
   "market": {
     "title": "ਮੰਡੀ ਦੇ ਭਾਅ",
     "subtitle": "ਫ਼ਸਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ 'ਤੇ ਨਜ਼ਰ ਰੱਖੋ",
-    "per_kg": "ਪ੍ਰਤੀ ਕਿੱਲੋ",
+    "per_kg": "ਪ੍ਰਤੀ ਕਵਿੰਟਲ",
     "current_market": "ਮੌਜੂਦਾ ਮੰਡੀ",
     "current_price": "ਤਾਜ਼ਾ ਭਾਅ",
     "nearby_markets": "ਨੇੜਲੀਆਂ ਮੰਡੀਆਂ",
     "historical_prices": "ਪੁਰਾਣੇ ਮੰਡੀ ਭਾਅ",
-    "graph_title": "ਤੁਹਾਡੀ ਚੁਣੀ ਹੋਈ ਫ਼ਸਲ ਦੀ ਕੀਮਤ ਵਿੱਚ ਬਦਲਾਅ"
+    "graph_title": "ਤੁਹਾਡੀ ਚੁਣੀ ਹੋਈ ਫ਼ਸਲ ਦੀ ਕੀਮਤ ਵਿੱਚ ਬਦਲਾਅ",
+    "search_apmc": "ਏਪੀਐਮਸੀ ਖੋਜੋ...",
+    "no_results": "ਕੋਈ ਨਤੀਜਾ ਨਹੀਂ",
+    "initial_prompt": "ਰਾਜ, ਏਪੀਐਮਸੀ ਅਤੇ ਵਸਤੂ ਚੁਣੋ\nਫਿਰ \"ਮਾਰਕੀਟ ਮੁਲਾਂਕਣ\" 'ਤੇ ਟੈਪ ਕਰੋ",
+    "evaluating_status": "ਮਾਰਕੀਟ ਦਾ ਮੁਲਾਂਕਣ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+    "past_time": "ਪਿਛਲੇ {{time}}",
+    "next_time": "ਅਗਲੇ {{time}}"
   },
   "disease": {
     "title": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
@@ -326,7 +357,7 @@
     "fruiting": {
       "heat_stress": "ਗਰਮੀ ਵਿੱਚ ਫਲ ਧੁੱਪ ਨਾਲ ਸੜ ਸਕਦੇ ਹਨ। ਫਲਾਂ 'ਤੇ ਪੱਤਿਆਂ ਦਾ ਢੱਕਣ ਰੱਖੋ।",
       "cold_stress": "ਠੰਡ ਵਿੱਚ ਫਲ ਵਿਕਾਸ ਹੌਲੀ ਹੋ ਜਾਂਦਾ ਹੈ। ਵਾਢੀ ਦਾ ਸਮਾਂ ਵਧਾਓ।",
-      "frost_risk": "ਪਾਲਾ ਵਧ ਰਹੇ ਫਲਾਂ ਨੂੰ ਨੁਕਸਾਨ ਪਹੁੰਚਾਉਂਦਾ ਹੈ। ਪਾਲਾ ਆਵੇ ਤਾਂ ਜਲਦੀ ਤੋੜੋ।",
+      "frost_risk": "ਪਾਲਾ ਵਧ ਰਹੇ ਫਲਾਂ ਨੂੰ ਨੁਕਸਾਨ ਪਹੁੰਚਾਉਂਦਾ ਹੈ। ਪਾਲਾ ਆਵੇ ਤਾਂ ਜਲਦੀ ਤੜੋ।",
       "waterlogging": "ਫਲ ਫਟ ਸਕਦੇ ਅਤੇ ਸੜ ਸਕਦੇ ਹਨ। ਨਿਕਾਸ ਯਕੀਨੀ ਬਣਾਓ।",
       "dry_spell": "ਫਲ ਦਾ ਆਕਾਰ ਹੁਣ ਤੈਅ ਹੁੰਦਾ ਹੈ। ਲਗਾਤਾਰ ਪਾਣੀ ਦੇਣਾ ਜ਼ਰੂਰੀ ਹੈ।",
       "high_humidity": "ਫਲ ਸੜਨ ਦੇ ਰੋਗਾਂ ਲਈ ਦੇਖੋ। ਚੰਗੀ ਹਵਾ ਦਾ ਵਹਾਅ ਮਦਦ ਕਰਦਾ ਹੈ।"
@@ -353,12 +384,14 @@
     "high_demand_desc": "{{state}} ਵਿੱਚ {{crop}} ਦੀ ਜ਼ੋਰਦਾਰ ਮੰਗ। ਔਸਤ ਭਾਅ: ₹{{price}}/ਕੁਇੰਟਲ"
   },
   "sustainability": {
-    "score": "ਟਿਕਾਊਪਣ ਸਕੋਰ",    "details": "ਟਿਕਾਊਤਾ ਵੇਰਵੇ",
+    "score": "ਟਿਕਾਊਪਣ ਸਕੋਰ",
+    "details": "ਟਿਕਾਊਤਾ ਵੇਰਵੇ",
     "summary": "ਸੰਖੇਪ",
     "key_points": "ਮੁੱਖ ਨੁਕਤੇ",
     "impact_factors": "ਪ੍ਰਭਾਵ ਕਾਰਕ",
     "category": "ਸ਼੍ਰੇਣੀ",
-    "close": "ਬੰਦ ਕਰੋ",    "water_intensity": "ਪਾਣੀ ਦੀ ਲੋੜ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "water_intensity": "ਪਾਣੀ ਦੀ ਲੋੜ",
     "soil_impact": "ਮਿੱਟੀ 'ਤੇ ਅਸਰ",
     "cultivation_intensity": "ਖੇਤੀ ਦੀ ਤੀਬਰਤਾ",
     "highly_sustainable": "ਬਹੁਤ ਟਿਕਾਊ",
