@@ -645,7 +645,37 @@ uvicorn main:app --host 0.0.0.0 --port 8005
 
 ---
 
-### 8️⃣ Orchestrator (Port 8000)
+### 8️⃣ Auth Service (Port 8008)
+
+```bash
+cd backend/auth
+
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+# Windows:
+venv\Scripts\Activate.ps1
+# macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the service
+uvicorn main:app --host 0.0.0.0 --port 8008
+```
+
+**What it does:** Handles user authentication, registration, and session management  
+**API Docs:** http://127.0.0.1:8008/docs  
+**Test it:**
+```bash
+curl "http://127.0.0.1:8008/docs"
+```
+
+---
+
+### 9️⃣ Orchestrator (Port 8000)
 
 ```bash
 cd backend/orchestrator
@@ -679,11 +709,11 @@ curl "http://127.0.0.1:8000/recommend?latitude=19.08&longitude=72.88&district=Na
 
 ⚠️ **IMPORTANT NOTE:** This full system run guide will be updated in the near future. **The system has NOT been fully integrated yet**, so some endpoints may not work as described below. Please refer to individual agent documentation for current functionality status.
 
-### Full System Startup (All 8 Backend Services)
+### Full System Startup (All 9 Backend Services)
 
-**Option A: Manual (8 Terminal Windows)**
+**Option A: Manual (9 Terminal Windows)**
 
-Open 8 terminals and run these commands (one per terminal):
+Open 9 terminals and run these commands (one per terminal):
 
 ```bash
 # Terminal 1 - Orchestrator (Core Decision Engine)
@@ -759,6 +789,15 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8007
 ```
 
+```bash
+# Terminal 9 - Auth Service (Port 8008)
+cd backend/auth
+python -m venv venv
+venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8008
+```
+
 ### Verify All Services Are Running
 
 ```bash
@@ -771,6 +810,7 @@ curl http://127.0.0.1:8004/docs
 curl http://127.0.0.1:8005/docs  # XAI Agent
 curl http://127.0.0.1:8006/docs  # Sustainability Agent
 curl http://127.0.0.1:8007/docs  # Climate Adaptation Agent
+curl http://127.0.0.1:8008/docs  # Auth Service
 ```
 
 If all return HTML (Swagger UI), you're ready! ✅
@@ -1089,8 +1129,10 @@ curl http://127.0.0.1:8001/docs  # Weather Agent
 curl http://127.0.0.1:8002/docs  # Soil Agent
 curl http://127.0.0.1:8003/docs  # Recommendation Agent
 curl http://127.0.0.1:8004/docs  # Market Agent
-curl http://127.0.0.1:8005/docs  # Climate Adaptation Agent
+curl http://127.0.0.1:8005/docs  # XAI Agent
 curl http://127.0.0.1:8006/docs  # Sustainability Agent
+curl http://127.0.0.1:8007/docs  # Climate Adaptation Agent
+curl http://127.0.0.1:8008/docs  # Auth Service
 ```
 
 ### Full System Integration Test
@@ -1218,13 +1260,13 @@ For detailed troubleshooting → [Setup Guide](docs/setup_guide.md)
 
 **Last Updated:** January 26, 2026  
 **Version:** 1.0 (Production Ready)  
-**Status:** ✅ All 8 agents integrated & tested | ✅ Frontend complete | ✅ Documentation comprehensive
+**Status:** ✅ All 9 services integrated & tested | ✅ Frontend complete | ✅ Documentation comprehensive
 
 ---
 
 ## 📋 Quick Checklist Before Going Live
 
-- [ ] All 8 backend services running on correct ports (8000-8006)
+- [ ] All 9 backend services running on correct ports (8000-8008)
 - [ ] Frontend can reach backend (API URLs updated)
 - [ ] Market database created with persistence tables
 - [ ] .env files set for Weather Agent, Climate Agent
