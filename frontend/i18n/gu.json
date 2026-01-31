@@ -184,7 +184,13 @@
     "default_region": "કલ્યાણ, મહારાષ્ટ્ર"
   },
   "common": {
-    "last_updated": "છેલ્લે અપડેટ કર્યું: {{timestamp}}"
+    "last_updated": "છેલ્લે અપડેટ કર્યું: {{timestamp}}",
+    "cancel": "રદ કરો",
+    "confirm": "પુષ્ટિ કરો",
+    "status": "સ્થિતિ",
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "retry": "ફરી પ્રયાસ કરો",
+    "unknown": "અજ્ઞાત"
   },
   "home": {
     "greeting": "નમસ્તે,",
@@ -227,6 +233,7 @@
     "all_season": "બારેમાસ",
     "top_recommendation": "શ્રેષ્ઠ ભલામણ",
     "why_this_crop": "આ પાક શા માટે?",
+    "sustainability_score": "ટકાઉપણું",
     "market": "બજાર",
     "select": "પસંદ",
     "loading_msg": "ભલામણો લોડ થઈ રહી છે...",
