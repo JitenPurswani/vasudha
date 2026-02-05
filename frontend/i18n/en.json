@@ -270,6 +270,15 @@
     "close": "Close",
     "diagnosis": "Diagnosis"
   },
+  "fertilizer": {
+    "title": "Fertilizer Recommendation",
+    "subtitle": "Get personalized fertilizer recommendations",
+    "upload": "Upload",
+    "retake": "Retake",
+    "click_picture": "Click Picture",
+    "close": "Close",
+    "diagnosis": "Recommendation"
+  },
   "profile": {
     "title": "Profile",
     "subtitle": "Manage your account settings",

@@ -1,9 +1,8 @@
 
 import { Tabs } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CropIcon from '../../../assets/images/crop.svg';
-import DiseaseIcon from '../../../assets/images/disease.svg';
 import HomeIcon from '../../../assets/images/home.svg';
 import MarketIcon from '../../../assets/images/market.svg';
 
@@ -74,12 +73,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="disease"
+        name="fertilizer"
         options={{
-          title: 'Disease',
+          title: 'Fertilizer',
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
-              <DiseaseIcon width={25} height={25} fill={color} />
+              <Image
+                source={require('../../../assets/images/fertilizer.png')}
+                style={{ width: 25, height: 25, tintColor: color }}
+              />
             </TabItem>
           ),
         }}
