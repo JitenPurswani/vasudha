@@ -32,4 +32,14 @@ i18n.use(initReactI18next).init({
   },
 });
 
+// Log language initialization
+console.log('[i18n] Initialized with language:', i18n.language);
+console.log('[i18n] Available languages:', Object.keys(i18n.options.resources || {}));
+
+// Listen for language changes
+i18n.on('languageChanged', (lng) => {
+  console.log('[i18n] 🌍 LANGUAGE CHANGED TO:', lng);
+  console.log('[i18n] Translation keys will now use', lng, 'language files');
+});
+
 export default i18n;

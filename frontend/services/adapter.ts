@@ -63,15 +63,23 @@ function scoreToHeaderBg(score: number): string {
 /**
  * Converts SHAP feature names to translated explanation strings
  * Uses i18n translations for proper localization
+ * LOGS: Tracks which features are being translated
  */
 function shapFeaturesToExplanations(
   shapSummary: BackendSHAPSummary | null
 ): string[] {
   if (!shapSummary) {
+    console.warn('[adapter] No SHAP summary provided');
     return [];
   }
 
   const explanations: string[] = [];
+
+  console.log('[adapter] 🔄 Converting SHAP features to explanations', {
+    language: i18n.language,
+    positiveFeatures: shapSummary.top_positive_features || [],
+    negativeFeatures: shapSummary.top_negative_features || [],
+  });
 
   // Add positive features with translated explanations
   for (const feature of shapSummary.top_positive_features || []) {
@@ -85,6 +93,7 @@ function shapFeaturesToExplanations(
     explanations.push(explanation);
   }
 
+  console.log('[adapter] ✅ SHAP features converted to', explanations.length, 'explanations');
   return explanations;
 }
 
@@ -130,16 +139,20 @@ function findXAIExplanationForCrop(
  * 3. Generic fallback
  * 
  * Guarantees: Always returns array with at least 1 item
+ * LOGS: Tracks which translation path was used
  */
 function buildWhyArray(
   prediction: BackendRecommendationPrediction,
   xaiData: { explanations: BackendXAIExplanation[] } | null
 ): string[] {
+  console.log('[adapter] 📋 Building why[] for crop:', prediction.crop, 'Language:', i18n.language);
+  
   // Priority 1: Try XAI explanation
   const xaiExplanation = findXAIExplanationForCrop(prediction.crop, xaiData);
   if (xaiExplanation) {
     const xaiReasons = extractXAIExplanations(xaiExplanation);
     if (xaiReasons.length > 0) {
+      console.log('[adapter] ✅ why[] source: XAI explanation from backend');
       return xaiReasons;
     }
   }
@@ -148,6 +161,7 @@ function buildWhyArray(
   if (prediction.shap_summary) {
     const shapExplanations = shapFeaturesToExplanations(prediction.shap_summary);
     if (shapExplanations.length > 0) {
+      console.log('[adapter] ✅ why[] source: SHAP features (translated to', i18n.language, ')');
       return shapExplanations;
     }
   }
@@ -155,7 +169,9 @@ function buildWhyArray(
   // Priority 3: Generic fallback (guarantees at least 1 item)
   const fallbackKey = 'xai.feature_explanations.fallback';
   const fallbackTranslation = i18n.t(fallbackKey);
-  return [fallbackTranslation !== fallbackKey ? fallbackTranslation : "Recommendation based on soil and climate conditions for your location"];
+  const finalFallback = fallbackTranslation !== fallbackKey ? fallbackTranslation : "Recommendation based on soil and climate conditions for your location";
+  console.log('[adapter] ⚠️  why[] source: Fallback (', i18n.language, ')');
+  return [finalFallback];
 }
 
 // ============================================
@@ -183,10 +199,18 @@ function adaptPrediction(
  * 
  * @param backendResponse - Raw backend API response
  * @returns UI-safe adapted response with guaranteed non-null fields
+ * LOGS: Logs complete adaptation process with language info
  */
 export function adaptBackendResponse(
   backendResponse: BackendRecommendationResponse
 ): AdaptedRecommendationResponse {
+  console.log('[adapter] 🚀 STARTING ADAPTATION', {
+    language: i18n.language,
+    location: backendResponse.location,
+    numPredictions: backendResponse.recommendations?.predictions?.length || 0,
+    hasXAIData: !!backendResponse.xai_data,
+  });
+  
   // Extract predictions array (guarantee it's an array)
   const predictions =
     backendResponse.recommendations?.predictions || [];
@@ -201,6 +225,11 @@ export function adaptBackendResponse(
     district: backendResponse.location?.district || "",
     state: backendResponse.location?.state || "",
   };
+
+  console.log('[adapter] ✅ ADAPTATION COMPLETE', {
+    language: i18n.language,
+    cropsAdapted: crops.length,
+  });
 
   return {
     location,

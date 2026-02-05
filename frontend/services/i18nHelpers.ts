@@ -217,10 +217,12 @@ export function translateCrops(cropKeys: string[]): Record<string, string> {
  * @param feature - Feature name (nitrogen, phosphorus, potassium, ph, rainfall, temperature)
  * @param effect - Effect type ('positive', 'negative', 'neutral')
  * @returns Translated explanation string
+ * LOGS: Tracks translation retrieval, fallback chain, and language info
  */
 export function getFeatureExplanation(feature: string, effect: 'positive' | 'negative' | 'neutral' = 'positive'): string {
   if (!feature) return '';
   
+  const startTime = Date.now();
   const normalizedFeature = feature.toLowerCase().replace(/\s+/g, '_');
   const translationKey = `xai.feature_explanations.${normalizedFeature}.${effect}`;
   const translated = i18n.t(translationKey);
@@ -231,17 +233,40 @@ export function getFeatureExplanation(feature: string, effect: 'positive' | 'neg
     const genericTranslated = i18n.t(genericKey);
     
     if (genericTranslated !== genericKey) {
+      const duration = Date.now() - startTime;
+      console.log(`[i18nHelpers] ⚠️  XAI Generic Fallback (${duration}ms)`, {
+        lang: i18n.language,
+        feature: normalizedFeature,
+        effect: effect,
+        usedKey: genericKey,
+        translation: genericTranslated.substring(0, 80),
+      });
       return genericTranslated;
     }
     
     // Fallback to English default
     const fallbackKey = `xai.feature_explanations.fallback`;
     const fallbackTranslated = i18n.t(fallbackKey);
-    return fallbackTranslated !== fallbackKey 
+    const duration = Date.now() - startTime;
+    const result = fallbackTranslated !== fallbackKey 
       ? fallbackTranslated 
       : 'Recommendation based on soil and climate conditions for your location';
+    console.log(`[i18nHelpers] ❌ XAI Ultimate Fallback (${duration}ms)`, {
+      lang: i18n.language,
+      feature: normalizedFeature,
+      effect: effect,
+    });
+    return result;
   }
   
+  const duration = Date.now() - startTime;
+  console.log(`[i18nHelpers] ✅ XAI Feature Translated (${duration}ms)`, {
+    lang: i18n.language,
+    feature: normalizedFeature,
+    effect: effect,
+    key: translationKey,
+    translation: translated.substring(0, 80),
+  });
   return translated;
 }
 
@@ -279,19 +304,32 @@ export function getClimateActions(riskType: string, severity: 'high' | 'medium' 
  * Translates sustainability summary text
  * @param summaryType - Type of summary ('high_water', 'positive_soil', 'balanced')
  * @returns Translated summary string
+ * LOGS: Tracks translation lookup with language info
  */
 export function getSustainabilitySummary(summaryType: string): string {
   if (!summaryType) return '';
   
+  const startTime = Date.now();
   const normalizedType = summaryType.toLowerCase().replace(/\s+/g, '_');
   const translationKey = `sustainability_text.summary.${normalizedType}`;
   const translated = i18n.t(translationKey);
+  const duration = Date.now() - startTime;
   
   if (translated === translationKey) {
-    // Return empty string if translation not found
+    console.warn(`[i18nHelpers] ⚠️  Sustainability Summary NOT FOUND (${duration}ms)`, {
+      lang: i18n.language,
+      summaryType: normalizedType,
+      key: translationKey,
+    });
     return '';
   }
   
+  console.log(`[i18nHelpers] ✅ Sustainability Summary Translated (${duration}ms)`, {
+    lang: i18n.language,
+    summaryType: normalizedType,
+    key: translationKey,
+    translation: translated.substring(0, 100),
+  });
   return translated;
 }
 
@@ -300,34 +338,63 @@ export function getSustainabilitySummary(summaryType: string): string {
  * @param detailType - Type of detail ('water_intensity', 'soil_impact', 'cultivation_intensity')
  * @param level - The level value to interpolate
  * @returns Translated detail string with level
+ * LOGS: Tracks template lookup, interpolation, and language info
  */
 export function getSustainabilityDetail(detailType: string, level: string): string {
   if (!detailType) return '';
   
+  const startTime = Date.now();
   const normalizedType = detailType.toLowerCase().replace(/\s+/g, '_');
   const translationKey = `sustainability_text.details.${normalizedType}`;
   const translatedLevel = translateSustainabilityLevel(level);
   const translated = i18n.t(translationKey, { level: translatedLevel });
+  const duration = Date.now() - startTime;
   
   if (translated === translationKey) {
+    console.warn(`[i18nHelpers] ⚠️  Sustainability Detail NOT FOUND (${duration}ms)`, {
+      lang: i18n.language,
+      detailType: normalizedType,
+      level: level,
+      key: translationKey,
+    });
     return '';
   }
   
+  console.log(`[i18nHelpers] ✅ Sustainability Detail Translated (${duration}ms)`, {
+    lang: i18n.language,
+    detailType: normalizedType,
+    level: level,
+    levelTranslated: translatedLevel,
+    key: translationKey,
+    translation: translated.substring(0, 100),
+  });
   return translated;
 }
 
 /**
  * Gets the sustainability disclaimer text
  * @returns Translated disclaimer string
+ * LOGS: Tracks translation lookup with language info
  */
 export function getSustainabilityDisclaimer(): string {
+  const startTime = Date.now();
   const translationKey = 'sustainability_text.disclaimer';
   const translated = i18n.t(translationKey);
+  const duration = Date.now() - startTime;
   
   if (translated === translationKey) {
+    console.warn(`[i18nHelpers] ⚠️  Sustainability Disclaimer NOT FOUND (${duration}ms)`, {
+      lang: i18n.language,
+      key: translationKey,
+    });
     return 'This sustainability score reflects intrinsic crop characteristics and does not account for local climate, irrigation practices, or soil chemistry.';
   }
   
+  console.log(`[i18nHelpers] ✅ Sustainability Disclaimer Translated (${duration}ms)`, {
+    lang: i18n.language,
+    key: translationKey,
+    translation: translated.substring(0, 100),
+  });
   return translated;
 }
 

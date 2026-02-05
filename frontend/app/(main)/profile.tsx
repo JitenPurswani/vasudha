@@ -124,8 +124,14 @@ export default function Profile() {
 
         // Immediate Sync: Language, AsyncStorage, and State
         if (updated.language !== i18n.language) {
+          console.log('[Profile] 🌍 LANGUAGE SWITCH INITIATED', {
+            from: i18n.language,
+            to: updated.language,
+            timestamp: new Date().toISOString(),
+          });
           await i18n.changeLanguage(updated.language);
           await AsyncStorage.setItem('user-language', updated.language);
+          console.log('[Profile] ✅ LANGUAGE SWITCHED TO:', updated.language, '- All future translations will use this language');
         }
 
         await AsyncStorage.setItem('userProfile', JSON.stringify(updated));

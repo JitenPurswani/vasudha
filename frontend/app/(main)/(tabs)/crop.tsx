@@ -24,7 +24,12 @@ import { fetchRecommendationsWithSustainability, CropRecommendation, Sustainabil
 import { useCrop } from '@/context/CropContext';
 import { useActiveCrops, CropGrowthState } from '@/context/ActiveCropsContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { translateSustainabilityLevel } from '@/services/i18nHelpers';
+import { 
+  translateSustainabilityLevel, 
+  getSustainabilitySummary, 
+  getSustainabilityDetail,
+  getFeatureExplanation
+} from '@/services/i18nHelpers';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 
@@ -114,11 +119,15 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
           {/* Display XAI feature explanations if available */}
           {item.xai_explanations && item.xai_explanations.length > 0 ? (
             <>
-              {item.xai_explanations.slice(0, 3).map((exp, idx) => (
-                <AppText key={idx} variant="content" style={styles.xaiText}>
-                  • {exp.reason}
-                </AppText>
-              ))}
+              {item.xai_explanations.slice(0, 3).map((exp, idx) => {
+                // Translate the explanation based on feature and effect
+                const translatedReason = getFeatureExplanation(exp.feature, exp.effect);
+                return (
+                  <AppText key={idx} variant="content" style={styles.xaiText}>
+                    • {translatedReason}
+                  </AppText>
+                );
+              })}
             </>
           ) : (
             <>
@@ -461,7 +470,24 @@ export default function Crop() {
                     {t('sustainability.summary')}
                   </AppText>
                   <AppText variant="content" style={styles.summaryText}>
-                    {selectedSustainability.explanation.summary}
+                    {(() => {
+                      const score = selectedSustainability.sustainability_score;
+                      let summaryKey = 'balanced';
+                      // Map sustainability score to summary key
+                      const waterInt = selectedSustainability.dimensions?.water_intensity?.category;
+                      const soilImp = selectedSustainability.dimensions?.soil_impact?.category;
+                      
+                      if (waterInt === 'very_high' || waterInt === 'high') {
+                        summaryKey = 'high_water';
+                      } else if (soilImp === 'positive') {
+                        summaryKey = 'positive_soil';
+                      } else {
+                        summaryKey = 'balanced';
+                      }
+                      
+                      const translated = getSustainabilitySummary(summaryKey);
+                      return translated || selectedSustainability.explanation.summary;
+                    })()}
                   </AppText>
                 </>
               )}
@@ -472,11 +498,19 @@ export default function Crop() {
                   <AppText variant="content" bold style={[styles.sectionTitle, { marginTop: 20 }]}>
                     {t('sustainability.key_points')}
                   </AppText>
-                  {selectedSustainability.explanation.details.map((detail, idx) => (
-                    <AppText key={idx} variant="content" style={styles.detailText}>
-                      • {detail}
-                    </AppText>
-                  ))}
+                  {selectedSustainability.dimensions && (
+                    <>
+                      <AppText variant="content" style={styles.detailText}>
+                        • {getSustainabilityDetail('water_intensity', selectedSustainability.dimensions.water_intensity.category) || selectedSustainability.explanation.details[0]}
+                      </AppText>
+                      <AppText variant="content" style={styles.detailText}>
+                        • {getSustainabilityDetail('soil_impact', selectedSustainability.dimensions.soil_impact.category) || selectedSustainability.explanation.details[1]}
+                      </AppText>
+                      <AppText variant="content" style={styles.detailText}>
+                        • {getSustainabilityDetail('cultivation_intensity', selectedSustainability.dimensions.cultivation_intensity.category) || selectedSustainability.explanation.details[2]}
+                      </AppText>
+                    </>
+                  )}
                 </>
               )}
 
