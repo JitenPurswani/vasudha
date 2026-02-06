@@ -95,7 +95,7 @@ config.json # Add if it contains secrets
 backend/auth/users.db
 # Data files (can be large, consider not committing)
 # data/*.csv
-
+/notebooks
 # Optional: Logs
 *.log
 logs/
