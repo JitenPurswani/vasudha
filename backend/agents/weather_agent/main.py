@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import requests
 import os
 import sqlite3
+import time
 from dotenv import load_dotenv
 import re
 
@@ -41,69 +42,72 @@ class WeatherDataOutput(BaseModel):
     wind_speed_kmh: float | None
     status: str
 
-# --- 5. Reverse Geocoding ---
-# --- 5. Reverse Geocoding (REVISED AND FIXED) ---
+# --- 5. Reverse Geocoding (with retry on timeout) ---
 def get_district_from_coordinates(lat: float, lon: float) -> tuple[str | None, str | None]:
     """
     Uses OpenStreetMap's Nominatim API to get district and state from coordinates.
+    Retries up to 3 times with increasing timeouts on transient failures.
     """
-    try:
-        url = f"https://nominatim.openstreetmap.org/reverse"
-        params = {
-            "lat": lat,
-            "lon": lon,
-            "format": "json",
-            "zoom": 10,
-            "addressdetails": 1
-        }
-        headers = {"User-Agent": "WeatherAgent/1.0"}
-        print(f"--- Calling Nominatim API with URL: {url} and params: {params} ---")
-        response = requests.get(url, params=params, headers=headers, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        print(f"--- Nominatim API Response (raw): {data} ---")
+    url = "https://nominatim.openstreetmap.org/reverse"
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "format": "json",
+        "zoom": 10,
+        "addressdetails": 1
+    }
+    # Nominatim requires a descriptive User-Agent; generic ones get rate-limited/blocked
+    headers = {"User-Agent": "VasudhaApp/1.0 (agricultural-advisory; contact@vasudha.app)"}
 
-        address = data.get("address", {})
+    max_retries = 3
+    timeouts = [10, 20, 30]  # increasing timeouts per attempt
 
-        # --- NEW, MORE ROBUST DISTRICT LOGIC ---
-        # Prioritize 'state_district', then 'county', then 'city'
-        # This will find "New Delhi" from the 'city' field for your example
-        district = address.get("state_district") or address.get("county") or address.get("city")
+    for attempt in range(max_retries):
+        try:
+            print(f"--- Nominatim attempt {attempt+1}/{max_retries} (timeout={timeouts[attempt]}s) for lat={lat}, lon={lon} ---")
+            response = requests.get(url, params=params, headers=headers, timeout=timeouts[attempt])
+            response.raise_for_status()
+            data = response.json()
+            print(f"--- Nominatim API Response (raw): {data} ---")
 
-        # --- NEW, MORE ROBUST STATE LOGIC ---
-        # Prioritize 'state' key.
-        state = address.get("state")
+            address = data.get("address", {})
+            district = address.get("state_district") or address.get("county") or address.get("city")
+            state = address.get("state")
 
-        # If 'state' key is missing (like for Delhi), try to get it from the display_name
-        if not state and data.get("display_name"):
-            try:
-                # display_name format: "..., District, State, Country"
-                parts = data.get("display_name").split(',')
-                if len(parts) >= 3:
-                    # Get the second to last part, which is usually the state
-                    potential_state = parts[-2].strip()
-                    
-                    # A simple check to ensure it's not the country
-                    country = address.get("country", "").lower()
-                    if country and potential_state.lower() != country:
-                         state = potential_state
-                    elif not country:
-                         state = potential_state
-            except Exception as e:
-                print(f"Warning: Could not parse state from display_name. Error: {e}")
-                pass # Parsing display_name failed, state will remain None
+            # If 'state' key is missing (like for Delhi), try to get it from the display_name
+            if not state and data.get("display_name"):
+                try:
+                    parts = data.get("display_name").split(',')
+                    if len(parts) >= 3:
+                        potential_state = parts[-2].strip()
+                        country = address.get("country", "").lower()
+                        if country and potential_state.lower() != country:
+                             state = potential_state
+                        elif not country:
+                             state = potential_state
+                except Exception as e:
+                    print(f"Warning: Could not parse state from display_name. Error: {e}")
 
-        if district:
-            # Clean up the district name (e.g., "Ludhiana District" -> "Ludhiana")
-            district = re.sub(r" District$", "", district.strip().title())
-            district = re.sub(r" Tehsil$", "", district.strip().title())
+            if district:
+                district = re.sub(r" District$", "", district.strip().title())
+                district = re.sub(r" Tehsil$", "", district.strip().title())
 
-        print(f"--- Parsed District: {district}, Parsed State: {state} ---")
-        return district, state
+            print(f"--- Parsed District: {district}, Parsed State: {state} ---")
+            return district, state
 
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Reverse Geocoding Error: {e}")
-        return None, None
+        except requests.exceptions.Timeout as e:
+            print(f"⏱️ Nominatim timeout on attempt {attempt+1}/{max_retries}: {e}")
+            if attempt < max_retries - 1:
+                wait = 2 ** attempt  # 1s, 2s backoff
+                print(f"   Retrying in {wait}s...")
+                time.sleep(wait)
+            else:
+                print(f"❌ Nominatim failed after {max_retries} attempts (all timed out)")
+                return None, None
+
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Reverse Geocoding Error (attempt {attempt+1}): {e}")
+            return None, None  # non-timeout errors: don't retry
 
 # --- 6. Get Live Weather ---
 def get_live_weather(lat: float, lon: float) -> dict:

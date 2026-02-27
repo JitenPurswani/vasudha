@@ -191,27 +191,44 @@ export default function Home() {
     }, [refreshUserData])
   );
 
-  // Fetch weather on component mount
+  // Fetch weather on component mount or when primary crop changes
   useEffect(() => {
     const loadWeather = async () => {
       try {
         setWeatherLoading(true);
         setWeatherError(null);
 
-        // Get stored location coordinates
-        const lat = await AsyncStorage.getItem('userLatitude');
-        const lon = await AsyncStorage.getItem('userLongitude');
+        let lat: string | null = null;
+        let lon: string | null = null;
+
+        // Priority: use primary crop's farm coordinates (actual field location)
+        if (primaryCrop) {
+          lat = String(primaryCrop.latitude);
+          lon = String(primaryCrop.longitude);
+          console.log(`[Home] Using primary crop (${primaryCrop.cropKey}) coordinates: lat=${lat}, lon=${lon}`);
+        } else {
+          // Fallback: device GPS coordinates from onboarding
+          lat = await AsyncStorage.getItem('userLatitude');
+          lon = await AsyncStorage.getItem('userLongitude');
+          console.log(`[Home] No active crop, using stored device coordinates: lat=${lat}, lon=${lon}`);
+        }
 
         if (!lat || !lon) {
-          console.log('[Home] No location data found in storage');
+          console.log('[Home] No location data found');
           setWeatherError('Location not set. Please complete onboarding first.');
           setWeatherLoading(false);
           return;
         }
 
-        console.log(`[Home] Loading weather for lat=${lat}, lon=${lon}`);
+        // Determine season based on current month
+        const month = new Date().getMonth() + 1; // 1-12
+        let season = 'kharif';
+        if (month >= 10 || month <= 2) season = 'rabi';
+        else if (month >= 3 && month <= 5) season = 'zaid';
 
-        const weatherData = await fetchWeather(parseFloat(lat), parseFloat(lon), 'kharif');
+        console.log(`[Home] Loading weather for lat=${lat}, lon=${lon}, season=${season}`);
+
+        const weatherData = await fetchWeather(parseFloat(lat), parseFloat(lon), season);
         setWeather(weatherData);
         console.log('[Home] Weather loaded successfully:', weatherData);
       } catch (error: any) {
@@ -223,7 +240,7 @@ export default function Home() {
     };
 
     loadWeather();
-  }, []);
+  }, [primaryCrop]);
 
   useEffect(() => {
     const date = format(new Date(), 'EEEE, dd MMM yyyy');

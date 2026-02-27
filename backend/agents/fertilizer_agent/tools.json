@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "description": "Application method → tool mapping. Each method lists tools needed, with image and video placeholders for the UI.",
-    "note": "image_url and video_url are placeholders — user will provide actual URLs later."
+    "description": "Application method → tool mapping. Each method lists tools needed with images and tutorial videos.",
+    "image_base_path": "assets/images/fertlizer_tools/"
   },
   "methods": {
     "basal_application": {
@@ -13,22 +13,22 @@
           "id": "garden_hoe",
           "name": "Garden Hoe / Khurpi",
           "description": "Hand tool for mixing fertilizer into topsoil in small plots",
-          "image_url": "placeholder_garden_hoe.png",
-          "video_url": "placeholder_garden_hoe_video"
+          "image_url": "assets/images/fertlizer_tools/garden_hoe.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+garden+hoe+khurpi+fertilizer+application+farming"
         },
         {
           "id": "cultivator",
           "name": "Cultivator",
           "description": "Tractor-drawn or manual cultivator to incorporate fertilizer into soil",
-          "image_url": "placeholder_cultivator.png",
-          "video_url": "placeholder_cultivator_video"
+          "image_url": "assets/images/fertlizer_tools/cultivator.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+cultivator+fertilizer+mixing+soil+farming"
         },
         {
           "id": "seed_drill_fertilizer",
           "name": "Seed-cum-Fertilizer Drill",
           "description": "Places seed and fertilizer simultaneously in furrows",
-          "image_url": "placeholder_seed_drill.png",
-          "video_url": "placeholder_seed_drill_video"
+          "image_url": "assets/images/fertlizer_tools/seed_driller.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+seed+cum+fertilizer+drill+agriculture"
         }
       ]
     },
@@ -41,22 +41,22 @@
           "id": "hand_spreader",
           "name": "Hand Broadcast Spreader",
           "description": "Crank-operated spreader for even distribution of granular fertilizer",
-          "image_url": "placeholder_hand_spreader.png",
-          "video_url": "placeholder_hand_spreader_video"
+          "image_url": "assets/images/fertlizer_tools/hand_spreader.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+hand+broadcast+spreader+fertilizer+farming"
         },
         {
           "id": "fertilizer_basket",
           "name": "Fertilizer Basket / Tokri",
           "description": "Traditional woven basket for manual scattering of FYM, compost, or granules",
-          "image_url": "placeholder_fertilizer_basket.png",
-          "video_url": "placeholder_fertilizer_basket_video"
+          "image_url": "assets/images/fertlizer_tools/fertlizer_basket.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+spread+fertilizer+manually+basket+tokri+farming"
         },
         {
           "id": "wheelbarrow",
           "name": "Wheelbarrow",
           "description": "For transporting and dumping organic manure across the field",
-          "image_url": "placeholder_wheelbarrow.png",
-          "video_url": "placeholder_wheelbarrow_video"
+          "image_url": "assets/images/fertlizer_tools/wheelbarrow.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+wheelbarrow+manure+spreading+farm"
         }
       ]
     },
@@ -69,22 +69,22 @@
           "id": "hand_duster",
           "name": "Hand Fertilizer Duster",
           "description": "Small applicator for placing granular fertilizer near plant rows",
-          "image_url": "placeholder_hand_duster.png",
-          "video_url": "placeholder_hand_duster_video"
+          "image_url": "assets/images/fertlizer_tools/hand_duster.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+hand+fertilizer+duster+top+dressing+farming"
         },
         {
           "id": "khurpi",
           "name": "Khurpi / Hand Weeder",
           "description": "Used to make shallow furrows near plants, place fertilizer, and cover",
-          "image_url": "placeholder_khurpi.png",
-          "video_url": "placeholder_khurpi_video"
+          "image_url": "assets/images/fertlizer_tools/khurpi.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+khurpi+hand+weeder+fertilizer+placement+farming"
         },
         {
           "id": "fertilizer_ring_applicator",
           "name": "Ring Applicator",
           "description": "Circular applicator for placing fertilizer in a ring around tree crops",
-          "image_url": "placeholder_ring_applicator.png",
-          "video_url": "placeholder_ring_applicator_video"
+          "image_url": "assets/images/fertlizer_tools/ring_applicator.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+ring+applicator+fertilizer+tree+crops+farming"
         }
       ]
     },
@@ -97,22 +97,22 @@
           "id": "spade",
           "name": "Spade / Phawda",
           "description": "For digging in manure and compost into garden beds",
-          "image_url": "placeholder_spade.png",
-          "video_url": "placeholder_spade_video"
+          "image_url": "assets/images/fertlizer_tools/spade.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+spade+phawda+compost+manure+mixing+soil"
         },
         {
           "id": "rotavator",
           "name": "Rotavator / Rotary Tiller",
           "description": "Power tiller attachment that mixes manure uniformly into topsoil",
-          "image_url": "placeholder_rotavator.png",
-          "video_url": "placeholder_rotavator_video"
+          "image_url": "assets/images/fertlizer_tools/rotavator.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+rotavator+rotary+tiller+fertilizer+soil+mixing+farming"
         },
         {
           "id": "plough",
           "name": "Plough (MB / Desi)",
           "description": "Traditional or mould-board plough for turning soil with organic matter",
-          "image_url": "placeholder_plough.png",
-          "video_url": "placeholder_plough_video"
+          "image_url": "assets/images/fertlizer_tools/plough.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+plough+mould+board+organic+manure+soil+turning+farming"
         }
       ]
     },
@@ -125,22 +125,22 @@
           "id": "knapsack_sprayer",
           "name": "Knapsack Sprayer (16L)",
           "description": "Manual pump sprayer worn on back — most common for small-medium farms",
-          "image_url": "placeholder_knapsack_sprayer.png",
-          "video_url": "placeholder_knapsack_sprayer_video"
+          "image_url": "assets/images/fertlizer_tools/knapsack_sprayer.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+knapsack+sprayer+foliar+spray+fertilizer+farming"
         },
         {
           "id": "battery_sprayer",
           "name": "Battery-Operated Sprayer",
           "description": "Electric pump sprayer for consistent pressure — reduces manual effort",
-          "image_url": "placeholder_battery_sprayer.png",
-          "video_url": "placeholder_battery_sprayer_video"
+          "image_url": "assets/images/fertlizer_tools/battery_operated_sprayer.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+battery+operated+sprayer+fertilizer+agriculture"
         },
         {
           "id": "measuring_cup",
           "name": "Measuring Cup / Beaker",
           "description": "For precise dilution of concentrated liquid fertilizers",
-          "image_url": "placeholder_measuring_cup.png",
-          "video_url": "placeholder_measuring_cup_video"
+          "image_url": "assets/images/fertlizer_tools/measuring_cup.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+dilute+liquid+fertilizer+measuring+cup+foliar+spray"
         }
       ]
     },
@@ -153,22 +153,22 @@
           "id": "venturi_injector",
           "name": "Venturi Fertilizer Injector",
           "description": "Low-cost device that uses water pressure to suck fertilizer solution into drip lines",
-          "image_url": "placeholder_venturi_injector.png",
-          "video_url": "placeholder_venturi_injector_video"
+          "image_url": "assets/images/fertlizer_tools/venturi_injector.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+venturi+injector+fertigation+drip+irrigation"
         },
         {
           "id": "fertilizer_tank",
           "name": "Fertilizer Mixing Tank",
           "description": "Tank for dissolving and mixing water-soluble fertilizer before injection",
-          "image_url": "placeholder_fertilizer_tank.png",
-          "video_url": "placeholder_fertilizer_tank_video"
+          "image_url": "assets/images/fertlizer_tools/fertilizer_mixing_tank.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+fertilizer+mixing+tank+fertigation+drip+system"
         },
         {
           "id": "dosing_pump",
           "name": "Fertigation Dosing Pump",
           "description": "Electric or hydraulic pump for precise fertilizer injection into irrigation",
-          "image_url": "placeholder_dosing_pump.png",
-          "video_url": "placeholder_dosing_pump_video"
+          "image_url": "assets/images/fertlizer_tools/dosing_pimp.png",
+          "video_url": "https://www.youtube.com/results?search_query=how+to+use+dosing+pump+fertigation+irrigation+fertilizer"
         }
       ]
     }
