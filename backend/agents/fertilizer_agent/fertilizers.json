@@ -1,0 +1,300 @@
+{
+  "_meta": {
+    "priority_order": "organic_first",
+    "description": "Organic fertilizers are default/priority. Chemical fertilizers used only when organic alone cannot cover the deficit.",
+    "nutrient_content_unit": "percentage_by_weight"
+  },
+  "organic": {
+    "farmyard_manure": {
+      "display_name": "Farmyard Manure (FYM)",
+      "type": "organic",
+      "nutrient_content": {"N": 0.5, "P": 0.2, "K": 0.5},
+      "typical_dose_kg_ha": 10000,
+      "release_speed": "slow",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Improves soil structure", "Enhances water retention", "Supports microbial activity"],
+      "notes": "Best applied 2-3 weeks before sowing. Mix well into topsoil."
+    },
+    "vermicompost": {
+      "display_name": "Vermicompost",
+      "type": "organic",
+      "nutrient_content": {"N": 1.6, "P": 0.7, "K": 0.8},
+      "typical_dose_kg_ha": 5000,
+      "release_speed": "moderate",
+      "methods": ["soil_incorporation", "basal_application", "top_dressing"],
+      "solubility": "partially_soluble",
+      "benefits": ["Rich in humic acids", "Contains beneficial microbes", "Improves nutrient availability"],
+      "notes": "Can be applied as basal dose or top-dressing. Avoid direct sunlight on stored vermicompost."
+    },
+    "neem_cake": {
+      "display_name": "Neem Cake",
+      "type": "organic",
+      "nutrient_content": {"N": 5.0, "P": 1.0, "K": 1.5},
+      "typical_dose_kg_ha": 1000,
+      "release_speed": "slow",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Natural pest deterrent", "Slow nitrogen release", "Improves soil health"],
+      "notes": "Apply at sowing time. Acts as nematicide and insect repellent."
+    },
+    "bone_meal": {
+      "display_name": "Bone Meal",
+      "type": "organic",
+      "nutrient_content": {"N": 3.5, "P": 8.0, "K": 0.0},
+      "typical_dose_kg_ha": 500,
+      "release_speed": "slow",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Excellent phosphorus source", "Contains calcium", "Long-lasting effect"],
+      "notes": "Works best in acidic to neutral soils (pH < 7). Not effective in alkaline soils."
+    },
+    "seaweed_extract": {
+      "display_name": "Seaweed Extract",
+      "type": "organic",
+      "nutrient_content": {"N": 1.0, "P": 0.5, "K": 4.0},
+      "typical_dose_kg_ha": 500,
+      "release_speed": "fast",
+      "methods": ["foliar_spray", "fertigation"],
+      "solubility": "soluble",
+      "benefits": ["Rich in micronutrients and growth hormones", "Boosts stress resistance", "Enhances root growth"],
+      "notes": "Dilute as per instructions. Best as foliar spray during active growth."
+    },
+    "compost": {
+      "display_name": "Compost",
+      "type": "organic",
+      "nutrient_content": {"N": 1.0, "P": 0.5, "K": 0.8},
+      "typical_dose_kg_ha": 8000,
+      "release_speed": "slow",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Improves soil organic matter", "Enhances drainage", "Feeds soil microorganisms"],
+      "notes": "Ensure compost is fully decomposed before application."
+    },
+    "fish_meal": {
+      "display_name": "Fish Meal",
+      "type": "organic",
+      "nutrient_content": {"N": 9.0, "P": 6.0, "K": 0.0},
+      "typical_dose_kg_ha": 400,
+      "release_speed": "moderate",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["High N and P content", "Natural source", "Improves soil biology"],
+      "notes": "May attract animals. Mix into soil well."
+    },
+    "rock_phosphate": {
+      "display_name": "Rock Phosphate",
+      "type": "organic",
+      "nutrient_content": {"N": 0.0, "P": 8.5, "K": 0.0},
+      "typical_dose_kg_ha": 500,
+      "release_speed": "very_slow",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Long-term phosphorus supply", "Natural mineral", "No chemical processing"],
+      "notes": "Most effective in acidic soils (pH < 6.5). Very slow release."
+    },
+    "wood_ash": {
+      "display_name": "Wood Ash",
+      "type": "organic",
+      "nutrient_content": {"N": 0.0, "P": 1.5, "K": 6.0},
+      "typical_dose_kg_ha": 1000,
+      "release_speed": "fast",
+      "methods": ["manual_spread", "soil_incorporation"],
+      "solubility": "partially_soluble",
+      "benefits": ["Rich in potassium", "Raises soil pH", "Contains trace minerals"],
+      "notes": "Avoid on alkaline soils. Do not mix with nitrogen fertilizers."
+    },
+    "green_manure": {
+      "display_name": "Green Manure (Dhaincha/Sesbania)",
+      "type": "organic",
+      "nutrient_content": {"N": 2.5, "P": 0.5, "K": 1.5},
+      "typical_dose_kg_ha": 8000,
+      "release_speed": "moderate",
+      "methods": ["soil_incorporation"],
+      "solubility": "insoluble",
+      "benefits": ["Fixes atmospheric nitrogen", "Adds organic matter", "Suppresses weeds"],
+      "notes": "Incorporate into soil 3-4 weeks before sowing main crop."
+    },
+    "mustard_cake": {
+      "display_name": "Mustard Cake",
+      "type": "organic",
+      "nutrient_content": {"N": 4.8, "P": 1.8, "K": 1.3},
+      "typical_dose_kg_ha": 800,
+      "release_speed": "moderate",
+      "methods": ["soil_incorporation", "basal_application"],
+      "solubility": "insoluble",
+      "benefits": ["Good nitrogen source", "Improves soil texture", "Natural pest repellent"],
+      "notes": "Apply 15-20 days before sowing for best results."
+    },
+    "panchagavya": {
+      "display_name": "Panchagavya",
+      "type": "organic",
+      "nutrient_content": {"N": 1.2, "P": 0.6, "K": 0.8},
+      "typical_dose_kg_ha": 300,
+      "release_speed": "fast",
+      "methods": ["foliar_spray"],
+      "solubility": "soluble",
+      "benefits": ["Traditional biostimulant", "Boosts immunity", "Enhances growth hormones"],
+      "notes": "Dilute 3% for foliar spray. Apply early morning or evening."
+    }
+  },
+  "chemical": {
+    "urea": {
+      "display_name": "Urea",
+      "type": "chemical",
+      "nutrient_content": {"N": 46.0, "P": 0.0, "K": 0.0},
+      "typical_dose_kg_ha": 100,
+      "release_speed": "fast",
+      "methods": ["manual_spread", "top_dressing", "fertigation"],
+      "solubility": "high",
+      "benefits": ["Highest N content", "Readily available", "Cost-effective"],
+      "notes": "Apply in split doses. Avoid flooding immediately after application."
+    },
+    "dap": {
+      "display_name": "DAP (Di-Ammonium Phosphate)",
+      "type": "chemical",
+      "nutrient_content": {"N": 18.0, "P": 46.0, "K": 0.0},
+      "typical_dose_kg_ha": 100,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "basal_application", "soil_incorporation"],
+      "solubility": "high",
+      "benefits": ["Primary P source", "Also provides nitrogen", "Good for basal application"],
+      "notes": "Best applied at sowing as basal dose."
+    },
+    "mop": {
+      "display_name": "MOP (Muriate of Potash)",
+      "type": "chemical",
+      "nutrient_content": {"N": 0.0, "P": 0.0, "K": 60.0},
+      "typical_dose_kg_ha": 75,
+      "release_speed": "fast",
+      "methods": ["manual_spread", "basal_application", "soil_incorporation"],
+      "solubility": "high",
+      "benefits": ["Highest K content", "Essential for fruiting crops", "Improves disease resistance"],
+      "notes": "Apply at sowing or during tuber/fruit formation."
+    },
+    "ssp": {
+      "display_name": "SSP (Single Super Phosphate)",
+      "type": "chemical",
+      "nutrient_content": {"N": 0.0, "P": 16.0, "K": 0.0},
+      "typical_dose_kg_ha": 150,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "basal_application", "soil_incorporation"],
+      "solubility": "moderate",
+      "benefits": ["Contains calcium and sulphur too", "Good for oilseeds", "Moderate cost"],
+      "notes": "Also provides 11% sulphur and 20% calcium."
+    },
+    "npk_10_26_26": {
+      "display_name": "NPK 10:26:26",
+      "type": "chemical",
+      "nutrient_content": {"N": 10.0, "P": 26.0, "K": 26.0},
+      "typical_dose_kg_ha": 100,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "basal_application"],
+      "solubility": "moderate",
+      "benefits": ["Balanced P and K", "Suitable for basal dose", "Reduces number of fertilizers needed"],
+      "notes": "Ideal for crops with high P and K demand."
+    },
+    "npk_12_32_16": {
+      "display_name": "NPK 12:32:16",
+      "type": "chemical",
+      "nutrient_content": {"N": 12.0, "P": 32.0, "K": 16.0},
+      "typical_dose_kg_ha": 100,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "basal_application"],
+      "solubility": "moderate",
+      "benefits": ["High phosphorus blend", "Good starter fertilizer", "Multi-nutrient supply"],
+      "notes": "Best for phosphorus-demanding crops."
+    },
+    "ammonium_sulphate": {
+      "display_name": "Ammonium Sulphate",
+      "type": "chemical",
+      "nutrient_content": {"N": 20.6, "P": 0.0, "K": 0.0},
+      "typical_dose_kg_ha": 120,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "top_dressing"],
+      "solubility": "high",
+      "benefits": ["Provides sulphur (24%)", "Good for oilseeds", "Acidifies soil slightly"],
+      "notes": "Preferred for sulphur-loving crops (oilseeds, pulses)."
+    },
+    "potassium_sulphate": {
+      "display_name": "Potassium Sulphate (SOP)",
+      "type": "chemical",
+      "nutrient_content": {"N": 0.0, "P": 0.0, "K": 50.0},
+      "typical_dose_kg_ha": 80,
+      "release_speed": "moderate",
+      "methods": ["manual_spread", "fertigation", "basal_application"],
+      "solubility": "high",
+      "benefits": ["Chloride-free K source", "Contains sulphur (18%)", "Better for sensitive crops"],
+      "notes": "Preferred over MOP for chloride-sensitive crops (potato, tomato, fruits)."
+    },
+    "calcium_ammonium_nitrate": {
+      "display_name": "Calcium Ammonium Nitrate (CAN)",
+      "type": "chemical",
+      "nutrient_content": {"N": 25.0, "P": 0.0, "K": 0.0},
+      "typical_dose_kg_ha": 100,
+      "release_speed": "fast",
+      "methods": ["manual_spread", "top_dressing"],
+      "solubility": "high",
+      "benefits": ["Provides calcium", "Fast-acting nitrogen", "Less volatile than urea"],
+      "notes": "Good for acidic soils and calcium-loving crops."
+    },
+    "zinc_sulphate": {
+      "display_name": "Zinc Sulphate",
+      "type": "chemical",
+      "nutrient_content": {"N": 0.0, "P": 0.0, "K": 0.0},
+      "micronutrient": {"Zn": 21.0},
+      "typical_dose_kg_ha": 25,
+      "release_speed": "moderate",
+      "methods": ["foliar_spray", "soil_incorporation"],
+      "solubility": "high",
+      "benefits": ["Corrects zinc deficiency", "Essential for rice/maize", "Improves grain quality"],
+      "notes": "Common deficiency in Indian soils. Apply 25 kg/ha to soil or 0.5% foliar spray."
+    },
+    "borax": {
+      "display_name": "Borax",
+      "type": "chemical",
+      "nutrient_content": {"N": 0.0, "P": 0.0, "K": 0.0},
+      "micronutrient": {"B": 11.0},
+      "typical_dose_kg_ha": 10,
+      "release_speed": "moderate",
+      "methods": ["foliar_spray", "soil_incorporation"],
+      "solubility": "moderate",
+      "benefits": ["Essential for flowering/fruiting", "Improves pollen viability", "Corrects boron deficiency"],
+      "notes": "Critical for oilseeds, pulses, and vegetables. Do not over-apply — boron toxicity is possible."
+    }
+  },
+  "ph_amendments": {
+    "agricultural_lime": {
+      "display_name": "Agricultural Lime (CaCO₃)",
+      "type": "amendment",
+      "purpose": "raise_ph",
+      "application_rate_kg_ha": {"mild": 1000, "moderate": 2000, "severe": 4000},
+      "methods": ["soil_incorporation"],
+      "notes": "Apply 2-3 weeks before sowing. Raises pH by 0.5-1.0 unit per 2000 kg/ha."
+    },
+    "dolomite_lime": {
+      "display_name": "Dolomite Lime",
+      "type": "amendment",
+      "purpose": "raise_ph",
+      "application_rate_kg_ha": {"mild": 800, "moderate": 1500, "severe": 3000},
+      "methods": ["soil_incorporation"],
+      "notes": "Also supplies magnesium. Preferred for Mg-deficient soils."
+    },
+    "gypsum": {
+      "display_name": "Gypsum (CaSO₄)",
+      "type": "amendment",
+      "purpose": "lower_ph",
+      "application_rate_kg_ha": {"mild": 500, "moderate": 1000, "severe": 2000},
+      "methods": ["soil_incorporation"],
+      "notes": "For alkaline/sodic soils. Also improves soil structure."
+    },
+    "sulphur": {
+      "display_name": "Elemental Sulphur",
+      "type": "amendment",
+      "purpose": "lower_ph",
+      "application_rate_kg_ha": {"mild": 200, "moderate": 500, "severe": 1000},
+      "methods": ["soil_incorporation"],
+      "notes": "Slow-acting. Apply well in advance. Microbes convert S to sulfuric acid."
+    }
+  }
+}

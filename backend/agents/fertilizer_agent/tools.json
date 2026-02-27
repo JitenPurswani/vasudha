@@ -1,0 +1,176 @@
+{
+  "_meta": {
+    "description": "Application method → tool mapping. Each method lists tools needed, with image and video placeholders for the UI.",
+    "note": "image_url and video_url are placeholders — user will provide actual URLs later."
+  },
+  "methods": {
+    "basal_application": {
+      "display_name": "Basal Application",
+      "description": "Mixing fertilizer into soil before sowing or transplanting",
+      "when_to_use": "Before planting — apply during land preparation",
+      "tools": [
+        {
+          "id": "garden_hoe",
+          "name": "Garden Hoe / Khurpi",
+          "description": "Hand tool for mixing fertilizer into topsoil in small plots",
+          "image_url": "placeholder_garden_hoe.png",
+          "video_url": "placeholder_garden_hoe_video"
+        },
+        {
+          "id": "cultivator",
+          "name": "Cultivator",
+          "description": "Tractor-drawn or manual cultivator to incorporate fertilizer into soil",
+          "image_url": "placeholder_cultivator.png",
+          "video_url": "placeholder_cultivator_video"
+        },
+        {
+          "id": "seed_drill_fertilizer",
+          "name": "Seed-cum-Fertilizer Drill",
+          "description": "Places seed and fertilizer simultaneously in furrows",
+          "image_url": "placeholder_seed_drill.png",
+          "video_url": "placeholder_seed_drill_video"
+        }
+      ]
+    },
+    "manual_spread": {
+      "display_name": "Manual Spreading / Broadcasting",
+      "description": "Evenly scattering granular fertilizer over the field surface",
+      "when_to_use": "For organic manures (FYM, compost) or granular fertilizers over large areas",
+      "tools": [
+        {
+          "id": "hand_spreader",
+          "name": "Hand Broadcast Spreader",
+          "description": "Crank-operated spreader for even distribution of granular fertilizer",
+          "image_url": "placeholder_hand_spreader.png",
+          "video_url": "placeholder_hand_spreader_video"
+        },
+        {
+          "id": "fertilizer_basket",
+          "name": "Fertilizer Basket / Tokri",
+          "description": "Traditional woven basket for manual scattering of FYM, compost, or granules",
+          "image_url": "placeholder_fertilizer_basket.png",
+          "video_url": "placeholder_fertilizer_basket_video"
+        },
+        {
+          "id": "wheelbarrow",
+          "name": "Wheelbarrow",
+          "description": "For transporting and dumping organic manure across the field",
+          "image_url": "placeholder_wheelbarrow.png",
+          "video_url": "placeholder_wheelbarrow_video"
+        }
+      ]
+    },
+    "top_dressing": {
+      "display_name": "Top Dressing",
+      "description": "Applying fertilizer near the base of growing plants during crop season",
+      "when_to_use": "During vegetative or active growth stages — apply near plant base and irrigate",
+      "tools": [
+        {
+          "id": "hand_duster",
+          "name": "Hand Fertilizer Duster",
+          "description": "Small applicator for placing granular fertilizer near plant rows",
+          "image_url": "placeholder_hand_duster.png",
+          "video_url": "placeholder_hand_duster_video"
+        },
+        {
+          "id": "khurpi",
+          "name": "Khurpi / Hand Weeder",
+          "description": "Used to make shallow furrows near plants, place fertilizer, and cover",
+          "image_url": "placeholder_khurpi.png",
+          "video_url": "placeholder_khurpi_video"
+        },
+        {
+          "id": "fertilizer_ring_applicator",
+          "name": "Ring Applicator",
+          "description": "Circular applicator for placing fertilizer in a ring around tree crops",
+          "image_url": "placeholder_ring_applicator.png",
+          "video_url": "placeholder_ring_applicator_video"
+        }
+      ]
+    },
+    "soil_incorporation": {
+      "display_name": "Soil Incorporation",
+      "description": "Mixing organic manure or fertilizer deeply into the soil",
+      "when_to_use": "For slow-release organic fertilizers — work into soil 2-4 weeks before planting",
+      "tools": [
+        {
+          "id": "spade",
+          "name": "Spade / Phawda",
+          "description": "For digging in manure and compost into garden beds",
+          "image_url": "placeholder_spade.png",
+          "video_url": "placeholder_spade_video"
+        },
+        {
+          "id": "rotavator",
+          "name": "Rotavator / Rotary Tiller",
+          "description": "Power tiller attachment that mixes manure uniformly into topsoil",
+          "image_url": "placeholder_rotavator.png",
+          "video_url": "placeholder_rotavator_video"
+        },
+        {
+          "id": "plough",
+          "name": "Plough (MB / Desi)",
+          "description": "Traditional or mould-board plough for turning soil with organic matter",
+          "image_url": "placeholder_plough.png",
+          "video_url": "placeholder_plough_video"
+        }
+      ]
+    },
+    "foliar_spray": {
+      "display_name": "Foliar Spray",
+      "description": "Spraying diluted liquid fertilizer directly on leaves for quick absorption",
+      "when_to_use": "For micronutrient deficiencies, critical growth stages, or when soil application is insufficient",
+      "tools": [
+        {
+          "id": "knapsack_sprayer",
+          "name": "Knapsack Sprayer (16L)",
+          "description": "Manual pump sprayer worn on back — most common for small-medium farms",
+          "image_url": "placeholder_knapsack_sprayer.png",
+          "video_url": "placeholder_knapsack_sprayer_video"
+        },
+        {
+          "id": "battery_sprayer",
+          "name": "Battery-Operated Sprayer",
+          "description": "Electric pump sprayer for consistent pressure — reduces manual effort",
+          "image_url": "placeholder_battery_sprayer.png",
+          "video_url": "placeholder_battery_sprayer_video"
+        },
+        {
+          "id": "measuring_cup",
+          "name": "Measuring Cup / Beaker",
+          "description": "For precise dilution of concentrated liquid fertilizers",
+          "image_url": "placeholder_measuring_cup.png",
+          "video_url": "placeholder_measuring_cup_video"
+        }
+      ]
+    },
+    "fertigation": {
+      "display_name": "Fertigation",
+      "description": "Injecting water-soluble fertilizer through drip or sprinkler irrigation systems",
+      "when_to_use": "For farms with drip/sprinkler — most efficient method, reduces wastage",
+      "tools": [
+        {
+          "id": "venturi_injector",
+          "name": "Venturi Fertilizer Injector",
+          "description": "Low-cost device that uses water pressure to suck fertilizer solution into drip lines",
+          "image_url": "placeholder_venturi_injector.png",
+          "video_url": "placeholder_venturi_injector_video"
+        },
+        {
+          "id": "fertilizer_tank",
+          "name": "Fertilizer Mixing Tank",
+          "description": "Tank for dissolving and mixing water-soluble fertilizer before injection",
+          "image_url": "placeholder_fertilizer_tank.png",
+          "video_url": "placeholder_fertilizer_tank_video"
+        },
+        {
+          "id": "dosing_pump",
+          "name": "Fertigation Dosing Pump",
+          "description": "Electric or hydraulic pump for precise fertilizer injection into irrigation",
+          "image_url": "placeholder_dosing_pump.png",
+          "video_url": "placeholder_dosing_pump_video"
+        }
+      ]
+    }
+  }
+}

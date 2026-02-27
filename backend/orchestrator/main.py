@@ -16,6 +16,7 @@ RECOMMENDATION_AGENT_URL = os.getenv("RECOMMENDATION_AGENT_URL", "http://localho
 MARKET_AGENT_URL = os.getenv("MARKET_AGENT_URL", "http://localhost:8004")
 SUSTAINABILITY_AGENT_URL = os.getenv("SUSTAINABILITY_AGENT_URL","http://localhost:8006")
 XAI_AGENT_URL = os.getenv("XAI_AGENT_URL", "http://localhost:8005")
+FERTILIZER_AGENT_URL = os.getenv("FERTILIZER_AGENT_URL", "http://localhost:8009")
 
 # ==================================================
 # Input Schema
@@ -534,6 +535,59 @@ async def get_full_recommendation(input: AppInput):
             },
             "sustainability": sustainability_data,
             "xai_data": xai_data
+        }
+
+
+# ==================================================
+# Fertilizer Recommendation Endpoint
+# ==================================================
+class FertilizerInput(BaseModel):
+    crop: str
+    lat: float
+    lon: float
+    crop_age_days: int
+    current_n: float
+    current_p: float
+    current_k: float
+    current_ph: float
+    season: str = "kharif"
+
+
+@app.post("/fertilizer")
+async def get_fertilizer_recommendation(req: FertilizerInput):
+    """
+    Proxy to the Fertilizer Recommendation Agent (port 8009).
+    Forwards soil data, crop info, and location to get organic-first
+    fertilizer recommendations with tools and purchase links.
+    """
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(
+                f"{FERTILIZER_AGENT_URL}/fertilizer/recommend",
+                json={
+                    "crop": req.crop,
+                    "lat": req.lat,
+                    "lon": req.lon,
+                    "crop_age_days": req.crop_age_days,
+                    "current_n": req.current_n,
+                    "current_p": req.current_p,
+                    "current_k": req.current_k,
+                    "current_ph": req.current_ph,
+                    "season": req.season
+                }
+            )
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                return {
+                    "status": "error",
+                    "error": f"Fertilizer agent returned {resp.status_code}",
+                    "detail": resp.text
+                }
+    except Exception as e:
+        return {
+            "status": "error",
+            "error": f"Fertilizer agent unreachable: {str(e)}"
         }
 
 

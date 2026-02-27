@@ -1,0 +1,168 @@
+{
+  "_meta": {
+    "description": "Purchase links for each tool referenced in tools.json. No price_range — too dynamic.",
+    "note": "Links are placeholders. User will provide actual affiliate/partner URLs."
+  },
+  "garden_hoe": {
+    "display_name": "Garden Hoe / Khurpi",
+    "description": "Essential hand tool for soil mixing and weeding in small plots",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=garden+hoe+khurpi",
+      "flipkart": "https://www.flipkart.com/search?q=garden+hoe+khurpi",
+      "indiamart": "https://www.indiamart.com/proddetail/garden-hoe.html"
+    }
+  },
+  "cultivator": {
+    "display_name": "Cultivator",
+    "description": "Manual or tractor-mounted cultivator for soil preparation and fertilizer incorporation",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=hand+cultivator+garden",
+      "flipkart": "https://www.flipkart.com/search?q=hand+cultivator",
+      "indiamart": "https://www.indiamart.com/proddetail/cultivator.html"
+    }
+  },
+  "seed_drill_fertilizer": {
+    "display_name": "Seed-cum-Fertilizer Drill",
+    "description": "Mechanized device for simultaneous seed and fertilizer placement",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=seed+fertilizer+drill",
+      "flipkart": "https://www.flipkart.com/search?q=seed+fertilizer+drill",
+      "indiamart": "https://www.indiamart.com/proddetail/seed-cum-fertilizer-drill.html"
+    }
+  },
+  "hand_spreader": {
+    "display_name": "Hand Broadcast Spreader",
+    "description": "Crank-operated spreader for even granular fertilizer distribution",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=hand+broadcast+spreader+fertilizer",
+      "flipkart": "https://www.flipkart.com/search?q=fertilizer+spreader",
+      "indiamart": "https://www.indiamart.com/proddetail/fertilizer-spreader.html"
+    }
+  },
+  "fertilizer_basket": {
+    "display_name": "Fertilizer Basket / Tokri",
+    "description": "Traditional basket for manual fertilizer and manure spreading",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=bamboo+basket+farm",
+      "flipkart": "https://www.flipkart.com/search?q=farm+basket",
+      "indiamart": "https://www.indiamart.com/proddetail/bamboo-basket.html"
+    }
+  },
+  "wheelbarrow": {
+    "display_name": "Wheelbarrow",
+    "description": "Single-wheel cart for transporting manure and fertilizer across the field",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=wheelbarrow+garden",
+      "flipkart": "https://www.flipkart.com/search?q=wheelbarrow",
+      "indiamart": "https://www.indiamart.com/proddetail/wheelbarrow.html"
+    }
+  },
+  "hand_duster": {
+    "display_name": "Hand Fertilizer Duster",
+    "description": "Small manual applicator for placing granular fertilizer near crop rows",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=hand+duster+fertilizer",
+      "flipkart": "https://www.flipkart.com/search?q=fertilizer+duster",
+      "indiamart": "https://www.indiamart.com/proddetail/fertilizer-duster.html"
+    }
+  },
+  "khurpi": {
+    "display_name": "Khurpi / Hand Weeder",
+    "description": "Multi-purpose hand tool for weeding, trenching, and fertilizer placement",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=khurpi+hand+weeder",
+      "flipkart": "https://www.flipkart.com/search?q=khurpi",
+      "indiamart": "https://www.indiamart.com/proddetail/khurpi.html"
+    }
+  },
+  "fertilizer_ring_applicator": {
+    "display_name": "Ring Applicator",
+    "description": "Circular applicator for placing fertilizer in a ring around tree crops",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=ring+applicator+fertilizer+tree",
+      "flipkart": "https://www.flipkart.com/search?q=ring+applicator",
+      "indiamart": "https://www.indiamart.com/proddetail/ring-applicator.html"
+    }
+  },
+  "spade": {
+    "display_name": "Spade / Phawda",
+    "description": "Digging tool for incorporating manure and compost into soil",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=garden+spade+phawda",
+      "flipkart": "https://www.flipkart.com/search?q=garden+spade",
+      "indiamart": "https://www.indiamart.com/proddetail/garden-spade.html"
+    }
+  },
+  "rotavator": {
+    "display_name": "Rotavator / Rotary Tiller",
+    "description": "Power tiller attachment for uniform soil and manure mixing",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=rotavator+mini+tiller",
+      "flipkart": "https://www.flipkart.com/search?q=rotavator",
+      "indiamart": "https://www.indiamart.com/proddetail/rotavator.html"
+    }
+  },
+  "plough": {
+    "display_name": "Plough (MB / Desi)",
+    "description": "Traditional or mould-board plough for turning soil with organic manure",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=plough+agricultural",
+      "flipkart": "https://www.flipkart.com/search?q=plough+agriculture",
+      "indiamart": "https://www.indiamart.com/proddetail/mould-board-plough.html"
+    }
+  },
+  "knapsack_sprayer": {
+    "display_name": "Knapsack Sprayer (16L)",
+    "description": "Manual pump sprayer for foliar application of liquid fertilizers",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=knapsack+sprayer+16l",
+      "flipkart": "https://www.flipkart.com/search?q=knapsack+sprayer",
+      "indiamart": "https://www.indiamart.com/proddetail/knapsack-sprayer.html"
+    }
+  },
+  "battery_sprayer": {
+    "display_name": "Battery-Operated Sprayer",
+    "description": "Electric pump sprayer for effortless foliar applying",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=battery+operated+sprayer+agriculture",
+      "flipkart": "https://www.flipkart.com/search?q=battery+sprayer",
+      "indiamart": "https://www.indiamart.com/proddetail/battery-sprayer.html"
+    }
+  },
+  "measuring_cup": {
+    "display_name": "Measuring Cup / Beaker",
+    "description": "Graduated beaker for precise dilution of liquid fertilizers",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=measuring+beaker+1000ml",
+      "flipkart": "https://www.flipkart.com/search?q=measuring+beaker",
+      "indiamart": "https://www.indiamart.com/proddetail/measuring-beaker.html"
+    }
+  },
+  "venturi_injector": {
+    "display_name": "Venturi Fertilizer Injector",
+    "description": "Low-cost device for injecting nutrient solution into drip systems",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=venturi+injector+fertigation",
+      "flipkart": "https://www.flipkart.com/search?q=venturi+injector",
+      "indiamart": "https://www.indiamart.com/proddetail/venturi-injector.html"
+    }
+  },
+  "fertilizer_tank": {
+    "display_name": "Fertilizer Mixing Tank",
+    "description": "Tank for dissolving water-soluble fertilizer before drip injection",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=fertilizer+mixing+tank",
+      "flipkart": "https://www.flipkart.com/search?q=fertilizer+tank",
+      "indiamart": "https://www.indiamart.com/proddetail/fertilizer-tank.html"
+    }
+  },
+  "dosing_pump": {
+    "display_name": "Fertigation Dosing Pump",
+    "description": "Precision pump for automated fertilizer injection into irrigation lines",
+    "purchase_links": {
+      "amazon_in": "https://www.amazon.in/s?k=dosing+pump+fertigation",
+      "flipkart": "https://www.flipkart.com/search?q=dosing+pump",
+      "indiamart": "https://www.indiamart.com/proddetail/dosing-pump.html"
+    }
+  }
+}
