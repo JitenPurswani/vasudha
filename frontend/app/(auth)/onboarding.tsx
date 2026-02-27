@@ -6,7 +6,7 @@ import { getFont } from '@/constants/Typography';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     Modal,
@@ -81,6 +81,16 @@ export default function OnboardingScreen() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Clear soil values when location changes
+    useEffect(() => {
+        if (district || stateName) {
+            setSoilFetched(false);
+            setFetchedSoil(null);
+            setSoilValues({ N: '', P: '', K: '', pH: '' });
+            setSoilManualEdit(false);
+        }
+    }, [district, stateName]);
+
     const languages = [
         { label: 'English', native: 'English', code: 'en' },
         { label: 'Hindi', native: 'हिन्दी', code: 'hi' },
@@ -106,7 +116,7 @@ export default function OnboardingScreen() {
         }
         setIsFetchingSoil(true);
         try {
-            const data = await getSoilParams(district, stateName);
+            const data = await getSoilParams(toTitleCase(district), toTitleCase(stateName));
             setFetchedSoil(data);
             setSoilValues(data);
             setSoilFetched(true);
@@ -442,32 +452,34 @@ export default function OnboardingScreen() {
                             <TextInput
                                 style={[styles.input, focusedInput === "district" && styles.activeBorder, !manualEdit && locationFetched && styles.disabledInput, { marginBottom: 10 }]}
                                 placeholder={t("onboarding.district")}
-                                value={manualEdit ? toTitleCase(district) : getTranslatedDistrict()}
+                                value={(manualEdit || !locationFetched) ? districtDisplay : getTranslatedDistrict()}
                                 onChangeText={(text) => {
                                     setDistrictDisplay(text);
-                                    setDistrict(toBackendKey(text));
                                 }}
                                 editable={manualEdit || !locationFetched}
                                 onFocus={() => setFocusedInput("district")}
                                 onBlur={() => {
                                     setFocusedInput(null);
-                                    setDistrictDisplay(toTitleCase(district));
+                                    const key = toBackendKey(districtDisplay);
+                                    setDistrict(key);
+                                    setDistrictDisplay(toTitleCase(key));
                                 }}
                                 placeholderTextColor="#78909C"
                             />
                             <TextInput
                                 style={[styles.input, focusedInput === "state" && styles.activeBorder, !manualEdit && locationFetched && styles.disabledInput]}
                                 placeholder={t("onboarding.state")}
-                                value={manualEdit ? toTitleCase(stateName) : getTranslatedState()}
+                                value={(manualEdit || !locationFetched) ? stateNameDisplay : getTranslatedState()}
                                 onChangeText={(text) => {
                                     setStateNameDisplay(text);
-                                    setStateName(toBackendKey(text));
                                 }}
                                 editable={manualEdit || !locationFetched}
                                 onFocus={() => setFocusedInput("state")}
                                 onBlur={() => {
                                     setFocusedInput(null);
-                                    setStateNameDisplay(toTitleCase(stateName));
+                                    const key = toBackendKey(stateNameDisplay);
+                                    setStateName(key);
+                                    setStateNameDisplay(toTitleCase(key));
                                 }}
                                 placeholderTextColor="#78909C"
                             />
