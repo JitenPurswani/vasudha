@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CropIcon from '../../../assets/images/crop.svg';
 import HomeIcon from '../../../assets/images/home.svg';
 import MarketIcon from '../../../assets/images/market.svg';
+import FertilizerIcon from '../../../assets/images/fertilizericon.svg';
 
 function TabItem({ focused, children }: { focused: boolean; children: React.ReactNode }) {
   return (
@@ -78,10 +79,7 @@ export default function TabLayout() {
           title: 'Fertilizer',
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
-              <Image
-                source={require('../../../assets/images/fertilizer.png')}
-                style={{ width: 25, height: 25, tintColor: color }}
-              />
+              <FertilizerIcon width={30} height={30} fill={color}/>
             </TabItem>
           ),
         }}

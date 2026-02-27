@@ -545,8 +545,7 @@ export default function Fertilizer() {
                     <AppText style={styles.note}>
                       Unsure how to apply? Tap a tool below
                     </AppText>
-                    <Ionicons name="hand-left-outline" size={12} color="#186F71" style={styles.playIcon} />
-                  </View>
+                    </View>
 
                   <View style={styles.applicationRow}>
                     {method.tools.map((tool) => (
@@ -852,7 +851,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: '#E2F3E4',
+    backgroundColor: '#BDDBE8FA',
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 14,
@@ -1098,15 +1097,13 @@ const styles = StyleSheet.create({
     gap: 4,
     marginBottom: 10,
   },
-  playIcon: {
-    marginTop: -2,
-  },
 
   /* ─── Tool icons row ─── */
   applicationRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
+    justifyContent: 'space-between',
   },
   applicationItem: {
     width: '30%',
@@ -1114,9 +1111,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   iconBox: {
-    width: 80,
-    height: 80,
-    borderRadius: 14,
+    width: 90,
+    height: 90,
+    borderRadius: 18,
     backgroundColor: '#D9EEF6',
     justifyContent: 'center',
     alignItems: 'center',
@@ -1129,8 +1126,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   toolImage: {
-    width: 65,
-    height: 65,
+    width: 72,
+    height: 72,
+    borderRadius: 12,
   },
 
   /* ─── Modal Overlay ─── */
@@ -1202,7 +1200,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
     width: '100%',
-    marginTop: 8,
+    marginTop: 40,
   },
   modalNoButton: {
     flex: 1,

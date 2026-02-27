@@ -24,13 +24,13 @@ import { fetchRecommendationsWithSustainability, CropRecommendation, Sustainabil
 import { useCrop } from '@/context/CropContext';
 import { useActiveCrops, CropGrowthState } from '@/context/ActiveCropsContext';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { 
-  translateSustainabilityLevel, 
-  getSustainabilitySummary, 
+import {
+  translateSustainabilityLevel,
+  getSustainabilitySummary,
   getSustainabilityDetail,
   getFeatureExplanation
 } from '@/services/i18nHelpers';
-
+import ExplanationIcon from '../../../assets/images/sustainability-exp-icon.svg'
 const { width: SCREEN_W } = Dimensions.get('window');
 
 interface CropCardProps {
@@ -107,7 +107,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
               style={styles.infoButton}
               onPress={() => onSustainabilityPress?.(item.sustainability!)}
             >
-              <Ionicons name="information-circle-outline" size={24} color="#186F71" />
+              <ExplanationIcon width={22} height={22} />
             </TouchableOpacity>
           </View>
         )}
@@ -476,7 +476,7 @@ export default function Crop() {
                       // Map sustainability score to summary key
                       const waterInt = selectedSustainability.dimensions?.water_intensity?.category;
                       const soilImp = selectedSustainability.dimensions?.soil_impact?.category;
-                      
+
                       if (waterInt === 'very_high' || waterInt === 'high') {
                         summaryKey = 'high_water';
                       } else if (soilImp === 'positive') {
@@ -484,7 +484,7 @@ export default function Crop() {
                       } else {
                         summaryKey = 'balanced';
                       }
-                      
+
                       const translated = getSustainabilitySummary(summaryKey);
                       return translated || selectedSustainability.explanation.summary;
                     })()}
