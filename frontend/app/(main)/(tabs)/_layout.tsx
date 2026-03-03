@@ -2,6 +2,7 @@
 import { Tabs } from 'expo-router';
 import { Image, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import CropIcon from '../../../assets/images/crop.svg';
 import HomeIcon from '../../../assets/images/home.svg';
 import MarketIcon from '../../../assets/images/market.svg';
@@ -18,6 +19,7 @@ function TabItem({ focused, children }: { focused: boolean; children: React.Reac
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   return (
     <View style={{ flex:1 }}>
     <Tabs
@@ -43,7 +45,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Home',
+          title: t('tabs.home'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
               <HomeIcon width={23} height={23} fill={color} />
@@ -54,7 +56,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="crop"
         options={{
-          title: 'Crop',
+          title: t('tabs.crop'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
               <CropIcon width={24} height={24} fill={color} />
@@ -65,7 +67,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="market"
         options={{
-          title: 'Market',
+          title: t('tabs.market'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
               <MarketIcon width={24} height={24} fill={color} />
@@ -76,7 +78,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="fertilizer"
         options={{
-          title: 'Fertilizer',
+          title: t('tabs.fertilizer'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
               <FertilizerIcon width={30} height={30} fill={color}/>

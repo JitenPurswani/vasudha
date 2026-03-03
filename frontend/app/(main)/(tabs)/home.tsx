@@ -9,6 +9,7 @@ import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { format, differenceInDays, addDays } from 'date-fns';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 import { useFocusEffect } from 'expo-router';
 import {
   ImageBackground,
@@ -50,15 +51,36 @@ const WeatherStatItem = ({ Icon, value, label }: any) => {
 const CropHistoryModal = ({ 
   visible, 
   onClose, 
-  crops, 
-  onSelectCrop 
+  crops,
+  primaryCropId,
+  onSetPrimary,
+  onEditDate,
+  onDeleteCrop,
+  onAddNewCrop,
 }: { 
   visible: boolean; 
   onClose: () => void; 
   crops: ActiveCrop[];
-  onSelectCrop: (crop: ActiveCrop) => void;
+  primaryCropId: string | null;
+  onSetPrimary: (crop: ActiveCrop) => void;
+  onEditDate: (crop: ActiveCrop) => void;
+  onDeleteCrop: (crop: ActiveCrop) => void;
+  onAddNewCrop: () => void;
 }) => {
   const { t } = useTranslation();
+  const [focusedCropId, setFocusedCropId] = useState<string | null>(null);
+
+  const handleLongPress = (crop: ActiveCrop) => {
+    setFocusedCropId(prev => prev === crop.id ? null : crop.id);
+  };
+
+  const handleTap = (crop: ActiveCrop) => {
+    if (focusedCropId) {
+      setFocusedCropId(null);
+    } else {
+      onSetPrimary(crop);
+    }
+  };
   
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -66,9 +88,9 @@ const CropHistoryModal = ({
         <View style={styles.historyModalContent}>
           <View style={styles.historyModalHeader}>
             <AppText variant="header" style={styles.historyModalTitle}>
-              {t('home.crop.crop_history', { defaultValue: 'Your Crops' })}
+              {t('home.crop.crop_history')}
             </AppText>
-            <TouchableOpacity onPress={onClose}>
+            <TouchableOpacity onPress={() => { setFocusedCropId(null); onClose(); }}>
               <Ionicons name="close-circle" size={28} color="#156349" />
             </TouchableOpacity>
           </View>
@@ -78,48 +100,92 @@ const CropHistoryModal = ({
               <View style={styles.noCropsContainer}>
                 <SaplingIcon height={48} width={48} />
                 <AppText variant="content" style={styles.noCropsText}>
-                  {t('home.crop.no_crops_yet', { defaultValue: 'No crops yet. Select a crop from recommendations!' })}
+                  {t('home.crop.no_crops_yet')}
                 </AppText>
               </View>
             ) : (
-              crops.map((crop) => (
-                <TouchableOpacity 
-                  key={crop.id} 
-                  style={styles.historyItem}
-                  onPress={() => onSelectCrop(crop)}
-                >
-                  <View style={styles.historyItemLeft}>
-                    <SaplingIcon height={20} width={20} />
-                    <View style={styles.historyItemInfo}>
-                      <Text style={styles.historyItemName}>{crop.displayName}</Text>
-                      <Text style={styles.historyItemDate}>
-                        {t('home.crop.planted_on', { defaultValue: 'Planted' })}: {format(new Date(crop.plantingDate), 'MMM dd, yyyy')}
-                      </Text>
-                    </View>
+              crops.map((crop) => {
+                const isFocused = focusedCropId === crop.id;
+                const isPrimary = primaryCropId === crop.id;
+                return (
+                  <View key={crop.id}>
+                    <TouchableOpacity 
+                      style={[
+                        styles.historyItem,
+                        isPrimary && styles.historyItemPrimary,
+                        isFocused && styles.historyItemFocused,
+                      ]}
+                      onPress={() => handleTap(crop)}
+                      onLongPress={() => handleLongPress(crop)}
+                      delayLongPress={400}
+                    >
+                      <View style={styles.historyItemLeft}>
+                        <SaplingIcon height={20} width={20} />
+                        <View style={styles.historyItemInfo}>
+                          <Text style={styles.historyItemName}>{crop.displayName}</Text>
+                          <Text style={styles.historyItemDate}>
+                            {t('home.crop.planted_on')}: {format(new Date(crop.plantingDate), 'MMM dd, yyyy')}
+                          </Text>
+                        </View>
+                      </View>
+                      {isPrimary ? (
+                        <View style={[styles.statusBadge, { backgroundColor: '#186F7120' }]}>
+                          <Text style={[styles.statusText, { color: '#186F71' }]}>
+                            {t('home.crop.primary_badge')}
+                          </Text>
+                        </View>
+                      ) : (
+                        <View style={[
+                          styles.statusBadge, 
+                          { backgroundColor: crop.status === 'active' ? '#28A74520' : '#78909C20' }
+                        ]}>
+                          <Text style={[
+                            styles.statusText,
+                            { color: crop.status === 'active' ? '#28A745' : '#78909C' }
+                          ]}>
+                            {crop.status === 'active' ? t('common.active') : crop.status}
+                          </Text>
+                        </View>
+                      )}
+                    </TouchableOpacity>
+
+                    {/* Long-press action row */}
+                    {isFocused && (
+                      <View style={styles.cropLongPressActions}>
+                        <TouchableOpacity
+                          style={styles.cropLongPressBtn}
+                          onPress={() => { setFocusedCropId(null); onEditDate(crop); }}
+                        >
+                          <Feather name="edit-2" size={15} color="#186F71" />
+                          <Text style={styles.cropLongPressText}>{t('home.crop.edit_date')}</Text>
+                        </TouchableOpacity>
+                        <View style={styles.cropLongPressDivider} />
+                        <TouchableOpacity
+                          style={styles.cropLongPressBtn}
+                          onPress={() => { setFocusedCropId(null); onDeleteCrop(crop); }}
+                        >
+                          <Feather name="trash-2" size={15} color="#DC3545" />
+                          <Text style={styles.cropLongPressDangerText}>{t('home.crop.delete')}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
                   </View>
-                  <View style={[
-                    styles.statusBadge, 
-                    { backgroundColor: crop.status === 'active' ? '#28A74520' : '#78909C20' }
-                  ]}>
-                    <Text style={[
-                      styles.statusText,
-                      { color: crop.status === 'active' ? '#28A745' : '#78909C' }
-                    ]}>
-                      {crop.status === 'active' ? t('common.active', { defaultValue: 'Active' }) : crop.status}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ))
+                );
+              })
             )}
           </ScrollView>
+
+          <AppText variant="content" style={styles.longPressHint}>
+            {t('home.crop.long_press_hint')}
+          </AppText>
           
           <TouchableOpacity 
             style={styles.addCropButton}
-            onPress={onClose}
+            onPress={() => { setFocusedCropId(null); onAddNewCrop(); }}
           >
             <Feather name="plus" size={18} color="#fff" />
             <Text style={styles.addCropButtonText}>
-              {t('home.crop.add_new_crop', { defaultValue: 'Add New Crop' })}
+              {t('home.crop.add_new_crop')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -132,11 +198,11 @@ export default function Home() {
   const insets = useSafeAreaInsets();
   const { t, i18n } = useTranslation();
   const { selectedCrop, plantingDate, setPlantingDate, isLoading: cropLoading } = useCrop();
-  const { activeCrops, primaryCrop, getCropGrowthState, getCropProfile, refreshUserData, isLoading: activeCropsLoading } = useActiveCrops();
+  const { activeCrops, primaryCrop, setPrimaryCrop, getCropGrowthState, getCropProfile, refreshUserData, removeCrop, updateCropPlantingDate, isLoading: activeCropsLoading } = useActiveCrops();
   const { userId } = useAuth();
   const router = useRouter();
 
-  const [userName, setUserName] = useState('User');
+  const [userName, setUserName] = useState(i18n.t('common.farmer'));
   const [currentDate, setCurrentDate] = useState('');
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
@@ -151,6 +217,10 @@ export default function Home() {
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showCropHistoryModal, setShowCropHistoryModal] = useState(false);
+  const [showEditDateModal, setShowEditDateModal] = useState(false);
+  const [editDateValue, setEditDateValue] = useState<Date>(new Date());
+  const [showEditDatePicker, setShowEditDatePicker] = useState(false);
+  const [editingCropId, setEditingCropId] = useState<string | null>(null);
 
   const currentContentFont = getFont('content', i18n.language);
   
@@ -167,7 +237,28 @@ export default function Home() {
         const savedData = await AsyncStorage.getItem('userProfile');
         if (savedData) {
           const data = JSON.parse(savedData);
-          setUserName(data.name || 'Farmer');
+          if (data.name) {
+            setUserName(data.name);
+            console.log('[Home] Loaded user profile:', data.name);
+          } else {
+            // Profile exists but name is missing — recover from JWT
+            const token = await SecureStore.getItemAsync('userToken');
+            if (token) {
+              try {
+                const decoded: any = jwtDecode(token);
+                const jwtName = decoded.sub || t('common.farmer');
+                setUserName(jwtName);
+                // Patch the stored profile so this doesn't happen again
+                data.name = jwtName;
+                await AsyncStorage.setItem('userProfile', JSON.stringify(data));
+                console.log('[Home] Recovered username from JWT:', jwtName);
+              } catch (e) {
+                setUserName(t('common.farmer'));
+              }
+            } else {
+              setUserName(t('common.farmer'));
+            }
+          }
           setUserState(data.state || null);
           console.log('[Home] Loaded user profile:', data.name);
         } else {
@@ -176,13 +267,13 @@ export default function Home() {
           if (token) {
             try {
               const decoded: any = jwtDecode(token);
-              setUserName(decoded.sub || 'Farmer');
+              setUserName(decoded.sub || t('common.farmer'));
               console.log('[Home] Loaded username from JWT:', decoded.sub);
             } catch (e) {
-              setUserName('Farmer');
+              setUserName(t('common.farmer'));
             }
           } else {
-            setUserName('Farmer');
+            setUserName(t('common.farmer'));
           }
         }
       };
@@ -193,6 +284,8 @@ export default function Home() {
 
   // Fetch weather on component mount or when primary crop changes
   useEffect(() => {
+    let cancelled = false;
+
     const loadWeather = async () => {
       try {
         setWeatherLoading(true);
@@ -213,9 +306,11 @@ export default function Home() {
           console.log(`[Home] No active crop, using stored device coordinates: lat=${lat}, lon=${lon}`);
         }
 
+        if (cancelled) return; // Abort if primaryCrop changed while we were awaiting
+
         if (!lat || !lon) {
           console.log('[Home] No location data found');
-          setWeatherError('Location not set. Please complete onboarding first.');
+          setWeatherError(t('errors.location_not_set'));
           setWeatherLoading(false);
           return;
         }
@@ -229,17 +324,27 @@ export default function Home() {
         console.log(`[Home] Loading weather for lat=${lat}, lon=${lon}, season=${season}`);
 
         const weatherData = await fetchWeather(parseFloat(lat), parseFloat(lon), season);
+
+        if (cancelled) return; // Abort if primaryCrop changed while fetch was in-flight
+
         setWeather(weatherData);
         console.log('[Home] Weather loaded successfully:', weatherData);
       } catch (error: any) {
+        if (cancelled) return;
         console.error('[Home] Weather fetch error:', error);
-        setWeatherError(error.message || 'Failed to load weather');
+        setWeatherError(error.message || t('errors.network_error'));
       } finally {
-        setWeatherLoading(false);
+        if (!cancelled) {
+          setWeatherLoading(false);
+        }
       }
     };
 
     loadWeather();
+
+    return () => {
+      cancelled = true; // Cancel stale request when primaryCrop changes
+    };
   }, [primaryCrop]);
 
   useEffect(() => {
@@ -292,9 +397,9 @@ export default function Home() {
 
       if (Math.abs(daysDiff) > 7) {
         RNAlert.alert(
-          'Invalid Date',
-          'Planting date must be within 7 days (past or future)',
-          [{ text: 'OK' }]
+          t('errors.invalid_date'),
+          t('errors.planting_date_window'),
+          [{ text: t('common.ok') }]
         );
         return;
       }
@@ -311,6 +416,52 @@ export default function Home() {
   };
 
   const daysInfo = getDaysPlantingInfo();
+
+  // Handle editing the planting date of any crop
+  const handleEditPlantingDate = (cropToEdit?: ActiveCrop) => {
+    const target = cropToEdit || primaryCrop;
+    if (target) {
+      setEditingCropId(target.id);
+      setEditDateValue(new Date(target.plantingDate));
+      setShowEditDatePicker(false);
+      setShowEditDateModal(true);
+    }
+  };
+
+  const handleConfirmEditDate = async () => {
+    if (editingCropId) {
+      await updateCropPlantingDate(editingCropId, editDateValue);
+      setShowEditDateModal(false);
+      setEditingCropId(null);
+    }
+  };
+
+  const handleEditDateChange = (event: any, selectedDate: Date | undefined) => {
+    setShowEditDatePicker(false);
+    if (selectedDate) {
+      setEditDateValue(selectedDate);
+    }
+  };
+
+  // Handle deleting any crop
+  const handleDeleteCrop = (cropToDelete?: ActiveCrop) => {
+    const target = cropToDelete || primaryCrop;
+    if (!target) return;
+    RNAlert.alert(
+      t('home.crop.delete_title'),
+      t('home.crop.delete_confirm', { name: target.displayName }),
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        {
+          text: t('home.crop.delete_button'),
+          style: 'destructive',
+          onPress: async () => {
+            await removeCrop(target.id);
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -531,14 +682,23 @@ export default function Home() {
       {/* Crop History Modal */}
       <CropHistoryModal
         visible={showCropHistoryModal}
-        onClose={() => {
-          setShowCropHistoryModal(false);
-          router.push('/(main)/(tabs)/crop');
-        }}
+        onClose={() => setShowCropHistoryModal(false)}
         crops={activeCrops}
-        onSelectCrop={(crop) => {
+        primaryCropId={primaryCrop?.id ?? null}
+        onSetPrimary={(crop) => {
+          setPrimaryCrop(crop.id);
           setShowCropHistoryModal(false);
-          // Navigate to crop details or set as primary
+        }}
+        onEditDate={(crop) => {
+          setShowCropHistoryModal(false);
+          handleEditPlantingDate(crop);
+        }}
+        onDeleteCrop={(crop) => {
+          setShowCropHistoryModal(false);
+          handleDeleteCrop(crop);
+        }}
+        onAddNewCrop={() => {
+          setShowCropHistoryModal(false);
           router.push('/(main)/(tabs)/crop');
         }}
       />
@@ -600,6 +760,64 @@ export default function Home() {
               <TouchableOpacity
                 style={[styles.modalButton, styles.confirmButton]}
                 onPress={handleConfirmPlantingDate}
+              >
+                <AppText variant="content" bold style={styles.confirmButtonText}>
+                  {t('common.confirm')}
+                </AppText>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Edit Planting Date Modal */}
+      <Modal
+        visible={showEditDateModal}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowEditDateModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <AppText variant="header" style={styles.modalTitle}>
+              {t('home.crop.edit_date_title')}
+            </AppText>
+
+            {showEditDatePicker && (
+              <DateTimePicker
+                value={editDateValue}
+                mode="date"
+                display="spinner"
+                onChange={handleEditDateChange}
+                maximumDate={new Date()}
+                minimumDate={addDays(new Date(), -365)}
+              />
+            )}
+
+            {!showEditDatePicker && (
+              <TouchableOpacity
+                style={styles.dateButton}
+                onPress={() => setShowEditDatePicker(true)}
+              >
+                <AppText variant="content" bold style={styles.dateButtonText}>
+                  {format(editDateValue, 'MMM dd, yyyy')}
+                </AppText>
+              </TouchableOpacity>
+            )}
+
+            <View style={styles.modalButtonRow}>
+              <TouchableOpacity
+                style={[styles.modalButton, styles.cancelButton]}
+                onPress={() => setShowEditDateModal(false)}
+              >
+                <AppText variant="content" bold style={styles.cancelButtonText}>
+                  {t('common.cancel')}
+                </AppText>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.modalButton, styles.confirmButton]}
+                onPress={handleConfirmEditDate}
               >
                 <AppText variant="content" bold style={styles.confirmButtonText}>
                   {t('common.confirm')}
@@ -1087,5 +1305,59 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontFamily: 'OpenSans-Bold',
+  },
+  historyItemPrimary: {
+    borderColor: '#186F71',
+    borderWidth: 1.5,
+    backgroundColor: '#E8F5F5',
+  },
+  historyItemFocused: {
+    borderColor: '#186F71',
+    borderWidth: 1.5,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    marginBottom: 0,
+  },
+  cropLongPressActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F0F4F5',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    borderWidth: 1.5,
+    borderTopWidth: 0,
+    borderColor: '#186F71',
+    paddingVertical: 10,
+    marginBottom: 10,
+  },
+  cropLongPressBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 18,
+  },
+  cropLongPressDivider: {
+    width: 1,
+    height: 22,
+    backgroundColor: '#C8D6D8',
+  },
+  cropLongPressText: {
+    color: '#186F71',
+    fontSize: 13,
+    fontFamily: 'OpenSans-SemiBold',
+  },
+  cropLongPressDangerText: {
+    color: '#DC3545',
+    fontSize: 13,
+    fontFamily: 'OpenSans-SemiBold',
+  },
+  longPressHint: {
+    textAlign: 'center',
+    color: '#9E9E9E',
+    fontSize: 11,
+    marginTop: 8,
+    marginBottom: 2,
   },
 });

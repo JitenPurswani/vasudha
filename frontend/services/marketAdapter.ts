@@ -8,6 +8,8 @@
  * - Pads/clamps data to required lengths
  */
 
+import i18n from '@/i18n';
+
 import {
   MarketEvaluationResponse,
   MarketForecastResponse,
@@ -122,7 +124,7 @@ function formatDateLabel(dateStr: string, referenceDate: Date): string {
     const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) {
-      return "TODAY";
+      return i18n.t('common.today');
     } else if (diffDays < 0) {
       return `D${diffDays}`; // "D-30"
     } else {
@@ -224,7 +226,7 @@ export function adaptMarketCard(
   // Fallback if no response
   if (!response) {
     return {
-      location: "Market Data",
+      location: i18n.t('common.market_data'),
       price: formatPrice(0),
       trend: formatTrend(0),
       isUp: false,
@@ -233,7 +235,7 @@ export function adaptMarketCard(
 
   const trend = response.trend_percent || 0;
   return {
-    location: "State Average",
+    location: i18n.t('common.state_average'),
     price: formatPrice(response.price || 0),
     trend: formatTrend(trend),
     isUp: trend >= 0,

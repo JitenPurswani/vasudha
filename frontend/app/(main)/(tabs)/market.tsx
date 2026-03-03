@@ -170,15 +170,15 @@ export default function Market() {
       }
 
       console.error('[Market] Evaluation error:', error);
-      let errorMsg = 'Failed to load market data';
+      let errorMsg = t('errors.failed_to_load_market');
       if (error instanceof APIError) {
         errorMsg = error.statusCode === 404
-          ? 'No market data available for this crop/state combination'
-          : `Error: ${error.message}`;
+          ? t('errors.no_market_data_combo')
+          : `${t('common.error')}: ${error.message}`;
       } else if (error instanceof TimeoutError) {
-        errorMsg = 'Request timed out. Please try again.';
+        errorMsg = t('errors.timeout_error');
       } else if (error instanceof NetworkError) {
-        errorMsg = 'Network error. Check your connection.';
+        errorMsg = t('errors.network_error');
       }
       setEvaluationError(errorMsg);
     } finally {
@@ -190,7 +190,7 @@ export default function Market() {
   // ===== HANDLE "EVALUATE MARKET" BUTTON CLICK =====
   const handleEvaluateClick = useCallback(() => {
     if (!manualState || !manualApmc || !manualCrop) {
-      setEvaluationError('Please select State, APMC, and Commodity first');
+      setEvaluationError(t('errors.select_state_apmc_commodity'));
       return;
     }
 
@@ -296,7 +296,7 @@ export default function Market() {
               activeOpacity={0.7}
             >
               <AppText variant="content" bold style={styles.dropdownText} numberOfLines={1}>
-                {manualState || 'Select State'}
+                {manualState || t('market.select_state')}
               </AppText>
               <Feather name={stateOpen ? 'chevron-up' : 'chevron-down'} size={14} color="#156349" />
             </TouchableOpacity>
@@ -356,7 +356,7 @@ export default function Market() {
                 style={[styles.dropdownText, !manualState && styles.dropdownTextDisabled]}
                 numberOfLines={1}
               >
-                {!manualState ? 'Select State First' : (manualApmc || 'Select APMC')}
+                {!manualState ? t('market.select_state_first') : (manualApmc || t('market.select_apmc'))}
               </AppText>
               <Feather
                 name={apmcOpen ? 'chevron-up' : 'chevron-down'}
@@ -444,7 +444,7 @@ export default function Market() {
                 style={[styles.dropdownText, !manualApmc && styles.dropdownTextDisabled, { fontSize: 11 }]}
                 numberOfLines={1}
               >
-                {!manualState ? 'Select State First' : (!manualApmc ? 'Select APMC First' : (manualCrop || 'Select Commodity'))}
+                {!manualState ? t('market.select_state_first') : (!manualApmc ? t('market.select_apmc_first') : (manualCrop || t('market.select_commodity')))}
               </AppText>
               <Feather
                 name={cropOpen ? 'chevron-up' : 'chevron-down'}
@@ -515,10 +515,10 @@ export default function Market() {
           <AppText variant="content" style={styles.selectionText}>
             {activeCrop && activeState ? (
               // Show what's currently being displayed (evaluated)
-              <>Showing: <AppText bold>{activeCrop}</AppText> in <AppText bold>{activeState}</AppText>{activeApmc && <AppText> ({activeApmc})</AppText>}</>
+              <>{t('market.showing')} <AppText bold>{activeCrop}</AppText> {t('market.in')} <AppText bold>{activeState}</AppText>{activeApmc && <AppText> ({activeApmc})</AppText>}</>
             ) : (
               // Show what's selected but not yet evaluated
-              <>Selected: <AppText bold>{manualCrop}</AppText> in <AppText bold>{manualState}</AppText> ({manualApmc}) - Tap Evaluate</>
+              <>{t('market.selected')} <AppText bold>{manualCrop}</AppText> {t('market.in')} <AppText bold>{manualState}</AppText> ({manualApmc}) {t('market.tap_evaluate')}</>
             )}
           </AppText>
         </View>

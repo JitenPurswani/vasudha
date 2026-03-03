@@ -190,7 +190,15 @@
     "status": "ಸ್ಥಿತಿ",
     "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
     "retry": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
-    "unknown": "ಗೊತ್ತಿಲ್ಲ"
+    "unknown": "ಗೊತ್ತಿಲ್ಲ",
+    "error": "ದೋಷ",
+    "success": "ಯಶಸ್ಸು",
+    "ok": "ಸರಿ",
+    "active": "ಸಕ್ರಿಯ",
+    "farmer": "ರೈತ",
+    "today": "ಇಂದು",
+    "market_data": "ಮಾರುಕಟ್ಟೆ ಡೇಟಾ",
+    "state_average": "ರಾಜ್ಯ ಸರಾಸರಿ"
   },
   "home": {
     "greeting": "ನಮಸ್ಕಾರ,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "ಕೊಯ್ಲಿಗೆ ಸಿದ್ಧವಾಗಿದೆ!",
       "next_stage": "ಮುಂದಿನದು: {{days}} ದಿನಗಳಲ್ಲಿ {{stage}}",
       "view_all_crops": "ಎಲ್ಲಾ {{count}} ಬೆಳೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ",
-      "tap_to_select": "ಬೆಳೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ"
+      "tap_to_select": "ಬೆಳೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+      "crop_history": "ನಿಮ್ಮ ಬೆಳೆಗಳು",
+      "no_crops_yet": "ಇನ್ನೂ ಬೆಳೆಗಳಿಲ್ಲ. ಶಿಫಾರಸುಗಳಿಂದ ಒಂದು ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ!",
+      "planted_on": "ನಾಟಿ",
+      "add_new_crop": "ಹೊಸ ಬೆಳೆ ಸೇರಿಸಿ",
+      "edit_date": "ದಿನಾಂಕ ಬದಲಿಸಿ",
+      "delete": "ಅಳಿಸಿ",
+      "delete_title": "ಬೆಳೆ ಅಳಿಸಿ",
+      "delete_confirm": "{{name}} ಅನ್ನು ನಿಮ್ಮ ಸಕ್ರಿಯ ಬೆಳೆಗಳಿಂದ ತೆಗೆದುಹಾಕಲು ಬಯಸುವಿರಾ?",
+      "delete_button": "ಅಳಿಸಿ",
+      "edit_date_title": "ಬಿತ್ತನೆ ದಿನಾಂಕ ಬದಲಿಸಿ",
+      "primary_badge": "ಪ್ರಾಥಮಿಕ",
+      "long_press_hint": "ಸಂಪಾದಿಸಲು ಅಥವಾ ಅಳಿಸಲು ಬೆಳೆಯನ್ನು ಹೆಚ್ಚು ಹೊತ್ತು ಒತ್ತಿ"
     },
     "market": {
       "per_kg": "ಕ್ವಿಂಟಾಲ್‌ಗೆ"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "ಬೆಳೆಯುವ ಅವಧಿ: ~",
     "days_suffix": " ದಿನಗಳು",
     "category_label": "ವರ್ಗ: ",
-    "planting_date_query": "ನೀವು ಈ ಬೆಳೆಯನ್ನು ಯಾವಾಗ ಬಿತ್ತನೆ ಮಾಡಿದ್ದೀರಿ?"
+    "planting_date_query": "ನೀವು ಈ ಬೆಳೆಯನ್ನು ಯಾವಾಗ ಬಿತ್ತನೆ ಮಾಡಿದ್ದೀರಿ?",
+    "success_title": "ಬೆಳೆ ಸೇರಿಸಲಾಗಿದೆ!",
+    "success_message": "{{name}} ನಿಮ್ಮ ಹೊಲಕ್ಕೆ ಸೇರಿಸಲಾಗಿದೆ.",
+    "planting_date_label": "ಬಿತ್ತನೆ ದಿನಾಂಕ: "
   },
   "market": {
     "title": "ಮಾರುಕಟ್ಟೆ ದರಗಳು",
@@ -259,7 +282,17 @@
     "initial_prompt": "ರಾಜ್ಯ, ಎಪಿಎಂಸಿ ಮತ್ತು ವಸ್ತುವನ್ನು ಆರಿಸಿ\nನಂತರ \"ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯಮಾಪನ\" ಟ್ಯಾಪ್ ಮಾಡಿ",
     "evaluating_status": "ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯಮಾಪನ ಮಾಡಲಾಗುತ್ತಿದೆ...",
     "past_time": "ಹಿಂದಿನ {{time}}",
-    "next_time": "ಮುಂದಿನ {{time}}"
+    "next_time": "ಮುಂದಿನ {{time}}",
+    "select_state": "ರಾಜ್ಯ ಆಯ್ಕೆ ಮಾಡಿ",
+    "select_state_first": "ಮೊದಲು ರಾಜ್ಯ ಆಯ್ಕೆ ಮಾಡಿ",
+    "select_apmc": "APMC ಆಯ್ಕೆ ಮಾಡಿ",
+    "select_apmc_first": "ಮೊದಲು APMC ಆಯ್ಕೆ ಮಾಡಿ",
+    "select_commodity": "ಸರಕು ಆಯ್ಕೆ ಮಾಡಿ",
+    "evaluate_button": "ಮಾರುಕಟ್ಟೆ ಮೌಲ್ಯಮಾಪನ",
+    "showing": "ತೋರಿಸುತ್ತಿದೆ:",
+    "in": "ನಲ್ಲಿ",
+    "selected": "ಆಯ್ಕೆ ಮಾಡಿದ್ದು:",
+    "tap_evaluate": "- ಮೌಲ್ಯಮಾಪನ ಮಾಡಿ"
   },
   "disease": {
     "title": "ರೋಗ ಪತ್ತೆ",
@@ -269,6 +302,59 @@
     "click_picture": "ಫೋಟೋ ತೆಗೆಯಿರಿ",
     "close": "ಮುಚ್ಚಿ",
     "diagnosis": "ರೋಗನಿರ್ಣಯ"
+  },
+  "fertilizer": {
+    "title": "ಗೊಬ್ಬರ ಶಿಫಾರಸುಗಳು",
+    "subtitle": "ವೈಯಕ್ತಿಕ ಗೊಬ್ಬರ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಿರಿ",
+    "upload": "ಅಪ್‌ಲೋಡ್",
+    "retake": "ಮತ್ತೊಮ್ಮೆ ತೆಗೆದುಕೊಳ್ಳಿ",
+    "click_picture": "ಫೋಟೋ ತೆಗೆಯಿರಿ",
+    "close": "ಮುಚ್ಚಿ",
+    "diagnosis": "ರೋಗನಿರ್ಣಯ",
+    "get_recommendations": "ಗೊಬ್ಬರ ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಿರಿ",
+    "no_active_crop": "ಸಕ್ರಿಯ ಬೆಳೆ ಆಯ್ಕೆ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ಮೊದಲು ಬೆಳೆ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಬೆಳೆ ಸೇರಿಸಿ.",
+    "failed_recommendations": "ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ",
+    "something_went_wrong": "ಏನೋ ತಪ್ಪಾಗಿದೆ",
+    "type_organic": "ಸಾವಯವ",
+    "type_chemical": "ರಾಸಾಯನಿಕ",
+    "type_ph": "pH",
+    "type_organic_full": "ಸಾವಯವ",
+    "type_chemical_full": "ರಾಸಾಯನಿಕ ಗೊಬ್ಬರ",
+    "type_ph_full": "pH ಸರಿಪಡಿಸುವಿಕೆ",
+    "quantity_label": "ಪ್ರಮಾಣ",
+    "release_label": "ಬಿಡುಗಡೆ",
+    "rainfall_adj_label": "ಮಳೆ ಹೊಂದಾಣಿಕೆ",
+    "from_original": "{{quantity}} kg/ha ನಿಂದ",
+    "unsure_apply": "ಹೇಗೆ ಬಳಸಬೇಕೆಂದು ಗೊತ್ತಿಲ್ಲವೇ? ಕೆಳಗಿನ ಸಾಧನದ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ",
+    "why_this_fertilizer": "ಈ ಗೊಬ್ಬರ ಯಾಕೆ?",
+    "crop_context": "ಬೆಳೆ ಸಂದರ್ಭ",
+    "stage_label": "{{crop}} — {{stage}} ಹಂತ",
+    "growth_day_range": "ಬೆಳವಣಿಗೆ ಚಕ್ರದ ದಿನ {{start}}–{{end}}",
+    "nutrient_deficits": "ಪೋಷಕಾಂಶ ಕೊರತೆಗಳು ಕಂಡುಬಂದಿವೆ",
+    "deficit_label": "{{nutrient}} ಕೊರತೆ",
+    "severity_label": "ತೀವ್ರತೆ: {{severity}}",
+    "deficit_description": "ನಿಮ್ಮ ಭೂಮಿಗೆ {{amount}} kg/ha ಹೆಚ್ಚು {{nutrient}} ಅಗತ್ಯವಿದೆ.",
+    "what_supplies": "ಈ ಗೊಬ್ಬರ ಏನು ನೀಡುತ್ತದೆ",
+    "quantity_detail": "ಪ್ರಮಾಣ:",
+    "release_speed": "ಬಿಡುಗಡೆ ವೇಗ:",
+    "rainfall_adjusted": "ಮಳೆ ಹೊಂದಾಣಿಕೆ:",
+    "benefits": "ಪ್ರಯೋಜನಗಳು",
+    "rainfall_context": "ಮಳೆ ಸಂದರ್ಭ",
+    "weekly_rainfall": "ವಾರದ ಮಳೆ: {{amount}}mm",
+    "classification_label": "ವರ್ಗೀಕರಣ: {{classification}}",
+    "notes": "ಟಿಪ್ಪಣಿಗಳು",
+    "priority_strategy": "ಆದ್ಯತೆ ತಂತ್ರ",
+    "organic_first_explanation": "ಸಾವಯವ-ಮೊದಲು ವಿಧಾನ: ಸಾವಯವ ಗೊಬ್ಬರಕ್ಕೆ ಆದ್ಯತೆ ನೀಡಲಾಗಿದೆ, ರಾಸಾಯನಿಕ ಅಗತ್ಯವಿದ್ದರೆ ಮಾತ್ರ.",
+    "balanced_explanation": "ಕೊರತೆಯ ತೀವ್ರತೆ ಪ್ರಕಾರ ರಾಸಾಯನಿಕ ಮತ್ತು ಸಾವಯವ ಗೊಬ್ಬರಗಳ ಸಮತೋಲಿತ ವಿಧಾನ.",
+    "priority_label": "ಆದ್ಯತೆ: {{priority}}",
+    "have_tool": "ನಿಮ್ಮ ಬಳಿ ಈ ಸಾಧನ ಇದೆಯೆ?",
+    "purchase_options": "ಖರೀದಿ ಆಯ್ಕೆಗಳು",
+    "how_to_use": "ಹೇಗೆ ಬಳಸಬೇಕು",
+    "watch_tutorial": "ಟ್ಯೂಟೋರಿಯಲ್ ನೋಡಿ",
+    "back": "ಹಿಂದಕ್ಕೆ",
+    "yes": "ಹೌದು",
+    "no": "ಇಲ್ಲ",
+    "day_label": "ದಿನ {{day}}"
   },
   "profile": {
     "title": "ಪ್ರೊಫೈಲ್",
@@ -284,13 +370,27 @@
     "update_error": "ಪ್ರೊಫೈಲ್ ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ",
     "logout": "ಲಾಗ್ ಔಟ್",
     "logout_confirm": "ನಿಮ್ಮ ಖಾತೆಯಿಂದ ಲಾಗ್ ಔಟ್ ಮಾಡಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?",
-    "logout_description": "ಸುರಕ್ಷಿತವಾಗಿ ಲಾಗ್ ಔಟ್ ಮಾಡಿ"
+    "logout_description": "ಸುರಕ್ಷಿತವಾಗಿ ಲಾಗ್ ಔಟ್ ಮಾಡಿ",
+    "provide_location_first": "ದಯವಿಟ್ಟು ಮೊದಲು ಸ್ಥಳ ನೀಡಿ",
+    "could_not_fetch_soil": "ಪ್ರಾದೇಶಿಕ ಮಣ್ಣಿನ ದತ್ತಾಂಶ ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ",
+    "state_placeholder": "ರಾಜ್ಯ",
+    "district_placeholder": "ಜಿಲ್ಲೆ"
   },
   "notifications": {
     "title": "ಅಧಿಸೂಚನೆಗಳು",
     "no_notifications": "ಇನ್ನೂ ಯಾವುದೇ ಅಧಿಸೂಚನೆಗಳಿಲ್ಲ",
     "mark_all_read": "ಎಲ್ಲವನ್ನೂ ಓದಿದಂತೆ ಗುರುತಿಸಿ",
-    "clear_all": "ಎಲ್ಲವನ್ನೂ ತೆರವುಗೊಳಿಸಿ"
+    "clear_all": "ಎಲ್ಲವನ್ನೂ ತೆರವುಗೊಳಿಸಿ",
+    "just_now": "ಇಪ್ಪತ್ತೇ",
+    "min_ago": "{{minutes}} ನಿಮಿಷಗಳ ಹಿಂದೆ",
+    "hr_ago": "{{hours}} ಗಂಟೆ ಹಿಂದೆ",
+    "hrs_ago": "{{hours}} ಗಂಟೆಗಳ ಹಿಂದೆ",
+    "day_ago": "{{days}} ದಿನ ಹಿಂದೆ",
+    "days_ago": "{{days}} ದಿನಗಳ ಹಿಂದೆ",
+    "checking_alerts": "ಎಚ್ಚರಿಕೆಗಳನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ...",
+    "no_notifications_title": "ಅಧಿಸೂಚನೆಗಳಿಲ್ಲ",
+    "no_notifications_desc": "ಹವಾಮಾನ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಎಚ್ಚರಿಕೆಗಳು ಇಲ್ಲಿ ತೋರಿಸುತ್ತವೆ.",
+    "check_now": "ಇಪ್ಪತ್ತೇ ಪರಿಶೀಲಿಸಿ"
   },
   "stages": {
     "germination": "ಮೊಳಕೆಯೊಡೆಯುವಿಕೆ",
@@ -525,6 +625,387 @@
     "timeout_error": "ವಿನಂತಿ ಸಮಯ ಮೀರಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     "no_data": "ಡೇಟಾ ಇಲ್ಲ",
     "location_required": "ಸ್ಥಳ ಅಗತ್ಯವಿದೆ",
-    "crop_required": "ಮೊದಲು ಒಂದು ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+    "crop_required": "ಮೊದಲು ಒಂದು ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "location_not_set": "ಸ್ಥಳ ಸೆಟ್ ಮಾಡಿಲ್ಲ. ದಯವಿಟ್ಟು ಮೊದಲು ಆನ್‌ಬೋರ್ಡಿಂಗ್ ಪೂರ್ಣಗೊಳಿಸಿ.",
+    "invalid_date": "ಅಮಾನ್ಯ ದಿನಾಂಕ",
+    "planting_date_window": "ಬಿತ್ತನೆ ದಿನಾಂಕ 7 ದಿನಗಳಲ್ಲಿ ಇರಬೇಕು (ಹಿಂದಿನ ಅಥವಾ ಮುಂದಿನ)",
+    "failed_add_crop": "ಬೆಳೆ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "provide_district_state": "ದಯವಿಟ್ಟು ಮೊದಲು ನಿಮ್ಮ ಜಿಲ್ಲೆ ಮತ್ತು ರಾಜ್ಯ ನೀಡಿ.",
+    "could_not_fetch_soil": "ಮಣ್ಣಿನ ಮಾಪನಗಳನ್ನು ಪಡೆಯಲು ವಿಫಲವಾಗಿದೆ.",
+    "registration_failed": "ನೋಂದಣಿ ವಿಫಲವಾಗಿದೆ",
+    "unable_to_load_recommendations": "ಶಿಫಾರಸುಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "network_connect_error": "ನೆಟ್‌ವರ್ಕ್ ದೋಷ: ಬ್ಯಾಕೆಂಡ್‌ಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ನಿಮ್ಮ ಸಂಪರ್ಕ ಮತ್ತು IP ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ.",
+    "request_timed_out": "ವಿನಂತಿ ಸಮಯ ಮೀರಿದೆ. ಬ್ಯಾಕೆಂಡ್ ನಿಧಾನವಾಗಿರಬಹುದು. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "failed_to_load_market": "ಮಾರುಕಟ್ಟೆ ಡೇಟಾ ಲೋಡ್ ಮಾಡುವಲ್ಲಿ ವಿಫಲವಾಗಿದೆ",
+    "no_market_data_combo": "ಈ ಬೆಳೆ/ರಾಜ್ಯ ಸಂಯೋಜನೆಗೆ ಮಾರುಕಟ್ಟೆ ಡೇಟಾ ಲಭ್ಯವಿಲ್ಲ",
+    "select_state_apmc_commodity": "ದಯವಿಟ್ಟು ಮೊದಲು ರಾಜ್ಯ, APMC ಮತ್ತು ಸರಕನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "permission_denied": "ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ",
+    "failed_get_recommendations": "ಶಿಫಾರಸುಗಳನ್ನು ಪಡೆಯುವಲ್ಲಿ ವಿಫಲವಾಗಿದೆ",
+    "username_exists": "ಬಳಕೆದಾರ ಹೆಸರು ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ",
+    "invalid_credentials": "ಅಮಾನ್ಯ ರುಜುವಾತುಗಳು",
+    "could_not_auto_fetch": "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಹಸ್ತಚಾಲಿತವಾಗಿ ನಮೂದಿಸಿ."
+  },
+  "notification_risks": {
+    "climate_alert": "ಹವಾಮಾನ ಎಚ್ಚರಿಕೆ",
+    "extreme_heat": "ತೀವ್ರ ಶಾಖ ಎಚ್ಚರಿಕೆ",
+    "extreme_cold": "ಶೀತ ಅಲೆ ಎಚ್ಚರಿಕೆ",
+    "heavy_rainfall": "ಭಾರೀ ಮಳೆ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ",
+    "drought": "ಬರ ಪರಿಸ್ಥಿತಿಗಳು",
+    "high_humidity": "ಹೆಚ್ಚಿನ ಆರ್ದ್ರತೆ ಎಚ್ಚರಿಕೆ",
+    "strong_winds": "ಬಲವಾದ ಗಾಳಿ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ",
+    "frost": "ಹಿಮ ಎಚ್ಚರಿಕೆ",
+    "heatwave": "ಉಷ್ಣ ಅಲೆ ಎಚ್ಚರಿಕೆ"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "ನಿಧಾನ",
+      "moderate": "ಮಧ್ಯಮ",
+      "fast": "ವೇಗ",
+      "very_slow": "ಅತಿ ನಿಧಾನ"
+    },
+    "classification": {
+      "very_low": "ಅತಿ ಕಡಿಮೆ",
+      "low": "ಕಡಿಮೆ",
+      "optimal": "ಸೂಕ್ತ",
+      "high": "ಹೆಚ್ಚು",
+      "very_high": "ಅತಿ ಹೆಚ್ಚು",
+      "extreme": "ತೀವ್ರ",
+      "unknown_crop": "ಅಪರಿಚಿತ ಬೆಳೆ"
+    },
+    "severity": {
+      "none": "ಇಲ್ಲ",
+      "low": "ಕಡಿಮೆ",
+      "moderate": "ಮಧ್ಯಮ",
+      "high": "ಹೆಚ್ಚು",
+      "critical": "ಗಂಭೀರ"
+    },
+    "timing_advice": {
+      "very_high": "ಭಾರೀ ಮಳೆ ಪತ್ತೆಯಾಗಿದೆ. ಮಣ್ಣು ಬರಿದಾಗುವವರೆಗೆ ಗೊಬ್ಬರ ಹಾಕುವುದನ್ನು 2–3 ದಿನ ಮುಂದೂಡಿ. ಸೋರಿಕೆ ನಷ್ಟವನ್ನು ಕಡಿಮೆ ಮಾಡಲು ವಿಭಜಿತ ಬಳಕೆ ಮಾಡಿ.",
+      "high": "ಮಳೆ ಸೂಕ್ತ ಮಟ್ಟಕ್ಕಿಂತ ಹೆಚ್ಚಿದೆ. ವಿಭಜಿತ ಬಳಕೆ ಪರಿಗಣಿಸಿ — ಅರ್ಧ ಈಗ ಹಾಕಿ ಮತ್ತು ಉಳಿದದ್ದನ್ನು 3–4 ದಿನಗಳ ನಂತರ ಹಾಕಿ.",
+      "very_low": "ಅತಿ ಒಣ ಪರಿಸ್ಥಿತಿಗಳು. ನೀರಾವರಿ ಕಾಲುವೆಗಳ ಬಳಿ ಗೊಬ್ಬರ ಹಾಕಿ ಅಥವಾ ಸರಿಯಾದ ಹೀರಿಕೆಗಾಗಿ ಬಳಕೆಯ 24 ಗಂಟೆಗಳ ಒಳಗೆ ನೀರಾವರಿ ಮಾಡಿ.",
+      "low": "ಕಡಿಮೆ ತೇವಾಂಶ. ಗೊಬ್ಬರ ಹಾಕಿದ ನಂತರ ನೀರಾವರಿ ಮಾಡಿ, ಅಥವಾ ಮಣ್ಣಿನಲ್ಲಿ ಸ್ವಲ್ಪ ಇಬ್ಬನಿ ಇರುವಾಗ ಬೆಳಿಗ್ಗೆ ಬೇಗ ಹಾಕಿ.",
+      "optimal": "ಮಳೆ ಸೂಕ್ತವಾಗಿದೆ. ಸಾಮಾನ್ಯ ಗೊಬ್ಬರ ಬಳಕೆಯನ್ನು ಮುಂದುವರಿಸಿ."
+    },
+    "from_prefix": "ಇಂದ",
+    "summary": {
+      "no_deficit": "ಪ್ರಸ್ತುತ ಬೆಳವಣಿಗೆ ಹಂತಕ್ಕೆ ಮಣ್ಣಿನ ಪೋಷಕಾಂಶಗಳು ಮತ್ತು pH ಸೂಕ್ತ ವ್ಯಾಪ್ತಿಯಲ್ಲಿವೆ. ಗೊಬ್ಬರ ಹಾಕುವ ಅಗತ್ಯವಿಲ್ಲ.",
+      "deficits_detected": "ಕೊರತೆಗಳು ಪತ್ತೆಯಾಗಿವೆ",
+      "deficit_word": "ಕೊರತೆ",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha ಕೊರತೆ)",
+      "ph_deficit_part": "pH: {{direction}} (ಅಂತರ: {{gap}})",
+      "organic_recommended": "{{count}} ಸಾವಯವ ಗೊಬ್ಬರಗಳನ್ನು ಪ್ರಾಥಮಿಕ ಚಿಕಿತ್ಸೆಯಾಗಿ ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ.",
+      "chemical_added": "{{count}} ರಾಸಾಯನಿಕ ಪೂರಕಗಳನ್ನು ಸಾವಯವ ಅಸಮರ್ಪಕವಾದಲ್ಲಿ ಸೇರಿಸಲಾಗಿದೆ.",
+      "ph_correction": "pH ತಿದ್ದುಪಡಿ: {{name}}."
+    },
+    "names": {
+      "farmyard_manure_fym": "ಕೊಟ್ಟಿಗೆ ಗೊಬ್ಬರ (FYM)",
+      "vermicompost": "ಎರೆಹುಳು ಗೊಬ್ಬರ",
+      "neem_cake": "ಬೇವಿನ ಹಿಂಡಿ",
+      "bone_meal": "ಮೂಳೆ ಹುಡಿ",
+      "seaweed_extract": "ಸಮುದ್ರ ಕಳೆ ಸಾರ",
+      "compost": "ಕಾಂಪೋಸ್ಟ್",
+      "fish_meal": "ಮೀನಿನ ಹುಡಿ",
+      "rock_phosphate": "ರಾಕ್ ಫಾಸ್ಫೇಟ್",
+      "wood_ash": "ಮರದ ಬೂದಿ",
+      "green_manure_dhainchasesbania": "ಹಸಿರು ಗೊಬ್ಬರ (ಧೈಂಚಾ/ಶೆಸ್ಬೇನಿಯಾ)",
+      "mustard_cake": "ಸಾಸಿವೆ ಹಿಂಡಿ",
+      "panchagavya": "ಪಂಚಗವ್ಯ",
+      "urea": "ಯೂರಿಯಾ",
+      "dap_diammonium_phosphate": "DAP (ಡೈ-ಅಮೋನಿಯಂ ಫಾಸ್ಫೇಟ್)",
+      "mop_muriate_of_potash": "MOP (ಮ್ಯೂರಿಯೇಟ್ ಆಫ್ ಪೊಟ್ಯಾಶ್)",
+      "ssp_single_super_phosphate": "SSP (ಸಿಂಗಲ್ ಸೂಪರ್ ಫಾಸ್ಫೇಟ್)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "ಅಮೋನಿಯಂ ಸಲ್ಫೇಟ್",
+      "potassium_sulphate_sop": "ಪೊಟ್ಯಾಸಿಯಂ ಸಲ್ಫೇಟ್ (SOP)",
+      "calcium_ammonium_nitrate_can": "ಕ್ಯಾಲ್ಸಿಯಂ ಅಮೋನಿಯಂ ನೈಟ್ರೇಟ್ (CAN)",
+      "zinc_sulphate": "ಸತು ಸಲ್ಫೇಟ್",
+      "borax": "ಬೋರಾಕ್ಸ್",
+      "agricultural_lime_caco": "ಕೃಷಿ ಸುಣ್ಣ (CaCO₃)",
+      "dolomite_lime": "ಡೊಲೊಮೈಟ್ ಸುಣ್ಣ",
+      "gypsum_caso": "ಜಿಪ್ಸಮ್ (CaSO₄)",
+      "elemental_sulphur": "ಮೂಲ ಗಂಧಕ"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "ಮೂಲ ಬಳಕೆ",
+        "description": "ಬಿತ್ತನೆ ಅಥವಾ ನಾಟಿ ಮಾಡುವ ಮೊದಲು ಮಣ್ಣಿನಲ್ಲಿ ಗೊಬ್ಬರ ಬೆರೆಸುವುದು",
+        "when_to_use": "ನಾಟಿ ಮಾಡುವ ಮೊದಲು — ಭೂಮಿ ಸಿದ್ಧತೆ ಸಮಯದಲ್ಲಿ ಹಾಕಿ"
+      },
+      "manual_spread": {
+        "name": "ಕೈಯಿಂದ ಚೆಲ್ಲುವಿಕೆ / ಪ್ರಸಾರ",
+        "description": "ಹೊಲದ ಮೇಲ್ಮೈಯಲ್ಲಿ ಕಣಗಳ ಗೊಬ್ಬರವನ್ನು ಸಮವಾಗಿ ಚೆಲ್ಲುವುದು",
+        "when_to_use": "FYM, ಕಾಂಪೋಸ್ಟ್ ನಂತಹ ಸಾವಯವ ಗೊಬ್ಬರಗಳಿಗೆ ಅಥವಾ ದೊಡ್ಡ ಪ್ರದೇಶಗಳಲ್ಲಿ ಕಣಗಳ ಗೊಬ್ಬರಗಳಿಗೆ"
+      },
+      "top_dressing": {
+        "name": "ಮೇಲುಹಾಕುವಿಕೆ",
+        "description": "ಬೆಳೆ ಋತುವಿನಲ್ಲಿ ಬೆಳೆಯುತ್ತಿರುವ ಸಸ್ಯಗಳ ಬುಡದ ಬಳಿ ಗೊಬ್ಬರ ಹಾಕುವುದು",
+        "when_to_use": "ತಳಿರು ಬಿಡುವ ಅಥವಾ ಸಕ್ರಿಯ ಬೆಳವಣಿಗೆ ಹಂತಗಳಲ್ಲಿ — ಸಸ್ಯದ ಬುಡದ ಬಳಿ ಹಾಕಿ ಮತ್ತು ನೀರಾವರಿ ಮಾಡಿ"
+      },
+      "soil_incorporation": {
+        "name": "ಮಣ್ಣಿನಲ್ಲಿ ಬೆರೆಸುವಿಕೆ",
+        "description": "ಸಾವಯವ ಗೊಬ್ಬರ ಅಥವಾ ರಾಸಾಯನಿಕ ಗೊಬ್ಬರವನ್ನು ಮಣ್ಣಿನಲ್ಲಿ ಆಳವಾಗಿ ಬೆರೆಸುವುದು",
+        "when_to_use": "ನಿಧಾನ-ಬಿಡುಗಡೆ ಸಾವಯವ ಗೊಬ್ಬರಗಳಿಗೆ — ನಾಟಿ ಮಾಡುವ 2–4 ವಾರಗಳ ಮೊದಲು ಮಣ್ಣಿನಲ್ಲಿ ಬೆರೆಸಿ"
+      },
+      "foliar_spray": {
+        "name": "ಎಲೆ ಸಿಂಪಡಣೆ",
+        "description": "ತ್ವರಿತ ಹೀರಿಕೆಗಾಗಿ ಸಸ್ಯದ ಎಲೆಗಳ ಮೇಲೆ ನೇರವಾಗಿ ದುರ್ಬಲ ದ್ರವ ಗೊಬ್ಬರವನ್ನು ಸಿಂಪಡಿಸುವುದು",
+        "when_to_use": "ಸೂಕ್ಷ್ಮ ಪೋಷಕಾಂಶ ಕೊರತೆ, ನಿರ್ಣಾಯಕ ಬೆಳವಣಿಗೆ ಹಂತಗಳಿಗೆ, ಅಥವಾ ಮಣ್ಣಿನ ಬಳಕೆ ಸಾಕಾಗದಿದ್ದಾಗ"
+      },
+      "fertigation": {
+        "name": "ಫರ್ಟಿಗೇಶನ್",
+        "description": "ಹನಿ ಅಥವಾ ಸಿಂಪಡಕ ನೀರಾವರಿ ವ್ಯವಸ್ಥೆಗಳ ಮೂಲಕ ನೀರಿನಲ್ಲಿ ಕರಗುವ ಗೊಬ್ಬರವನ್ನು ನೀಡುವುದು",
+        "when_to_use": "ಹನಿ/ಸಿಂಪಡಕ ನೀರಾವರಿ ಹೊಲಗಳಿಗೆ — ಅತ್ಯಂತ ಪರಿಣಾಮಕಾರಿ ವಿಧಾನ, ವ್ಯರ್ಥವನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "ಗಾರ್ಡನ್ ಹೋ / ಖುರ್ಪಿ",
+        "description": "ಸಣ್ಣ ಹೊಲಗಳಲ್ಲಿ ಮೇಲ್ಮಣ್ಣಿನಲ್ಲಿ ಗೊಬ್ಬರ ಬೆರೆಸಲು ಕೈ ಉಪಕರಣ"
+      },
+      "cultivator": {
+        "name": "ಕಲ್ಟಿವೇಟರ್",
+        "description": "ಮಣ್ಣಿನಲ್ಲಿ ಗೊಬ್ಬರ ಬೆರೆಸಲು ಟ್ರ್ಯಾಕ್ಟರ್-ಎಳೆಯುವ ಅಥವಾ ಕೈ ಕಲ್ಟಿವೇಟರ್"
+      },
+      "seed_drill": {
+        "name": "ಬೀಜ-ಕಮ್-ಗೊಬ್ಬರ ಡ್ರಿಲ್",
+        "description": "ಏಕಕಾಲದಲ್ಲಿ ಬೀಜ ಮತ್ತು ಗೊಬ್ಬರ ಹಾಕಲು ಸಾಲು-ಇರಿಸುವ ಸಾಧನ"
+      },
+      "broadcast_spreader": {
+        "name": "ಕೈ ಪ್ರಸಾರ ಚೆಲ್ಲುವ ಯಂತ್ರ",
+        "description": "ಏಕರೂಪ ಕಣಗಳ ಗೊಬ್ಬರ ವಿತರಣೆಗೆ ಕ್ರ್ಯಾಂಕ್-ಚಾಲಿತ ಚೆಲ್ಲುವ ಯಂತ್ರ"
+      },
+      "fertilizer_basket": {
+        "name": "ಗೊಬ್ಬರ ಬುಟ್ಟಿ / ಟೋಕ್ರಿ",
+        "description": "FYM, ಕಾಂಪೋಸ್ಟ್ ಅಥವಾ ಕಣಗಳನ್ನು ಕೈಯಿಂದ ಚೆಲ್ಲಲು ಸಾಂಪ್ರದಾಯಿಕ ಹೆಣೆದ ಬುಟ್ಟಿ"
+      },
+      "wheelbarrow": {
+        "name": "ಕೈಗಾಡಿ",
+        "description": "ಹೊಲದಾದ್ಯಂತ ಸಾವಯವ ಗೊಬ್ಬರವನ್ನು ಸಾಗಿಸಲು ಮತ್ತು ಸುರಿಯಲು"
+      },
+      "hand_duster": {
+        "name": "ಕೈ ಗೊಬ್ಬರ ಡಸ್ಟರ್",
+        "description": "ಬೆಳೆ ಸಾಲುಗಳ ಬಳಿ ಕಣಗಳ ಗೊಬ್ಬರ ಇರಿಸಲು ಸಣ್ಣ ಉಪಕರಣ"
+      },
+      "khurpi": {
+        "name": "ಖುರ್ಪಿ / ಕೈ ಕಳೆ ತೆಗೆಯುವ ಸಾಧನ",
+        "description": "ಸಸ್ಯಗಳ ಬಳಿ ಗೊಬ್ಬರ ಇರಿಸಲು ಮತ್ತು ಮುಚ್ಚಲು ಆಳವಿಲ್ಲದ ಸಾಲುಗಳನ್ನು ಮಾಡಲು ಬಳಸಲಾಗುತ್ತದೆ"
+      },
+      "ring_applicator": {
+        "name": "ರಿಂಗ್ ಅಪ್ಲಿಕೇಟರ್",
+        "description": "ಮರದ ಬೆಳೆಗಳ ಸುತ್ತ ಉಂಗುರ ಆಕಾರದಲ್ಲಿ ಗೊಬ್ಬರ ಹಾಕಲು ಸಾಧನ"
+      },
+      "spade": {
+        "name": "ಗುದ್ದಲಿ / ಪಾವ್ಡಾ",
+        "description": "ತೋಟದ ಮಡಿಗಳಲ್ಲಿ FYM ಮತ್ತು ಕಾಂಪೋಸ್ಟ್ ಹುಗಿಯಲು ಬಳಸಲಾಗುತ್ತದೆ"
+      },
+      "rotavator": {
+        "name": "ರೋಟವೇಟರ್",
+        "description": "ಮೇಲ್ಮಣ್ಣಿನಲ್ಲಿ FYM ಅನ್ನು ಸಮವಾಗಿ ಬೆರೆಸಲು ಪವರ್ ಟಿಲ್ಲರ್ ಜೋಡಣೆ"
+      },
+      "plough": {
+        "name": "ನೇಗಿಲು (MB / ದೇಸಿ)",
+        "description": "ಸಾವಯವ ವಸ್ತುಗಳೊಂದಿಗೆ ಮಣ್ಣನ್ನು ತಿರುಗಿಸಲು ಸಾಂಪ್ರದಾಯಿಕ ಅಥವಾ ಮೋಲ್ಡ್‌ಬೋರ್ಡ್ ನೇಗಿಲು"
+      },
+      "knapsack_sprayer": {
+        "name": "ನ್ಯಾಪ್‌ಸ್ಯಾಕ್ ಸ್ಪ್ರೇಯರ್ (16L)",
+        "description": "ಬೆನ್ನಿಗೆ ಹಾಕುವ ಕೈ ಪಂಪ್ ಸ್ಪ್ರೇಯರ್ — ಸಣ್ಣ-ಮಧ್ಯಮ ಹೊಲಗಳಿಗೆ ಅತ್ಯಂತ ಸಾಮಾನ್ಯ"
+      },
+      "battery_sprayer": {
+        "name": "ಬ್ಯಾಟರಿ ಸ್ಪ್ರೇಯರ್",
+        "description": "ಸ್ಥಿರ ಒತ್ತಡಕ್ಕಾಗಿ ವಿದ್ಯುತ್ ಪಂಪ್ ಸ್ಪ್ರೇಯರ್ — ಕೈ ಶ್ರಮ ಕಡಿಮೆ ಮಾಡುತ್ತದೆ"
+      },
+      "measuring_cup": {
+        "name": "ಅಳತೆ ಕಪ್ / ಬೀಕರ್",
+        "description": "ಕೇಂದ್ರೀಕೃತ ದ್ರವ ಗೊಬ್ಬರಗಳ ನಿಖರ ದುರ್ಬಲಗೊಳಿಸುವಿಕೆಗೆ ಬಳಸಲಾಗುತ್ತದೆ"
+      },
+      "venturi_injector": {
+        "name": "ವೆಂಚೂರಿ ಗೊಬ್ಬರ ಇಂಜೆಕ್ಟರ್",
+        "description": "ಹನಿ ನೀರಾವರಿ ಕೊಳವೆಗಳಿಗೆ ಗೊಬ್ಬರ ದ್ರಾವಣವನ್ನು ಚುಚ್ಚಲು ನೀರಿನ ಒತ್ತಡ ಬಳಸುವ ಕಡಿಮೆ ವೆಚ್ಚದ ಸಾಧನ"
+      },
+      "mixing_tank": {
+        "name": "ಗೊಬ್ಬರ ಮಿಶ್ರಣ ಟ್ಯಾಂಕ್",
+        "description": "ನೀರಿನಲ್ಲಿ ಕರಗುವ ಗೊಬ್ಬರವನ್ನು ಕರಗಿಸಲು ಮತ್ತು ಮಿಶ್ರಣ ಮಾಡಲು ಟ್ಯಾಂಕ್"
+      },
+      "dosing_pump": {
+        "name": "ಫರ್ಟಿಗೇಶನ್ ಡೋಸಿಂಗ್ ಪಂಪ್",
+        "description": "ನೀರಾವರಿಯಲ್ಲಿ ನಿಖರ ಗೊಬ್ಬರ ಚುಚ್ಚುಮದ್ದಿಗೆ ವಿದ್ಯುತ್ ಅಥವಾ ಹೈಡ್ರಾಲಿಕ್ ಪಂಪ್"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "ಮಣ್ಣಿನ ರಚನೆಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "enhances_water_retention": "ನೀರು ಹಿಡಿದಿಡುವ ಸಾಮರ್ಥ್ಯವನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "supports_microbial_activity": "ಸೂಕ್ಷ್ಮಜೀವಿ ಚಟುವಟಿಕೆಯನ್ನು ಬೆಂಬಲಿಸುತ್ತದೆ",
+      "rich_in_humic_acids": "ಹ್ಯೂಮಿಕ್ ಆಮ್ಲಗಳಲ್ಲಿ ಶ್ರೀಮಂತ",
+      "contains_beneficial_microbes": "ಉಪಯುಕ್ತ ಸೂಕ್ಷ್ಮಜೀವಿಗಳನ್ನು ಒಳಗೊಂಡಿದೆ",
+      "improves_nutrient_availability": "ಪೋಷಕಾಂಶ ಲಭ್ಯತೆಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "natural_pest_deterrent": "ನೈಸರ್ಗಿಕ ಕೀಟ ನಿವಾರಕ",
+      "slow_nitrogen_release": "ನಿಧಾನ ಸಾರಜನಕ (N) ಬಿಡುಗಡೆ",
+      "improves_soil_health": "ಮಣ್ಣಿನ ಆರೋಗ್ಯವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "excellent_phosphorus_source": "ಅತ್ಯುತ್ತಮ ರಂಜಕ (P) ಮೂಲ",
+      "contains_calcium": "ಕ್ಯಾಲ್ಸಿಯಂ ಒಳಗೊಂಡಿದೆ",
+      "longlasting_effect": "ದೀರ್ಘಕಾಲಿಕ ಪರಿಣಾಮ",
+      "rich_in_micronutrients_and_growth_hormones": "ಸೂಕ್ಷ್ಮ ಪೋಷಕಾಂಶಗಳು ಮತ್ತು ಬೆಳವಣಿಗೆ ಹಾರ್ಮೋನ್‌ಗಳಲ್ಲಿ ಶ್ರೀಮಂತ",
+      "boosts_stress_resistance": "ಒತ್ತಡ ಪ್ರತಿರೋಧವನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "enhances_root_growth": "ಬೇರಿನ ಬೆಳವಣಿಗೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "improves_soil_organic_matter": "ಮಣ್ಣಿನ ಸಾವಯವ ಪದಾರ್ಥವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "enhances_drainage": "ನೀರು ಬಸಿಯುವಿಕೆಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "feeds_soil_microorganisms": "ಮಣ್ಣಿನ ಸೂಕ್ಷ್ಮಜೀವಿಗಳಿಗೆ ಆಹಾರ ನೀಡುತ್ತದೆ",
+      "high_n_and_p_content": "ಹೆಚ್ಚಿನ N ಮತ್ತು P ಅಂಶ",
+      "natural_source": "ನೈಸರ್ಗಿಕ ಮೂಲ",
+      "improves_soil_biology": "ಮಣ್ಣಿನ ಜೈವಿಕ ವ್ಯವಸ್ಥೆಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "longterm_phosphorus_supply": "ದೀರ್ಘಕಾಲಿಕ ರಂಜಕ (P) ಪೂರೈಕೆ",
+      "natural_mineral": "ನೈಸರ್ಗಿಕ ಖನಿಜ",
+      "no_chemical_processing": "ರಾಸಾಯನಿಕ ಸಂಸ್ಕರಣೆ ಇಲ್ಲ",
+      "rich_in_potassium": "ಪೊಟ್ಯಾಸಿಯಂ (K) ನಲ್ಲಿ ಶ್ರೀಮಂತ",
+      "raises_soil_ph": "ಮಣ್ಣಿನ pH ಅನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "contains_trace_minerals": "ಜಾಡು ಖನಿಜಗಳನ್ನು ಒಳಗೊಂಡಿದೆ",
+      "fixes_atmospheric_nitrogen": "ವಾತಾವರಣದ ಸಾರಜನಕವನ್ನು ಸ್ಥಿರೀಕರಿಸುತ್ತದೆ",
+      "adds_organic_matter": "ಸಾವಯವ ಪದಾರ್ಥವನ್ನು ಸೇರಿಸುತ್ತದೆ",
+      "suppresses_weeds": "ಕಳೆಗಳನ್ನು ನಿಗ್ರಹಿಸುತ್ತದೆ",
+      "good_nitrogen_source": "ಉತ್ತಮ ಸಾರಜನಕ (N) ಮೂಲ",
+      "improves_soil_texture": "ಮಣ್ಣಿನ ವಿನ್ಯಾಸವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "natural_pest_repellent": "ನೈಸರ್ಗಿಕ ಕೀಟ ವಿಕರ್ಷಕ",
+      "traditional_biostimulant": "ಸಾಂಪ್ರದಾಯಿಕ ಜೈವಿಕ ಉತ್ತೇಜಕ",
+      "boosts_immunity": "ರೋಗ ಪ್ರತಿರೋಧ ಶಕ್ತಿಯನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "enhances_growth_hormones": "ಬೆಳವಣಿಗೆ ಹಾರ್ಮೋನ್‌ಗಳನ್ನು ಹೆಚ್ಚಿಸುತ್ತದೆ",
+      "highest_n_content": "ಅತ್ಯಧಿಕ N ಅಂಶ",
+      "readily_available": "ಸುಲಭವಾಗಿ ಲಭ್ಯ",
+      "costeffective": "ವೆಚ್ಚ-ಪರಿಣಾಮಕಾರಿ",
+      "primary_p_source": "ಪ್ರಾಥಮಿಕ P ಮೂಲ",
+      "also_provides_nitrogen": "ಸಾರಜನಕವನ್ನೂ ಒದಗಿಸುತ್ತದೆ",
+      "good_for_basal_application": "ಮೂಲ ಬಳಕೆಗೆ ಉತ್ತಮ",
+      "highest_k_content": "ಅತ್ಯಧಿಕ K ಅಂಶ",
+      "essential_for_fruiting_crops": "ಫಲ ಬಿಡುವ ಬೆಳೆಗಳಿಗೆ ಅತ್ಯಗತ್ಯ",
+      "improves_disease_resistance": "ರೋಗ ಪ್ರತಿರೋಧವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "contains_calcium_and_sulphur_too": "ಕ್ಯಾಲ್ಸಿಯಂ ಮತ್ತು ಗಂಧಕವನ್ನೂ ಒಳಗೊಂಡಿದೆ",
+      "good_for_oilseeds": "ಎಣ್ಣೆಕಾಳುಗಳಿಗೆ ಉತ್ತಮ",
+      "moderate_cost": "ಮಧ್ಯಮ ವೆಚ್ಚ",
+      "balanced_p_and_k": "ಸಮತೋಲಿತ P ಮತ್ತು K",
+      "suitable_for_basal_dose": "ಮೂಲ ಡೋಸ್‌ಗೆ ಸೂಕ್ತ",
+      "reduces_number_of_fertilizers_needed": "ಅಗತ್ಯವಿರುವ ಗೊಬ್ಬರಗಳ ಸಂಖ್ಯೆಯನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ",
+      "high_phosphorus_blend": "ಹೆಚ್ಚಿನ ರಂಜಕ ಮಿಶ್ರಣ",
+      "good_starter_fertilizer": "ಉತ್ತಮ ಆರಂಭಿಕ ಗೊಬ್ಬರ",
+      "multinutrient_supply": "ಬಹು-ಪೋಷಕಾಂಶ ಪೂರೈಕೆ",
+      "provides_sulphur_24": "ಗಂಧಕ ಒದಗಿಸುತ್ತದೆ (24%)",
+      "acidifies_soil_slightly": "ಮಣ್ಣನ್ನು ಸ್ವಲ್ಪ ಆಮ್ಲೀಯಗೊಳಿಸುತ್ತದೆ",
+      "chloridefree_k_source": "ಕ್ಲೋರೈಡ್-ಮುಕ್ತ K ಮೂಲ",
+      "contains_sulphur_18": "ಗಂಧಕ ಒಳಗೊಂಡಿದೆ (18%)",
+      "better_for_sensitive_crops": "ಸೂಕ್ಷ್ಮ ಬೆಳೆಗಳಿಗೆ ಉತ್ತಮ",
+      "provides_calcium": "ಕ್ಯಾಲ್ಸಿಯಂ ಒದಗಿಸುತ್ತದೆ",
+      "fastacting_nitrogen": "ತ್ವರಿತ-ಕ್ರಿಯೆಯ ಸಾರಜನಕ",
+      "less_volatile_than_urea": "ಯೂರಿಯಾಕ್ಕಿಂತ ಕಡಿಮೆ ಬಾಷ್ಪಶೀಲ",
+      "corrects_zinc_deficiency": "ಸತುವಿನ ಕೊರತೆಯನ್ನು ಸರಿಪಡಿಸುತ್ತದೆ",
+      "essential_for_ricemaize": "ಭತ್ತ/ಮೆಕ್ಕೆಜೋಳಕ್ಕೆ ಅತ್ಯಗತ್ಯ",
+      "improves_grain_quality": "ಧಾನ್ಯ ಗುಣಮಟ್ಟವನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "essential_for_floweringfruiting": "ಹೂಬಿಡುವಿಕೆ/ಫಲ ಬಿಡುವಿಕೆಗೆ ಅತ್ಯಗತ್ಯ",
+      "improves_pollen_viability": "ಪರಾಗ ಕಣಗಳ ಜೀವಂತಿಕೆಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ",
+      "corrects_boron_deficiency": "ಬೋರಾನ್ ಕೊರತೆಯನ್ನು ಸರಿಪಡಿಸುತ್ತದೆ"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "ಬಿತ್ತನೆಗೆ 2–3 ವಾರಗಳ ಮೊದಲು ಹಾಕುವುದು ಉತ್ತಮ. ಮೇಲ್ಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆರೆಸಿ.",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "ಮೂಲ ಡೋಸ್ ಅಥವಾ ಮೇಲುಹಾಕುವಿಕೆಯಾಗಿ ಹಾಕಬಹುದು. ಶೇಖರಿಸಿದ ಎರೆಹುಳು ಗೊಬ್ಬರದ ಮೇಲೆ ನೇರ ಸೂರ್ಯನ ಬೆಳಕನ್ನು ತಪ್ಪಿಸಿ.",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಹಾಕಿ. ನೆಮಟೋಡ್ ನಾಶಕ ಮತ್ತು ಕೀಟ ವಿಕರ್ಷಕವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "ಆಮ್ಲೀಯದಿಂದ ತಟಸ್ಥ ಮಣ್ಣಿನಲ್ಲಿ (pH < 7) ಉತ್ತಮವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ. ಕ್ಷಾರೀಯ ಮಣ್ಣಿನಲ್ಲಿ ಪರಿಣಾಮಕಾರಿಯಲ್ಲ.",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "ಸೂಚನೆಗಳ ಪ್ರಕಾರ ದುರ್ಬಲಗೊಳಿಸಿ. ಸಕ್ರಿಯ ಬೆಳವಣಿಗೆ ಸಮಯದಲ್ಲಿ ಎಲೆ ಸಿಂಪಡಣೆಯಾಗಿ ಉತ್ತಮ.",
+      "ensure_compost_is_fully_decomposed_before_application": "ಬಳಕೆಗೆ ಮುನ್ನ ಕಾಂಪೋಸ್ಟ್ ಸಂಪೂರ್ಣವಾಗಿ ಕೊಳೆತಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿ.",
+      "may_attract_animals_mix_into_soil_well": "ಪ್ರಾಣಿಗಳನ್ನು ಆಕರ್ಷಿಸಬಹುದು. ಮಣ್ಣಿನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆರೆಸಿ.",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "ಆಮ್ಲೀಯ ಮಣ್ಣಿನಲ್ಲಿ (pH < 6.5) ಅತ್ಯಂತ ಪರಿಣಾಮಕಾರಿ. ಅತಿ ನಿಧಾನ ಬಿಡುಗಡೆ.",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "ಕ್ಷಾರೀಯ ಮಣ್ಣಿನಲ್ಲಿ ತಪ್ಪಿಸಿ. ಸಾರಜನಕ ಗೊಬ್ಬರಗಳೊಂದಿಗೆ ಬೆರೆಸಬೇಡಿ.",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "ಮುಖ್ಯ ಬೆಳೆ ಬಿತ್ತನೆಗೆ 3–4 ವಾರಗಳ ಮೊದಲು ಮಣ್ಣಿನಲ್ಲಿ ಬೆರೆಸಿ.",
+      "apply_1520_days_before_sowing_for_best_results": "ಉತ್ತಮ ಫಲಿತಾಂಶಗಳಿಗಾಗಿ ಬಿತ್ತನೆಗೆ 15–20 ದಿನ ಮುನ್ನ ಹಾಕಿ.",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "ಎಲೆ ಸಿಂಪಡಣೆಗೆ 3% ದುರ್ಬಲಗೊಳಿಸಿ. ಬೆಳಿಗ್ಗೆ ಬೇಗ ಅಥವಾ ಸಂಜೆ ಹಾಕಿ.",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "ವಿಭಜಿತ ಡೋಸ್‌ಗಳಲ್ಲಿ ಹಾಕಿ. ಬಳಕೆಯ ನಂತರ ತಕ್ಷಣ ನೀರು ನಿಲ್ಲಿಸುವುದನ್ನು ತಪ್ಪಿಸಿ.",
+      "best_applied_at_sowing_as_basal_dose": "ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಮೂಲ ಡೋಸ್ ಆಗಿ ಹಾಕುವುದು ಉತ್ತಮ.",
+      "apply_at_sowing_or_during_tuberfruit_formation": "ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಅಥವಾ ಗಡ್ಡೆ/ಹಣ್ಣು ರಚನೆ ಸಮಯದಲ್ಲಿ ಹಾಕಿ.",
+      "also_provides_11_sulphur_and_20_calcium": "11% ಗಂಧಕ ಮತ್ತು 20% ಕ್ಯಾಲ್ಸಿಯಂ ಅನ್ನೂ ಒದಗಿಸುತ್ತದೆ.",
+      "ideal_for_crops_with_high_p_and_k_demand": "ಹೆಚ್ಚಿನ P ಮತ್ತು K ಬೇಡಿಕೆಯ ಬೆಳೆಗಳಿಗೆ ಆದರ್ಶ.",
+      "best_for_phosphorusdemanding_crops": "ರಂಜಕ ಬೇಡಿಕೆಯ ಬೆಳೆಗಳಿಗೆ ಉತ್ತಮ.",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "ಗಂಧಕ-ಪ್ರಿಯ ಬೆಳೆಗಳಿಗೆ (ಎಣ್ಣೆಕಾಳುಗಳು, ಬೇಳೆಕಾಳುಗಳು) ಆದ್ಯತೆ.",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "ಕ್ಲೋರೈಡ್-ಸೂಕ್ಷ್ಮ ಬೆಳೆಗಳಿಗೆ (ಆಲೂಗಡ್ಡೆ, ಟೊಮೆಟೊ, ಹಣ್ಣುಗಳು) MOP ಗಿಂತ ಆದ್ಯತೆ.",
+      "good_for_acidic_soils_and_calciumloving_crops": "ಆಮ್ಲೀಯ ಮಣ್ಣು ಮತ್ತು ಕ್ಯಾಲ್ಸಿಯಂ-ಪ್ರಿಯ ಬೆಳೆಗಳಿಗೆ ಉತ್ತಮ.",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "ಭಾರತೀಯ ಮಣ್ಣಿನಲ್ಲಿ ಸಾಮಾನ್ಯ ಕೊರತೆ. ಮಣ್ಣಿಗೆ 25 kg/ha ಹಾಕಿ ಅಥವಾ 0.5% ಎಲೆ ಸಿಂಪಡಣೆ.",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "ಎಣ್ಣೆಕಾಳುಗಳು, ಬೇಳೆಕಾಳುಗಳು ಮತ್ತು ತರಕಾರಿಗಳಿಗೆ ನಿರ್ಣಾಯಕ. ಹೆಚ್ಚು ಹಾಕಬೇಡಿ — ಬೋರಾನ್ ವಿಷತ್ವ ಸಾಧ್ಯ.",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "ಬಿತ್ತನೆಗೆ 2–3 ವಾರಗಳ ಮೊದಲು ಹಾಕಿ. ಪ್ರತಿ 2000 kg/ha ಗೆ pH ಅನ್ನು 0.5–1.0 ಘಟಕದಷ್ಟು ಹೆಚ್ಚಿಸುತ್ತದೆ.",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "ಮೆಗ್ನೀಸಿಯಂ (Mg) ಅನ್ನೂ ಒದಗಿಸುತ್ತದೆ. Mg-ಕೊರತೆ ಮಣ್ಣಿಗೆ ಆದ್ಯತೆ.",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "ಕ್ಷಾರೀಯ/ಲವಣ ಮಣ್ಣಿಗೆ. ಮಣ್ಣಿನ ರಚನೆಯನ್ನೂ ಸುಧಾರಿಸುತ್ತದೆ.",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "ನಿಧಾನ-ಕ್ರಿಯೆ. ಮುಂಚಿತವಾಗಿ ಚೆನ್ನಾಗಿ ಹಾಕಿ. ಸೂಕ್ಷ್ಮಜೀವಿಗಳು S ಅನ್ನು ಸಲ್ಫ್ಯೂರಿಕ್ ಆಮ್ಲವಾಗಿ ಪರಿವರ್ತಿಸುತ್ತವೆ."
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "ಒಣ ಭತ್ತ — ಪೋಷಕಾಂಶಗಳು ಸಕ್ರಿಯವಾಗಿಲ್ಲ, ಡೋಸ್ ಹೆಚ್ಚಿಸಿ",
+      "below_optimal_moisture": "ಸೂಕ್ತ ಮಟ್ಟಕ್ಕಿಂತ ಕಡಿಮೆ ತೇವಾಂಶ",
+      "ideal_conditions": "ಸೂಕ್ತ ಪರಿಸ್ಥಿತಿಗಳು",
+      "ideal": "ಸೂಕ್ತ",
+      "leaching_risk_in_flooded_fields": "ನೀರು ನಿಂತ ಹೊಲಗಳಲ್ಲಿ ಸೋರಿಕೆ ಅಪಾಯ",
+      "heavy_waterlogging__high_leaching": "ಭಾರೀ ನೀರು ನಿಲ್ಲುವಿಕೆ — ಹೆಚ್ಚಿನ ಸೋರಿಕೆ",
+      "drought_stress_reduces_uptake": "ಬರ ಒತ್ತಡ ಹೀರಿಕೆಯನ್ನು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ",
+      "drought_stress": "ಬರ ಒತ್ತಡ",
+      "drought": "ಬರ",
+      "slightly_dry": "ಸ್ವಲ್ಪ ಒಣ",
+      "excess_moisture": "ಅಧಿಕ ತೇವಾಂಶ",
+      "excess": "ಅಧಿಕ",
+      "waterlogging_risk": "ನೀರು ನಿಲ್ಲುವ ಅಪಾಯ",
+      "waterlogging": "ನೀರು ನಿಲ್ಲುವಿಕೆ",
+      "heavy_waterlogging": "ಭಾರೀ ನೀರು ನಿಲ್ಲುವಿಕೆ",
+      "very_dry__poor_nutrient_mobility": "ಅತಿ ಒಣ — ಕಳಪೆ ಪೋಷಕಾಂಶ ಚಲನೆ",
+      "excess_moisture_for_wheat": "ಗೋಧಿಗೆ ಅಧಿಕ ತೇವಾಂಶ",
+      "waterlogging__severe_leaching": "ನೀರು ನಿಲ್ಲುವಿಕೆ — ತೀವ್ರ ಸೋರಿಕೆ",
+      "dry_conditions": "ಒಣ ಪರಿಸ್ಥಿತಿಗಳು",
+      "waterlogging__pulse_crop_very_sensitive": "ನೀರು ನಿಲ್ಲುವಿಕೆ — ಬೇಳೆ ಬೆಳೆ ಅತಿ ಸೂಕ್ಷ್ಮ",
+      "waterlogging__pulse_sensitive": "ನೀರು ನಿಲ್ಲುವಿಕೆ — ಬೇಳೆ ಸೂಕ್ಷ್ಮ",
+      "low_moisture": "ಕಡಿಮೆ ತೇವಾಂಶ",
+      "dry_soil_limits_tuber_growth": "ಒಣ ಮಣ್ಣು ಗಡ್ಡೆ ಬೆಳವಣಿಗೆಯನ್ನು ಮಿತಿಗೊಳಿಸುತ್ತದೆ",
+      "excess_moisture__rot_risk": "ಅಧಿಕ ತೇವಾಂಶ — ಕೊಳೆ ಅಪಾಯ",
+      "waterlogging__severe": "ನೀರು ನಿಲ್ಲುವಿಕೆ — ತೀವ್ರ",
+      "boll_rot_risk__reduce_heavily": "ಕಾಯಿ ಕೊಳೆ ಅಪಾಯ — ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ಮಾಡಿ",
+      "excess__rot_risk": "ಅಧಿಕ — ಕೊಳೆ ಅಪಾಯ",
+      "hardy_crop_slight_adjustment": "ಗಟ್ಟಿ ಬೆಳೆ, ಸ್ವಲ್ಪ ಹೊಂದಾಣಿಕೆ",
+      "too_wet_for_hardy_pulse": "ಗಟ್ಟಿ ಬೇಳೆಗೆ ಅತಿ ತೇವ",
+      "turmeric_needs_moisture": "ಅರಿಶಿನಕ್ಕೆ ತೇವಾಂಶ ಬೇಕು",
+      "rhizome_rot_risk": "ಗಡ್ಡೆ ಕೊಳೆ ಅಪಾಯ",
+      "banana_is_waterhungry": "ಬಾಳೆಗೆ ಹೆಚ್ಚು ನೀರು ಬೇಕು",
+      "root_suffocation": "ಬೇರು ಉಸಿರುಗಟ್ಟುವಿಕೆ",
+      "fungal_risk": "ಶಿಲೀಂಧ್ರ ಅಪಾಯ",
+      "too_wet_for_sesame": "ಎಳ್ಳಿಗೆ ಅತಿ ತೇವ",
+      "dry_stress": "ಒಣ ಒತ್ತಡ",
+      "blight_risk": "ಕೊಂಬೆ ಸಾವು ಅಪಾಯ",
+      "severe_disease_risk": "ತೀವ್ರ ರೋಗ ಅಪಾಯ",
+      "root_rot_risk": "ಬೇರು ಕೊಳೆ ಅಪಾಯ",
+      "root_rot": "ಬೇರು ಕೊಳೆ",
+      "waterlogging__bulb_rot_risk": "ನೀರು ನಿಲ್ಲುವಿಕೆ — ಗಡ್ಡೆ ಕೊಳೆ ಅಪಾಯ",
+      "bulb_rot_risk": "ಗಡ್ಡೆ ಕೊಳೆ ಅಪಾಯ",
+      "too_wet": "ಅತಿ ತೇವ",
+      "head_rot_risk": "ತಲೆ ಕೊಳೆ ಅಪಾಯ",
+      "pineapple_is_droughttolerant": "ಅನಾನಸ್ ಬರ-ಸಹಿಷ್ಣು",
+      "curd_rot_risk": "ಹೂಕೊಸು ಕೊಳೆ ಅಪಾಯ",
+      "slight_drought_tolerance": "ಸ್ವಲ್ಪ ಬರ ಸಹಿಷ್ಣುತೆ",
+      "downy_mildew_risk__reduce_heavily": "ಡೌನಿ ಮಿಲ್ಡ್ಯೂ ಅಪಾಯ — ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ಮಾಡಿ",
+      "dry__pithy_roots": "ಒಣ — ಹುಲ್ಲಿನಂತ ಬೇರುಗಳು",
+      "root_cracking": "ಬೇರು ಬಿರುಕು",
+      "root_splitting": "ಬೇರು ಸೀಳುವಿಕೆ",
+      "severe_cracking_and_rot": "ತೀವ್ರ ಬಿರುಕು ಮತ್ತು ಕೊಳೆ",
+      "fruit_cracking": "ಹಣ್ಣು ಬಿರುಕು",
+      "fruit_cracking_risk": "ಹಣ್ಣು ಬಿರುಕು ಅಪಾಯ",
+      "needs_consistent_moisture": "ಸ್ಥಿರ ತೇವಾಂಶ ಬೇಕು",
+      "needs_moisture": "ತೇವಾಂಶ ಬೇಕು",
+      "needs_high_moisture": "ಹೆಚ್ಚಿನ ತೇವಾಂಶ ಬೇಕು",
+      "bitter_fruit_risk": "ಕಹಿ ಹಣ್ಣಿನ ಅಪಾಯ",
+      "soft_rot_risk": "ಮೃದು ಕೊಳೆ ಅಪಾಯ",
+      "dry__woody_roots": "ಒಣ — ಮರದಂತ ಬೇರುಗಳು",
+      "hardy__slight_adjustment": "ಗಟ್ಟಿ — ಸ್ವಲ್ಪ ಹೊಂದಾಣಿಕೆ",
+      "root_damage": "ಬೇರು ಹಾನಿ",
+      "ginger_needs_consistent_moisture": "ಶುಂಠಿಗೆ ಸ್ಥಿರ ತೇವಾಂಶ ಬೇಕು",
+      "needs_moisture_for_fruit_fill": "ಹಣ್ಣು ತುಂಬಲು ತೇವಾಂಶ ಬೇಕು",
+      "forked_roots_risk": "ಕವಲೊಡೆದ ಬೇರುಗಳ ಅಪಾಯ",
+      "droughttolerant": "ಬರ-ಸಹಿಷ್ಣು",
+      "jute_needs_high_moisture": "ಸೆಣಬಿಗೆ ಹೆಚ್ಚಿನ ತೇವಾಂಶ ಬೇಕು",
+      "extreme_rainfall__significant_leaching_risk": "ತೀವ್ರ ಮಳೆ — ಗಮನಾರ್ಹ ಸೋರಿಕೆ ಅಪಾಯ."
+    }
+  },
+  "tabs": {
+    "home": "ಹೋಮ್",
+    "crop": "ಬೆಳೆ",
+    "market": "ಮಾರುಕಟ್ಟೆ",
+    "fertilizer": "ಗೊಬ್ಬರ"
   }
 }

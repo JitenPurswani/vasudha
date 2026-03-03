@@ -190,7 +190,15 @@
     "status": "நிலை",
     "loading": "ஏற்றப்படுகிறது...",
     "retry": "மீண்டும் முயற்சிக்கவும்",
-    "unknown": "தெரியவில்லை"
+    "unknown": "தெரியவில்லை",
+    "error": "பிழை",
+    "success": "வெற்றி",
+    "ok": "சரி",
+    "active": "செயலில்",
+    "farmer": "விவசாயி",
+    "today": "இன்று",
+    "market_data": "சந்தை தரவு",
+    "state_average": "மாநில சராசரி"
   },
   "home": {
     "greeting": "வணக்கம்,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "அறுவடைக்கு தயார்!",
       "next_stage": "அடுத்தது: {{days}} நாட்களில் {{stage}}",
       "view_all_crops": "அனைத்து {{count}} பயிர்களையும் காண்க",
-      "tap_to_select": "பயிரைத் தேர்ந்தெடுக்க தட்டவும்"
+      "tap_to_select": "பயிரைத் தேர்ந்தெடுக்க தட்டவும்",
+      "crop_history": "உங்கள் பயிர்கள்",
+      "no_crops_yet": "இன்னும் பயிர்கள் இல்லை. பரிந்துரைகளிலிருந்து ஒரு பயிரைத் தேர்ந்தெடுங்கள்!",
+      "planted_on": "நடவு",
+      "add_new_crop": "புதிய பயிர் சேர்க்கவும்",
+      "edit_date": "தேதி மாற்று",
+      "delete": "நீக்கு",
+      "delete_title": "பயிர் நீக்கு",
+      "delete_confirm": "{{name}} ஐ உங்கள் செயலில் உள்ள பயிர்களிலிருந்து நீக்க விரும்புகிறீர்களா?",
+      "delete_button": "நீக்கு",
+      "edit_date_title": "நடவு தேதி மாற்று",
+      "primary_badge": "முதன்மை",
+      "long_press_hint": "திருத்த அல்லது நீக்க பயிரை நீண்ட நேரம் அழுத்தவும்"
     },
     "market": {
       "per_kg": "ஒரு குவின்டாலுக்கு"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "வளர்ச்சி காலம்: ~",
     "days_suffix": " நாட்கள்",
     "category_label": "வகை: ",
-    "planting_date_query": "இந்த பயிரை எப்போது நடவு செய்தீர்கள்?"
+    "planting_date_query": "இந்த பயிரை எப்போது நடவு செய்தீர்கள்?",
+    "success_title": "பயிர் சேர்க்கப்பட்டது!",
+    "success_message": "{{name}} உங்கள் பண்ணையில் சேர்க்கப்பட்டது.",
+    "planting_date_label": "நடவு தேதி: "
   },
   "market": {
     "title": "சந்தை விலைகள்",
@@ -259,7 +282,17 @@
     "initial_prompt": "மாநிலம், ஏபிஎம்சி மற்றும் பொருளைத் தேர்ந்தெடுக்கவும்\nபிறகு \"சந்தை மதிப்பீடு\" தட்டவும்",
     "evaluating_status": "சந்தை மதிப்பீடு செய்யப்படுகிறது...",
     "past_time": "கடந்த {{time}}",
-    "next_time": "அடுத்த {{time}}"
+    "next_time": "அடுத்த {{time}}",
+    "select_state": "மாநிலத்தைத் தேர்ந்தெடுக்கவும்",
+    "select_state_first": "முதலில் மாநிலத்தைத் தேர்ந்தெடுக்கவும்",
+    "select_apmc": "APMC-ஐத் தேர்ந்தெடுக்கவும்",
+    "select_apmc_first": "முதலில் APMC-ஐத் தேர்ந்தெடுக்கவும்",
+    "select_commodity": "பொருளைத் தேர்ந்தெடுக்கவும்",
+    "evaluate_button": "சந்தை மதிப்பீடு",
+    "showing": "காட்சியளிக்கிறது:",
+    "in": "இல்",
+    "selected": "தேர்ந்தெடுக்கப்பட்டது:",
+    "tap_evaluate": "- மதிப்பீடு தட்டவும்"
   },
   "disease": {
     "title": "நோய் கண்டறிதல்",
@@ -269,6 +302,59 @@
     "click_picture": "படம் எடுக்கவும்",
     "close": "மூடவும்",
     "diagnosis": "நோய் ஆய்வு"
+  },
+  "fertilizer": {
+    "title": "உர பரிந்துரை",
+    "subtitle": "தனிப்பயனான உர பரிந்துரைகளைப் பெறுங்கள்",
+    "upload": "பதிவேற்றவும்",
+    "retake": "மீண்டும் எடுக்கவும்",
+    "click_picture": "படம் எடுக்கவும்",
+    "close": "மூடவும்",
+    "diagnosis": "பரிந்துரை",
+    "get_recommendations": "உர பரிந்துரைகளைப் பெறுங்கள்",
+    "no_active_crop": "செயல்பாட்டில் உள்ள பயிர் தேர்ந்தெடுக்கப்படவில்லை. பயிர் தாவலில் பயிரைச் சேர்க்கவும்.",
+    "failed_recommendations": "பரிந்துரைகளைப் பெறுவதில் தோல்வி",
+    "something_went_wrong": "ஏதோ தவறு நடந்தது",
+    "type_organic": "சைவம்",
+    "type_chemical": "ரசாயனம்",
+    "type_ph": "pH",
+    "type_organic_full": "சைவம்",
+    "type_chemical_full": "ரசாயன நிரப்பி",
+    "type_ph_full": "pH சீரமைப்பு",
+    "quantity_label": "அளவு",
+    "release_label": "வெளியீடு",
+    "rainfall_adj_label": "மழை சரிசெய்தல்",
+    "from_original": "{{quantity}} kg/ha இலிருந்து",
+    "unsure_apply": "எப்படி பயன்படுத்துவது? கீழே உள்ள கருவியைத் தட்டவும்",
+    "why_this_fertilizer": "என் இந்த உரம்?",
+    "crop_context": "பயிர் சூழல்",
+    "stage_label": "{{crop}} — {{stage}} நிலை",
+    "growth_day_range": "வளர்ச்சி சுழற்சியின் நாள் {{start}}–{{end}}",
+    "nutrient_deficits": "சத்து குறைபாடுகள் கண்டறியப்பட்டந",
+    "deficit_label": "{{nutrient}} குறைபாடு",
+    "severity_label": "தீவிரம்: {{severity}}",
+    "deficit_description": "உங்கள் மண்ணுக்கு {{amount}} kg/ha அதிகமான {{nutrient}} தேவை.",
+    "what_supplies": "இந்த உரம் என்ன வழங்குகிறது",
+    "quantity_detail": "அளவு:",
+    "release_speed": "வெளியீட்டின் வேகம்:",
+    "rainfall_adjusted": "மழை சரிசெய்தப்பட்டது:",
+    "benefits": "பயன்கள்",
+    "rainfall_context": "மழை சூழல்",
+    "weekly_rainfall": "வாராந்திர மழை: {{amount}}mm",
+    "classification_label": "வகைப்பாடு: {{classification}}",
+    "notes": "குறிப்புகள்",
+    "priority_strategy": "முன்னுரிமை திட்டம்",
+    "organic_first_explanation": "சைவ-முதல் நோக்கு: சைவ உரங்கள் முதன்மை தீர்வாக பரிந்துரைக்கப்படுகின்றன, ரசாயன நிரப்பி தேவைப்பட்டால் மட்டுமே.",
+    "balanced_explanation": "குறைபாட்டின் தீவிரத்தின் அடிப்படையில் ரசாயன மற்றும் சைவ உரங்களின் சமநிலை அணுகுமுறை.",
+    "priority_label": "முன்னுரிமை: {{priority}}",
+    "have_tool": "உங்களிடம் இந்த கருவி உள்ளதா?",
+    "purchase_options": "வாங்கும் விருப்பங்கள்",
+    "how_to_use": "எப்படி பயன்படுத்துவது",
+    "watch_tutorial": "பயிற்சி வீடியோ பார்க்கவும்",
+    "back": "பின்செல்",
+    "yes": "ஆம்",
+    "no": "இல்லை",
+    "day_label": "நாள் {{day}}"
   },
   "profile": {
     "title": "சுயவிவரம்",
@@ -284,13 +370,27 @@
     "update_error": "சுயவிவரத்தைப் புதுப்பிப்பதில் தோல்வி",
     "logout": "வெளியேறு",
     "logout_confirm": "உங்கள் கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா?",
-    "logout_description": "பாதுகாப்பாக வெளியேறவும்"
+    "logout_description": "பாதுகாப்பாக வெளியேறவும்",
+    "provide_location_first": "முதலில் இடத்தை கொடுங்கள்",
+    "could_not_fetch_soil": "பிராந்திய மண் தரவு பெற முடியவில்லை",
+    "state_placeholder": "மாநிலம்",
+    "district_placeholder": "மாவட்டம்"
   },
   "notifications": {
     "title": "அறிவிப்புகள்",
     "no_notifications": "இன்னும் அறிவிப்புகள் இல்லை",
     "mark_all_read": "அனைத்தையும் படித்ததாகக் குறிக்கவும்",
-    "clear_all": "அனைத்தையும் அழிக்கவும்"
+    "clear_all": "அனைத்தையும் அழிக்கவும்",
+    "just_now": "இப்போது",
+    "min_ago": "{{minutes}} நிமிடங்கள் முன்",
+    "hr_ago": "{{hours}} மணி நேரம் முன்",
+    "hrs_ago": "{{hours}} மணி நேரங்கள் முன்",
+    "day_ago": "{{days}} நாள் முன்",
+    "days_ago": "{{days}} நாட்கள் முன்",
+    "checking_alerts": "அறிவிப்புகள் சரிபார்க்கப்படுகிறது...",
+    "no_notifications_title": "அறிவிப்புகள் இல்லை",
+    "no_notifications_desc": "காலநிலை மற்றும் சந்தை அறிவிப்புகள் கண்டறியப்பட்டால் இங்கே தோன்றும்.",
+    "check_now": "இப்போது சரிபார்க்கவும்"
   },
   "stages": {
     "germination": "முளைப்பு",
@@ -525,6 +625,387 @@
     "timeout_error": "கோரிக்கை நேரம் முடிந்தது. மீண்டும் முயற்சிக்கவும்.",
     "no_data": "தரவு இல்லை",
     "location_required": "இடம் தேவை",
-    "crop_required": "முதலில் ஒரு பயிரை தேர்ந்தெடுக்கவும்"
+    "crop_required": "முதலில் ஒரு பயிரைத் தேர்ந்தெடுக்கவும்",
+    "location_not_set": "இடம் அமைக்கப்படவில்லை. முதலில் ஆன்போர்டிங்கை முடிக்கவும்.",
+    "invalid_date": "தவறான தேதி",
+    "planting_date_window": "நடவு தேதி 7 நாட்களுக்குள் இருக்க வேண்டும் (கடந்த அல்லது வரும்)",
+    "failed_add_crop": "பயிரைச் சேர்ப்பதில் தோல்வி. மீண்டும் முயற்சிக்கவும்.",
+    "provide_district_state": "முதலில் உங்கள் மாவட்டம் மற்றும் மாநிலத்தை கொடுக்கவும்.",
+    "could_not_fetch_soil": "மண் அளவுருக்களைப் பெற முடியவில்லை.",
+    "registration_failed": "பதிவு தோல்வி",
+    "unable_to_load_recommendations": "பரிந்துரைகளை ஏற்ற இயலவில்லை. மீண்டும் முயற்சிக்கவும்.",
+    "network_connect_error": "நெட்வொர்க் பிழை: பின்னணியுடன் இணைக்க முடியவில்லை. உங்கள் இணைப்பையும் IP முகவரியையும் சரிபார்க்கவும்.",
+    "request_timed_out": "கோரிக்கை நேரம் முடிந்தது. பின்னணி மெதுவாக இருக்கலாம். மீண்டும் முயற்சிக்கவும்.",
+    "failed_to_load_market": "சந்தை தரவை ஏற்றுவதில் தோல்வி",
+    "no_market_data_combo": "இந்த பயிர்/மாநில கலவைக்கு சந்தை தரவு கிடைக்கவில்லை",
+    "select_state_apmc_commodity": "முதலில் மாநிலம், APMC மற்றும் பொருளைத் தேர்ந்தெடுக்கவும்",
+    "permission_denied": "அனுமதி மறுக்கப்பட்டது",
+    "failed_get_recommendations": "பரிந்துரைகளைப் பெறுவதில் தோல்வி",
+    "username_exists": "பயனர்பெயர் ஏற்கனவே உள்ளது",
+    "invalid_credentials": "தவறான சான்றுகள்",
+    "could_not_auto_fetch": "தானாகப் பெற இயலவில்லை. தயவுசெய்து கைமுறையாக உள்ளிடவும்."
+  },
+  "notification_risks": {
+    "climate_alert": "காலநிலை எச்சரிக்கை",
+    "extreme_heat": "கடும் வெப்ப எச்சரிக்கை",
+    "extreme_cold": "குளிர் அலை எச்சரிக்கை",
+    "heavy_rainfall": "கனமழை எதிர்பார்ப்பு",
+    "drought": "வறட்சி நிலை",
+    "high_humidity": "அதிக ஈரப்பதம் எச்சரிக்கை",
+    "strong_winds": "கடும் காற்று எதிர்பார்ப்பு",
+    "frost": "உறைபனி எச்சரிக்கை",
+    "heatwave": "வெப்ப அலை எச்சரிக்கை"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "மெதுவான",
+      "moderate": "மிதமான",
+      "fast": "வேகமான",
+      "very_slow": "மிகவும் மெதுவான"
+    },
+    "classification": {
+      "very_low": "மிகவும் குறைவு",
+      "low": "குறைவு",
+      "optimal": "உகந்த அளவு",
+      "high": "அதிகம்",
+      "very_high": "மிக அதிகம்",
+      "extreme": "தீவிரம்",
+      "unknown_crop": "அறியப்படாத பயிர்"
+    },
+    "severity": {
+      "none": "எதுவும் இல்லை",
+      "low": "குறைவு",
+      "moderate": "மிதமான",
+      "high": "அதிகம்",
+      "critical": "மிக முக்கியம்"
+    },
+    "timing_advice": {
+      "very_high": "கடுமையான மழை கண்டறியப்பட்டது. மண் வடியும் வரை உரமிடுவதை 2-3 நாட்கள் தாமதப்படுத்தவும். கசிவு இழப்பைக் குறைக்க பிரித்துப் பயன்படுத்தவும்.",
+      "high": "உகந்த அளவை விட அதிக மழை. பிரித்துப் பயன்படுத்துவதைக் கருத்தில் கொள்ளுங்கள் — பாதியை இப்போது இடுங்கள், மீதியை 3-4 நாட்களுக்குப் பிறகு இடுங்கள்.",
+      "very_low": "மிகவும் வறண்ட நிலைமைகள். பாசனக் கால்வாய்களுக்கு அருகில் உரமிடுங்கள் அல்லது சரியான உறிஞ்சுதலுக்கு இட்ட 24 மணி நேரத்திற்குள் பாசனம் செய்யுங்கள்.",
+      "low": "உகந்த அளவை விடக் குறைவான ஈரப்பதம். உரமிட்ட பிறகு பாசனம் செய்யுங்கள் அல்லது மண்ணில் சிறிது பனி இருக்கும் அதிகாலையில் இடுங்கள்.",
+      "optimal": "மழையளவு உகந்தது. வழக்கமான முறைப்படி உரமிடுங்கள்."
+    },
+    "from_prefix": "இருந்து",
+    "summary": {
+      "no_deficit": "தற்போதைய வளர்ச்சிக் கட்டத்திற்கு மண் ஊட்டச்சத்துக்கள் மற்றும் pH உகந்த வரம்பில் உள்ளன. உரமிடுதல் தேவையில்லை.",
+      "deficits_detected": "குறைபாடுகள் கண்டறியப்பட்டன",
+      "deficit_word": "குறைபாடு",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha குறைபாடு)",
+      "ph_deficit_part": "pH: {{direction}} (இடைவெளி: {{gap}})",
+      "organic_recommended": "{{count}} இயற்கை உரங்கள் முதன்மை சிகிச்சையாக பரிந்துரைக்கப்பட்டுள்ளன.",
+      "chemical_added": "{{count}} ரசாயன நிரப்பிகள் இயற்கை போதாத இடங்களில் சேர்க்கப்பட்டுள்ளன.",
+      "ph_correction": "pH திருத்தம்: {{name}}."
+    },
+    "names": {
+      "farmyard_manure_fym": "தொழுவுரம் (FYM)",
+      "vermicompost": "மண்புழு உரம் (Vermicompost)",
+      "neem_cake": "வேப்பம் பிண்ணாக்கு",
+      "bone_meal": "எலும்புத் தூள் (Bone Meal)",
+      "seaweed_extract": "கடற்பாசி சாறு",
+      "compost": "மக்கிய உரம் (Compost)",
+      "fish_meal": "மீன் உரம் (Fish Meal)",
+      "rock_phosphate": "பாறை பாஸ்பேட் (Rock Phosphate)",
+      "wood_ash": "மரச்சாம்பல்",
+      "green_manure_dhainchasesbania": "பசுந்தாள் உரம் (Dhaincha/Sesbania)",
+      "mustard_cake": "கடுகு பிண்ணாக்கு",
+      "panchagavya": "பஞ்சகவ்யா (Panchagavya)",
+      "urea": "Urea (யூரியா)",
+      "dap_diammonium_phosphate": "DAP (டை-அம்மோனியம் பாஸ்பேட்)",
+      "mop_muriate_of_potash": "MOP (மியூரியேட் ஆஃப் பொட்டாஷ்)",
+      "ssp_single_super_phosphate": "SSP (சிங்கிள் சூப்பர் பாஸ்பேட்)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "அம்மோனியம் சல்பேட் (Ammonium Sulphate)",
+      "potassium_sulphate_sop": "பொட்டாசியம் சல்பேட் (SOP)",
+      "calcium_ammonium_nitrate_can": "கால்சியம் அம்மோனியம் நைட்ரேட் (CAN)",
+      "zinc_sulphate": "துத்தநாகச் சல்பேட் (Zinc Sulphate)",
+      "borax": "போராக்ஸ் (Borax)",
+      "agricultural_lime_caco": "வேளாண் சுண்ணாம்பு (CaCO₃)",
+      "dolomite_lime": "டோலமைட் சுண்ணாம்பு (Dolomite Lime)",
+      "gypsum_caso": "ஜிப்சம் (CaSO₄)",
+      "elemental_sulphur": "தனிம கந்தகம் (Elemental Sulphur)"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "அடி உரமிடுதல்",
+        "description": "விதைப்பு அல்லது நடவுக்கு முன்பு மண்ணில் உரத்தைக் கலத்தல்",
+        "when_to_use": "நடவுக்கு முன் — நிலம் தயாரிக்கும்போது இடவும்"
+      },
+      "manual_spread": {
+        "name": "கைமுறை தூவுதல் / பரப்புதல்",
+        "description": "வயல் மேற்பரப்பில் துகள் உரத்தை சீராகத் தூவுதல்",
+        "when_to_use": "FYM, மக்கிய உரம் போன்ற கரிம உரங்களுக்கு அல்லது பெரிய பரப்புகளில் துகள் உரங்களுக்கு"
+      },
+      "top_dressing": {
+        "name": "மேல் உரமிடுதல்",
+        "description": "பயிர்ப் பருவத்தில் வளரும் செடிகளின் அடிப்பகுதியில் உரமிடுதல்",
+        "when_to_use": "தழைப்பு அல்லது செயலில் உள்ள வளர்ச்சிக் கட்டங்களில் — செடி அடியில் இட்டு பாசனம் செய்யவும்"
+      },
+      "soil_incorporation": {
+        "name": "மண்ணில் கலத்தல்",
+        "description": "கரிம உரம் அல்லது வேதி உரத்தை மண்ணில் ஆழமாகக் கலத்தல்",
+        "when_to_use": "மெதுவாக வெளியிடும் கரிம உரங்களுக்கு — நடவுக்கு 2-4 வாரங்களுக்கு முன் மண்ணில் கலக்கவும்"
+      },
+      "foliar_spray": {
+        "name": "இலைவழி தெளிப்பு",
+        "description": "விரைவான உறிஞ்சுதலுக்கு நீர்த்த திரவ உரத்தை இலைகள் மீது நேரடியாகத் தெளித்தல்",
+        "when_to_use": "நுண்ணூட்டச்சத்துக் குறைபாடு, முக்கிய வளர்ச்சிக் கட்டங்கள் அல்லது மண் வழி இடுதல் போதுமானதாக இல்லாதபோது"
+      },
+      "fertigation": {
+        "name": "நீர் உர ஊட்டம் (Fertigation)",
+        "description": "சொட்டு நீர் அல்லது தெளிநீர்ப் பாசன அமைப்புகள் வழியாக நீரில் கரையும் உரத்தைச் செலுத்துதல்",
+        "when_to_use": "சொட்டு/தெளிப்பு நீர்ப்பாசன பண்ணைகளுக்கு — மிகவும் திறமையான முறை, வீணாவதைக் குறைக்கும்"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "தோட்ட மண்வெட்டி / குறுப்பி",
+        "description": "சிறிய நிலங்களில் மேல் மண்ணில் உரத்தைக் கலக்கும் கைக்கருவி"
+      },
+      "cultivator": {
+        "name": "உழவுக் கருவி (Cultivator)",
+        "description": "மண்ணில் உரத்தைக் கலக்க டிராக்டர் இழுவை அல்லது கைமுறை உழவுக் கருவி"
+      },
+      "seed_drill": {
+        "name": "விதை-உரம் ஊடுகருவி (Seed-cum-Fertilizer Drill)",
+        "description": "வரிசையில் விதையும் உரமும் ஒரே நேரத்தில் இடும் கருவி"
+      },
+      "broadcast_spreader": {
+        "name": "கை தூவுக் கருவி (Hand Broadcast Spreader)",
+        "description": "துகள் உரத்தை சீராகப் பரப்ப கிரேங்க் இயக்கும் தூவுக் கருவி"
+      },
+      "fertilizer_basket": {
+        "name": "உரக் கூடை / டோக்ரி",
+        "description": "FYM, மக்கிய உரம் அல்லது துகள்களை கைமுறையாகத் தூவ பாரம்பரிய பின்னல் கூடை"
+      },
+      "wheelbarrow": {
+        "name": "கைவண்டி (Wheelbarrow)",
+        "description": "வயல் முழுவதும் கரிம உரத்தை கொண்டு செல்லவும் கொட்டவும்"
+      },
+      "hand_duster": {
+        "name": "கை உர தூவி",
+        "description": "செடிவரிசைகளுக்கு அருகில் துகள் உரத்தை இடும் சிறிய கருவி"
+      },
+      "khurpi": {
+        "name": "குறுப்பி / கை களை கருவி",
+        "description": "செடிகளுக்கு அருகில் ஆழமற்ற சால் அமைத்து உரமிட்டு மூடப் பயன்படுத்தப்படுகிறது"
+      },
+      "ring_applicator": {
+        "name": "வளைய உரமிடி (Ring Applicator)",
+        "description": "மரப் பயிர்களைச் சுற்றி வளையமாக உரமிடும் கருவி"
+      },
+      "spade": {
+        "name": "மண்வெட்டி / பாவ்டா",
+        "description": "தோட்டப் பாத்திகளில் தொழுவுரம் மற்றும் மக்கிய உரத்தைப் புதைக்கப் பயன்படுகிறது"
+      },
+      "rotavator": {
+        "name": "ரோட்டவேட்டர் (Rotavator)",
+        "description": "மேல் மண்ணில் தொழுவுரத்தை சீராகக் கலக்கும் சக்தி உழவுக் கருவி இணைப்பு"
+      },
+      "plough": {
+        "name": "கலப்பை (MB / நாட்டுக் கலப்பை)",
+        "description": "கரிமப் பொருளுடன் மண்ணைப் புரட்டும் பாரம்பரிய அல்லது அச்சு கலப்பை"
+      },
+      "knapsack_sprayer": {
+        "name": "முதுகுத் தெளிப்பான் (16L)",
+        "description": "முதுகில் சுமக்கும் கைமுறை பம்பு தெளிப்பான் — சிறிய-நடுத்தர பண்ணைகளுக்கு மிகவும் பொதுவானது"
+      },
+      "battery_sprayer": {
+        "name": "மின்கல தெளிப்பான் (Battery Sprayer)",
+        "description": "சீரான அழுத்தத்திற்கான மின் பம்பு தெளிப்பான் — கைமுறை உழைப்பைக் குறைக்கும்"
+      },
+      "measuring_cup": {
+        "name": "அளவுக் கோப்பை / பீக்கர்",
+        "description": "செறிவூட்டப்பட்ட திரவ உரங்களை துல்லியமாக நீர்த்துக்கப் பயன்படுகிறது"
+      },
+      "venturi_injector": {
+        "name": "வென்டூரி உரச் செலுத்தி (Venturi Injector)",
+        "description": "நீர் அழுத்தத்தைப் பயன்படுத்தி உரக் கரைசலை சொட்டு நீர் குழாய்களில் செலுத்தும் குறைந்த விலை கருவி"
+      },
+      "mixing_tank": {
+        "name": "உரக் கலவைத் தொட்டி",
+        "description": "நீரில் கரையும் உரத்தைக் கரைத்துக் கலக்கும் தொட்டி"
+      },
+      "dosing_pump": {
+        "name": "நீர் உர ஊட்ட அளவீட்டு பம்பு (Dosing Pump)",
+        "description": "பாசனத்தில் துல்லியமாக உரத்தைச் செலுத்தும் மின் அல்லது நீரழுத்த பம்பு"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "மண் அமைப்பை மேம்படுத்துகிறது",
+      "enhances_water_retention": "நீர்ப் பிடிப்புத் திறனை அதிகரிக்கிறது",
+      "supports_microbial_activity": "நுண்ணுயிர் செயல்பாட்டை ஆதரிக்கிறது",
+      "rich_in_humic_acids": "ஹியூமிக் அமிலங்கள் நிறைந்தது",
+      "contains_beneficial_microbes": "பயனுள்ள நுண்ணுயிர்களைக் கொண்டது",
+      "improves_nutrient_availability": "ஊட்டச்சத்து கிடைக்கும் தன்மையை மேம்படுத்துகிறது",
+      "natural_pest_deterrent": "இயற்கை பூச்சி விலக்கி",
+      "slow_nitrogen_release": "மெதுவான நைட்ரஜன் வெளியீடு",
+      "improves_soil_health": "மண் ஆரோக்கியத்தை மேம்படுத்துகிறது",
+      "excellent_phosphorus_source": "சிறந்த பாஸ்பரஸ் மூலம்",
+      "contains_calcium": "கால்சியம் கொண்டது",
+      "longlasting_effect": "நீண்ட நாள் நிலைக்கும் விளைவு",
+      "rich_in_micronutrients_and_growth_hormones": "நுண்ணூட்டச்சத்துக்கள் மற்றும் வளர்ச்சி ஹார்மோன்கள் நிறைந்தது",
+      "boosts_stress_resistance": "அழுத்த எதிர்ப்பை அதிகரிக்கிறது",
+      "enhances_root_growth": "வேர் வளர்ச்சியை மேம்படுத்துகிறது",
+      "improves_soil_organic_matter": "மண்ணின் கரிமப் பொருளை மேம்படுத்துகிறது",
+      "enhances_drainage": "வடிகால் தன்மையை மேம்படுத்துகிறது",
+      "feeds_soil_microorganisms": "மண் நுண்ணுயிர்களுக்கு உணவளிக்கிறது",
+      "high_n_and_p_content": "அதிக N மற்றும் P உள்ளடக்கம்",
+      "natural_source": "இயற்கை மூலம்",
+      "improves_soil_biology": "மண் உயிரியலை மேம்படுத்துகிறது",
+      "longterm_phosphorus_supply": "நீண்ட கால பாஸ்பரஸ் வழங்கல்",
+      "natural_mineral": "இயற்கை கனிமம்",
+      "no_chemical_processing": "வேதியியல் பதப்படுத்தல் இல்லை",
+      "rich_in_potassium": "பொட்டாசியம் நிறைந்தது",
+      "raises_soil_ph": "மண் pH-ஐ உயர்த்துகிறது",
+      "contains_trace_minerals": "நுண் கனிமங்களைக் கொண்டது",
+      "fixes_atmospheric_nitrogen": "வளிமண்டல நைட்ரஜனை நிலைப்படுத்துகிறது",
+      "adds_organic_matter": "கரிமப் பொருளைச் சேர்க்கிறது",
+      "suppresses_weeds": "களைகளை அடக்குகிறது",
+      "good_nitrogen_source": "நல்ல நைட்ரஜன் மூலம்",
+      "improves_soil_texture": "மண் அமைப்பை மேம்படுத்துகிறது",
+      "natural_pest_repellent": "இயற்கை பூச்சி விரட்டி",
+      "traditional_biostimulant": "பாரம்பரிய உயிர் தூண்டி",
+      "boosts_immunity": "நோய் எதிர்ப்பு சக்தியை அதிகரிக்கிறது",
+      "enhances_growth_hormones": "வளர்ச்சி ஹார்மோன்களை மேம்படுத்துகிறது",
+      "highest_n_content": "அதிகபட்ச N உள்ளடக்கம்",
+      "readily_available": "எளிதில் கிடைக்கும்",
+      "costeffective": "குறைந்த செலவு",
+      "primary_p_source": "முதன்மை P மூலம்",
+      "also_provides_nitrogen": "நைட்ரஜனையும் அளிக்கிறது",
+      "good_for_basal_application": "அடி உரத்திற்கு ஏற்றது",
+      "highest_k_content": "அதிகபட்ச K உள்ளடக்கம்",
+      "essential_for_fruiting_crops": "கனி தரும் பயிர்களுக்கு அத்தியாவசியம்",
+      "improves_disease_resistance": "நோய் எதிர்ப்பை மேம்படுத்துகிறது",
+      "contains_calcium_and_sulphur_too": "கால்சியம் மற்றும் கந்தகமும் கொண்டது",
+      "good_for_oilseeds": "எண்ணெய் வித்துக்களுக்கு நல்லது",
+      "moderate_cost": "மிதமான விலை",
+      "balanced_p_and_k": "சமச்சீர் P மற்றும் K",
+      "suitable_for_basal_dose": "அடி உர அளவுக்கு ஏற்றது",
+      "reduces_number_of_fertilizers_needed": "தேவைப்படும் உரங்களின் எண்ணிக்கையைக் குறைக்கிறது",
+      "high_phosphorus_blend": "அதிக பாஸ்பரஸ் கலவை",
+      "good_starter_fertilizer": "நல்ல ஆரம்ப உரம்",
+      "multinutrient_supply": "பல ஊட்டச்சத்து வழங்கல்",
+      "provides_sulphur_24": "கந்தகம் அளிக்கிறது (24%)",
+      "acidifies_soil_slightly": "மண்ணை சற்று அமிலமாக்குகிறது",
+      "chloridefree_k_source": "குளோரைடு இல்லாத K மூலம்",
+      "contains_sulphur_18": "கந்தகம் கொண்டது (18%)",
+      "better_for_sensitive_crops": "உணர்திறன் பயிர்களுக்கு சிறந்தது",
+      "provides_calcium": "கால்சியம் அளிக்கிறது",
+      "fastacting_nitrogen": "விரைவாகச் செயல்படும் நைட்ரஜன்",
+      "less_volatile_than_urea": "யூரியாவை விட குறைந்த ஆவியாகும் தன்மை",
+      "corrects_zinc_deficiency": "துத்தநாகக் குறைபாட்டைச் சரிசெய்கிறது",
+      "essential_for_ricemaize": "நெல்/மக்காச்சோளத்திற்கு அத்தியாவசியம்",
+      "improves_grain_quality": "தானிய தரத்தை மேம்படுத்துகிறது",
+      "essential_for_floweringfruiting": "பூக்கும்/கனி பிடிக்கும் பருவத்திற்கு அத்தியாவசியம்",
+      "improves_pollen_viability": "மகரந்தத் துகள் உயிர்த்திறனை மேம்படுத்துகிறது",
+      "corrects_boron_deficiency": "போரான் குறைபாட்டைச் சரிசெய்கிறது"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "விதைப்புக்கு 2-3 வாரங்களுக்கு முன் இடுவது சிறந்தது. மேல் மண்ணில் நன்கு கலக்கவும்.",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "அடி உரமாகவோ மேல் உரமாகவோ இடலாம். சேமித்து வைக்கும் மண்புழு உரத்தின் மீது நேரடி சூரிய ஒளி படாமல் பாதுகாக்கவும்.",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "விதைக்கும் நேரத்தில் இடவும். நூற்புழு கொல்லி மற்றும் பூச்சி விரட்டியாகச் செயல்படுகிறது.",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "அமில முதல் நடுநிலை மண்ணில் (pH < 7) சிறப்பாகச் செயல்படுகிறது. காரமான மண்ணில் பயனுள்ளதாக இருக்காது.",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "வழிமுறைகளின்படி நீர்க்கவும். செயலான வளர்ச்சியின் போது இலைவழி தெளிப்பாக இடுவது சிறந்தது.",
+      "ensure_compost_is_fully_decomposed_before_application": "இடுவதற்கு முன் மக்கிய உரம் முழுமையாக மக்கியிருப்பதை உறுதி செய்யவும்.",
+      "may_attract_animals_mix_into_soil_well": "விலங்குகளை ஈர்க்கலாம். மண்ணில் நன்கு கலக்கவும்.",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "அமில மண்ணில் (pH < 6.5) மிகவும் பயனுள்ளது. மிகவும் மெதுவான வெளியீடு.",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "காரமான மண்ணில் தவிர்க்கவும். நைட்ரஜன் உரங்களுடன் கலக்க வேண்டாம்.",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "முக்கிய பயிர் விதைப்புக்கு 3-4 வாரங்களுக்கு முன் மண்ணில் கலக்கவும்.",
+      "apply_1520_days_before_sowing_for_best_results": "சிறந்த முடிவுகளுக்கு விதைப்புக்கு 15-20 நாட்களுக்கு முன் இடவும்.",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "இலைவழி தெளிப்புக்கு 3% நீர்த்துக்கவும். அதிகாலை அல்லது மாலையில் தெளிக்கவும்.",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "பிரித்து இடவும். இட்ட உடனே வயலை நீரில் மூழ்கடிக்க வேண்டாம்.",
+      "best_applied_at_sowing_as_basal_dose": "விதைக்கும்போது அடி உரமாக இடுவது சிறந்தது.",
+      "apply_at_sowing_or_during_tuberfruit_formation": "விதைக்கும்போது அல்லது கிழங்கு/கனி உருவாகும்போது இடவும்.",
+      "also_provides_11_sulphur_and_20_calcium": "11% கந்தகம் மற்றும் 20% கால்சியமும் அளிக்கிறது.",
+      "ideal_for_crops_with_high_p_and_k_demand": "அதிக P மற்றும் K தேவையுள்ள பயிர்களுக்கு ஏற்றது.",
+      "best_for_phosphorusdemanding_crops": "பாஸ்பரஸ் அதிகம் தேவைப்படும் பயிர்களுக்கு சிறந்தது.",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "கந்தகம் விரும்பும் பயிர்களுக்கு (எண்ணெய் வித்துகள், பருப்பு வகைகள்) விரும்பத்தக்கது.",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "குளோரைடு உணர்திறன் பயிர்களுக்கு (உருளைக்கிழங்கு, தக்காளி, பழங்கள்) MOP-ஐ விட விரும்பத்தக்கது.",
+      "good_for_acidic_soils_and_calciumloving_crops": "அமில மண் மற்றும் கால்சியம் விரும்பும் பயிர்களுக்கு நல்லது.",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "இந்திய மண்ணில் பொதுவான குறைபாடு. மண்ணில் 25 kg/ha அல்லது 0.5% இலைவழி தெளிப்பு இடவும்.",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "எண்ணெய் வித்துகள், பருப்பு வகைகள் மற்றும் காய்கறிகளுக்கு முக்கியம். அதிகமாக இடாதீர்கள் — போரான் நச்சுத்தன்மை ஏற்படலாம்.",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "விதைப்புக்கு 2-3 வாரங்களுக்கு முன் இடவும். 2000 kg/ha-க்கு pH-ஐ 0.5-1.0 அலகு உயர்த்துகிறது.",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "மெக்னீசியமும் அளிக்கிறது. Mg குறைபாடுள்ள மண்ணுக்கு விரும்பத்தக்கது.",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "காரமான/உப்புத் தன்மையுள்ள மண்ணுக்கு. மண் அமைப்பையும் மேம்படுத்துகிறது.",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "மெதுவாகச் செயல்படும். முன்னரே இடவும். நுண்ணுயிர்கள் S-ஐ சல்ப்யூரிக் அமிலமாக மாற்றுகின்றன."
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "வறண்ட நெல்வயல் — ஊட்டச்சத்துக்கள் கிடைக்கவில்லை, அளவை அதிகரிக்கவும்",
+      "below_optimal_moisture": "உகந்த அளவை விடக் குறைவான ஈரப்பதம்",
+      "ideal_conditions": "உகந்த நிலைமைகள்",
+      "ideal": "உகந்தது",
+      "leaching_risk_in_flooded_fields": "நீர் நிரம்பிய வயல்களில் கசிவு ஆபத்து",
+      "heavy_waterlogging__high_leaching": "கடுமையான நீர் தேக்கம் — அதிக கசிவு",
+      "drought_stress_reduces_uptake": "வறட்சி அழுத்தம் உறிஞ்சுதலைக் குறைக்கிறது",
+      "drought_stress": "வறட்சி அழுத்தம்",
+      "drought": "வறட்சி",
+      "slightly_dry": "சற்று வறண்டது",
+      "excess_moisture": "அதிக ஈரப்பதம்",
+      "excess": "அதிகம்",
+      "waterlogging_risk": "நீர் தேக்க ஆபத்து",
+      "waterlogging": "நீர் தேக்கம்",
+      "heavy_waterlogging": "கடுமையான நீர் தேக்கம்",
+      "very_dry__poor_nutrient_mobility": "மிகவும் வறண்டது — ஊட்டச்சத்து இடப்பெயர்ச்சி குறைவு",
+      "excess_moisture_for_wheat": "கோதுமைக்கு அதிக ஈரப்பதம்",
+      "waterlogging__severe_leaching": "நீர் தேக்கம் — கடுமையான கசிவு",
+      "dry_conditions": "வறண்ட நிலைமைகள்",
+      "waterlogging__pulse_crop_very_sensitive": "நீர் தேக்கம் — பருப்புப் பயிர் மிகவும் உணர்திறன் கொண்டது",
+      "waterlogging__pulse_sensitive": "நீர் தேக்கம் — பருப்பு உணர்திறன்",
+      "low_moisture": "குறைந்த ஈரப்பதம்",
+      "dry_soil_limits_tuber_growth": "வறண்ட மண் கிழங்கு வளர்ச்சியைக் கட்டுப்படுத்துகிறது",
+      "excess_moisture__rot_risk": "அதிக ஈரப்பதம் — அழுகல் ஆபத்து",
+      "waterlogging__severe": "நீர் தேக்கம் — கடுமையான",
+      "boll_rot_risk__reduce_heavily": "காய் அழுகல் ஆபத்து — வெகுவாகக் குறைக்கவும்",
+      "excess__rot_risk": "அதிகம் — அழுகல் ஆபத்து",
+      "hardy_crop_slight_adjustment": "கடினமான பயிர், சிறிய சரிசெய்தல்",
+      "too_wet_for_hardy_pulse": "கடினமான பருப்புக்கு அதிக ஈரம்",
+      "turmeric_needs_moisture": "மஞ்சளுக்கு ஈரப்பதம் தேவை",
+      "rhizome_rot_risk": "கிழங்கு அழுகல் ஆபத்து",
+      "banana_is_waterhungry": "வாழை அதிக நீர் தேவைப்படும் பயிர்",
+      "root_suffocation": "வேர் மூச்சுத்திணறல்",
+      "fungal_risk": "பூஞ்சை ஆபத்து",
+      "too_wet_for_sesame": "எள்ளுக்கு அதிக ஈரம்",
+      "dry_stress": "வறட்சி அழுத்தம்",
+      "blight_risk": "கருகல் நோய் ஆபத்து",
+      "severe_disease_risk": "கடுமையான நோய் ஆபத்து",
+      "root_rot_risk": "வேர் அழுகல் ஆபத்து",
+      "root_rot": "வேர் அழுகல்",
+      "waterlogging__bulb_rot_risk": "நீர் தேக்கம் — கிழங்கு அழுகல் ஆபத்து",
+      "bulb_rot_risk": "கிழங்கு அழுகல் ஆபத்து",
+      "too_wet": "அதிக ஈரம்",
+      "head_rot_risk": "தலை அழுகல் ஆபத்து",
+      "pineapple_is_droughttolerant": "அன்னாசி வறட்சியைத் தாங்கும்",
+      "curd_rot_risk": "பூ அழுகல் ஆபத்து",
+      "slight_drought_tolerance": "சற்று வறட்சியைத் தாங்கும்",
+      "downy_mildew_risk__reduce_heavily": "சாம்பல் பூஞ்சை ஆபத்து — வெகுவாகக் குறைக்கவும்",
+      "dry__pithy_roots": "வறண்டது — பஞ்சு போன்ற வேர்கள்",
+      "root_cracking": "வேர் வெடிப்பு",
+      "root_splitting": "வேர் பிளவு",
+      "severe_cracking_and_rot": "கடுமையான வெடிப்பு மற்றும் அழுகல்",
+      "fruit_cracking": "கனி வெடிப்பு",
+      "fruit_cracking_risk": "கனி வெடிப்பு ஆபத்து",
+      "needs_consistent_moisture": "சீரான ஈரப்பதம் தேவை",
+      "needs_moisture": "ஈரப்பதம் தேவை",
+      "needs_high_moisture": "அதிக ஈரப்பதம் தேவை",
+      "bitter_fruit_risk": "கசப்பான கனி ஆபத்து",
+      "soft_rot_risk": "மென்மையான அழுகல் ஆபத்து",
+      "dry__woody_roots": "வறண்டது — மரத்தன்மையான வேர்கள்",
+      "hardy__slight_adjustment": "கடினமான — சிறிய சரிசெய்தல்",
+      "root_damage": "வேர் சேதம்",
+      "ginger_needs_consistent_moisture": "இஞ்சிக்கு சீரான ஈரப்பதம் தேவை",
+      "needs_moisture_for_fruit_fill": "கனி நிரம்புவதற்கு ஈரப்பதம் தேவை",
+      "forked_roots_risk": "கிளை வேர்கள் ஆபத்து",
+      "droughttolerant": "வறட்சியைத் தாங்கும்",
+      "jute_needs_high_moisture": "சணலுக்கு அதிக ஈரப்பதம் தேவை",
+      "extreme_rainfall__significant_leaching_risk": "தீவிர மழை — குறிப்பிடத்தக்க கசிவு ஆபத்து."
+    }
+  },
+  "tabs": {
+    "home": "முகப்பு",
+    "crop": "பயிர்",
+    "market": "சந்தை",
+    "fertilizer": "உரம்"
   }
 }

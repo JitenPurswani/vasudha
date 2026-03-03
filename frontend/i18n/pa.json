@@ -190,7 +190,15 @@
     "status": "સ્થિતિ",
     "loading": "લોડ થઈ રહ્યું છે...",
     "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ",
-    "unknown": "ਅਣਜਾਣ"
+    "unknown": "ਅਣਜਾਣ",
+    "error": "ਗਲਤੀ",
+    "success": "ਸਫਲ",
+    "ok": "ਠੀਕ ਹੈ",
+    "active": "ਸਰਗਰਮ",
+    "farmer": "ਕਿਸਾਨ",
+    "today": "ਅੱਜ",
+    "market_data": "ਮੰਡੀ ਡੇਟਾ",
+    "state_average": "ਰਾਜ ਔਸਤ"
   },
   "home": {
     "greeting": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "ਵਾਢੀ ਲਈ ਤਿਆਰ!",
       "next_stage": "ਅਗਲਾ: {{days}} ਦਿਨਾਂ ਵਿੱਚ {{stage}}",
       "view_all_crops": "ਸਾਰੀਆਂ {{count}} ਫ਼ਸਲਾਂ ਦੇਖੋ",
-      "tap_to_select": "ਫ਼ਸਲ ਚੁਣਨ ਲਈ ਟੈਪ ਕਰੋ"
+      "tap_to_select": "ਫ਼ਸਲ ਚੁਣਨ ਲਈ ਟੈਪ ਕਰੋ",
+      "crop_history": "ਤੁਹਾਡੀਆਂ ਫਸਲਾਂ",
+      "no_crops_yet": "ਅਜੇ ਕੋਈ ਫਸਲ ਨਹੀਂ। ਸਿਫਾਰਸ਼ਾਂ ਤੋਂ ਇੱਕ ਫਸਲ ਚੁਣੋ!",
+      "planted_on": "ਬਿਜਾਈ",
+      "add_new_crop": "ਨਵੀਂ ਫਸਲ ਜੋੜੋ",
+      "edit_date": "ਤਾਰੀਖ ਬਦਲੋ",
+      "delete": "ਮਿਟਾਓ",
+      "delete_title": "ਫਸਲ ਮਿਟਾਓ",
+      "delete_confirm": "ਕੀ ਤੁਸੀਂ {{name}} ਨੂੰ ਆਪਣੀਆਂ ਸਰਗਰਮ ਫਸਲਾਂ ਵਿੱਚੋਂ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?",
+      "delete_button": "ਮਿਟਾਓ",
+      "edit_date_title": "ਬਿਜਾਈ ਤਾਰੀਖ ਬਦਲੋ",
+      "primary_badge": "ਮੁੱਖ",
+      "long_press_hint": "ਸੰਪਾਦਿਤ ਕਰਨ ਜਾਂ ਮਿਟਾਉਣ ਲਈ ਫਸਲ ਨੂੰ ਦੇਰ ਤੱਕ ਦਬਾਓ"
     },
     "market": {
       "per_kg": "ਪ੍ਰਤੀ ਕਵਿੰਟਲ"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "ਵਾਧੇ ਦਾ ਸਮਾਂ: ~",
     "days_suffix": " ਦਿਨ",
     "category_label": "ਸ਼੍ਰੇਣੀ: ",
-    "planting_date_query": "ਤੁਸੀਂ ਇਹ ਫਸਲ ਕਦੋਂ ਲਗਾਈ ਸੀ?"
+    "planting_date_query": "ਤੁਸੀਂ ਇਹ ਫਸਲ ਕਦੋਂ ਲਗਾਈ ਸੀ?",
+    "success_title": "ਫਸਲ ਜੋੜੀ ਗਈ!",
+    "success_message": "{{name}} ਤੁਹਾਡੇ ਖੇਤ ਵਿੱਚ ਜੋੜੀ ਗਈ ਹੈ।",
+    "planting_date_label": "ਬਿਜਾਈ ਤਾਰੀਖ: "
   },
   "market": {
     "title": "ਮੰਡੀ ਦੇ ਭਾਅ",
@@ -259,7 +282,17 @@
     "initial_prompt": "ਰਾਜ, ਏਪੀਐਮਸੀ ਅਤੇ ਵਸਤੂ ਚੁਣੋ\nਫਿਰ \"ਮਾਰਕੀਟ ਮੁਲਾਂਕਣ\" 'ਤੇ ਟੈਪ ਕਰੋ",
     "evaluating_status": "ਮਾਰਕੀਟ ਦਾ ਮੁਲਾਂਕਣ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
     "past_time": "ਪਿਛਲੇ {{time}}",
-    "next_time": "ਅਗਲੇ {{time}}"
+    "next_time": "ਅਗਲੇ {{time}}",
+    "select_state": "ਰਾਜ ਚੁਣੋ",
+    "select_state_first": "ਪਹਿਲਾਂ ਰਾਜ ਚੁਣੋ",
+    "select_apmc": "APMC ਚੁਣੋ",
+    "select_apmc_first": "ਪਹਿਲਾਂ APMC ਚੁਣੋ",
+    "select_commodity": "ਵਸਤੂ ਚੁਣੋ",
+    "evaluate_button": "ਮਾਰਕੀਟ ਮੁਲਾਂਕਣ",
+    "showing": "ਦਿਖਾਇਆ ਜਾ ਰਿਹਾ ਹੈ:",
+    "in": "ਵਿੱਚ",
+    "selected": "ਚੁਣਿਆ:",
+    "tap_evaluate": "- ਮੁਲਾਂਕਣ ਕਰੋ"
   },
   "disease": {
     "title": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
@@ -269,6 +302,59 @@
     "click_picture": "ਫੋਟੋ ਖਿੱਚੋ",
     "close": "ਬੰਦ ਕਰੋ",
     "diagnosis": "ਨਿਦਾਨ (ਪਛਾਣ)"
+  },
+  "fertilizer": {
+    "title": "ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ",
+    "subtitle": "ਨਿੱਜੀ ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰੋ",
+    "upload": "ਅੱਪਲੋਡ ਕਰੋ",
+    "retake": "ਦੁਬਾਰਾ ਖਿੱਚੋ",
+    "click_picture": "ਫੋਟੋ ਖਿੱਚੋ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "diagnosis": "ਬਿਮਾਰੀ ਪਛਾਣ",
+    "get_recommendations": "ਖਾਦ ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰੋ",
+    "no_active_crop": "ਕੋਈ ਸਰਗਰਮ ਫ਼ਸਲ ਚੁਣੀ ਨਹੀਂ। ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਫ਼ਸਲ ਟੈਬ ਵਿੱਚ ਫ਼ਸਲ ਜੋੜੋ।",
+    "failed_recommendations": "ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "something_went_wrong": "ਕੁਝ ਗਲਤ ਹੋ ਗਈ",
+    "type_organic": "ਜੈਵਿਕ",
+    "type_chemical": "ਰਸਾਇਣਕ",
+    "type_ph": "pH",
+    "type_organic_full": "ਜੈਵਿਕ",
+    "type_chemical_full": "ਰਸਾਇਣਕ ਖਾਦ",
+    "type_ph_full": "pH ਸੁਧਾਰ",
+    "quantity_label": "ਮਾਤਰਾ",
+    "release_label": "ਰਿਲੀਜ਼",
+    "rainfall_adj_label": "ਮੀਂਹ ਸਮਾਯੋਜਨ",
+    "from_original": "{{quantity}} kg/ha ਤੋਂ",
+    "unsure_apply": "ਕਿਵੇਂ ਵਰਤਣਾ ਹੈ? ਹੇਠਲੇ ਸਾਧਨ ਤੇ ਟੈਪ ਕਰੋ",
+    "why_this_fertilizer": "ਇਹ ਖਾਦ ਕਿਉਂ?",
+    "crop_context": "ਫ਼ਸਲ ਸੰਦਰਭ",
+    "stage_label": "{{crop}} — {{stage}} ਪੜਾਅ",
+    "growth_day_range": "ਵਾਧੇ ਚੱਕਰ ਦਾ ਦਿਨ {{start}}–{{end}}",
+    "nutrient_deficits": "ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਘਾਟ ਮਿਲੀ",
+    "deficit_label": "{{nutrient}} ਘਾਟ",
+    "severity_label": "ਤੀਬਰਤਾ: {{severity}}",
+    "deficit_description": "ਤੁਹਾਡੀ ਜ਼ਮੀਨ ਨੂੰ {{amount}} kg/ha ਵਧੇਰੇ {{nutrient}} ਦੀ ਲੋੜ ਹੈ।",
+    "what_supplies": "ਇਹ ਖਾਦ ਕੀ ਪੂਰਤੀ ਕਰਦੀ ਹੈ",
+    "quantity_detail": "ਮਾਤਰਾ:",
+    "release_speed": "ਰਿਲੀਜ਼ ਦੀ ਰਫ਼ਤਾਰ:",
+    "rainfall_adjusted": "ਮੀਂਹ ਸਮਾਯੋਜਨ:",
+    "benefits": "ਫਾਇਦੇ",
+    "rainfall_context": "ਮੀਂਹ ਸੰਦਰਭ",
+    "weekly_rainfall": "ਹਫ਼ਤਾਵਾਰੀ ਮੀਂਹ: {{amount}}mm",
+    "classification_label": "ਵਰਗੀਕਰਨ: {{classification}}",
+    "notes": "ਨੋਟਸ",
+    "priority_strategy": "ਪਹਿਲ ਰਣਨੀਤੀ",
+    "organic_first_explanation": "ਜੈਵਿਕ-ਪਹਿਲਾਂ ਨਜ਼ਰੀਆ: ਜੈਵਿਕ ਖਾਦ ਨੂੰ ਪਹਿਲ ਦਿੱਤੀ ਗਈ ਹੈ, ਰਸਾਇਣਕ ਸਿਰਫ਼ ਲੋੜ ਪੈਣ ਤੇ ਹੀ।",
+    "balanced_explanation": "ਘਾਟ ਦੀ ਤੀਬਰਤਾ ਅਨੁਸਾਰ ਰਸਾਇਣਕ ਅਤੇ ਜੈਵਿਕ ਖਾਦਾਂ ਦਾ ਸੰਤੁਲਿਤ ਨਜ਼ਰੀਆ।",
+    "priority_label": "ਪਹਿਲ: {{priority}}",
+    "have_tool": "ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਇਹ ਸਾਧਨ ਹੈ?",
+    "purchase_options": "ਖਰੀਦ ਦੇ ਵਿਕਲਪ",
+    "how_to_use": "ਕਿਵੇਂ ਵਰਤਣਾ ਹੈ",
+    "watch_tutorial": "ਟਿਊਟੋਰੀਅਲ ਦੇਖੋ",
+    "back": "ਪਿੱਛੇ",
+    "yes": "ਹਾਂ",
+    "no": "ਨਹੀਂ",
+    "day_label": "ਦਿਨ {{day}}"
   },
   "profile": {
     "title": "ਪ੍ਰੋਫਾਈਲ",
@@ -284,13 +370,27 @@
     "update_error": "ਪ੍ਰੋਫਾਈਲ ਅੱਪਡੇਟ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
     "logout": "ਲੌਗ ਆਉਟ",
     "logout_confirm": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ 'ਤੇ ਆਪਣੇ ਖਾਤੇ ਤੋਂ ਲੌਗ ਆਉਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
-    "logout_description": "ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਲੌਗ ਆਉਟ ਕਰੋ"
+    "logout_description": "ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਲੌਗ ਆਉਟ ਕਰੋ",
+    "provide_location_first": "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਟਿਕਾਣਾ ਦਿਓ",
+    "could_not_fetch_soil": "ਇਲਾਕਾਈ ਮਿੱਟੀ ਦਾ ਡੇਟਾ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "state_placeholder": "ਰਾਜ",
+    "district_placeholder": "ਜ਼ਿਲਾ"
   },
   "notifications": {
     "title": "ਸੂਚਨਾਵਾਂ",
     "no_notifications": "ਅਜੇ ਕੋਈ ਸੂਚਨਾ ਨਹੀਂ",
     "mark_all_read": "ਸਭ ਪੜ੍ਹੀਆਂ ਹੋਈਆਂ ਮਾਰਕ ਕਰੋ",
-    "clear_all": "ਸਭ ਸਾਫ਼ ਕਰੋ"
+    "clear_all": "ਸਭ ਸਾਫ਼ ਕਰੋ",
+    "just_now": "ਹੁਣੇ",
+    "min_ago": "{{minutes}} ਮਿੰਟ ਪਹਿਲਾਂ",
+    "hr_ago": "{{hours}} ਘੰਟਾ ਪਹਿਲਾਂ",
+    "hrs_ago": "{{hours}} ਘੰਟੇ ਪਹਿਲਾਂ",
+    "day_ago": "{{days}} ਦਿਨ ਪਹਿਲਾਂ",
+    "days_ago": "{{days}} ਦਿਨ ਪਹਿਲਾਂ",
+    "checking_alerts": "ਚੇਤਾਵਨੀਆਂ ਜਾਂਚੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ...",
+    "no_notifications_title": "ਕੋਈ ਸੂਚਨਾ ਨਹੀਂ",
+    "no_notifications_desc": "ਮੌਸਮ ਅਤੇ ਮੰਡੀ ਚੇਤਾਵਨੀਆਂ ਇੱਥੇ ਦਿਖਾਈਆਂ ਜਾਣਗੀਆਂ।",
+    "check_now": "ਹੁਣੇ ਜਾਂਚੋ"
   },
   "stages": {
     "germination": "ਉਗਣਾ",
@@ -525,6 +625,387 @@
     "timeout_error": "ਬੇਨਤੀ ਦਾ ਸਮਾਂ ਖ਼ਤਮ। ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
     "no_data": "ਕੋਈ ਡਾਟਾ ਨਹੀਂ",
     "location_required": "ਟਿਕਾਣਾ ਲੋੜੀਂਦਾ ਹੈ",
-    "crop_required": "ਪਹਿਲਾਂ ਇੱਕ ਫ਼ਸਲ ਚੁਣੋ"
+    "crop_required": "ਪਹਿਲਾਂ ਇੱਕ ਫ਼ਸਲ ਚੁਣੋ",
+    "location_not_set": "ਟਿਕਾਣਾ ਸੈੱਟ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਔਨਬੋਰਡਿੰਗ ਪੂਰੀ ਕਰੋ।",
+    "invalid_date": "ਅਯੋਗ ਤਾਰੀਖ",
+    "planting_date_window": "ਬਿਜਾਈ ਦੀ ਤਾਰੀਖ 7 ਦਿਨਾਂ ਦੇ ਅੰਦਰ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ (ਪਿਛਲੀ ਜਾਂ ਅਗਲੀ)",
+    "failed_add_crop": "ਫ਼ਸਲ ਜੋੜਨ ਵਿੱਚ ਅਸਫਲ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "provide_district_state": "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਆਪਣਾ ਜ਼ਿਲਾ ਅਤੇ ਰਾਜ ਦਿਓ।",
+    "could_not_fetch_soil": "ਮਿੱਟੀ ਦੇ ਮਾਪਦੰਡ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ।",
+    "registration_failed": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਅਸਫਲ",
+    "unable_to_load_recommendations": "ਸਿਫਾਰਸ਼ਾਂ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "network_connect_error": "ਨੈੱਟਵਰਕ ਗਲਤੀ: ਬੈਕਐਂਡ ਨਾਲ ਜੁੜਨ ਵਿੱਚ ਅਸਮਰੱਥ। ਆਪਣਾ ਕਨੈਕਸ਼ਨ ਅਤੇ IP ਪਤਾ ਜਾਂਚੋ।",
+    "request_timed_out": "ਬੇਨਤੀ ਦਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ। ਬੈਕਐਂਡ ਹੌਲੀ ਹੋ ਸਕਦੀ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।",
+    "failed_to_load_market": "ਮੰਡੀ ਡੇਟਾ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "no_market_data_combo": "ਇਸ ਫਸਲ/ਰਾਜ ਸੁਮੇਲ ਲਈ ਮੰਡੀ ਡੇਟਾ ਉਪਲਬਧ ਨਹੀਂ",
+    "select_state_apmc_commodity": "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਰਾਜ, APMC ਅਤੇ ਵਸਤੂ ਚੁਣੋ",
+    "permission_denied": "ਇਜਾਜ਼ਤ ਅਸਵੀਕਾਰ",
+    "failed_get_recommendations": "ਸਿਫਾਰਸ਼ਾਂ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ",
+    "username_exists": "ਵਰਤੋਂਕਾਰ ਨਾਮ ਪਹਿਲਾਂ ਤੋਂ ਮੌਜੂਦ ਹੈ",
+    "invalid_credentials": "ਅਵੈਧ ਪ੍ਰਮਾਣ-ਪੱਤਰ",
+    "could_not_auto_fetch": "ਆਟੋ-ਫੈਚ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਹੱਥੀਂ ਦਾਖਲ ਕਰੋ।"
+  },
+  "notification_risks": {
+    "climate_alert": "ਮੌਸਮ ਚੇਤਾਵਨੀ",
+    "extreme_heat": "ਬਹੁਤ ਜ਼ਿਆਦਾ ਗਰਮੀ ਚੇਤਾਵਨੀ",
+    "extreme_cold": "ਠੰਢੀ ਲਹਿਰ ਚੇਤਾਵਨੀ",
+    "heavy_rainfall": "ਭਾਰੀ ਮੀਂਹ ਦੀ ਸੰਭਾਵਨਾ",
+    "drought": "ਸੋਕੇ ਦੀ ਸਥਿਤੀ",
+    "high_humidity": "ਵੱਧ ਨਮੀ ਚੇਤਾਵਨੀ",
+    "strong_winds": "ਤੇਜ਼ ਹਵਾਵਾਂ ਦੀ ਸੰਭਾਵਨਾ",
+    "frost": "ਕੋਰਾ ਚੇਤਾਵਨੀ",
+    "heatwave": "ਲੂ ਚੇਤਾਵਨੀ"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "ਹੌਲੀ",
+      "moderate": "ਦਰਮਿਆਨੀ",
+      "fast": "ਤੇਜ਼",
+      "very_slow": "ਬਹੁਤ ਹੌਲੀ"
+    },
+    "classification": {
+      "very_low": "ਬਹੁਤ ਘੱਟ",
+      "low": "ਘੱਟ",
+      "optimal": "ਅਨੁਕੂਲ",
+      "high": "ਵੱਧ",
+      "very_high": "ਬਹੁਤ ਵੱਧ",
+      "extreme": "ਬਹੁਤ ਜ਼ਿਆਦਾ",
+      "unknown_crop": "ਅਣਜਾਣ ਫ਼ਸਲ"
+    },
+    "severity": {
+      "none": "ਕੋਈ ਨਹੀਂ",
+      "low": "ਘੱਟ",
+      "moderate": "ਦਰਮਿਆਨੀ",
+      "high": "ਵੱਧ",
+      "critical": "ਗੰਭੀਰ"
+    },
+    "timing_advice": {
+      "very_high": "ਭਾਰੀ ਮੀਂਹ ਪਿਆ ਹੈ। ਖਾਦ ਪਾਉਣ ਵਿੱਚ 2–3 ਦਿਨ ਦੀ ਦੇਰੀ ਕਰੋ ਜਦੋਂ ਤੱਕ ਮਿੱਟੀ ਸੁੱਕ ਨਾ ਜਾਵੇ। ਲੀਚਿੰਗ ਨੁਕਸਾਨ ਘੱਟ ਕਰਨ ਲਈ ਵੰਡ-ਵੰਡ ਕੇ ਪਾਓ।",
+      "high": "ਮੀਂਹ ਅਨੁਕੂਲ ਸੀਮਾ ਤੋਂ ਵੱਧ ਹੈ। ਵੰਡ ਕੇ ਪਾਉਣ ਬਾਰੇ ਸੋਚੋ — ਅੱਧੀ ਹੁਣ ਅਤੇ ਬਾਕੀ 3–4 ਦਿਨਾਂ ਬਾਅਦ ਪਾਓ।",
+      "very_low": "ਬਹੁਤ ਸੁੱਕੀਆਂ ਸਥਿਤੀਆਂ। ਖਾਦ ਸਿੰਚਾਈ ਨਾਲੀਆਂ ਕੋਲ ਪਾਓ ਜਾਂ ਪਾਉਣ ਤੋਂ 24 ਘੰਟਿਆਂ ਦੇ ਅੰਦਰ ਸਿੰਚਾਈ ਕਰੋ ਤਾਂ ਜੋ ਸਹੀ ਸੋਖ ਹੋ ਸਕੇ।",
+      "low": "ਅਨੁਕੂਲ ਤੋਂ ਘੱਟ ਨਮੀ। ਖਾਦ ਪਾਉਣ ਤੋਂ ਬਾਅਦ ਸਿੰਚਾਈ ਕਰੋ, ਜਾਂ ਸਵੇਰੇ ਜਲਦੀ ਪਾਓ ਜਦੋਂ ਮਿੱਟੀ ਵਿੱਚ ਹਲਕੀ ਤ੍ਰੇਲ ਹੋਵੇ।",
+      "optimal": "ਮੀਂਹ ਅਨੁਕੂਲ ਹੈ। ਮਿਆਰੀ ਖਾਦ ਪਾਉਣ ਨਾਲ ਅੱਗੇ ਵਧੋ।"
+    },
+    "from_prefix": "ਤੋਂ",
+    "summary": {
+      "no_deficit": "ਮਿੱਟੀ ਦੇ ਪੌਸ਼ਟਿਕ ਤੱਤ ਅਤੇ pH ਮੌਜੂਦਾ ਵਾਧੇ ਦੇ ਪੜਾਅ ਲਈ ਅਨੁਕੂਲ ਸੀਮਾ ਵਿੱਚ ਹਨ। ਖਾਦ ਪਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ ਹੈ।",
+      "deficits_detected": "ਕਮੀਆਂ ਮਿਲੀਆਂ",
+      "deficit_word": "ਕਮੀ",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha ਕਮੀ)",
+      "ph_deficit_part": "pH: {{direction}} (ਅੰਤਰ: {{gap}})",
+      "organic_recommended": "{{count}} ਜੈਵਿਕ ਖਾਦਾਂ ਮੁੱਖ ਇਲਾਜ ਵਜੋਂ ਸਿਫਾਰਸ਼ ਕੀਤੀਆਂ ਗਈਆਂ।",
+      "chemical_added": "{{count}} ਰਸਾਇਣਿਕ ਪੂਰਕ ਜੋੜੇ ਗਏ ਜਿੱਥੇ ਜੈਵਿਕ ਨਾਕਾਫ਼ੀ ਹੈ।",
+      "ph_correction": "pH ਸੁਧਾਰ: {{name}}।"
+    },
+    "names": {
+      "farmyard_manure_fym": "ਗੋਹੇ ਦੀ ਖਾਦ (FYM)",
+      "vermicompost": "ਵਰਮੀਕੰਪੋਸਟ (ਕੀੜਾ ਖਾਦ)",
+      "neem_cake": "ਨਿੰਮ ਦੀ ਖਲ਼",
+      "bone_meal": "ਹੱਡੀ ਦਾ ਚੂਰਾ",
+      "seaweed_extract": "ਸਮੁੰਦਰੀ ਘਾਹ ਦਾ ਅਰਕ",
+      "compost": "ਕੰਪੋਸਟ",
+      "fish_meal": "ਮੱਛੀ ਦਾ ਚੂਰਾ",
+      "rock_phosphate": "ਚੱਟਾਨੀ ਫ਼ਾਸਫ਼ੇਟ",
+      "wood_ash": "ਲੱਕੜੀ ਦੀ ਸੁਆਹ",
+      "green_manure_dhainchasesbania": "ਹਰੀ ਖਾਦ (ਢੈਂਚਾ/ਸਨਈ)",
+      "mustard_cake": "ਸਰ੍ਹੋਂ ਦੀ ਖਲ਼",
+      "panchagavya": "ਪੰਚਗੱਵਿਆ",
+      "urea": "ਯੂਰੀਆ",
+      "dap_diammonium_phosphate": "DAP (ਡਾਈ-ਅਮੋਨੀਅਮ ਫ਼ਾਸਫ਼ੇਟ)",
+      "mop_muriate_of_potash": "MOP (ਮਿਊਰੀਏਟ ਆਫ਼ ਪੋਟਾਸ਼)",
+      "ssp_single_super_phosphate": "SSP (ਸਿੰਗਲ ਸੁਪਰ ਫ਼ਾਸਫ਼ੇਟ)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "ਅਮੋਨੀਅਮ ਸਲਫ਼ੇਟ",
+      "potassium_sulphate_sop": "ਪੋਟਾਸ਼ੀਅਮ ਸਲਫ਼ੇਟ (SOP)",
+      "calcium_ammonium_nitrate_can": "ਕੈਲਸ਼ੀਅਮ ਅਮੋਨੀਅਮ ਨਾਈਟ੍ਰੇਟ (CAN)",
+      "zinc_sulphate": "ਜ਼ਿੰਕ ਸਲਫ਼ੇਟ",
+      "borax": "ਬੋਰੈਕਸ",
+      "agricultural_lime_caco": "ਖੇਤੀ ਚੂਨਾ (CaCO₃)",
+      "dolomite_lime": "ਡੋਲੋਮਾਈਟ ਚੂਨਾ",
+      "gypsum_caso": "ਜਿਪਸਮ (CaSO₄)",
+      "elemental_sulphur": "ਤੱਤਵੀ ਗੰਧਕ"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "ਬੇਸਲ ਖਾਦ (ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ)",
+        "description": "ਬਿਜਾਈ ਜਾਂ ਰੋਪਾਈ ਤੋਂ ਪਹਿਲਾਂ ਖਾਦ ਨੂੰ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਉਣਾ",
+        "when_to_use": "ਬਿਜਾਈ ਤੋਂ ਪਹਿਲਾਂ — ਖੇਤ ਦੀ ਤਿਆਰੀ ਸਮੇਂ ਪਾਓ"
+      },
+      "manual_spread": {
+        "name": "ਹੱਥ ਨਾਲ ਖਿਲਾਰਨਾ / ਛਿੱਟਾ ਵਿਧੀ",
+        "description": "ਦਾਣੇਦਾਰ ਖਾਦ ਨੂੰ ਖੇਤ ਦੀ ਸਤ੍ਹਾ ਉੱਤੇ ਬਰਾਬਰ ਖਿਲਾਰਨਾ",
+        "when_to_use": "ਜੈਵਿਕ ਖਾਦਾਂ ਜਿਵੇਂ FYM, ਕੰਪੋਸਟ ਜਾਂ ਵੱਡੇ ਖੇਤਰਾਂ ਵਿੱਚ ਦਾਣੇਦਾਰ ਖਾਦ ਲਈ"
+      },
+      "top_dressing": {
+        "name": "ਟੌਪ ਡ੍ਰੈਸਿੰਗ",
+        "description": "ਫ਼ਸਲ ਦੇ ਮੌਸਮ ਦੌਰਾਨ ਵੱਧ ਰਹੇ ਬੂਟਿਆਂ ਦੀ ਜੜ੍ਹ ਕੋਲ ਖਾਦ ਪਾਉਣਾ",
+        "when_to_use": "ਕੱਲੇ ਫੁੱਟਣ ਜਾਂ ਸਰਗਰਮ ਵਾਧੇ ਦੇ ਪੜਾਅ ਸਮੇਂ — ਬੂਟੇ ਦੀ ਜੜ੍ਹ ਕੋਲ ਪਾਓ ਅਤੇ ਸਿੰਚਾਈ ਕਰੋ"
+      },
+      "soil_incorporation": {
+        "name": "ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਉਣਾ",
+        "description": "ਜੈਵਿਕ ਖਾਦ ਜਾਂ ਰਸਾਇਣਿਕ ਖਾਦ ਨੂੰ ਮਿੱਟੀ ਵਿੱਚ ਡੂੰਘਾ ਮਿਲਾਉਣਾ",
+        "when_to_use": "ਹੌਲੀ-ਹੌਲੀ ਨਿਕਲਣ ਵਾਲੀ ਜੈਵਿਕ ਖਾਦ ਲਈ — ਬਿਜਾਈ ਤੋਂ 2–4 ਹਫ਼ਤੇ ਪਹਿਲਾਂ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਓ"
+      },
+      "foliar_spray": {
+        "name": "ਪੱਤਿਆਂ ਤੇ ਛਿੜਕਾਅ",
+        "description": "ਤੇਜ਼ ਸੋਖ ਲਈ ਪਤਲੀ ਤਰਲ ਖਾਦ ਸਿੱਧੇ ਪੱਤਿਆਂ ਉੱਤੇ ਛਿੜਕਣਾ",
+        "when_to_use": "ਸੂਖਮ ਪੌਸ਼ਟਿਕ ਤੱਤਾਂ ਦੀ ਘਾਟ, ਨਾਜ਼ੁਕ ਵਾਧੇ ਦੇ ਪੜਾਵਾਂ, ਜਾਂ ਜਦੋਂ ਮਿੱਟੀ ਵਿੱਚ ਪਾਉਣਾ ਕਾਫ਼ੀ ਨਾ ਹੋਵੇ"
+      },
+      "fertigation": {
+        "name": "ਫ਼ਰਟੀਗੇਸ਼ਨ",
+        "description": "ਪਾਣੀ ਵਿੱਚ ਘੁਲਣਸ਼ੀਲ ਖਾਦ ਨੂੰ ਤੁਪਕਾ ਜਾਂ ਫੁਹਾਰਾ ਸਿੰਚਾਈ ਪ੍ਰਣਾਲੀ ਰਾਹੀਂ ਦੇਣਾ",
+        "when_to_use": "ਤੁਪਕਾ/ਫੁਹਾਰਾ ਸਿੰਚਾਈ ਵਾਲੇ ਖੇਤਾਂ ਲਈ — ਸਭ ਤੋਂ ਕੁਸ਼ਲ ਤਰੀਕਾ, ਬਰਬਾਦੀ ਘੱਟ ਕਰਦਾ ਹੈ"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "ਖੁਰਪੀ",
+        "description": "ਛੋਟੇ ਖੇਤਾਂ ਵਿੱਚ ਖਾਦ ਨੂੰ ਉਪਰਲੀ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਉਣ ਲਈ ਹੱਥ ਦਾ ਸੰਦ"
+      },
+      "cultivator": {
+        "name": "ਕਲਟੀਵੇਟਰ",
+        "description": "ਖਾਦ ਨੂੰ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਉਣ ਲਈ ਟਰੈਕਟਰ ਨਾਲ ਖਿੱਚਿਆ ਜਾਂ ਹੱਥ ਨਾਲ ਚਲਾਇਆ ਜਾਣ ਵਾਲਾ ਕਲਟੀਵੇਟਰ"
+      },
+      "seed_drill": {
+        "name": "ਬੀਜ-ਖਾਦ ਡ੍ਰਿੱਲ",
+        "description": "ਬੀਜ ਅਤੇ ਖਾਦ ਇੱਕੋ ਸਮੇਂ ਕਤਾਰ ਵਿੱਚ ਪਾਉਣ ਦਾ ਯੰਤਰ"
+      },
+      "broadcast_spreader": {
+        "name": "ਹੈਂਡ ਬ੍ਰੌਡਕਾਸਟ ਸਪ੍ਰੈਡਰ",
+        "description": "ਦਾਣੇਦਾਰ ਖਾਦ ਬਰਾਬਰ ਵੰਡਣ ਲਈ ਕ੍ਰੈਂਕ ਨਾਲ ਚੱਲਣ ਵਾਲਾ ਸਪ੍ਰੈਡਰ"
+      },
+      "fertilizer_basket": {
+        "name": "ਖਾਦ ਦੀ ਟੋਕਰੀ",
+        "description": "FYM, ਕੰਪੋਸਟ, ਜਾਂ ਦਾਣਿਆਂ ਨੂੰ ਹੱਥ ਨਾਲ ਖਿਲਾਰਨ ਲਈ ਰਵਾਇਤੀ ਬੁਣੀ ਟੋਕਰੀ"
+      },
+      "wheelbarrow": {
+        "name": "ਰੇਹੜੀ",
+        "description": "ਖੇਤ ਵਿੱਚ ਜੈਵਿਕ ਖਾਦ ਲਿਜਾਣ ਅਤੇ ਸੁੱਟਣ ਲਈ"
+      },
+      "hand_duster": {
+        "name": "ਹੈਂਡ ਫ਼ਰਟੀਲਾਈਜ਼ਰ ਡਸਟਰ",
+        "description": "ਫ਼ਸਲ ਦੀਆਂ ਕਤਾਰਾਂ ਕੋਲ ਦਾਣੇਦਾਰ ਖਾਦ ਪਾਉਣ ਲਈ ਛੋਟਾ ਯੰਤਰ"
+      },
+      "khurpi": {
+        "name": "ਖੁਰਪੀ / ਹੈਂਡ ਵੀਡਰ",
+        "description": "ਬੂਟਿਆਂ ਕੋਲ ਖਾਦ ਪਾਉਣ ਅਤੇ ਢੱਕਣ ਲਈ ਘੱਟ ਡੂੰਘੀਆਂ ਖਾਲੀਆਂ ਬਣਾਉਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ"
+      },
+      "ring_applicator": {
+        "name": "ਰਿੰਗ ਐਪਲੀਕੇਟਰ",
+        "description": "ਦਰੱਖਤਾਂ ਦੀਆਂ ਫ਼ਸਲਾਂ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਗੋਲ ਘੇਰੇ ਵਿੱਚ ਖਾਦ ਪਾਉਣ ਦਾ ਯੰਤਰ"
+      },
+      "spade": {
+        "name": "ਕਹੀ / ਪਾਵੜਾ",
+        "description": "ਕਿਆਰੀਆਂ ਵਿੱਚ FYM ਅਤੇ ਕੰਪੋਸਟ ਦੱਬਣ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ"
+      },
+      "rotavator": {
+        "name": "ਰੋਟਾਵੇਟਰ",
+        "description": "FYM ਨੂੰ ਉਪਰਲੀ ਮਿੱਟੀ ਵਿੱਚ ਬਰਾਬਰ ਮਿਲਾਉਣ ਲਈ ਪਾਵਰ ਟਿੱਲਰ ਅਟੈਚਮੈਂਟ"
+      },
+      "plough": {
+        "name": "ਹਲ਼ (MB / ਦੇਸੀ)",
+        "description": "ਜੈਵਿਕ ਪਦਾਰਥ ਨਾਲ ਮਿੱਟੀ ਪਲਟਣ ਲਈ ਰਵਾਇਤੀ ਜਾਂ ਮੋਲਡਬੋਰਡ ਹਲ਼"
+      },
+      "knapsack_sprayer": {
+        "name": "ਨੈਪਸੈਕ ਸਪ੍ਰੇਅਰ (16L)",
+        "description": "ਪਿੱਠ ਉੱਤੇ ਚੁੱਕਣ ਵਾਲਾ ਹੱਥ ਪੰਪ ਸਪ੍ਰੇਅਰ — ਛੋਟੇ-ਦਰਮਿਆਨੇ ਖੇਤਾਂ ਲਈ ਸਭ ਤੋਂ ਆਮ"
+      },
+      "battery_sprayer": {
+        "name": "ਬੈਟਰੀ ਸਪ੍ਰੇਅਰ",
+        "description": "ਬਰਾਬਰ ਦਬਾਅ ਲਈ ਇਲੈਕਟ੍ਰਿਕ ਪੰਪ ਸਪ੍ਰੇਅਰ — ਹੱਥੀਂ ਮਿਹਨਤ ਘੱਟ ਕਰਦਾ ਹੈ"
+      },
+      "measuring_cup": {
+        "name": "ਮਾਪ ਕੱਪ / ਬੀਕਰ",
+        "description": "ਗਾੜ੍ਹੀ ਤਰਲ ਖਾਦ ਨੂੰ ਸਹੀ ਪਤਲਾ ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ"
+      },
+      "venturi_injector": {
+        "name": "ਵੈਂਚੁਰੀ ਖਾਦ ਇੰਜੈਕਟਰ",
+        "description": "ਡ੍ਰਿੱਪ ਲਾਈਨਾਂ ਵਿੱਚ ਖਾਦ ਦਾ ਘੋਲ ਪਾਉਣ ਲਈ ਪਾਣੀ ਦੇ ਦਬਾਅ ਨਾਲ ਚੱਲਣ ਵਾਲਾ ਘੱਟ ਲਾਗਤ ਦਾ ਯੰਤਰ"
+      },
+      "mixing_tank": {
+        "name": "ਖਾਦ ਮਿਕਸਿੰਗ ਟੈਂਕ",
+        "description": "ਪਾਣੀ ਵਿੱਚ ਘੁਲਣਸ਼ੀਲ ਖਾਦ ਨੂੰ ਘੋਲਣ ਅਤੇ ਮਿਲਾਉਣ ਲਈ ਟੈਂਕ"
+      },
+      "dosing_pump": {
+        "name": "ਫ਼ਰਟੀਗੇਸ਼ਨ ਡੋਜ਼ਿੰਗ ਪੰਪ",
+        "description": "ਸਿੰਚਾਈ ਵਿੱਚ ਖਾਦ ਦੀ ਸਹੀ ਮਾਤਰਾ ਪਾਉਣ ਲਈ ਇਲੈਕਟ੍ਰਿਕ ਜਾਂ ਹਾਈਡ੍ਰੌਲਿਕ ਪੰਪ"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਸੁਧਾਰਦੀ ਹੈ",
+      "enhances_water_retention": "ਪਾਣੀ ਸੰਭਾਲਣ ਦੀ ਸਮਰੱਥਾ ਵਧਾਉਂਦੀ ਹੈ",
+      "supports_microbial_activity": "ਸੂਖਮ ਜੀਵਾਣੂ ਗਤੀਵਿਧੀ ਨੂੰ ਸਹਾਰਾ ਦਿੰਦੀ ਹੈ",
+      "rich_in_humic_acids": "ਹਿਊਮਿਕ ਐਸਿਡ ਨਾਲ ਭਰਪੂਰ",
+      "contains_beneficial_microbes": "ਲਾਭਦਾਇਕ ਸੂਖਮ ਜੀਵਾਣੂ ਰੱਖਦੀ ਹੈ",
+      "improves_nutrient_availability": "ਪੌਸ਼ਟਿਕ ਤੱਤਾਂ ਦੀ ਉਪਲਬਧਤਾ ਸੁਧਾਰਦੀ ਹੈ",
+      "natural_pest_deterrent": "ਕੁਦਰਤੀ ਕੀਟ ਭਜਾਊ",
+      "slow_nitrogen_release": "ਹੌਲੀ ਨਾਈਟ੍ਰੋਜਨ ਰਿਲੀਜ਼",
+      "improves_soil_health": "ਮਿੱਟੀ ਦੀ ਸਿਹਤ ਸੁਧਾਰਦੀ ਹੈ",
+      "excellent_phosphorus_source": "ਫ਼ਾਸਫ਼ੋਰਸ ਦਾ ਵਧੀਆ ਸਰੋਤ",
+      "contains_calcium": "ਕੈਲਸ਼ੀਅਮ ਰੱਖਦੀ ਹੈ",
+      "longlasting_effect": "ਲੰਬੇ ਸਮੇਂ ਤੱਕ ਅਸਰ",
+      "rich_in_micronutrients_and_growth_hormones": "ਸੂਖਮ ਪੌਸ਼ਟਿਕ ਤੱਤਾਂ ਅਤੇ ਵਾਧਾ ਹਾਰਮੋਨਾਂ ਨਾਲ ਭਰਪੂਰ",
+      "boosts_stress_resistance": "ਤਣਾਅ ਸਹਿਣ ਸ਼ਕਤੀ ਵਧਾਉਂਦੀ ਹੈ",
+      "enhances_root_growth": "ਜੜ੍ਹਾਂ ਦਾ ਵਾਧਾ ਵਧਾਉਂਦੀ ਹੈ",
+      "improves_soil_organic_matter": "ਮਿੱਟੀ ਦਾ ਜੈਵਿਕ ਪਦਾਰਥ ਸੁਧਾਰਦੀ ਹੈ",
+      "enhances_drainage": "ਨਿਕਾਸੀ ਸੁਧਾਰਦੀ ਹੈ",
+      "feeds_soil_microorganisms": "ਮਿੱਟੀ ਦੇ ਸੂਖਮ ਜੀਵਾਣੂਆਂ ਨੂੰ ਖੁਰਾਕ ਦਿੰਦੀ ਹੈ",
+      "high_n_and_p_content": "ਵੱਧ N ਅਤੇ P ਮਾਤਰਾ",
+      "natural_source": "ਕੁਦਰਤੀ ਸਰੋਤ",
+      "improves_soil_biology": "ਮਿੱਟੀ ਦੀ ਜੀਵ-ਵਿਗਿਆਨ ਸੁਧਾਰਦੀ ਹੈ",
+      "longterm_phosphorus_supply": "ਲੰਬੇ ਸਮੇਂ ਲਈ ਫ਼ਾਸਫ਼ੋਰਸ ਸਪਲਾਈ",
+      "natural_mineral": "ਕੁਦਰਤੀ ਖਣਿਜ",
+      "no_chemical_processing": "ਕੋਈ ਰਸਾਇਣਿਕ ਪ੍ਰੋਸੈਸਿੰਗ ਨਹੀਂ",
+      "rich_in_potassium": "ਪੋਟਾਸ਼ੀਅਮ ਨਾਲ ਭਰਪੂਰ",
+      "raises_soil_ph": "ਮਿੱਟੀ ਦਾ pH ਵਧਾਉਂਦੀ ਹੈ",
+      "contains_trace_minerals": "ਸੂਖਮ ਖਣਿਜ ਰੱਖਦੀ ਹੈ",
+      "fixes_atmospheric_nitrogen": "ਵਾਯੂਮੰਡਲ ਦੀ ਨਾਈਟ੍ਰੋਜਨ ਸਥਿਰ ਕਰਦੀ ਹੈ",
+      "adds_organic_matter": "ਜੈਵਿਕ ਪਦਾਰਥ ਜੋੜਦੀ ਹੈ",
+      "suppresses_weeds": "ਨਦੀਨ ਦਬਾਉਂਦੀ ਹੈ",
+      "good_nitrogen_source": "ਨਾਈਟ੍ਰੋਜਨ ਦਾ ਚੰਗਾ ਸਰੋਤ",
+      "improves_soil_texture": "ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਸੁਧਾਰਦੀ ਹੈ",
+      "natural_pest_repellent": "ਕੁਦਰਤੀ ਕੀਟ ਭਜਾਊ",
+      "traditional_biostimulant": "ਰਵਾਇਤੀ ਜੈਵ-ਉਤੇਜਕ",
+      "boosts_immunity": "ਰੋਗ ਪ੍ਰਤੀਰੋਧ ਸ਼ਕਤੀ ਵਧਾਉਂਦੀ ਹੈ",
+      "enhances_growth_hormones": "ਵਾਧਾ ਹਾਰਮੋਨ ਵਧਾਉਂਦੀ ਹੈ",
+      "highest_n_content": "ਸਭ ਤੋਂ ਵੱਧ N ਮਾਤਰਾ",
+      "readily_available": "ਆਸਾਨੀ ਨਾਲ ਉਪਲਬਧ",
+      "costeffective": "ਕਿਫ਼ਾਇਤੀ",
+      "primary_p_source": "P ਦਾ ਮੁੱਖ ਸਰੋਤ",
+      "also_provides_nitrogen": "ਨਾਈਟ੍ਰੋਜਨ ਵੀ ਦਿੰਦੀ ਹੈ",
+      "good_for_basal_application": "ਬੇਸਲ ਖਾਦ ਲਈ ਚੰਗੀ",
+      "highest_k_content": "ਸਭ ਤੋਂ ਵੱਧ K ਮਾਤਰਾ",
+      "essential_for_fruiting_crops": "ਫਲਦਾਰ ਫ਼ਸਲਾਂ ਲਈ ਜ਼ਰੂਰੀ",
+      "improves_disease_resistance": "ਰੋਗ ਪ੍ਰਤੀਰੋਧ ਸ਼ਕਤੀ ਸੁਧਾਰਦੀ ਹੈ",
+      "contains_calcium_and_sulphur_too": "ਕੈਲਸ਼ੀਅਮ ਅਤੇ ਗੰਧਕ ਵੀ ਰੱਖਦੀ ਹੈ",
+      "good_for_oilseeds": "ਤੇਲ ਬੀਜਾਂ ਲਈ ਚੰਗੀ",
+      "moderate_cost": "ਦਰਮਿਆਨੀ ਕੀਮਤ",
+      "balanced_p_and_k": "ਸੰਤੁਲਿਤ P ਅਤੇ K",
+      "suitable_for_basal_dose": "ਬੇਸਲ ਖੁਰਾਕ ਲਈ ਢੁਕਵੀਂ",
+      "reduces_number_of_fertilizers_needed": "ਲੋੜੀਂਦੀਆਂ ਖਾਦਾਂ ਦੀ ਗਿਣਤੀ ਘਟਾਉਂਦੀ ਹੈ",
+      "high_phosphorus_blend": "ਵੱਧ ਫ਼ਾਸਫ਼ੋਰਸ ਮਿਸ਼ਰਣ",
+      "good_starter_fertilizer": "ਚੰਗੀ ਸ਼ੁਰੂਆਤੀ ਖਾਦ",
+      "multinutrient_supply": "ਬਹੁ-ਪੌਸ਼ਟਿਕ ਸਪਲਾਈ",
+      "provides_sulphur_24": "ਗੰਧਕ ਦਿੰਦੀ ਹੈ (24%)",
+      "acidifies_soil_slightly": "ਮਿੱਟੀ ਨੂੰ ਥੋੜ੍ਹਾ ਤੇਜ਼ਾਬੀ ਬਣਾਉਂਦੀ ਹੈ",
+      "chloridefree_k_source": "ਕਲੋਰਾਈਡ-ਮੁਕਤ K ਸਰੋਤ",
+      "contains_sulphur_18": "ਗੰਧਕ ਰੱਖਦੀ ਹੈ (18%)",
+      "better_for_sensitive_crops": "ਸੰਵੇਦਨਸ਼ੀਲ ਫ਼ਸਲਾਂ ਲਈ ਵਧੀਆ",
+      "provides_calcium": "ਕੈਲਸ਼ੀਅਮ ਦਿੰਦੀ ਹੈ",
+      "fastacting_nitrogen": "ਤੇਜ਼ ਅਸਰ ਵਾਲੀ ਨਾਈਟ੍ਰੋਜਨ",
+      "less_volatile_than_urea": "ਯੂਰੀਆ ਨਾਲੋਂ ਘੱਟ ਉਡਣਸ਼ੀਲ",
+      "corrects_zinc_deficiency": "ਜ਼ਿੰਕ ਦੀ ਘਾਟ ਦੂਰ ਕਰਦੀ ਹੈ",
+      "essential_for_ricemaize": "ਝੋਨੇ/ਮੱਕੀ ਲਈ ਜ਼ਰੂਰੀ",
+      "improves_grain_quality": "ਦਾਣੇ ਦੀ ਗੁਣਵੱਤਾ ਸੁਧਾਰਦੀ ਹੈ",
+      "essential_for_floweringfruiting": "ਫੁੱਲ ਆਉਣ/ਫਲ ਲੱਗਣ ਲਈ ਜ਼ਰੂਰੀ",
+      "improves_pollen_viability": "ਪਰਾਗ ਦੀ ਸਮਰੱਥਾ ਸੁਧਾਰਦੀ ਹੈ",
+      "corrects_boron_deficiency": "ਬੋਰਾਨ ਦੀ ਘਾਟ ਦੂਰ ਕਰਦੀ ਹੈ"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "ਬਿਜਾਈ ਤੋਂ 2–3 ਹਫ਼ਤੇ ਪਹਿਲਾਂ ਪਾਉਣਾ ਸਭ ਤੋਂ ਵਧੀਆ ਹੈ। ਉਪਰਲੀ ਮਿੱਟੀ ਵਿੱਚ ਚੰਗੀ ਤਰ੍ਹਾਂ ਮਿਲਾਓ।",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "ਬੇਸਲ ਖੁਰਾਕ ਜਾਂ ਟੌਪ-ਡ੍ਰੈਸਿੰਗ ਵਜੋਂ ਪਾਇਆ ਜਾ ਸਕਦਾ ਹੈ। ਸਟੋਰ ਕੀਤੀ ਵਰਮੀਕੰਪੋਸਟ ਉੱਤੇ ਸਿੱਧੀ ਧੁੱਪ ਤੋਂ ਬਚੋ।",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "ਬਿਜਾਈ ਸਮੇਂ ਪਾਓ। ਨੇਮਾਟੋਡ ਅਤੇ ਕੀੜੇ ਭਜਾਊ ਵਜੋਂ ਕੰਮ ਕਰਦੀ ਹੈ।",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "ਤੇਜ਼ਾਬੀ ਤੋਂ ਨਿਰਪੱਖ ਮਿੱਟੀ (pH < 7) ਵਿੱਚ ਸਭ ਤੋਂ ਵਧੀਆ ਕੰਮ ਕਰਦੀ ਹੈ। ਖਾਰੀ ਮਿੱਟੀ ਵਿੱਚ ਅਸਰਦਾਰ ਨਹੀਂ।",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "ਹਿਦਾਇਤਾਂ ਅਨੁਸਾਰ ਪਤਲਾ ਕਰੋ। ਸਰਗਰਮ ਵਾਧੇ ਦੌਰਾਨ ਪੱਤਿਆਂ ਤੇ ਛਿੜਕਾਅ ਸਭ ਤੋਂ ਵਧੀਆ ਹੈ।",
+      "ensure_compost_is_fully_decomposed_before_application": "ਪਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਕੰਪੋਸਟ ਪੂਰੀ ਤਰ੍ਹਾਂ ਗਲ਼ ਚੁੱਕੀ ਹੈ।",
+      "may_attract_animals_mix_into_soil_well": "ਜਾਨਵਰਾਂ ਨੂੰ ਖਿੱਚ ਸਕਦੀ ਹੈ। ਮਿੱਟੀ ਵਿੱਚ ਚੰਗੀ ਤਰ੍ਹਾਂ ਮਿਲਾਓ।",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "ਤੇਜ਼ਾਬੀ ਮਿੱਟੀ (pH < 6.5) ਵਿੱਚ ਸਭ ਤੋਂ ਅਸਰਦਾਰ। ਬਹੁਤ ਹੌਲੀ ਰਿਲੀਜ਼।",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "ਖਾਰੀ ਮਿੱਟੀ ਵਿੱਚ ਨਾ ਪਾਓ। ਨਾਈਟ੍ਰੋਜਨ ਖਾਦਾਂ ਨਾਲ ਨਾ ਮਿਲਾਓ।",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "ਮੁੱਖ ਫ਼ਸਲ ਦੀ ਬਿਜਾਈ ਤੋਂ 3–4 ਹਫ਼ਤੇ ਪਹਿਲਾਂ ਮਿੱਟੀ ਵਿੱਚ ਮਿਲਾਓ।",
+      "apply_1520_days_before_sowing_for_best_results": "ਵਧੀਆ ਨਤੀਜਿਆਂ ਲਈ ਬਿਜਾਈ ਤੋਂ 15–20 ਦਿਨ ਪਹਿਲਾਂ ਪਾਓ।",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "ਪੱਤਿਆਂ ਤੇ ਛਿੜਕਾਅ ਲਈ 3% ਪਤਲਾ ਕਰੋ। ਸਵੇਰੇ ਜਲਦੀ ਜਾਂ ਸ਼ਾਮ ਨੂੰ ਪਾਓ।",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "ਵੰਡ-ਵੰਡ ਕੇ ਪਾਓ। ਪਾਉਣ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਪਾਣੀ ਨਾ ਭਰੋ।",
+      "best_applied_at_sowing_as_basal_dose": "ਬਿਜਾਈ ਸਮੇਂ ਬੇਸਲ ਖੁਰਾਕ ਵਜੋਂ ਪਾਉਣਾ ਸਭ ਤੋਂ ਵਧੀਆ ਹੈ।",
+      "apply_at_sowing_or_during_tuberfruit_formation": "ਬਿਜਾਈ ਸਮੇਂ ਜਾਂ ਗੰਢ/ਫਲ ਬਣਨ ਸਮੇਂ ਪਾਓ।",
+      "also_provides_11_sulphur_and_20_calcium": "11% ਗੰਧਕ ਅਤੇ 20% ਕੈਲਸ਼ੀਅਮ ਵੀ ਦਿੰਦੀ ਹੈ।",
+      "ideal_for_crops_with_high_p_and_k_demand": "ਵੱਧ P ਅਤੇ K ਲੋੜ ਵਾਲੀਆਂ ਫ਼ਸਲਾਂ ਲਈ ਆਦਰਸ਼।",
+      "best_for_phosphorusdemanding_crops": "ਫ਼ਾਸਫ਼ੋਰਸ ਦੀ ਵੱਧ ਲੋੜ ਵਾਲੀਆਂ ਫ਼ਸਲਾਂ ਲਈ ਸਭ ਤੋਂ ਵਧੀਆ।",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "ਗੰਧਕ-ਪਸੰਦ ਫ਼ਸਲਾਂ (ਤੇਲ ਬੀਜ, ਦਾਲਾਂ) ਲਈ ਤਰਜੀਹੀ।",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "ਕਲੋਰਾਈਡ-ਸੰਵੇਦਨਸ਼ੀਲ ਫ਼ਸਲਾਂ (ਆਲੂ, ਟਮਾਟਰ, ਫਲ) ਲਈ MOP ਨਾਲੋਂ ਤਰਜੀਹੀ।",
+      "good_for_acidic_soils_and_calciumloving_crops": "ਤੇਜ਼ਾਬੀ ਮਿੱਟੀ ਅਤੇ ਕੈਲਸ਼ੀਅਮ-ਪਸੰਦ ਫ਼ਸਲਾਂ ਲਈ ਚੰਗੀ।",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "ਭਾਰਤੀ ਮਿੱਟੀ ਵਿੱਚ ਆਮ ਘਾਟ। ਮਿੱਟੀ ਵਿੱਚ 25 kg/ha ਪਾਓ ਜਾਂ 0.5% ਪੱਤਿਆਂ ਤੇ ਛਿੜਕਾਅ ਕਰੋ।",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "ਤੇਲ ਬੀਜਾਂ, ਦਾਲਾਂ ਅਤੇ ਸਬਜ਼ੀਆਂ ਲਈ ਜ਼ਰੂਰੀ। ਵੱਧ ਨਾ ਪਾਓ — ਬੋਰਾਨ ਦੀ ਜ਼ਹਿਰੀਲਾਪਣ ਹੋ ਸਕਦੀ ਹੈ।",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "ਬਿਜਾਈ ਤੋਂ 2–3 ਹਫ਼ਤੇ ਪਹਿਲਾਂ ਪਾਓ। 2000 kg/ha ਨਾਲ pH 0.5–1.0 ਇਕਾਈ ਵਧਦਾ ਹੈ।",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "ਮੈਗਨੀਸ਼ੀਅਮ (Mg) ਵੀ ਦਿੰਦੀ ਹੈ। Mg ਦੀ ਘਾਟ ਵਾਲੀ ਮਿੱਟੀ ਲਈ ਤਰਜੀਹੀ।",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "ਖਾਰੀ/ਸੋਡਿਕ ਮਿੱਟੀ ਲਈ। ਮਿੱਟੀ ਦੀ ਬਣਤਰ ਵੀ ਸੁਧਾਰਦੀ ਹੈ।",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "ਹੌਲੀ ਅਸਰ। ਪਹਿਲਾਂ ਤੋਂ ਕਾਫ਼ੀ ਸਮਾਂ ਪਹਿਲਾਂ ਪਾਓ। ਸੂਖਮ ਜੀਵਾਣੂ S ਨੂੰ ਗੰਧਕ ਦੇ ਤੇਜ਼ਾਬ ਵਿੱਚ ਬਦਲਦੇ ਹਨ।"
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "ਸੁੱਕਾ ਝੋਨਾ — ਪੌਸ਼ਟਿਕ ਤੱਤ ਨਹੀਂ ਚੱਲੇ, ਖੁਰਾਕ ਵਧਾਓ",
+      "below_optimal_moisture": "ਅਨੁਕੂਲ ਤੋਂ ਘੱਟ ਨਮੀ",
+      "ideal_conditions": "ਆਦਰਸ਼ ਸਥਿਤੀਆਂ",
+      "ideal": "ਆਦਰਸ਼",
+      "leaching_risk_in_flooded_fields": "ਡੁੱਬੇ ਖੇਤਾਂ ਵਿੱਚ ਲੀਚਿੰਗ ਦਾ ਖ਼ਤਰਾ",
+      "heavy_waterlogging__high_leaching": "ਭਾਰੀ ਪਾਣੀ ਖੜ੍ਹਾ — ਵੱਧ ਲੀਚਿੰਗ",
+      "drought_stress_reduces_uptake": "ਸੋਕੇ ਦਾ ਤਣਾਅ ਸੋਖ ਘਟਾਉਂਦਾ ਹੈ",
+      "drought_stress": "ਸੋਕੇ ਦਾ ਤਣਾਅ",
+      "drought": "ਸੋਕਾ",
+      "slightly_dry": "ਥੋੜ੍ਹਾ ਸੁੱਕਾ",
+      "excess_moisture": "ਵਾਧੂ ਨਮੀ",
+      "excess": "ਵਾਧੂ",
+      "waterlogging_risk": "ਪਾਣੀ ਖੜ੍ਹੇ ਹੋਣ ਦਾ ਖ਼ਤਰਾ",
+      "waterlogging": "ਪਾਣੀ ਖੜ੍ਹਾ",
+      "heavy_waterlogging": "ਭਾਰੀ ਪਾਣੀ ਖੜ੍ਹਾ",
+      "very_dry__poor_nutrient_mobility": "ਬਹੁਤ ਸੁੱਕਾ — ਪੌਸ਼ਟਿਕ ਤੱਤਾਂ ਦੀ ਮਾੜੀ ਚਾਲ",
+      "excess_moisture_for_wheat": "ਕਣਕ ਲਈ ਵਾਧੂ ਨਮੀ",
+      "waterlogging__severe_leaching": "ਪਾਣੀ ਖੜ੍ਹਾ — ਭਾਰੀ ਲੀਚਿੰਗ",
+      "dry_conditions": "ਸੁੱਕੀਆਂ ਸਥਿਤੀਆਂ",
+      "waterlogging__pulse_crop_very_sensitive": "ਪਾਣੀ ਖੜ੍ਹਾ — ਦਾਲ ਦੀ ਫ਼ਸਲ ਬਹੁਤ ਸੰਵੇਦਨਸ਼ੀਲ",
+      "waterlogging__pulse_sensitive": "ਪਾਣੀ ਖੜ੍ਹਾ — ਦਾਲ ਸੰਵੇਦਨਸ਼ੀਲ",
+      "low_moisture": "ਘੱਟ ਨਮੀ",
+      "dry_soil_limits_tuber_growth": "ਸੁੱਕੀ ਮਿੱਟੀ ਗੰਢ ਦੇ ਵਾਧੇ ਨੂੰ ਰੋਕਦੀ ਹੈ",
+      "excess_moisture__rot_risk": "ਵਾਧੂ ਨਮੀ — ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "waterlogging__severe": "ਪਾਣੀ ਖੜ੍ਹਾ — ਗੰਭੀਰ",
+      "boll_rot_risk__reduce_heavily": "ਟਿੰਡੇ ਸੜਨ ਦਾ ਖ਼ਤਰਾ — ਭਾਰੀ ਕਮੀ ਕਰੋ",
+      "excess__rot_risk": "ਵਾਧੂ — ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "hardy_crop_slight_adjustment": "ਸਖ਼ਤ ਫ਼ਸਲ, ਥੋੜ੍ਹਾ ਫੇਰਬਦਲ",
+      "too_wet_for_hardy_pulse": "ਸਖ਼ਤ ਦਾਲ ਲਈ ਬਹੁਤ ਗਿੱਲਾ",
+      "turmeric_needs_moisture": "ਹਲਦੀ ਨੂੰ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "rhizome_rot_risk": "ਗੰਢ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "banana_is_waterhungry": "ਕੇਲੇ ਨੂੰ ਵੱਧ ਪਾਣੀ ਚਾਹੀਦਾ ਹੈ",
+      "root_suffocation": "ਜੜ੍ਹਾਂ ਦਾ ਦਮ ਘੁੱਟਣਾ",
+      "fungal_risk": "ਉੱਲੀ ਦਾ ਖ਼ਤਰਾ",
+      "too_wet_for_sesame": "ਤਿਲ ਲਈ ਬਹੁਤ ਗਿੱਲਾ",
+      "dry_stress": "ਸੁੱਕੇ ਦਾ ਤਣਾਅ",
+      "blight_risk": "ਝੁਲਸ ਦਾ ਖ਼ਤਰਾ",
+      "severe_disease_risk": "ਗੰਭੀਰ ਬਿਮਾਰੀ ਦਾ ਖ਼ਤਰਾ",
+      "root_rot_risk": "ਜੜ੍ਹ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "root_rot": "ਜੜ੍ਹ ਸੜਨ",
+      "waterlogging__bulb_rot_risk": "ਪਾਣੀ ਖੜ੍ਹਾ — ਗੰਢ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "bulb_rot_risk": "ਗੰਢ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "too_wet": "ਬਹੁਤ ਗਿੱਲਾ",
+      "head_rot_risk": "ਸਿਰ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "pineapple_is_droughttolerant": "ਅਨਾਨਾਸ ਸੋਕਾ-ਸਹਿਣਸ਼ੀਲ ਹੈ",
+      "curd_rot_risk": "ਫੁੱਲ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "slight_drought_tolerance": "ਥੋੜ੍ਹੀ ਸੋਕਾ ਸਹਿਣਸ਼ੀਲਤਾ",
+      "downy_mildew_risk__reduce_heavily": "ਡਾਊਨੀ ਮਿਲਡਿਊ ਦਾ ਖ਼ਤਰਾ — ਭਾਰੀ ਕਮੀ ਕਰੋ",
+      "dry__pithy_roots": "ਸੁੱਕੀਆਂ — ਖੋਖਲੀਆਂ ਜੜ੍ਹਾਂ",
+      "root_cracking": "ਜੜ੍ਹ ਚਟਕਣਾ",
+      "root_splitting": "ਜੜ੍ਹ ਪਾਟਣਾ",
+      "severe_cracking_and_rot": "ਗੰਭੀਰ ਚਟਕਣਾ ਅਤੇ ਸੜਨ",
+      "fruit_cracking": "ਫਲ ਚਟਕਣਾ",
+      "fruit_cracking_risk": "ਫਲ ਚਟਕਣ ਦਾ ਖ਼ਤਰਾ",
+      "needs_consistent_moisture": "ਲਗਾਤਾਰ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "needs_moisture": "ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "needs_high_moisture": "ਵੱਧ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "bitter_fruit_risk": "ਕੌੜੇ ਫਲ ਦਾ ਖ਼ਤਰਾ",
+      "soft_rot_risk": "ਨਰਮ ਸੜਨ ਦਾ ਖ਼ਤਰਾ",
+      "dry__woody_roots": "ਸੁੱਕੀਆਂ — ਲੱਕੜੀ ਵਰਗੀਆਂ ਜੜ੍ਹਾਂ",
+      "hardy__slight_adjustment": "ਸਖ਼ਤ — ਥੋੜ੍ਹਾ ਫੇਰਬਦਲ",
+      "root_damage": "ਜੜ੍ਹ ਦਾ ਨੁਕਸਾਨ",
+      "ginger_needs_consistent_moisture": "ਅਦਰਕ ਨੂੰ ਲਗਾਤਾਰ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "needs_moisture_for_fruit_fill": "ਫਲ ਭਰਨ ਲਈ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "forked_roots_risk": "ਕਾਂਟੇਦਾਰ ਜੜ੍ਹਾਂ ਦਾ ਖ਼ਤਰਾ",
+      "droughttolerant": "ਸੋਕਾ-ਸਹਿਣਸ਼ੀਲ",
+      "jute_needs_high_moisture": "ਜੂਟ ਨੂੰ ਵੱਧ ਨਮੀ ਚਾਹੀਦੀ ਹੈ",
+      "extreme_rainfall__significant_leaching_risk": "ਬਹੁਤ ਜ਼ਿਆਦਾ ਮੀਂਹ — ਭਾਰੀ ਲੀਚਿੰਗ ਦਾ ਖ਼ਤਰਾ।"
+    }
+  },
+  "tabs": {
+    "home": "ਹੋਮ",
+    "crop": "ਫ਼ਸਲ",
+    "market": "ਮੰਡੀ",
+    "fertilizer": "ਖਾਦ"
   }
 }

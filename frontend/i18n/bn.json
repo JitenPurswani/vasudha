@@ -190,7 +190,15 @@
     "status": "অবস্থা",
     "loading": "লোড হচ্ছে...",
     "retry": "আবার চেষ্টা করুন",
-    "unknown": "অজানা"
+    "unknown": "অজানা",
+    "error": "ত্রুটি",
+    "success": "সফল",
+    "ok": "ঠিক আছে",
+    "active": "সক্রিয়",
+    "farmer": "কৃষক",
+    "today": "আজ",
+    "market_data": "বাজার ডেটা",
+    "state_average": "রাজ্য গড়"
   },
   "home": {
     "greeting": "নমস্কার,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "ফসল কাটার জন্য প্রস্তুত!",
       "next_stage": "পরবর্তী: {{days}} দিনের মধ্যে {{stage}}",
       "view_all_crops": "সব {{count}}টি ফসল দেখুন",
-      "tap_to_select": "একটি ফসল নির্বাচন করতে ট্যাপ করুন"
+      "tap_to_select": "একটি ফসল নির্বাচন করতে ট্যাপ করুন",
+      "crop_history": "আপনার ফসল",
+      "no_crops_yet": "এখনও কোনো ফসল নেই। সুপারিশ থেকে একটি ফসল নির্বাচন করুন!",
+      "planted_on": "রোপণ",
+      "add_new_crop": "নতুন ফসল যোগ করুন",
+      "edit_date": "তারিখ সম্পাদনা",
+      "delete": "মুছুন",
+      "delete_title": "ফসল মুছুন",
+      "delete_confirm": "আপনি কি {{name}} আপনার সক্রিয় ফসল থেকে সরাতে চান?",
+      "delete_button": "মুছুন",
+      "edit_date_title": "রোপণের তারিখ সম্পাদনা",
+      "primary_badge": "প্রধান",
+      "long_press_hint": "সম্পাদনা বা মুছতে ফসলটি দীর্ঘক্ষণ চাপুন"
     },
     "market": {
       "per_kg": "প্রতি কুইন্টাল"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "বৃদ্ধির সময়কাল: ~",
     "days_suffix": " দিন",
     "category_label": "বিভাগ: ",
-    "planting_date_query": "আপনি এই ফসলটি কখন রোপণ করেছিলেন?"
+    "planting_date_query": "আপনি এই ফসলটি কখন রোপণ করেছিলেন?",
+    "success_title": "ফসল যোগ হয়েছে!",
+    "success_message": "{{name}} আপনার খামারে যোগ করা হয়েছে।",
+    "planting_date_label": "রোপণের তারিখ: "
   },
   "market": {
     "title": "বাজারদর",
@@ -259,7 +282,17 @@
     "initial_prompt": "রাজ্য, এপিএমসি এবং পণ্য নির্বাচন করুন\nতারপর \"বাজার মূল্যায়ন\" ট্যাপ করুন",
     "evaluating_status": "বাজার মূল্যায়ন করা হচ্ছে...",
     "past_time": "গত {{time}}",
-    "next_time": "পরবর্তী {{time}}"
+    "next_time": "পরবর্তী {{time}}",
+    "select_state": "রাজ্য নির্বাচন করুন",
+    "select_state_first": "প্রথমে রাজ্য নির্বাচন করুন",
+    "select_apmc": "APMC নির্বাচন করুন",
+    "select_apmc_first": "প্রথমে APMC নির্বাচন করুন",
+    "select_commodity": "পণ্য নির্বাচন করুন",
+    "evaluate_button": "বাজার মূল্যায়ন",
+    "showing": "দেখানো হচ্ছে:",
+    "in": "তে",
+    "selected": "নির্বাচিত:",
+    "tap_evaluate": "- মূল্যায়ন করুন"
   },
   "disease": {
     "title": "রোগ শনাক্তকরণ",
@@ -269,6 +302,59 @@
     "click_picture": "ছবি তুলুন",
     "close": "বন্ধ করুন",
     "diagnosis": "রোগ নির্ণয়"
+  },
+  "fertilizer": {
+    "title": "সার সুপারিশ",
+    "subtitle": "ব্যক্তিগত সার সুপারিশ পান",
+    "upload": "আপলোড করুন",
+    "retake": "পুনরায় ছবি তুলুন",
+    "click_picture": "ছবি তুলুন",
+    "close": "বন্ধ করুন",
+    "diagnosis": "রোগ নির্ণয়",
+    "get_recommendations": "সার সুপারিশ পান",
+    "no_active_crop": "কোনো সক্রিয় ফসল নির্বাচিত নেই। অনুগ্রহ করে প্রথমে ফসল ট্যাবে ফসল যোগ করুন।",
+    "failed_recommendations": "সুপারিশ পেতে ব্যর্থ",
+    "something_went_wrong": "কিছু ভুল হয়েছে",
+    "type_organic": "জৈবিক",
+    "type_chemical": "রাসায়নিক",
+    "type_ph": "pH",
+    "type_organic_full": "জৈবিক",
+    "type_chemical_full": "রাসায়নিক সার",
+    "type_ph_full": "pH সংশোধন",
+    "quantity_label": "পরিমাণ",
+    "release_label": "রিলিজ",
+    "rainfall_adj_label": "বৃষ্টি সমন্বয়",
+    "from_original": "{{quantity}} kg/ha থেকে",
+    "unsure_apply": "কীভাবে প্রযোগ করবেন? নীচের সরণ্জামে ট্যাপ করুন",
+    "why_this_fertilizer": "এই সার কেন?",
+    "crop_context": "ফসল প্রসঙ্গ",
+    "stage_label": "{{crop}} — {{stage}} পর্যায়",
+    "growth_day_range": "বৃদ্ধি চক্রের দিন {{start}}–{{end}}",
+    "nutrient_deficits": "পুষ্টির ঘাটতি পাওয়া গেছে",
+    "deficit_label": "{{nutrient}} ঘাটতি",
+    "severity_label": "তীব্রতা: {{severity}}",
+    "deficit_description": "আপনার জমির {{amount}} kg/ha অতিরিক্ত {{nutrient}} প্রয়োজন।",
+    "what_supplies": "এই সার কী সরবরাহ করে",
+    "quantity_detail": "পরিমাণ:",
+    "release_speed": "রিলিজ গতি:",
+    "rainfall_adjusted": "বৃষ্টি সমন্বয়:",
+    "benefits": "সুবিধাসমূহ",
+    "rainfall_context": "বৃষ্টি প্রসঙ্গ",
+    "weekly_rainfall": "সাপ্তাহিক বৃষ্টি: {{amount}}mm",
+    "classification_label": "শ্রেণীবিন্যাস: {{classification}}",
+    "notes": "নোটস",
+    "priority_strategy": "অগ্রাধিকার কৌশল",
+    "organic_first_explanation": "জৈবিক-প্রথম দৃষ্টিভঙ্গি: জৈবিক সারকে অগ্রাধিকার দেওয়া হয়, রাসায়নিক শুধু প্রয়োজনেই।",
+    "balanced_explanation": "ঘাটতির তীব্রতা অনুসারে রাসায়নিক ও জৈবিক সারের সুষম দৃষ্টিভঙ্গি।",
+    "priority_label": "অগ্রাধিকার: {{priority}}",
+    "have_tool": "আপনার কাছে এই সরঞ্জাম আছে?",
+    "purchase_options": "কেনার বিকল্প",
+    "how_to_use": "কীভাবে ব্যবহার করবেন",
+    "watch_tutorial": "টিউটোরিয়াল দেখুন",
+    "back": "পেছনে",
+    "yes": "হ্যাঁ",
+    "no": "না",
+    "day_label": "দিন {{day}}"
   },
   "profile": {
     "title": "প্রোফাইল",
@@ -284,13 +370,27 @@
     "update_error": "প্রোফাইল আপডেট করতে ব্যর্থ হয়েছে",
     "logout": "লগ আউট",
     "logout_confirm": "আপনি কি নিশ্চিত যে আপনি আপনার অ্যাকাউন্ট থেকে লগ আউট করতে চান?",
-    "logout_description": "আপনার সেশন থেকে নিরাপদে লগ আউট করুন"
+    "logout_description": "আপনার সেশন থেকে নিরাপদে লগ আউট করুন",
+    "provide_location_first": "অনুগ্রহ করে প্রথমে অবস্থান দিন",
+    "could_not_fetch_soil": "আঞ্চলিক মাটির তথ্য আনতে ব্যর্থ",
+    "state_placeholder": "রাজ্য",
+    "district_placeholder": "জেলা"
   },
   "notifications": {
     "title": "নোটিফিকেশন",
     "no_notifications": "এখনো কোনো নোটিফিকেশন নেই",
     "mark_all_read": "সব পড়া হিসেবে চিহ্নিত করুন",
-    "clear_all": "সব মুছুন"
+    "clear_all": "সব মুছুন",
+    "just_now": "এইমাত্র",
+    "min_ago": "{{minutes}} মিনিট আগে",
+    "hr_ago": "{{hours}} ঘণ্টা আগে",
+    "hrs_ago": "{{hours}} ঘণ্টা আগে",
+    "day_ago": "{{days}} দিন আগে",
+    "days_ago": "{{days}} দিন আগে",
+    "checking_alerts": "সতর্কতা যাচাই হচ্ছে...",
+    "no_notifications_title": "কোনো নোটিফিকেশন নেই",
+    "no_notifications_desc": "আবহাওয়া ও বাজার সতর্কতা এখানে দেখা যাবে।",
+    "check_now": "এখন যাচাই করুন"
   },
   "stages": {
     "germination": "অঙ্কুরোদ্গম",
@@ -525,6 +625,387 @@
     "timeout_error": "অনুরোধের সময় শেষ। আবার চেষ্টা করুন।",
     "no_data": "কোনো ডেটা নেই",
     "location_required": "অবস্থান প্রয়োজন",
-    "crop_required": "প্রথমে একটি ফসল নির্বাচন করুন"
+    "crop_required": "প্রথমে একটি ফসল নির্বাচন করুন",
+    "location_not_set": "অবস্থান সেট নেই। অনুগ্রহ করে প্রথমে অনবোর্ডিং সম্পন্ন করুন।",
+    "invalid_date": "অবৈধ তারিখ",
+    "planting_date_window": "রোপণের তারিখ ৭ দিনের মধ্যে হওয়া উচিত (অতীত বা ভবিষ্যৎ)",
+    "failed_add_crop": "ফসল যোগ করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "provide_district_state": "অনুগ্রহ করে প্রথমে আপনার জেলা ও রাজ্য দিন।",
+    "could_not_fetch_soil": "মাটির মাপকাঠি আনতে ব্যর্থ।",
+    "registration_failed": "নিবন্ধন ব্যর্থ",
+    "unable_to_load_recommendations": "সুপারিশ লোড করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "network_connect_error": "নেটওয়ার্ক ত্রুটি: ব্যাকএন্ডে সংযোগ করতে অক্ষম। আপনার সংযোগ এবং IP ঠিকানা পরীক্ষা করুন।",
+    "request_timed_out": "অনুরোধের সময় শেষ। ব্যাকএন্ড ধীর হতে পারে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "failed_to_load_market": "বাজার ডেটা লোড করতে ব্যর্থ",
+    "no_market_data_combo": "এই ফসল/রাজ্য সংমিশ্রণের জন্য বাজার ডেটা পাওয়া যায়নি",
+    "select_state_apmc_commodity": "অনুগ্রহ করে প্রথমে রাজ্য, APMC এবং পণ্য নির্বাচন করুন",
+    "permission_denied": "অনুমতি প্রত্যাখ্যান করা হয়েছে",
+    "failed_get_recommendations": "সুপারিশ পেতে ব্যর্থ",
+    "username_exists": "ব্যবহারকারীর নাম ইতিমধ্যে বিদ্যমান",
+    "invalid_credentials": "অবৈধ শংসাপত্র",
+    "could_not_auto_fetch": "স্বয়ংক্রিয়ভাবে আনা যায়নি। অনুগ্রহ করে নিজে লিখুন।"
+  },
+  "notification_risks": {
+    "climate_alert": "জলবায়ু সতর্কতা",
+    "extreme_heat": "চরম তাপ সতর্কতা",
+    "extreme_cold": "শীতল তরঙ্গ সতর্কতা",
+    "heavy_rainfall": "ভারী বৃষ্টিপাতের সম্ভাবনা",
+    "drought": "খরা পরিস্থিতি",
+    "high_humidity": "উচ্চ আর্দ্রতা সতর্কতা",
+    "strong_winds": "শক্তিশালী বাতাসের সম্ভাবনা",
+    "frost": "তুষারপাত সতর্কতা",
+    "heatwave": "তাপপ্রবাহ সতর্কতা"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "ধীর",
+      "moderate": "মাঝারি",
+      "fast": "দ্রুত",
+      "very_slow": "অতি ধীর"
+    },
+    "classification": {
+      "very_low": "অতি কম",
+      "low": "কম",
+      "optimal": "সর্বোত্তম",
+      "high": "বেশি",
+      "very_high": "অতি বেশি",
+      "extreme": "চরম",
+      "unknown_crop": "অজানা ফসল"
+    },
+    "severity": {
+      "none": "কিছু নয়",
+      "low": "কম",
+      "moderate": "মাঝারি",
+      "high": "বেশি",
+      "critical": "গুরুতর"
+    },
+    "timing_advice": {
+      "very_high": "ভারী বৃষ্টিপাত শনাক্ত হয়েছে। মাটি শুকানো পর্যন্ত সার প্রয়োগ ২–৩ দিন বিলম্বিত করুন। লিচিং ক্ষতি কমাতে ভাগ করে প্রয়োগ করুন।",
+      "high": "বৃষ্টিপাত আদর্শ সীমার উপরে। ভাগ করে প্রয়োগের কথা ভাবুন — এখন অর্ধেক প্রয়োগ করুন এবং বাকিটা ৩–৪ দিন পরে দিন।",
+      "very_low": "অত্যন্ত শুষ্ক পরিস্থিতি। সেচ চ্যানেলের কাছে সার প্রয়োগ করুন বা সঠিক শোষণের জন্য প্রয়োগের ২৪ ঘণ্টার মধ্যে সেচ দিন।",
+      "low": "আদর্শের নিচে আর্দ্রতা। সার প্রয়োগের পরে সেচ দিন, অথবা ভোরবেলা প্রয়োগ করুন যখন মাটিতে হালকা শিশির থাকে।",
+      "optimal": "বৃষ্টিপাত আদর্শ। স্বাভাবিক সার প্রয়োগ চালিয়ে যান।"
+    },
+    "from_prefix": "থেকে",
+    "summary": {
+      "no_deficit": "বর্তমান বৃদ্ধি পর্যায়ের জন্য মাটির পুষ্টি উপাদান এবং pH আদর্শ সীমার মধ্যে রয়েছে। সার প্রয়োগের প্রয়োজন নেই।",
+      "deficits_detected": "ঘাটতি সনাক্ত হয়েছে",
+      "deficit_word": "ঘাটতি",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha ঘাটতি)",
+      "ph_deficit_part": "pH: {{direction}} (ব্যবধান: {{gap}})",
+      "organic_recommended": "{{count}}টি জৈব সার প্রাথমিক চিকিৎসা হিসেবে সুপারিশ করা হয়েছে।",
+      "chemical_added": "{{count}}টি রাসায়নিক পরিপূরক যোগ করা হয়েছে যেখানে জৈব অপর্যাপ্ত।",
+      "ph_correction": "pH সংশোধন: {{name}}।"
+    },
+    "names": {
+      "farmyard_manure_fym": "গোয়ালঘরের সার (FYM)",
+      "vermicompost": "কেঁচো সার (ভার্মিকম্পোস্ট)",
+      "neem_cake": "নিম খৈল",
+      "bone_meal": "হাড়ের গুঁড়া",
+      "seaweed_extract": "সামুদ্রিক শৈবাল নির্যাস",
+      "compost": "কম্পোস্ট",
+      "fish_meal": "মাছের গুঁড়া",
+      "rock_phosphate": "রক ফসফেট",
+      "wood_ash": "কাঠের ছাই",
+      "green_manure_dhainchasesbania": "সবুজ সার (ধৈঞ্চা/শেষবানিয়া)",
+      "mustard_cake": "সরষের খৈল",
+      "panchagavya": "পঞ্চগব্য",
+      "urea": "ইউরিয়া",
+      "dap_diammonium_phosphate": "DAP (ডাই-অ্যামোনিয়াম ফসফেট)",
+      "mop_muriate_of_potash": "MOP (মিউরিয়েট অফ পটাশ)",
+      "ssp_single_super_phosphate": "SSP (সিঙ্গেল সুপার ফসফেট)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "অ্যামোনিয়াম সালফেট",
+      "potassium_sulphate_sop": "পটাসিয়াম সালফেট (SOP)",
+      "calcium_ammonium_nitrate_can": "ক্যালসিয়াম অ্যামোনিয়াম নাইট্রেট (CAN)",
+      "zinc_sulphate": "জিংক সালফেট",
+      "borax": "বোরাক্স",
+      "agricultural_lime_caco": "কৃষি চুন (CaCO₃)",
+      "dolomite_lime": "ডলোমাইট চুন",
+      "gypsum_caso": "জিপসাম (CaSO₄)",
+      "elemental_sulphur": "মৌলিক সালফার"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "বেসাল প্রয়োগ",
+        "description": "বপন বা রোপণের আগে মাটিতে সার মেশানো",
+        "when_to_use": "রোপণের আগে — জমি প্রস্তুতির সময় প্রয়োগ করুন"
+      },
+      "manual_spread": {
+        "name": "ম্যানুয়াল ছড়ানো / ব্রডকাস্টিং",
+        "description": "ক্ষেতের উপরিভাগে দানাদার সার সমানভাবে ছড়িয়ে দেওয়া",
+        "when_to_use": "FYM, কম্পোস্টের মতো জৈব সারের জন্য বা বড় এলাকায় দানাদার সারের জন্য"
+      },
+      "top_dressing": {
+        "name": "টপ ড্রেসিং",
+        "description": "ফসলের মরসুমে বাড়ন্ত গাছের গোড়ায় সার প্রয়োগ করা",
+        "when_to_use": "কুশি বা সক্রিয় বৃদ্ধি পর্যায়ে — গাছের গোড়ায় প্রয়োগ করুন এবং সেচ দিন"
+      },
+      "soil_incorporation": {
+        "name": "মাটিতে মিশ্রণ",
+        "description": "জৈব সার বা রাসায়নিক সার মাটির গভীরে মেশানো",
+        "when_to_use": "ধীরে-নিঃসরণ জৈব সারের জন্য — রোপণের ২–৪ সপ্তাহ আগে মাটিতে মেশান"
+      },
+      "foliar_spray": {
+        "name": "পাতায় স্প্রে",
+        "description": "দ্রুত শোষণের জন্য পাতলা তরল সার সরাসরি পাতায় স্প্রে করা",
+        "when_to_use": "অণুপুষ্টি উপাদানের ঘাটতি, গুরুত্বপূর্ণ বৃদ্ধি পর্যায় বা মাটিতে প্রয়োগ যথেষ্ট না হলে"
+      },
+      "fertigation": {
+        "name": "ফার্টিগেশন",
+        "description": "ড্রিপ বা স্প্রিংকলার সেচ ব্যবস্থার মাধ্যমে পানিতে দ্রবণীয় সার প্রদান",
+        "when_to_use": "ড্রিপ/স্প্রিংকলার সেচের খামারের জন্য — সবচেয়ে দক্ষ পদ্ধতি, অপচয় কমায়"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "বাগানের কোদাল / খুরপি",
+        "description": "ছোট প্লটে উপরের মাটিতে সার মেশানোর হাত যন্ত্র"
+      },
+      "cultivator": {
+        "name": "কাল্টিভেটর",
+        "description": "মাটিতে সার মেশানোর জন্য ট্রাক্টর-টানা বা হাতে চালানো কাল্টিভেটর"
+      },
+      "seed_drill": {
+        "name": "বীজ-সহ-সার ড্রিল",
+        "description": "একসাথে বীজ ও সার প্রয়োগের জন্য সারি-স্থাপন যন্ত্র"
+      },
+      "broadcast_spreader": {
+        "name": "হ্যান্ড ব্রডকাস্ট স্প্রেডার",
+        "description": "দানাদার সার সমানভাবে ছড়ানোর জন্য হাতে ঘোরানো স্প্রেডার"
+      },
+      "fertilizer_basket": {
+        "name": "সারের ঝুড়ি / টোকরি",
+        "description": "FYM, কম্পোস্ট বা দানাদার সার হাতে ছড়ানোর জন্য ঐতিহ্যবাহী বোনা ঝুড়ি"
+      },
+      "wheelbarrow": {
+        "name": "ঠেলাগাড়ি",
+        "description": "ক্ষেত জুড়ে জৈব সার পরিবহন ও ফেলার জন্য"
+      },
+      "hand_duster": {
+        "name": "হ্যান্ড ফার্টিলাইজার ডাস্টার",
+        "description": "ফসলের সারির কাছে দানাদার সার রাখার জন্য ছোট প্রয়োগকারী"
+      },
+      "khurpi": {
+        "name": "খুরপি / হ্যান্ড উইডার",
+        "description": "গাছের কাছে সার রাখতে ও ঢাকতে অগভীর নালা তৈরির জন্য ব্যবহৃত"
+      },
+      "ring_applicator": {
+        "name": "রিং অ্যাপ্লিকেটর",
+        "description": "গাছের ফসলের চারপাশে বলয়াকারে সার প্রয়োগের যন্ত্র"
+      },
+      "spade": {
+        "name": "কোদাল / পাভদা",
+        "description": "বাগানের বেডে FYM ও কম্পোস্ট মাটিতে পুঁতে দেওয়ার জন্য ব্যবহৃত"
+      },
+      "rotavator": {
+        "name": "রোটাভেটর",
+        "description": "উপরের মাটিতে FYM সমানভাবে মেশানোর জন্য পাওয়ার টিলার সংযুক্তি"
+      },
+      "plough": {
+        "name": "লাঙল (MB / দেশি)",
+        "description": "জৈব পদার্থসহ মাটি উল্টানোর জন্য ঐতিহ্যবাহী বা মোল্ডবোর্ড লাঙল"
+      },
+      "knapsack_sprayer": {
+        "name": "ন্যাপস্যাক স্প্রেয়ার (16L)",
+        "description": "পিঠে বহনযোগ্য হাতে পাম্প স্প্রেয়ার — ছোট-মাঝারি খামারের জন্য সবচেয়ে প্রচলিত"
+      },
+      "battery_sprayer": {
+        "name": "ব্যাটারি স্প্রেয়ার",
+        "description": "সামঞ্জস্যপূর্ণ চাপের জন্য বৈদ্যুতিক পাম্প স্প্রেয়ার — হাতের পরিশ্রম কমায়"
+      },
+      "measuring_cup": {
+        "name": "মাপার কাপ / বিকার",
+        "description": "ঘনীভূত তরল সারের সঠিক পাতলাকরণের জন্য ব্যবহৃত"
+      },
+      "venturi_injector": {
+        "name": "ভেঞ্চুরি ফার্টিলাইজার ইনজেক্টর",
+        "description": "পানির চাপ ব্যবহার করে ড্রিপ লাইনে সার দ্রবণ ইনজেক্ট করার সাশ্রয়ী যন্ত্র"
+      },
+      "mixing_tank": {
+        "name": "সার মিশ্রণ ট্যাংক",
+        "description": "পানিতে দ্রবণীয় সার দ্রবীভূত ও মেশানোর ট্যাংক"
+      },
+      "dosing_pump": {
+        "name": "ফার্টিগেশন ডোজিং পাম্প",
+        "description": "সেচে সুনির্দিষ্ট সার ইনজেকশনের জন্য বৈদ্যুতিক বা হাইড্রলিক পাম্প"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "মাটির গঠন উন্নত করে",
+      "enhances_water_retention": "পানি ধরে রাখার ক্ষমতা বাড়ায়",
+      "supports_microbial_activity": "অণুজীবের কার্যকলাপ সমর্থন করে",
+      "rich_in_humic_acids": "হিউমিক অ্যাসিডে সমৃদ্ধ",
+      "contains_beneficial_microbes": "উপকারী অণুজীব রয়েছে",
+      "improves_nutrient_availability": "পুষ্টি উপাদানের প্রাপ্যতা উন্নত করে",
+      "natural_pest_deterrent": "প্রাকৃতিক কীটপতঙ্গ প্রতিরোধক",
+      "slow_nitrogen_release": "ধীরে নাইট্রোজেন নিঃসরণ",
+      "improves_soil_health": "মাটির স্বাস্থ্য উন্নত করে",
+      "excellent_phosphorus_source": "চমৎকার ফসফরাসের উৎস",
+      "contains_calcium": "ক্যালসিয়াম রয়েছে",
+      "longlasting_effect": "দীর্ঘস্থায়ী প্রভাব",
+      "rich_in_micronutrients_and_growth_hormones": "অণুপুষ্টি উপাদান ও বৃদ্ধি হরমোনে সমৃদ্ধ",
+      "boosts_stress_resistance": "চাপ প্রতিরোধ ক্ষমতা বাড়ায়",
+      "enhances_root_growth": "শিকড়ের বৃদ্ধি বাড়ায়",
+      "improves_soil_organic_matter": "মাটির জৈব পদার্থ উন্নত করে",
+      "enhances_drainage": "নিষ্কাশন উন্নত করে",
+      "feeds_soil_microorganisms": "মাটির অণুজীবদের পুষ্টি দেয়",
+      "high_n_and_p_content": "উচ্চ N ও P পরিমাণ",
+      "natural_source": "প্রাকৃতিক উৎস",
+      "improves_soil_biology": "মাটির জীববিজ্ঞান উন্নত করে",
+      "longterm_phosphorus_supply": "দীর্ঘমেয়াদি ফসফরাস সরবরাহ",
+      "natural_mineral": "প্রাকৃতিক খনিজ",
+      "no_chemical_processing": "কোনো রাসায়নিক প্রক্রিয়াজাতকরণ নেই",
+      "rich_in_potassium": "পটাসিয়ামে সমৃদ্ধ",
+      "raises_soil_ph": "মাটির pH বাড়ায়",
+      "contains_trace_minerals": "ট্রেস খনিজ রয়েছে",
+      "fixes_atmospheric_nitrogen": "বায়ুমণ্ডলীয় নাইট্রোজেন স্থিতিকরণ করে",
+      "adds_organic_matter": "জৈব পদার্থ যোগ করে",
+      "suppresses_weeds": "আগাছা দমন করে",
+      "good_nitrogen_source": "ভালো নাইট্রোজেনের উৎস",
+      "improves_soil_texture": "মাটির গঠনবিন্যাস উন্নত করে",
+      "natural_pest_repellent": "প্রাকৃতিক কীটপতঙ্গ বিতাড়ক",
+      "traditional_biostimulant": "ঐতিহ্যবাহী জৈব উদ্দীপক",
+      "boosts_immunity": "রোগ প্রতিরোধ ক্ষমতা বাড়ায়",
+      "enhances_growth_hormones": "বৃদ্ধি হরমোন বাড়ায়",
+      "highest_n_content": "সর্বোচ্চ N পরিমাণ",
+      "readily_available": "সহজলভ্য",
+      "costeffective": "সাশ্রয়ী",
+      "primary_p_source": "প্রাথমিক P উৎস",
+      "also_provides_nitrogen": "নাইট্রোজেনও সরবরাহ করে",
+      "good_for_basal_application": "বেসাল প্রয়োগের জন্য ভালো",
+      "highest_k_content": "সর্বোচ্চ K পরিমাণ",
+      "essential_for_fruiting_crops": "ফলদায়ক ফসলের জন্য অপরিহার্য",
+      "improves_disease_resistance": "রোগ প্রতিরোধ ক্ষমতা উন্নত করে",
+      "contains_calcium_and_sulphur_too": "ক্যালসিয়াম ও সালফারও রয়েছে",
+      "good_for_oilseeds": "তৈলবীজের জন্য ভালো",
+      "moderate_cost": "মাঝারি খরচ",
+      "balanced_p_and_k": "সুষম P ও K",
+      "suitable_for_basal_dose": "বেসাল ডোজের জন্য উপযুক্ত",
+      "reduces_number_of_fertilizers_needed": "প্রয়োজনীয় সারের সংখ্যা কমায়",
+      "high_phosphorus_blend": "উচ্চ ফসফরাস মিশ্রণ",
+      "good_starter_fertilizer": "ভালো স্টার্টার সার",
+      "multinutrient_supply": "বহু-পুষ্টি উপাদান সরবরাহ",
+      "provides_sulphur_24": "সালফার (24%) সরবরাহ করে",
+      "acidifies_soil_slightly": "মাটি সামান্য অম্লীয় করে",
+      "chloridefree_k_source": "ক্লোরাইড-মুক্ত K উৎস",
+      "contains_sulphur_18": "সালফার (18%) রয়েছে",
+      "better_for_sensitive_crops": "সংবেদনশীল ফসলের জন্য ভালো",
+      "provides_calcium": "ক্যালসিয়াম সরবরাহ করে",
+      "fastacting_nitrogen": "দ্রুত-কার্যকরী নাইট্রোজেন",
+      "less_volatile_than_urea": "ইউরিয়ার তুলনায় কম উদ্বায়ী",
+      "corrects_zinc_deficiency": "জিংকের ঘাটতি সংশোধন করে",
+      "essential_for_ricemaize": "ধান/ভুট্টার জন্য অপরিহার্য",
+      "improves_grain_quality": "শস্যের গুণমান উন্নত করে",
+      "essential_for_floweringfruiting": "ফুল ফোটা/ফল ধরার জন্য অপরিহার্য",
+      "improves_pollen_viability": "পরাগের কার্যক্ষমতা উন্নত করে",
+      "corrects_boron_deficiency": "বোরনের ঘাটতি সংশোধন করে"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "বপনের ২–৩ সপ্তাহ আগে প্রয়োগ করা সবচেয়ে ভালো। উপরের মাটিতে ভালোভাবে মেশান।",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "বেসাল ডোজ বা টপ-ড্রেসিং হিসেবে প্রয়োগ করা যায়। সংরক্ষিত ভার্মিকম্পোস্টে সরাসরি সূর্যালোক এড়িয়ে চলুন।",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "বপনের সময় প্রয়োগ করুন। নেমাটোসাইড ও কীটপতঙ্গ বিতাড়ক হিসেবে কাজ করে।",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "অম্লীয় থেকে নিরপেক্ষ মাটিতে (pH < 7) সবচেয়ে ভালো কাজ করে। ক্ষারীয় মাটিতে কার্যকর নয়।",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "নির্দেশনা অনুযায়ী পাতলা করুন। সক্রিয় বৃদ্ধির সময় পাতায় স্প্রে হিসেবে সবচেয়ে ভালো।",
+      "ensure_compost_is_fully_decomposed_before_application": "প্রয়োগের আগে কম্পোস্ট সম্পূর্ণ পচে গেছে কিনা নিশ্চিত করুন।",
+      "may_attract_animals_mix_into_soil_well": "প্রাণীদের আকর্ষণ করতে পারে। মাটিতে ভালোভাবে মেশান।",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "অম্লীয় মাটিতে (pH < 6.5) সবচেয়ে কার্যকর। অতি ধীরে নিঃসরণ।",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "ক্ষারীয় মাটিতে এড়িয়ে চলুন। নাইট্রোজেন সারের সাথে মেশাবেন না।",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "মূল ফসল বপনের ৩–৪ সপ্তাহ আগে মাটিতে মেশান।",
+      "apply_1520_days_before_sowing_for_best_results": "সেরা ফলাফলের জন্য বপনের ১৫–২০ দিন আগে প্রয়োগ করুন।",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "পাতায় স্প্রের জন্য 3% পাতলা করুন। ভোরবেলা বা সন্ধ্যায় প্রয়োগ করুন।",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "ভাগ করে প্রয়োগ করুন। প্রয়োগের পরপরই জমি ডুবিয়ে দেওয়া এড়িয়ে চলুন।",
+      "best_applied_at_sowing_as_basal_dose": "বপনের সময় বেসাল ডোজ হিসেবে প্রয়োগ করা সবচেয়ে ভালো।",
+      "apply_at_sowing_or_during_tuberfruit_formation": "বপনের সময় বা কন্দ/ফল গঠনের সময় প্রয়োগ করুন।",
+      "also_provides_11_sulphur_and_20_calcium": "11% সালফার এবং 20% ক্যালসিয়ামও সরবরাহ করে।",
+      "ideal_for_crops_with_high_p_and_k_demand": "উচ্চ P ও K চাহিদাযুক্ত ফসলের জন্য আদর্শ।",
+      "best_for_phosphorusdemanding_crops": "ফসফরাস-চাহিদাযুক্ত ফসলের জন্য সবচেয়ে ভালো।",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "সালফার-প্রিয় ফসলের (তৈলবীজ, ডাল) জন্য পছন্দনীয়।",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "ক্লোরাইড-সংবেদনশীল ফসলের (আলু, টমেটো, ফল) জন্য MOP-এর চেয়ে পছন্দনীয়।",
+      "good_for_acidic_soils_and_calciumloving_crops": "অম্লীয় মাটি ও ক্যালসিয়াম-প্রিয় ফসলের জন্য ভালো।",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "ভারতীয় মাটিতে সাধারণ ঘাটতি। মাটিতে 25 kg/ha প্রয়োগ করুন বা 0.5% পাতায় স্প্রে করুন।",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "তৈলবীজ, ডাল ও সবজির জন্য গুরুত্বপূর্ণ। অতিরিক্ত প্রয়োগ করবেন না — বোরন বিষাক্ততা সম্ভব।",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "বপনের ২–৩ সপ্তাহ আগে প্রয়োগ করুন। প্রতি 2000 kg/ha-তে pH 0.5–1.0 একক বাড়ায়।",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "ম্যাগনেসিয়ামও সরবরাহ করে। Mg-ঘাটতিযুক্ত মাটির জন্য পছন্দনীয়।",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "ক্ষারীয়/সোডিক মাটির জন্য। মাটির গঠনও উন্নত করে।",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "ধীরে কাজ করে। অগ্রিম প্রয়োগ করুন। অণুজীবরা S-কে সালফিউরিক অ্যাসিডে রূপান্তর করে।"
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "শুষ্ক ধানক্ষেত — পুষ্টি উপাদান সচল হয়নি, মাত্রা বাড়ান",
+      "below_optimal_moisture": "আদর্শের নিচে আর্দ্রতা",
+      "ideal_conditions": "আদর্শ পরিস্থিতি",
+      "ideal": "আদর্শ",
+      "leaching_risk_in_flooded_fields": "জলমগ্ন ক্ষেতে লিচিংয়ের ঝুঁকি",
+      "heavy_waterlogging__high_leaching": "ভারী জলাবদ্ধতা — উচ্চ লিচিং",
+      "drought_stress_reduces_uptake": "খরার চাপে গ্রহণ ক্ষমতা কমে",
+      "drought_stress": "খরার চাপ",
+      "drought": "খরা",
+      "slightly_dry": "সামান্য শুষ্ক",
+      "excess_moisture": "অতিরিক্ত আর্দ্রতা",
+      "excess": "অতিরিক্ত",
+      "waterlogging_risk": "জলাবদ্ধতার ঝুঁকি",
+      "waterlogging": "জলাবদ্ধতা",
+      "heavy_waterlogging": "ভারী জলাবদ্ধতা",
+      "very_dry__poor_nutrient_mobility": "অত্যন্ত শুষ্ক — পুষ্টি উপাদানের দুর্বল সচলতা",
+      "excess_moisture_for_wheat": "গমের জন্য অতিরিক্ত আর্দ্রতা",
+      "waterlogging__severe_leaching": "জলাবদ্ধতা — তীব্র লিচিং",
+      "dry_conditions": "শুষ্ক পরিস্থিতি",
+      "waterlogging__pulse_crop_very_sensitive": "জলাবদ্ধতা — ডাল ফসল অত্যন্ত সংবেদনশীল",
+      "waterlogging__pulse_sensitive": "জলাবদ্ধতা — ডাল সংবেদনশীল",
+      "low_moisture": "কম আর্দ্রতা",
+      "dry_soil_limits_tuber_growth": "শুষ্ক মাটি কন্দের বৃদ্ধি সীমিত করে",
+      "excess_moisture__rot_risk": "অতিরিক্ত আর্দ্রতা — পচনের ঝুঁকি",
+      "waterlogging__severe": "জলাবদ্ধতা — তীব্র",
+      "boll_rot_risk__reduce_heavily": "বল পচনের ঝুঁকি — ব্যাপকভাবে কমান",
+      "excess__rot_risk": "অতিরিক্ত — পচনের ঝুঁকি",
+      "hardy_crop_slight_adjustment": "কঠিন ফসল, সামান্য সমন্বয়",
+      "too_wet_for_hardy_pulse": "কঠিন ডালের জন্য অত্যধিক ভেজা",
+      "turmeric_needs_moisture": "হলুদের আর্দ্রতা প্রয়োজন",
+      "rhizome_rot_risk": "রাইজোম পচনের ঝুঁকি",
+      "banana_is_waterhungry": "কলা পানি-পিপাসু ফসল",
+      "root_suffocation": "শিকড়ের শ্বাসরোধ",
+      "fungal_risk": "ছত্রাকের ঝুঁকি",
+      "too_wet_for_sesame": "তিলের জন্য অত্যধিক ভেজা",
+      "dry_stress": "শুষ্কতার চাপ",
+      "blight_risk": "ব্লাইটের ঝুঁকি",
+      "severe_disease_risk": "গুরুতর রোগের ঝুঁকি",
+      "root_rot_risk": "শিকড় পচনের ঝুঁকি",
+      "root_rot": "শিকড় পচন",
+      "waterlogging__bulb_rot_risk": "জলাবদ্ধতা — কন্দ পচনের ঝুঁকি",
+      "bulb_rot_risk": "কন্দ পচনের ঝুঁকি",
+      "too_wet": "অত্যধিক ভেজা",
+      "head_rot_risk": "মাথা পচনের ঝুঁকি",
+      "pineapple_is_droughttolerant": "আনারস খরা-সহনশীল",
+      "curd_rot_risk": "ফুলকপি পচনের ঝুঁকি",
+      "slight_drought_tolerance": "সামান্য খরা সহনশীলতা",
+      "downy_mildew_risk__reduce_heavily": "ডাউনি মিলডিউয়ের ঝুঁকি — ব্যাপকভাবে কমান",
+      "dry__pithy_roots": "শুষ্ক — ফাঁপা শিকড়",
+      "root_cracking": "শিকড় ফাটা",
+      "root_splitting": "শিকড় বিভক্তি",
+      "severe_cracking_and_rot": "তীব্র ফাটা ও পচন",
+      "fruit_cracking": "ফল ফাটা",
+      "fruit_cracking_risk": "ফল ফাটার ঝুঁকি",
+      "needs_consistent_moisture": "সামঞ্জস্যপূর্ণ আর্দ্রতা প্রয়োজন",
+      "needs_moisture": "আর্দ্রতা প্রয়োজন",
+      "needs_high_moisture": "উচ্চ আর্দ্রতা প্রয়োজন",
+      "bitter_fruit_risk": "তিক্ত ফলের ঝুঁকি",
+      "soft_rot_risk": "নরম পচনের ঝুঁকি",
+      "dry__woody_roots": "শুষ্ক — কাঠের মতো শিকড়",
+      "hardy__slight_adjustment": "কঠিন — সামান্য সমন্বয়",
+      "root_damage": "শিকড়ের ক্ষতি",
+      "ginger_needs_consistent_moisture": "আদার সামঞ্জস্যপূর্ণ আর্দ্রতা প্রয়োজন",
+      "needs_moisture_for_fruit_fill": "ফল পূরণের জন্য আর্দ্রতা প্রয়োজন",
+      "forked_roots_risk": "শিকড় ভাগ হওয়ার ঝুঁকি",
+      "droughttolerant": "খরা-সহনশীল",
+      "jute_needs_high_moisture": "পাটের উচ্চ আর্দ্রতা প্রয়োজন",
+      "extreme_rainfall__significant_leaching_risk": "চরম বৃষ্টিপাত — উল্লেখযোগ্য লিচিংয়ের ঝুঁকি।"
+    }
+  },
+  "tabs": {
+    "home": "হোম",
+    "crop": "ফসল",
+    "market": "বাজার",
+    "fertilizer": "সার"
   }
 }

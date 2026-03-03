@@ -25,6 +25,21 @@ import {
   ToolInfo,
   ApplicationMethod,
 } from '@/services/fertilizerApi';
+import {
+  translateFertilizerName,
+  translateReleaseSpeed,
+  translateBenefit,
+  translateNote,
+  translateMethodName,
+  translateMethodDescription,
+  translateMethodWhenToUse,
+  translateToolName,
+  translateRainfallReason,
+  translateTimingAdvice,
+  translateRainfallClassification,
+  translateSummary,
+  getFromPrefix,
+} from '@/services/fertilizerI18n';
 
 // ─── Tool image map (static requires) ─────────────────────────
 const TOOL_IMAGES: Record<string, any> = {
@@ -91,6 +106,7 @@ interface FlipCardProps {
 }
 
 function FlipCard({ tool, method, onClose }: FlipCardProps) {
+  const { t } = useTranslation();
   const flipAnim = useRef(new Animated.Value(0)).current;
   const [isFlipped, setIsFlipped] = React.useState(false);
   const [flipSide, setFlipSide] = React.useState<'purchase' | 'usage' | null>(null);
@@ -152,7 +168,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
         pointerEvents={isFlipped ? 'none' : 'auto'}
       >
         <AppText variant="header" style={styles.modalTitle}>
-          Do you have this tool?
+          {t('fertilizer.have_tool')}
         </AppText>
 
         <View style={styles.toolImageBox}>
@@ -163,20 +179,20 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
           />
         </View>
 
-        <AppText style={styles.toolNameText}>{tool.name}</AppText>
+        <AppText style={styles.toolNameText}>{translateToolName(tool.id, tool.name)}</AppText>
 
         <View style={styles.modalButtonsRow}>
           <TouchableOpacity
             style={styles.modalNoButton}
             onPress={() => flipToBack('purchase')}
           >
-            <AppText style={styles.modalNoText}>No</AppText>
+            <AppText style={styles.modalNoText}>{t('fertilizer.no')}</AppText>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalYesButton}
             onPress={() => flipToBack('usage')}
           >
-            <AppText style={styles.modalYesText}>Yes</AppText>
+            <AppText style={styles.modalYesText}>{t('fertilizer.yes')}</AppText>
           </TouchableOpacity>
         </View>
       </Animated.View>
@@ -197,7 +213,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
           /* ── PURCHASE LINKS (No) ── */
           <>
             <AppText variant="header" style={styles.modalTitle}>
-              Purchase Options
+              {t('fertilizer.purchase_options')}
             </AppText>
 
             <View style={styles.toolImageBox}>
@@ -208,7 +224,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
               />
             </View>
 
-            <AppText style={styles.toolNameText}>{tool.name}</AppText>
+            <AppText style={styles.toolNameText}>{translateToolName(tool.id, tool.name)}</AppText>
 
             <View style={styles.purchaseLinksColumn}>
               {tool.purchase_links?.amazon_in ? (
@@ -247,7 +263,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
           /* ── USAGE GUIDE (Yes) ── */
           <>
             <AppText variant="header" style={styles.modalTitle}>
-              How to Use
+              {t('fertilizer.how_to_use')}
             </AppText>
 
             <View style={styles.toolImageBox}>
@@ -258,10 +274,10 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
               />
             </View>
 
-            <AppText style={styles.toolNameText}>{tool.name}</AppText>
+            <AppText style={styles.toolNameText}>{translateToolName(tool.id, tool.name)}</AppText>
 
             <AppText style={styles.methodDescription} numberOfLines={2}>
-              {method.when_to_use}
+              {translateMethodWhenToUse(method.method_id)}
             </AppText>
 
             <TouchableOpacity
@@ -271,7 +287,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
               }}
             >
               <Ionicons name="play-circle" size={22} color="#fff" />
-              <AppText style={styles.videoButtonText}>Watch Tutorial</AppText>
+              <AppText style={styles.videoButtonText}>{t('fertilizer.watch_tutorial')}</AppText>
             </TouchableOpacity>
           </>
         )}
@@ -279,7 +295,7 @@ function FlipCard({ tool, method, onClose }: FlipCardProps) {
         {/* BACK button to flip back */}
         <TouchableOpacity style={styles.flipBackButton} onPress={flipToFront}>
           <Ionicons name="arrow-back" size={16} color="#186F71" />
-          <AppText style={styles.flipBackText}>Back</AppText>
+          <AppText style={styles.flipBackText}>{t('fertilizer.back')}</AppText>
         </TouchableOpacity>
       </Animated.View>
     </View>
@@ -311,7 +327,7 @@ export default function Fertilizer() {
   const fetchRecommendation = useCallback(async () => {
     const crop = primaryCrop;
     if (!crop) {
-      setError('No active crop selected. Please add a crop in the Crop tab first.');
+      setError(t('fertilizer.no_active_crop'));
       return;
     }
 
@@ -358,11 +374,11 @@ export default function Fertilizer() {
       if (response.status === 'success' && response.data) {
         setResponseData(response.data);
       } else {
-        setError(response.error || 'Failed to get recommendations');
+        setError(response.error || t('errors.failed_get_recommendations'));
       }
     } catch (err: any) {
       console.error('[Fertilizer] Error:', err);
-      setError(err.message || 'Something went wrong');
+      setError(err.message || t('fertilizer.something_went_wrong'));
     } finally {
       setLoading(false);
     }
@@ -410,8 +426,7 @@ export default function Fertilizer() {
           <View style={styles.cropInfoCard}>
             <Ionicons name="leaf" size={16} color="#1C6E6B" />
             <AppText style={styles.cropInfoText}>
-              {primaryCrop.displayName} — Day{' '}
-              {getCropGrowthState(primaryCrop).daysSincePlanting}
+              {primaryCrop.displayName} — {t('fertilizer.day_label', { day: getCropGrowthState(primaryCrop).daysSincePlanting })}
             </AppText>
           </View>
         )}
@@ -427,7 +442,7 @@ export default function Fertilizer() {
               <ActivityIndicator color="#fff" size="small" />
             ) : (
               <AppText style={styles.buttonText}>
-                Get Fertilizer Recommendations
+                {t('fertilizer.get_recommendations')}
               </AppText>
             )}
           </TouchableOpacity>
@@ -458,7 +473,7 @@ export default function Fertilizer() {
                   color="#1C6E6B"
                 />
                 <AppText bold style={styles.cardTitle}>
-                  {rec.display_name}
+                  {translateFertilizerName(rec.display_name)}
                 </AppText>
               </View>
               <View style={styles.cardHeaderRight}>
@@ -478,7 +493,7 @@ export default function Fertilizer() {
                   styles.typeBadgePh
                 ]}>
                   <AppText style={styles.typeBadgeText}>
-                    {rec.type === 'organic' ? '🌿 Organic' : rec.type === 'chemical' ? '⚗️ Chemical' : '⚖️ pH'}
+                    {rec.type === 'organic' ? `🌿 ${t('fertilizer.type_organic')}` : rec.type === 'chemical' ? `⚗️ ${t('fertilizer.type_chemical')}` : `⚖️ ${t('fertilizer.type_ph')}`}
                   </AppText>
                 </View>
               </View>
@@ -487,20 +502,20 @@ export default function Fertilizer() {
             {/* Card Body */}
             <View style={styles.cardBody}>
               <View style={styles.row}>
-                <AppText bold style={styles.label}>Quantity: </AppText>
+                <AppText bold style={styles.label}>{t('fertilizer.quantity_label')}: </AppText>
                 <AppText style={styles.value}>{rec.quantity_kg_ha} kg/ha</AppText>
               </View>
 
               <View style={styles.row}>
-                <AppText bold style={styles.label}>Release: </AppText>
-                <AppText style={styles.value}>{rec.release_speed}</AppText>
+                <AppText bold style={styles.label}>{t('fertilizer.release_label')}: </AppText>
+                <AppText style={styles.value}>{translateReleaseSpeed(rec.release_speed)}</AppText>
               </View>
 
               {rec.rainfall_adjustment !== 1.0 && (
                 <View style={styles.row}>
-                  <AppText bold style={styles.label}>Rainfall adj: </AppText>
+                  <AppText bold style={styles.label}>{t('fertilizer.rainfall_adj_label')}: </AppText>
                   <AppText style={styles.value}>
-                    ×{rec.rainfall_adjustment} (from {rec.original_quantity_kg_ha} kg/ha)
+                    ×{rec.rainfall_adjustment} ({getFromPrefix()} {rec.original_quantity_kg_ha} kg/ha)
                   </AppText>
                 </View>
               )}
@@ -522,7 +537,7 @@ export default function Fertilizer() {
                   {rec.benefits.map((b, i) => (
                     <View key={i} style={styles.benefitRow}>
                       <Ionicons name="checkmark-circle" size={12} color="#388E3C" />
-                      <AppText style={styles.benefitText}>{b}</AppText>
+                      <AppText style={styles.benefitText}>{translateBenefit(b)}</AppText>
                     </View>
                   ))}
                 </View>
@@ -530,20 +545,20 @@ export default function Fertilizer() {
 
               {/* Notes */}
               {rec.notes ? (
-                <AppText style={styles.noteText}>💡 {rec.notes}</AppText>
+                <AppText style={styles.noteText}>💡 {translateNote(rec.notes)}</AppText>
               ) : null}
 
               {/* ─── Application Methods & Tools ─── */}
               {rec.application_methods.map((method) => (
                 <View key={method.method_id} style={styles.methodSection}>
                   <AppText bold style={styles.methodTitle}>
-                    {method.display_name}
+                    {translateMethodName(method.method_id)}
                   </AppText>
-                  <AppText style={styles.methodDesc}>{method.description}</AppText>
+                  <AppText style={styles.methodDesc}>{translateMethodDescription(method.method_id)}</AppText>
 
                   <View style={styles.watchHereContainer}>
                     <AppText style={styles.note}>
-                      Unsure how to apply? Tap a tool below
+                      {t('fertilizer.unsure_apply')}
                     </AppText>
                     </View>
 
@@ -561,7 +576,7 @@ export default function Fertilizer() {
                             resizeMode="contain"
                           />
                         </View>
-                        <AppText style={styles.iconText}>{tool.name}</AppText>
+                        <AppText style={styles.iconText}>{translateToolName(tool.id, tool.name)}</AppText>
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -585,7 +600,7 @@ export default function Fertilizer() {
           <View style={styles.infoModalContent}>
             <View style={styles.infoModalHeader}>
               <AppText variant="header" style={styles.infoModalTitle}>
-                Why This Fertilizer?
+                {t('fertilizer.why_this_fertilizer')}
               </AppText>
               <TouchableOpacity onPress={() => setShowInfoModal(false)}>
                 <Ionicons name="close" size={28} color="#186F71" />
@@ -605,10 +620,10 @@ export default function Fertilizer() {
                       />
                       <View style={{ flex: 1 }}>
                         <AppText variant="content" bold style={styles.infoFertName}>
-                          {selectedRec.display_name}
+                          {translateFertilizerName(selectedRec.display_name)}
                         </AppText>
                         <AppText style={styles.infoFertType}>
-                          {selectedRec.type === 'organic' ? '🌿 Organic' : selectedRec.type === 'chemical' ? '⚗️ Chemical supplement' : '⚖️ pH Amendment'}
+                          {selectedRec.type === 'organic' ? `🌿 ${t('fertilizer.type_organic_full')}` : selectedRec.type === 'chemical' ? `⚗️ ${t('fertilizer.type_chemical_full')}` : `⚖️ ${t('fertilizer.type_ph_full')}`}
                         </AppText>
                       </View>
                     </View>
@@ -616,26 +631,26 @@ export default function Fertilizer() {
 
                   {/* Crop & Stage Context */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    Crop Context
+                    {t('fertilizer.crop_context')}
                   </AppText>
                   <View style={styles.infoDimensionCard}>
                     <View style={styles.infoDimensionHeader}>
                       <Ionicons name="leaf" size={20} color="#4CAF50" />
                       <AppText variant="content" bold style={styles.infoDimensionTitle}>
-                        {responseData.crop.charAt(0).toUpperCase() + responseData.crop.slice(1)} — {responseData.stage.name.charAt(0).toUpperCase() + responseData.stage.name.slice(1)} Stage
+                        {t('fertilizer.stage_label', { crop: responseData.crop.charAt(0).toUpperCase() + responseData.crop.slice(1), stage: responseData.stage.name.charAt(0).toUpperCase() + responseData.stage.name.slice(1) })}
                       </AppText>
                     </View>
                     <AppText style={styles.infoDimensionCategory}>
-                      Day {responseData.stage.start_day}–{responseData.stage.end_day} of growth cycle
+                      {t('fertilizer.growth_day_range', { start: responseData.stage.start_day, end: responseData.stage.end_day })}
                     </AppText>
                     <AppText style={styles.infoDimensionText}>
-                      {responseData.summary}
+                      {translateSummary(responseData.summary, responseData)}
                     </AppText>
                   </View>
 
                   {/* Nutrient Deficits Detected */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    Nutrient Deficits Detected
+                    {t('fertilizer.nutrient_deficits')}
                   </AppText>
                   {Object.entries(responseData.severity)
                     .filter(([, sev]) => sev !== 'none')
@@ -651,36 +666,36 @@ export default function Fertilizer() {
                             color={severityColor(sev)}
                           />
                           <AppText variant="content" bold style={styles.infoDimensionTitle}>
-                            {nutrient.toUpperCase()} Deficit
+                            {t('fertilizer.deficit_label', { nutrient: nutrient.toUpperCase() })}
                           </AppText>
                         </View>
                         <AppText style={styles.infoDimensionCategory}>
-                          Severity: {sev.charAt(0).toUpperCase() + sev.slice(1)}
+                          {t('fertilizer.severity_label', { severity: sev.charAt(0).toUpperCase() + sev.slice(1) })}
                         </AppText>
                         <AppText style={styles.infoDimensionText}>
-                          Your soil needs {responseData.deficit_kg_ha[nutrient]} kg/ha more {nutrient.toUpperCase()} than currently available.
+                          {t('fertilizer.deficit_description', { amount: responseData.deficit_kg_ha[nutrient], nutrient: nutrient.toUpperCase() })}
                         </AppText>
                       </View>
                     ))}
 
                   {/* This Fertilizer Supplies */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    What This Fertilizer Supplies
+                    {t('fertilizer.what_supplies')}
                   </AppText>
                   <View style={styles.infoSection}>
                     <View style={styles.infoRow}>
-                      <AppText variant="content" bold style={styles.infoLabel}>Quantity:</AppText>
+                      <AppText variant="content" bold style={styles.infoLabel}>{t('fertilizer.quantity_detail')}</AppText>
                       <AppText style={styles.infoValue}>{selectedRec.quantity_kg_ha} kg/ha</AppText>
                     </View>
                     <View style={styles.infoRow}>
-                      <AppText variant="content" bold style={styles.infoLabel}>Release Speed:</AppText>
-                      <AppText style={styles.infoValue}>{selectedRec.release_speed}</AppText>
+                      <AppText variant="content" bold style={styles.infoLabel}>{t('fertilizer.release_speed')}</AppText>
+                      <AppText style={styles.infoValue}>{translateReleaseSpeed(selectedRec.release_speed)}</AppText>
                     </View>
                     {selectedRec.rainfall_adjustment !== 1.0 && (
                       <View style={styles.infoRow}>
-                        <AppText variant="content" bold style={styles.infoLabel}>Rainfall Adjusted:</AppText>
+                        <AppText variant="content" bold style={styles.infoLabel}>{t('fertilizer.rainfall_adjusted')}</AppText>
                         <AppText style={styles.infoValue}>
-                          ×{selectedRec.rainfall_adjustment} (from {selectedRec.original_quantity_kg_ha} kg/ha)
+                          ×{selectedRec.rainfall_adjustment} ({getFromPrefix()} {selectedRec.original_quantity_kg_ha} kg/ha)
                         </AppText>
                       </View>
                     )}
@@ -700,13 +715,13 @@ export default function Fertilizer() {
                   {selectedRec.benefits.length > 0 && (
                     <>
                       <AppText variant="content" bold style={styles.infoSectionTitle}>
-                        Benefits
+                        {t('fertilizer.benefits')}
                       </AppText>
                       <View style={styles.infoSection}>
                         {selectedRec.benefits.map((b, i) => (
                           <View key={i} style={styles.infoBenefitRow}>
                             <Ionicons name="checkmark-circle" size={16} color="#388E3C" />
-                            <AppText style={styles.infoBenefitText}>{b}</AppText>
+                            <AppText style={styles.infoBenefitText}>{translateBenefit(b)}</AppText>
                           </View>
                         ))}
                       </View>
@@ -715,7 +730,7 @@ export default function Fertilizer() {
 
                   {/* Rainfall Context */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    Rainfall Context
+                    {t('fertilizer.rainfall_context')}
                   </AppText>
                   <View style={[
                     styles.infoDimensionCard,
@@ -724,17 +739,17 @@ export default function Fertilizer() {
                     <View style={styles.infoDimensionHeader}>
                       <Ionicons name="rainy" size={20} color="#2196F3" />
                       <AppText variant="content" bold style={styles.infoDimensionTitle}>
-                        Weekly Rainfall: {responseData.rainfall_context.weekly_rainfall_mm}mm
+                        {t('fertilizer.weekly_rainfall', { amount: responseData.rainfall_context.weekly_rainfall_mm })}
                       </AppText>
                     </View>
                     <AppText style={styles.infoDimensionCategory}>
-                      Classification: {responseData.rainfall_context.classification}
+                      {t('fertilizer.classification_label', { classification: translateRainfallClassification(responseData.rainfall_context.classification) })}
                     </AppText>
                     <AppText style={styles.infoDimensionText}>
-                      {responseData.rainfall_context.reason}
+                      {translateRainfallReason(responseData.rainfall_context.reason)}
                     </AppText>
                     <AppText style={[styles.infoDimensionText, { marginTop: 6, fontStyle: 'italic' }]}>
-                      {responseData.rainfall_context.timing_advice}
+                      {translateTimingAdvice(responseData.rainfall_context.classification)}
                     </AppText>
                   </View>
 
@@ -742,11 +757,11 @@ export default function Fertilizer() {
                   {selectedRec.notes ? (
                     <>
                       <AppText variant="content" bold style={styles.infoSectionTitle}>
-                        Notes
+                        {t('fertilizer.notes')}
                       </AppText>
                       <View style={[styles.infoSection, { borderLeftWidth: 4, borderLeftColor: '#FF9800', paddingLeft: 12 }]}>
                         <AppText style={styles.infoDimensionText}>
-                          💡 {selectedRec.notes}
+                          💡 {translateNote(selectedRec.notes)}
                         </AppText>
                       </View>
                     </>
@@ -754,16 +769,16 @@ export default function Fertilizer() {
 
                   {/* Priority explanation */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    Priority Strategy
+                    {t('fertilizer.priority_strategy')}
                   </AppText>
                   <View style={styles.infoSection}>
                     <AppText style={styles.infoDimensionText}>
                       {responseData.organic_first
-                        ? '🌿 Organic-first approach: organic fertilizers are recommended as the primary solution, with chemical supplements only if needed.'
-                        : 'A balanced approach with chemical and organic fertilizers based on deficiency severity.'}
+                        ? `🌿 ${t('fertilizer.organic_first_explanation')}`
+                        : t('fertilizer.balanced_explanation')}
                     </AppText>
                     <AppText style={[styles.infoDimensionCategory, { marginTop: 6 }]}>
-                      Priority: {responseData.priority}
+                      {t('fertilizer.priority_label', { priority: responseData.priority })}
                     </AppText>
                   </View>
 
@@ -777,7 +792,7 @@ export default function Fertilizer() {
               onPress={() => setShowInfoModal(false)}
             >
               <AppText variant="content" bold style={styles.infoModalCloseText}>
-                Close
+                {t('fertilizer.close')}
               </AppText>
             </TouchableOpacity>
           </View>

@@ -190,7 +190,15 @@
     "status": "સ્થિતિ",
     "loading": "લોડ થઈ રહ્યું છે...",
     "retry": "ફરી પ્રયાસ કરો",
-    "unknown": "અજ્ઞાત"
+    "unknown": "અજ્ઞાત",
+    "error": "ભૂલ",
+    "success": "સફળ",
+    "ok": "ઠીક છે",
+    "active": "સક્રિય",
+    "farmer": "ખેડૂત",
+    "today": "આજે",
+    "market_data": "બજાર ડેટા",
+    "state_average": "રાજ્ય સરેરાશ"
   },
   "home": {
     "greeting": "નમસ્તે,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "લણણી માટે તૈયાર!",
       "next_stage": "આગળ: {{days}} દિવસમાં {{stage}}",
       "view_all_crops": "તમામ {{count}} પાક જુઓ",
-      "tap_to_select": "પાક પસંદ કરવા માટે ટેપ કરો"
+      "tap_to_select": "પાક પસંદ કરવા માટે ટેપ કરો",
+      "crop_history": "તમારા પાક",
+      "no_crops_yet": "હજી સુધી કોઈ પાક નથી. ભલામણોમાંથી એક પાક પસંદ કરો!",
+      "planted_on": "વાવણી",
+      "add_new_crop": "નવો પાક ઉમેરો",
+      "edit_date": "તારીખ બદલો",
+      "delete": "કાઢી નાખો",
+      "delete_title": "પાક કાઢી નાખો",
+      "delete_confirm": "શું તમે {{name}}ને તમારા સક્રિય પાકોમાંથી દૂર કરવા માંગો છો?",
+      "delete_button": "કાઢી નાખો",
+      "edit_date_title": "વાવણી તારીખ બદલો",
+      "primary_badge": "મુખ્ય",
+      "long_press_hint": "સંપાદિત કરવા અથવા કાઢવા માટે પાકને લાંબા સમય સુધી દબાવો"
     },
     "market": {
       "per_kg": "પ્રતિ ક્વિન્ટલ"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "વૃદ્ધિનો સમયગાળો: ~",
     "days_suffix": " દિવસ",
     "category_label": "શ્રેણી: ",
-    "planting_date_query": "તમે આ પાક ક્યારે વાવ્યો હતો?"
+    "planting_date_query": "તમે આ પાક ક્યારે વાવ્યો હતો?",
+    "success_title": "પાક ઉમેરાયો!",
+    "success_message": "{{name}} તમારા ખેતરમાં ઉમેરવામાં આવ્યો છે.",
+    "planting_date_label": "વાવણી તારીખ: "
   },
   "market": {
     "title": "બજાર ભાવ",
@@ -259,7 +282,17 @@
     "initial_prompt": "રાજ્ય, એપીએમસી અને કોમોડિટી પસંદ કરો\nપછી \"બજાર મૂલ્યાંકન\" પર ટેપ કરો",
     "evaluating_status": "બજારનું મૂલ્યાંકન થઈ રહ્યું છે...",
     "past_time": "પાછલું {{time}}",
-    "next_time": "આગલું {{time}}"
+    "next_time": "આગલું {{time}}",
+    "select_state": "રાજ્ય પસંદ કરો",
+    "select_state_first": "પહેલાં રાજ્ય પસંદ કરો",
+    "select_apmc": "APMC પસંદ કરો",
+    "select_apmc_first": "પહેલાં APMC પસંદ કરો",
+    "select_commodity": "વસ્તુ પસંદ કરો",
+    "evaluate_button": "બજાર મૂલ્યાંકન",
+    "showing": "બતાવી રહ્યું છે:",
+    "in": "માં",
+    "selected": "પસંદ કરેલું:",
+    "tap_evaluate": "- મૂલ્યાંકન કરો"
   },
   "disease": {
     "title": "રોગની ઓળખ",
@@ -269,6 +302,59 @@
     "click_picture": "ફોટો પાડો",
     "close": "બંધ કરો",
     "diagnosis": "રોગનું નિદાન"
+  },
+  "fertilizer": {
+    "title": "ખાતર ભલામણ",
+    "subtitle": "વ્યક્તિગત ખાતર ભલામણો મેળવો",
+    "upload": "અપલોડ કરો",
+    "retake": "ફરીથી ફોટો લો",
+    "click_picture": "ફોટો પાડો",
+    "close": "બંધ કરો",
+    "diagnosis": "ભલામણ",
+    "get_recommendations": "ખાતર ભલામણો મેળવો",
+    "no_active_crop": "કોઈ સક્રિય પાક પસંદ કરેલ નથી. કૃપા કરીને પહેલાં પાક ટેબમાં પાક ઉમેરો.",
+    "failed_recommendations": "ભલામણો મેળવવામાં વિફળ",
+    "something_went_wrong": "કંઈક ખોટું થયું",
+    "type_organic": "જૈવિક",
+    "type_chemical": "રાસાયણિક",
+    "type_ph": "pH",
+    "type_organic_full": "જૈવિક",
+    "type_chemical_full": "રાસાયણિક પૂરક",
+    "type_ph_full": "pH સુધારણા",
+    "quantity_label": "જથ્થો",
+    "release_label": "રિલીઝ",
+    "rainfall_adj_label": "વરસાદ ગોઠવણ",
+    "from_original": "{{quantity}} kg/ha માંથી",
+    "unsure_apply": "કેવી રીતે નાખવું? નીચેના સાધન પર ટેપ કરો",
+    "why_this_fertilizer": "આ ખાતર કેમ?",
+    "crop_context": "પાક સંદર્ભ",
+    "stage_label": "{{crop}} — {{stage}} તબક્કો",
+    "growth_day_range": "વૃદ્ધિ ચક્રનો દિવસ {{start}}–{{end}}",
+    "nutrient_deficits": "પોષક તત્વોની ખામી મળી",
+    "deficit_label": "{{nutrient}} ખામી",
+    "severity_label": "ગંભીરતા: {{severity}}",
+    "deficit_description": "તમારી જમીનને {{amount}} kg/ha વધુ {{nutrient}} ની જરૂર છે.",
+    "what_supplies": "આ ખાતર શું પૂરું પાડે છે",
+    "quantity_detail": "જથ્થો:",
+    "release_speed": "રિલીઝ ગતિ:",
+    "rainfall_adjusted": "વરસાદ ગોઠવણી:",
+    "benefits": "ફાયદાઓ",
+    "rainfall_context": "વરસાદ સંદર્ભ",
+    "weekly_rainfall": "સાપ્તાહિક વરસાદ: {{amount}}mm",
+    "classification_label": "વર્ગીકરણ: {{classification}}",
+    "notes": "નોંધો",
+    "priority_strategy": "પ્રાથમિકતા રણનીતિ",
+    "organic_first_explanation": "જૈવિક-પહેલાં દૃષ્ટિકોણ: જૈવિક ખાતરોને પ્રાથમિક ઉકેલ તરીકે ભલામણ કરેલ છે, રાસાયણિક પૂરક ફક્ત જરૂર પડે ત્યારે.",
+    "balanced_explanation": "ખામીની ગંભીરતા પ્રમાણે રાસાયણિક અને જૈવિક ખાતરોનો સંતુલિત દૃષ્ટિકોણ.",
+    "priority_label": "પ્રાથમિકતા: {{priority}}",
+    "have_tool": "તમારી પાસે આ સાધન છે?",
+    "purchase_options": "ખરીદીના વિકલ્પો",
+    "how_to_use": "કેવી રીતે વાપરવું",
+    "watch_tutorial": "ટ્યુટોરિયલ જુઓ",
+    "back": "પાછા",
+    "yes": "હા",
+    "no": "ના",
+    "day_label": "દિવસ {{day}}"
   },
   "profile": {
     "title": "પ્રોફાઇલ",
@@ -281,13 +367,29 @@
     "location": "સ્થળ",
     "logout": "લોગ આઉટ",
     "logout_confirm": "શું તમે ખરેખર તમારા એકાઉન્ટમાંથી લોગ આઉટ કરવા માંગો છો?",
-    "logout_description": "તમારા સત્રમાંથી સુરક્ષિત રીતે લોગ આઉટ કરો"
+    "logout_description": "તમારા સત્રમાંથી સુરક્ષિત રીતે લોગ આઉટ કરો",
+    "provide_location_first": "કૃપા કરીને પહેલાં સ્થળ આપો",
+    "could_not_fetch_soil": "પ્રાદેશિક જમીન ડેટા મેળવવામાં વિફળ",
+    "update_success": "પ્રોફાઇલ સફળતાપૂર્વક અપડેટ થઈ",
+    "update_error": "પ્રોફાઇલ અપડેટ કરવામાં વિફળ",
+    "state_placeholder": "રાજ્ય",
+    "district_placeholder": "જિલ્લો"
   },
   "notifications": {
     "title": "સૂચનાઓ",
     "no_notifications": "હજુ સુધી કોઈ સૂચના નથી",
     "mark_all_read": "બધું વાંચેલું તરીકે ચિહ્નિત કરો",
-    "clear_all": "બધું સાફ કરો"
+    "clear_all": "બધું સાફ કરો",
+    "just_now": "હમણાં",
+    "min_ago": "{{minutes}} મિનિટ પહેલાં",
+    "hr_ago": "{{hours}} કલાક પહેલાં",
+    "hrs_ago": "{{hours}} કલાકો પહેલાં",
+    "day_ago": "{{days}} દિવસ પહેલાં",
+    "days_ago": "{{days}} દિવસો પહેલાં",
+    "checking_alerts": "ચેતવણીઓ તપાસી રહ્યું છે...",
+    "no_notifications_title": "કોઈ સૂચના નથી",
+    "no_notifications_desc": "હવામાન અને બજાર ચેતવણીઓ અહીં દેખાશે.",
+    "check_now": "હમણાં તપાસો"
   },
   "stages": {
     "germination": "અંકુરણ",
@@ -521,7 +623,388 @@
     "server_error": "સર્વર ભૂલ. કૃપા કરીને પછી ફરી પ્રયાસ કરો.",
     "timeout_error": "વિનંતી સમય સમાપ્ત. કૃપા કરીને ફરી પ્રયાસ કરો.",
     "no_data": "કોઈ ડેટા ઉપલબ્ધ નથી",
-    "location_required": "સ્થાન જરૂરી છે",
-    "crop_required": "કૃપા કરીને પહેલા પાક પસંદ કરો"
+    "location_required": "સ્થળ જરૂરી છે",
+    "crop_required": "કૃપા કરીને પહેલાં પાક પસંદ કરો",
+    "location_not_set": "સ્થળ સેટ નથી. કૃપા કરીને પહેલાં ઑનબોર્ડિંગ પૂર્ણ કરો.",
+    "invalid_date": "અમાન્ય તારીખ",
+    "planting_date_window": "વાવણીની તારીખ 7 દિવસની અંદર હોવી જોઈએ (ભૂતકાળ અથવા ભવિષ્ય)",
+    "failed_add_crop": "પાક ઉમેરવામાં વિફળ. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    "provide_district_state": "કૃપા કરીને પહેલાં તમારો જિલ્લો અને રાજ્ય આપો.",
+    "could_not_fetch_soil": "જમીનના માપદંડ મેળવવામાં વિફળ.",
+    "registration_failed": "નોંધણી વિફળ",
+    "unable_to_load_recommendations": "ભલામણો લોડ કરી શકાઈ નથી. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    "network_connect_error": "નેટવર્ક ભૂલ: બેકએન્ડ સાથે જોડાઈ શકાતું નથી. તમારું કનેક્શન અને IP સરનામું તપાસો.",
+    "request_timed_out": "વિનંતી સમય સમાપ્ત. બેકએન્ડ ધીમું હોઈ શકે. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    "failed_to_load_market": "બજાર ડેટા લોડ કરવામાં નિષ્ફળ",
+    "no_market_data_combo": "આ પાક/રાજ્ય સંયોજન માટે બજાર ડેટા ઉપલબ્ધ નથી",
+    "select_state_apmc_commodity": "કૃપા કરીને પહેલા રાજ્ય, APMC અને કોમોડિટી પસંદ કરો",
+    "permission_denied": "પરવાનગી નામંજૂર",
+    "failed_get_recommendations": "ભલામણો મેળવવામાં નિષ્ફળ",
+    "username_exists": "વપરાશકર્તા નામ પહેલેથી અસ્તિત્વમાં છે",
+    "invalid_credentials": "અમાન્ય ઓળખપત્રો",
+    "could_not_auto_fetch": "આપોઆપ મેળવી શકાયું નથી. કૃપા કરીને જાતે દાખલ કરો."
+  },
+  "notification_risks": {
+    "climate_alert": "હવામાન ચેતવણી",
+    "extreme_heat": "અત્યંત ગરમીની ચેતવણી",
+    "extreme_cold": "ઠંડીની લહેર ચેતવણી",
+    "heavy_rainfall": "ભારે વરસાદની અપેક્ષા",
+    "drought": "દુષ્કાળની સ્થિતિ",
+    "high_humidity": "ઉચ્ચ ભેજ ચેતવણી",
+    "strong_winds": "તીવ્ર પવનોની અપેક્ષા",
+    "frost": "હિમ ચેતવણી",
+    "heatwave": "હીટવેવ ચેતવણી"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "ધીમી",
+      "moderate": "મધ્યમ",
+      "fast": "ઝડપી",
+      "very_slow": "ખૂબ ધીમી"
+    },
+    "classification": {
+      "very_low": "ખૂબ ઓછું",
+      "low": "ઓછું",
+      "optimal": "શ્રેષ્ઠ",
+      "high": "વધારે",
+      "very_high": "ખૂબ વધારે",
+      "extreme": "અત્યંત",
+      "unknown_crop": "અજાણ્યો પાક"
+    },
+    "severity": {
+      "none": "કંઈ નહીં",
+      "low": "ઓછું",
+      "moderate": "મધ્યમ",
+      "high": "વધારે",
+      "critical": "ગંભીર"
+    },
+    "timing_advice": {
+      "very_high": "ભારે વરસાદ જોવા મળ્યો છે. જમીન સુકાય ત્યાં સુધી ખાતરનો ઉપયોગ 2–3 દિવસ મોડો કરો. લીચિંગ નુકસાન ઘટાડવા માટે વિભાજિત ઉપયોગ કરો.",
+      "high": "શ્રેષ્ઠ કરતાં વધારે વરસાદ. વિભાજિત ઉપયોગ વિચારો — અડધું હવે અને બાકીનું 3–4 દિવસ પછી નાખો.",
+      "very_low": "ખૂબ સૂકી સ્થિતિ. સિંચાઈ નહેરો પાસે ખાતર નાખો અથવા યોગ્ય શોષણ માટે ઉપયોગના 24 કલાકમાં સિંચાઈ કરો.",
+      "low": "શ્રેષ્ઠ કરતાં ઓછી ભેજ. ખાતર નાખ્યા પછી સિંચાઈ કરો, અથવા સવારે વહેલા જ્યારે જમીનમાં થોડો ઝાકળ હોય ત્યારે નાખો.",
+      "optimal": "વરસાદ શ્રેષ્ઠ છે. સામાન્ય ખાતર ઉપયોગ ચાલુ રાખો."
+    },
+    "from_prefix": "થી",
+    "summary": {
+      "no_deficit": "વર્તમાન વૃદ્ધિ તબક્કા માટે જમીનના પોષકતત્ત્વો અને pH શ્રેષ્ઠ શ્રેણીમાં છે. ખાતરનો ઉપયોગ જરૂરી નથી.",
+      "deficits_detected": "ખામીઓ મળી",
+      "deficit_word": "ખામી",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha ખામી)",
+      "ph_deficit_part": "pH: {{direction}} (અંતર: {{gap}})",
+      "organic_recommended": "{{count}} જૈવિક ખાતરો પ્રાથમિક ઉપચાર તરીકે ભલામણ કરવામાં આવ્યા.",
+      "chemical_added": "{{count}} રાસાયણિક પૂરક ઉમેરવામાં આવ્યા જ્યાં જૈવિક અપૂરતું છે.",
+      "ph_correction": "pH સુધારો: {{name}}."
+    },
+    "names": {
+      "farmyard_manure_fym": "છાણિયું ખાતર (FYM)",
+      "vermicompost": "વર્મીકમ્પોસ્ટ (અળસિયા ખાતર)",
+      "neem_cake": "લીમડાનો ખોળ",
+      "bone_meal": "હાડકાનો ભૂકો",
+      "seaweed_extract": "દરિયાઈ શેવાળનો અર્ક",
+      "compost": "કમ્પોસ્ટ",
+      "fish_meal": "માછલીનો ભૂકો",
+      "rock_phosphate": "રોક ફોસ્ફેટ",
+      "wood_ash": "લાકડાની રાખ",
+      "green_manure_dhainchasesbania": "લીલું ખાતર (ધૈંચા/શેવરી)",
+      "mustard_cake": "રાઈનો ખોળ",
+      "panchagavya": "પંચગવ્ય",
+      "urea": "યુરિયા",
+      "dap_diammonium_phosphate": "DAP (ડાય-એમોનિયમ ફોસ્ફેટ)",
+      "mop_muriate_of_potash": "MOP (મ્યુરિએટ ઓફ પોટાશ)",
+      "ssp_single_super_phosphate": "SSP (સિંગલ સુપર ફોસ્ફેટ)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "એમોનિયમ સલ્ફેટ",
+      "potassium_sulphate_sop": "પોટેશિયમ સલ્ફેટ (SOP)",
+      "calcium_ammonium_nitrate_can": "કેલ્શિયમ એમોનિયમ નાઈટ્રેટ (CAN)",
+      "zinc_sulphate": "ઝિંક સલ્ફેટ",
+      "borax": "બોરેક્સ",
+      "agricultural_lime_caco": "કૃષિ ચૂનો (CaCO₃)",
+      "dolomite_lime": "ડોલોમાઈટ ચૂનો",
+      "gypsum_caso": "જીપ્સમ (CaSO₄)",
+      "elemental_sulphur": "મૌલિક સલ્ફર"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "પાયાનો ઉપયોગ",
+        "description": "વાવણી અથવા રોપણી પહેલાં જમીનમાં ખાતર ભેળવવું",
+        "when_to_use": "વાવણી પહેલાં — જમીન તૈયારી દરમિયાન ઉપયોગ કરો"
+      },
+      "manual_spread": {
+        "name": "હાથથી છંટકાવ / બ્રોડકાસ્ટિંગ",
+        "description": "ખેતરની સપાટી પર દાણાદાર ખાતર સમાનરૂપે છાંટવું",
+        "when_to_use": "FYM, કમ્પોસ્ટ જેવા કાર્બનિક ખાતરો માટે અથવા મોટા વિસ્તારોમાં દાણાદાર ખાતરો માટે"
+      },
+      "top_dressing": {
+        "name": "ટોપ ડ્રેસિંગ",
+        "description": "પાકની ઋતુ દરમિયાન ઉગતા છોડના તળિયે ખાતર નાખવું",
+        "when_to_use": "ફૂટ આવવાના અથવા સક્રિય વૃદ્ધિના તબક્કે — છોડના તળિયે નાખો અને સિંચાઈ કરો"
+      },
+      "soil_incorporation": {
+        "name": "જમીનમાં ભેળવણી",
+        "description": "કાર્બનિક ખાતર અથવા રાસાયણિક ખાતરને જમીનમાં ઊંડે ભેળવવું",
+        "when_to_use": "ધીમી-મુક્તિ કાર્બનિક ખાતરો માટે — વાવણીના 2–4 અઠવાડિયા પહેલાં જમીનમાં ભેળવો"
+      },
+      "foliar_spray": {
+        "name": "પર્ણીય છંટકાવ",
+        "description": "ઝડપી શોષણ માટે પાંદડા પર સીધો પાતળો પ્રવાહી ખાતર છાંટવો",
+        "when_to_use": "સૂક્ષ્મ પોષકતત્ત્વોની ઉણપ, મહત્ત્વના વૃદ્ધિ તબક્કાઓ, અથવા જમીન ઉપયોગ અપૂરતો હોય ત્યારે"
+      },
+      "fertigation": {
+        "name": "ફર્ટિગેશન",
+        "description": "ટપક અથવા ફુવારા સિંચાઈ દ્વારા પાણીમાં દ્રાવ્ય ખાતર આપવું",
+        "when_to_use": "ટપક/ફુવારા સિંચાઈવાળા ખેતરો માટે — સૌથી કાર્યક્ષમ પદ્ધતિ, બગાડ ઘટાડે છે"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "ખુરપી / ગાર્ડન હો",
+        "description": "નાના પ્લોટમાં ઉપરની માટીમાં ખાતર ભેળવવાનું હાથનું સાધન"
+      },
+      "cultivator": {
+        "name": "કલ્ટિવેટર",
+        "description": "જમીનમાં ખાતર ભેળવવા માટે ટ્રેક્ટર-ખેંચાતું અથવા હાથનું કલ્ટિવેટર"
+      },
+      "seed_drill": {
+        "name": "સીડ-કમ-ફર્ટિલાઈઝર ડ્રિલ",
+        "description": "એક સાથે બીજ અને ખાતર નાખવા માટે હરોળ-મૂકવાનું સાધન"
+      },
+      "broadcast_spreader": {
+        "name": "હેન્ડ બ્રોડકાસ્ટ સ્પ્રેડર",
+        "description": "દાણાદાર ખાતરના સમાન વિતરણ માટે ક્રેન્ક-ચાલિત સ્પ્રેડર"
+      },
+      "fertilizer_basket": {
+        "name": "ખાતર ટોકરી / ટોકરી",
+        "description": "FYM, કમ્પોસ્ટ અથવા દાણાના હાથથી છંટકાવ માટે પરંપરાગત વણેલી ટોકરી"
+      },
+      "wheelbarrow": {
+        "name": "વ્હીલબેરો",
+        "description": "ખેતરમાં કાર્બનિક ખાતર વહન અને નાખવા માટે"
+      },
+      "hand_duster": {
+        "name": "હેન્ડ ફર્ટિલાઈઝર ડસ્ટર",
+        "description": "પાકની હરોળો પાસે દાણાદાર ખાતર મૂકવા માટે નાનું સાધન"
+      },
+      "khurpi": {
+        "name": "ખુરપી / હાથ નીંદણી",
+        "description": "છોડ પાસે ખાતર મૂકવા અને ઢાંકવા માટે છીછરી ખાંચ બનાવવા વપરાય છે"
+      },
+      "ring_applicator": {
+        "name": "રિંગ એપ્લિકેટર",
+        "description": "વૃક્ષના પાકોની આસપાસ રિંગમાં ખાતર નાખવાનું સાધન"
+      },
+      "spade": {
+        "name": "પાવડો / પાવડી",
+        "description": "બગીચાના પથારીમાં FYM અને કમ્પોસ્ટ દાટવા માટે"
+      },
+      "rotavator": {
+        "name": "રોટાવેટર",
+        "description": "ઉપરની માટીમાં FYM સમાનરૂપે ભેળવવા માટે પાવર ટિલર જોડાણ"
+      },
+      "plough": {
+        "name": "હળ (MB / દેશી)",
+        "description": "કાર્બનિક પદાર્થ સાથે માટી ફેરવવા માટે પરંપરાગત અથવા મોલ્ડબોર્ડ હળ"
+      },
+      "knapsack_sprayer": {
+        "name": "નેપસેક સ્પ્રેયર (16L)",
+        "description": "પીઠ પર બાંધવાનું હાથનું પંપ સ્પ્રેયર — નાના-મધ્યમ ખેતરો માટે સૌથી સામાન્ય"
+      },
+      "battery_sprayer": {
+        "name": "બેટરી સ્પ્રેયર",
+        "description": "સતત દબાણ માટે ઈલેક્ટ્રિક પંપ સ્પ્રેયર — હાથનો શ્રમ ઘટાડે છે"
+      },
+      "measuring_cup": {
+        "name": "માપવાનો કપ / બીકર",
+        "description": "સંકેન્દ્રિત પ્રવાહી ખાતરોના ચોક્કસ મંદન માટે"
+      },
+      "venturi_injector": {
+        "name": "વેન્ચુરી ફર્ટિલાઈઝર ઈન્જેક્ટર",
+        "description": "ટપક લાઈનોમાં ખાતર દ્રાવણ દાખલ કરવા માટે પાણીના દબાણનો ઉપયોગ કરતું ઓછી કિંમતનું સાધન"
+      },
+      "mixing_tank": {
+        "name": "ખાતર મિક્સિંગ ટાંકી",
+        "description": "પાણીમાં દ્રાવ્ય ખાતર ઓગાળવા અને ભેળવવા માટે ટાંકી"
+      },
+      "dosing_pump": {
+        "name": "ફર્ટિગેશન ડોઝિંગ પંપ",
+        "description": "સિંચાઈમાં ચોક્કસ ખાતર ઈન્જેક્શન માટે ઈલેક્ટ્રિક અથવા હાઈડ્રોલિક પંપ"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "જમીનની રચના સુધારે છે",
+      "enhances_water_retention": "પાણી ધારણ ક્ષમતા વધારે છે",
+      "supports_microbial_activity": "સૂક્ષ્મજીવ પ્રવૃત્તિને ટેકો આપે છે",
+      "rich_in_humic_acids": "હ્યુમિક એસિડથી ભરપૂર",
+      "contains_beneficial_microbes": "ફાયદાકારક સૂક્ષ્મજીવો ધરાવે છે",
+      "improves_nutrient_availability": "પોષકતત્ત્વોની ઉપલબ્ધતા સુધારે છે",
+      "natural_pest_deterrent": "કુદરતી જીવાત અવરોધક",
+      "slow_nitrogen_release": "ધીમી નાઈટ્રોજન મુક્તિ",
+      "improves_soil_health": "જમીનનું સ્વાસ્થ્ય સુધારે છે",
+      "excellent_phosphorus_source": "ફોસ્ફરસનો ઉત્તમ સ્ત્રોત",
+      "contains_calcium": "કેલ્શિયમ ધરાવે છે",
+      "longlasting_effect": "લાંબા સમય સુધી અસરકારક",
+      "rich_in_micronutrients_and_growth_hormones": "સૂક્ષ્મ પોષકતત્ત્વો અને વૃદ્ધિ હોર્મોન્સથી ભરપૂર",
+      "boosts_stress_resistance": "તાણ સામે પ્રતિકારકતા વધારે છે",
+      "enhances_root_growth": "મૂળની વૃદ્ધિ વધારે છે",
+      "improves_soil_organic_matter": "જમીનનું કાર્બનિક દ્રવ્ય સુધારે છે",
+      "enhances_drainage": "નિકાલ સુધારે છે",
+      "feeds_soil_microorganisms": "જમીનના સૂક્ષ્મજીવોને પોષણ આપે છે",
+      "high_n_and_p_content": "ઉચ્ચ N અને P તત્ત્વ",
+      "natural_source": "કુદરતી સ્ત્રોત",
+      "improves_soil_biology": "જમીનનું જીવવિજ્ઞાન સુધારે છે",
+      "longterm_phosphorus_supply": "લાંબા ગાળાનો ફોસ્ફરસ પુરવઠો",
+      "natural_mineral": "કુદરતી ખનિજ",
+      "no_chemical_processing": "કોઈ રાસાયણિક પ્રક્રિયા નહીં",
+      "rich_in_potassium": "પોટેશિયમથી ભરપૂર",
+      "raises_soil_ph": "જમીનનો pH વધારે છે",
+      "contains_trace_minerals": "ટ્રેસ ખનિજો ધરાવે છે",
+      "fixes_atmospheric_nitrogen": "વાતાવરણીય નાઈટ્રોજનને સ્થિર કરે છે",
+      "adds_organic_matter": "કાર્બનિક દ્રવ્ય ઉમેરે છે",
+      "suppresses_weeds": "નીંદણને દબાવે છે",
+      "good_nitrogen_source": "નાઈટ્રોજનનો સારો સ્ત્રોત",
+      "improves_soil_texture": "જમીનની રચના સુધારે છે",
+      "natural_pest_repellent": "કુદરતી જીવાત ભગાડનાર",
+      "traditional_biostimulant": "પરંપરાગત જૈવ-ઉત્તેજક",
+      "boosts_immunity": "રોગપ્રતિકારકતા વધારે છે",
+      "enhances_growth_hormones": "વૃદ્ધિ હોર્મોન્સ વધારે છે",
+      "highest_n_content": "સૌથી વધુ N તત્ત્વ",
+      "readily_available": "સરળતાથી ઉપલબ્ધ",
+      "costeffective": "ખર્ચ-અસરકારક",
+      "primary_p_source": "મુખ્ય P સ્ત્રોત",
+      "also_provides_nitrogen": "નાઈટ્રોજન પણ આપે છે",
+      "good_for_basal_application": "પાયાના ઉપયોગ માટે સારું",
+      "highest_k_content": "સૌથી વધુ K તત્ત્વ",
+      "essential_for_fruiting_crops": "ફળ આપતા પાકો માટે આવશ્યક",
+      "improves_disease_resistance": "રોગ પ્રતિકારકતા સુધારે છે",
+      "contains_calcium_and_sulphur_too": "કેલ્શિયમ અને સલ્ફર પણ ધરાવે છે",
+      "good_for_oilseeds": "તેલીબિયાં માટે સારું",
+      "moderate_cost": "મધ્યમ ખર્ચ",
+      "balanced_p_and_k": "સંતુલિત P અને K",
+      "suitable_for_basal_dose": "પાયાના ડોઝ માટે યોગ્ય",
+      "reduces_number_of_fertilizers_needed": "જરૂરી ખાતરોની સંખ્યા ઘટાડે છે",
+      "high_phosphorus_blend": "ઉચ્ચ ફોસ્ફરસ મિશ્રણ",
+      "good_starter_fertilizer": "સારું સ્ટાર્ટર ખાતર",
+      "multinutrient_supply": "બહુ-પોષકતત્ત્વ પુરવઠો",
+      "provides_sulphur_24": "સલ્ફર આપે છે (24%)",
+      "acidifies_soil_slightly": "જમીનને થોડી એસિડિક બનાવે છે",
+      "chloridefree_k_source": "ક્લોરાઈડ-મુક્ત K સ્ત્રોત",
+      "contains_sulphur_18": "સલ્ફર ધરાવે છે (18%)",
+      "better_for_sensitive_crops": "સંવેદનશીલ પાકો માટે વધુ સારું",
+      "provides_calcium": "કેલ્શિયમ આપે છે",
+      "fastacting_nitrogen": "ઝડપી-અસર નાઈટ્રોજન",
+      "less_volatile_than_urea": "યુરિયા કરતાં ઓછું બાષ્પીભવન",
+      "corrects_zinc_deficiency": "ઝિંકની ઉણપ સુધારે છે",
+      "essential_for_ricemaize": "ડાંગર/મકાઈ માટે આવશ્યક",
+      "improves_grain_quality": "અનાજની ગુણવત્તા સુધારે છે",
+      "essential_for_floweringfruiting": "ફૂલ/ફળ માટે આવશ્યક",
+      "improves_pollen_viability": "પરાગની જીવનક્ષમતા સુધારે છે",
+      "corrects_boron_deficiency": "બોરોનની ઉણપ સુધારે છે"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "વાવણીના 2–3 અઠવાડિયા પહેલાં નાખવું શ્રેષ્ઠ છે. ઉપરની માટીમાં સારી રીતે ભેળવો.",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "પાયાના ડોઝ અથવા ટોપ-ડ્રેસિંગ તરીકે ઉપયોગ કરી શકાય. સંગ્રહિત વર્મીકમ્પોસ્ટ પર સીધો તડકો ટાળો.",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "વાવણી સમયે નાખો. નેમેટોસાઈડ અને જીવાત ભગાડનાર તરીકે કામ કરે છે.",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "એસિડિક થી તટસ્થ જમીનમાં (pH < 7) સૌથી સારું કામ કરે છે. આલ્કલાઈન જમીનમાં અસરકારક નથી.",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "સૂચનો અનુસાર પાતળું કરો. સક્રિય વૃદ્ધિ દરમિયાન પર્ણીય છંટકાવ તરીકે શ્રેષ્ઠ.",
+      "ensure_compost_is_fully_decomposed_before_application": "ઉપયોગ પહેલાં કમ્પોસ્ટ સંપૂર્ણ રીતે સડેલું હોવાની ખાતરી કરો.",
+      "may_attract_animals_mix_into_soil_well": "પ્રાણીઓને આકર્ષી શકે છે. જમીનમાં સારી રીતે ભેળવો.",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "એસિડિક જમીનમાં (pH < 6.5) સૌથી અસરકારક. ખૂબ ધીમી મુક્તિ.",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "આલ્કલાઈન જમીનમાં ટાળો. નાઈટ્રોજન ખાતરો સાથે ભેળવશો નહીં.",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "મુખ્ય પાકની વાવણીના 3–4 અઠવાડિયા પહેલાં જમીનમાં ભેળવો.",
+      "apply_1520_days_before_sowing_for_best_results": "શ્રેષ્ઠ પરિણામો માટે વાવણીના 15–20 દિવસ પહેલાં નાખો.",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "પર્ણીય છંટકાવ માટે 3% પાતળું કરો. સવારે વહેલા અથવા સાંજે નાખો.",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "વિભાજિત ડોઝમાં નાખો. ઉપયોગ પછી તરત પૂર ટાળો.",
+      "best_applied_at_sowing_as_basal_dose": "વાવણી સમયે પાયાના ડોઝ તરીકે નાખવું શ્રેષ્ઠ છે.",
+      "apply_at_sowing_or_during_tuberfruit_formation": "વાવણી સમયે અથવા કંદ/ફળ બનવાના સમયે નાખો.",
+      "also_provides_11_sulphur_and_20_calcium": "11% સલ્ફર અને 20% કેલ્શિયમ પણ આપે છે.",
+      "ideal_for_crops_with_high_p_and_k_demand": "ઉચ્ચ P અને K માંગ ધરાવતા પાકો માટે આદર્શ.",
+      "best_for_phosphorusdemanding_crops": "ફોસ્ફરસની વધુ માંગ ધરાવતા પાકો માટે શ્રેષ્ઠ.",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "સલ્ફર-પ્રિય પાકો (તેલીબિયાં, કઠોળ) માટે પ્રાધાન્ય.",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "ક્લોરાઈડ-સંવેદનશીલ પાકો (બટાટા, ટામેટા, ફળો) માટે MOP કરતાં પ્રાધાન્ય.",
+      "good_for_acidic_soils_and_calciumloving_crops": "એસિડિક જમીન અને કેલ્શિયમ-પ્રિય પાકો માટે સારું.",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "ભારતીય જમીનમાં સામાન્ય ઉણપ. જમીનમાં 25 kg/ha અથવા 0.5% પર્ણીય છંટકાવ કરો.",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "તેલીબિયાં, કઠોળ અને શાકભાજી માટે મહત્ત્વપૂર્ણ. વધુ પડતું ન નાખો — બોરોન ઝેરીપણું શક્ય છે.",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "વાવણીના 2–3 અઠવાડિયા પહેલાં નાખો. 2000 kg/ha દીઠ pH 0.5–1.0 એકમ વધારે છે.",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "મેગ્નેશિયમ (Mg) પણ આપે છે. Mg-ઉણપવાળી જમીન માટે પ્રાધાન્ય.",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "આલ્કલાઈન/ક્ષારીય જમીન માટે. જમીનની રચના પણ સુધારે છે.",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "ધીમી-અસર. પહેલેથી નાખો. સૂક્ષ્મજીવો S ને સલ્ફ્યુરિક એસિડમાં ફેરવે છે."
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "સૂકું ડાંગર — પોષકતત્ત્વો ગતિશીલ નથી, ડોઝ વધારો",
+      "below_optimal_moisture": "શ્રેષ્ઠ કરતાં ઓછી ભેજ",
+      "ideal_conditions": "આદર્શ સ્થિતિ",
+      "ideal": "આદર્શ",
+      "leaching_risk_in_flooded_fields": "પૂરગ્રસ્ત ખેતરોમાં લીચિંગનું જોખમ",
+      "heavy_waterlogging__high_leaching": "ભારે જળભરાવ — વધુ લીચિંગ",
+      "drought_stress_reduces_uptake": "દુષ્કાળનો તાણ શોષણ ઘટાડે છે",
+      "drought_stress": "દુષ્કાળનો તાણ",
+      "drought": "દુષ્કાળ",
+      "slightly_dry": "થોડી સૂકી",
+      "excess_moisture": "વધારાની ભેજ",
+      "excess": "વધારે",
+      "waterlogging_risk": "જળભરાવનું જોખમ",
+      "waterlogging": "જળભરાવ",
+      "heavy_waterlogging": "ભારે જળભરાવ",
+      "very_dry__poor_nutrient_mobility": "ખૂબ સૂકું — નબળી પોષકતત્ત્વ ગતિશીલતા",
+      "excess_moisture_for_wheat": "ઘઉં માટે વધારાની ભેજ",
+      "waterlogging__severe_leaching": "જળભરાવ — ગંભીર લીચિંગ",
+      "dry_conditions": "સૂકી સ્થિતિ",
+      "waterlogging__pulse_crop_very_sensitive": "જળભરાવ — કઠોળનો પાક ખૂબ સંવેદનશીલ",
+      "waterlogging__pulse_sensitive": "જળભરાવ — કઠોળ સંવેદનશીલ",
+      "low_moisture": "ઓછી ભેજ",
+      "dry_soil_limits_tuber_growth": "સૂકી જમીન કંદની વૃદ્ધિ મર્યાદિત કરે છે",
+      "excess_moisture__rot_risk": "વધારાની ભેજ — સડવાનું જોખમ",
+      "waterlogging__severe": "જળભરાવ — ગંભીર",
+      "boll_rot_risk__reduce_heavily": "બોલ સડવાનું જોખમ — ઘણું ઘટાડો",
+      "excess__rot_risk": "વધારે — સડવાનું જોખમ",
+      "hardy_crop_slight_adjustment": "કઠણ પાક, થોડો ફેરફાર",
+      "too_wet_for_hardy_pulse": "કઠણ કઠોળ માટે ખૂબ ભીનું",
+      "turmeric_needs_moisture": "હળદરને ભેજ જોઈએ છે",
+      "rhizome_rot_risk": "કંદ સડવાનું જોખમ",
+      "banana_is_waterhungry": "કેળા પાણી-ભૂખ્યા છે",
+      "root_suffocation": "મૂળ ગૂંગળામણ",
+      "fungal_risk": "ફૂગનું જોખમ",
+      "too_wet_for_sesame": "તલ માટે ખૂબ ભીનું",
+      "dry_stress": "સૂકાનો તાણ",
+      "blight_risk": "બ્લાઈટનું જોખમ",
+      "severe_disease_risk": "ગંભીર રોગનું જોખમ",
+      "root_rot_risk": "મૂળ સડવાનું જોખમ",
+      "root_rot": "મૂળ સડવું",
+      "waterlogging__bulb_rot_risk": "જળભરાવ — કંદ સડવાનું જોખમ",
+      "bulb_rot_risk": "કંદ સડવાનું જોખમ",
+      "too_wet": "ખૂબ ભીનું",
+      "head_rot_risk": "માથું સડવાનું જોખમ",
+      "pineapple_is_droughttolerant": "અનાનસ દુષ્કાળ-સહિષ્ણુ છે",
+      "curd_rot_risk": "ફૂલ સડવાનું જોખમ",
+      "slight_drought_tolerance": "થોડી દુષ્કાળ સહિષ્ણુતા",
+      "downy_mildew_risk__reduce_heavily": "ડાઉની મિલ્ડ્યુનું જોખમ — ઘણું ઘટાડો",
+      "dry__pithy_roots": "સૂકી — પોચી મૂળ",
+      "root_cracking": "મૂળ ફાટવું",
+      "root_splitting": "મૂળ ચીરાવવું",
+      "severe_cracking_and_rot": "ગંભીર ફાટ અને સડવું",
+      "fruit_cracking": "ફળ ફાટવું",
+      "fruit_cracking_risk": "ફળ ફાટવાનું જોખમ",
+      "needs_consistent_moisture": "સતત ભેજ જોઈએ છે",
+      "needs_moisture": "ભેજ જોઈએ છે",
+      "needs_high_moisture": "ઉચ્ચ ભેજ જોઈએ છે",
+      "bitter_fruit_risk": "કડવા ફળનું જોખમ",
+      "soft_rot_risk": "નરમ સડવાનું જોખમ",
+      "dry__woody_roots": "સૂકી — લાકડા જેવી મૂળ",
+      "hardy__slight_adjustment": "કઠણ — થોડો ફેરફાર",
+      "root_damage": "મૂળને નુકસાન",
+      "ginger_needs_consistent_moisture": "આદુને સતત ભેજ જોઈએ છે",
+      "needs_moisture_for_fruit_fill": "ફળ ભરવા માટે ભેજ જોઈએ છે",
+      "forked_roots_risk": "ફાંટાવાળી મૂળનું જોખમ",
+      "droughttolerant": "દુષ્કાળ-સહિષ્ણુ",
+      "jute_needs_high_moisture": "શણને ઉચ્ચ ભેજ જોઈએ છે",
+      "extreme_rainfall__significant_leaching_risk": "અત્યંત વરસાદ — નોંધપાત્ર લીચિંગનું જોખમ."
+    }
+  },
+  "tabs": {
+    "home": "હોમ",
+    "crop": "પાક",
+    "market": "બજાર",
+    "fertilizer": "ખાતર"
   }
 }

@@ -18,7 +18,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Helper to format relative time
-function formatRelativeTime(timestamp: number): string {
+function formatRelativeTime(timestamp: number, t: (key: string, opts?: any) => string): string {
   const now = Date.now();
   const diff = now - timestamp;
   
@@ -26,10 +26,10 @@ function formatRelativeTime(timestamp: number): string {
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
   
-  if (minutes < 1) return 'Just now';
-  if (minutes < 60) return `${minutes} min ago`;
-  if (hours < 24) return `${hours} hr${hours > 1 ? 's' : ''} ago`;
-  if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+  if (minutes < 1) return t('notifications.just_now');
+  if (minutes < 60) return t('notifications.min_ago', { minutes });
+  if (hours < 24) return hours > 1 ? t('notifications.hrs_ago', { hours }) : t('notifications.hr_ago', { hours });
+  if (days < 7) return days > 1 ? t('notifications.days_ago', { days }) : t('notifications.day_ago', { days });
   return new Date(timestamp).toLocaleDateString();
 }
 
@@ -109,7 +109,7 @@ export default function Notifications() {
         {isLoading && notifications.length === 0 && (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#186F71" />
-            <Text style={styles.loadingText}>Checking for alerts...</Text>
+            <Text style={styles.loadingText}>{t('notifications.checking_alerts')}</Text>
           </View>
         )}
 
@@ -117,16 +117,16 @@ export default function Notifications() {
         {!isLoading && !hasNotifications && (
           <View style={styles.emptyContainer}>
             <Ionicons name="notifications-off-outline" size={64} color="#B0BEC5" />
-            <Text style={styles.emptyTitle}>No Notifications</Text>
+            <Text style={styles.emptyTitle}>{t('notifications.no_notifications_title')}</Text>
             <Text style={styles.emptyText}>
-              Climate and market alerts will appear here when detected.
+              {t('notifications.no_notifications_desc')}
             </Text>
             <TouchableOpacity 
               onPress={refreshNotifications} 
               style={styles.refreshButton}
             >
               <Ionicons name="refresh" size={18} color="#FFF" />
-              <Text style={styles.refreshButtonText}>Check Now</Text>
+              <Text style={styles.refreshButtonText}>{t('notifications.check_now')}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -138,7 +138,7 @@ export default function Notifications() {
             IconComponent={getNotificationIcon(notification)}
             title={notification.title}
             description={notification.description}
-            time={formatRelativeTime(notification.timestamp)}
+            time={formatRelativeTime(notification.timestamp, t)}
             severity={notification.severity}
             isRead={notification.read}
             onPress={() => handleNotificationPress(notification)}

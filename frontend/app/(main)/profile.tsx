@@ -83,7 +83,7 @@ export default function Profile() {
 
   const handleAutoSoilFetch = async () => {
     if (!editedProfile.districtKey || !editedProfile.stateKey) {
-      Alert.alert(t('common.error'), "Please provide location first");
+      Alert.alert(t('common.error'), t('profile.provide_location_first'));
       return;
     }
     setIsFetchingSoil(true);
@@ -97,7 +97,7 @@ export default function Profile() {
         ph: data.pH.toString(),
       }));
     } catch (error) {
-      Alert.alert("Error", "Could not fetch regional soil data");
+      Alert.alert(t('common.error'), t('profile.could_not_fetch_soil'));
     } finally {
       setIsFetchingSoil(false);
     }
@@ -148,17 +148,18 @@ export default function Profile() {
         });
 
         setEditVisible(false);
-        Alert.alert("Success", t('profile.update_success'));
+        Alert.alert(t('common.success'), t('profile.update_success'));
       }
     } catch (e: any) {
-      Alert.alert("Error", e.response?.data?.detail || t('profile.update_error'));
+      Alert.alert(t('common.error'), e.response?.data?.detail || t('profile.update_error'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const toTitleCase = (text: string) => text.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const displayLocation = profile.districtKey && profile.stateKey
-    ? `${t(`locations.districts.${profile.stateKey}.${profile.districtKey}`)}, ${t(`locations.states.${profile.stateKey}`)}`
+    ? `${t(`locations.districts.${profile.stateKey}.${profile.districtKey}`, { defaultValue: toTitleCase(profile.districtKey) })}, ${t(`locations.states.${profile.stateKey}`, { defaultValue: toTitleCase(profile.stateKey) })}`
     : t('locations.default_region');
 
   const handleLogoutPress = () => {
@@ -282,15 +283,15 @@ export default function Profile() {
               <View style={styles.locationFlex}>
                 <TextInput
                   value={toTitleCase(editedProfile.stateKey)}
-                  onChangeText={(t) => setEditedProfile({ ...editedProfile, stateKey: t.toLowerCase() })}
+                  onChangeText={(val) => setEditedProfile({ ...editedProfile, stateKey: val.toLowerCase() })}
                   style={[styles.modernInput, { flex: 1, marginRight: 8 }]}
-                  placeholder="State"
+                  placeholder={t('profile.state_placeholder')}
                 />
                 <TextInput
                   value={toTitleCase(editedProfile.districtKey)}
-                  onChangeText={(t) => setEditedProfile({ ...editedProfile, districtKey: t.toLowerCase() })}
+                  onChangeText={(val) => setEditedProfile({ ...editedProfile, districtKey: val.toLowerCase() })}
                   style={[styles.modernInput, { flex: 1 }]}
-                  placeholder="District"
+                  placeholder={t('profile.district_placeholder')}
                 />
               </View>
 

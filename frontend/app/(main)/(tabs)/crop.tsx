@@ -133,15 +133,15 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
             <>
               {/* Fallback: Show scores if XAI explanations not available */}
               <AppText variant="content" style={styles.xaiText}>
-                • Agronomic match: {Math.min(100, Math.max(0, Math.round((item.agronomic_score || 0) * 100)))}%
+                • {t('xai.agronomic_match')}: {Math.min(100, Math.max(0, Math.round((item.agronomic_score || 0) * 100)))}%
               </AppText>
               {item.market_score !== null && (
                 <AppText variant="content" style={styles.xaiText}>
-                  • Market viability: {Math.min(100, Math.max(0, Math.round((item.market_score || 0) * 100)))}%
+                  • {t('xai.market_viability')}: {Math.min(100, Math.max(0, Math.round((item.market_score || 0) * 100)))}%
                 </AppText>
               )}
               <AppText variant="content" style={styles.xaiText}>
-                • Overall fit: {Math.min(100, Math.max(0, Math.round(((item.final_score || 0) + 1) * 50)))}%
+                • {t('xai.overall_fit')}: {Math.min(100, Math.max(0, Math.round(((item.final_score || 0) + 1) * 50)))}%
               </AppText>
             </>
           )}
@@ -241,7 +241,7 @@ export default function Crop() {
         if (!lat || !lon) {
           console.log('[Crop Screen] No location data found');
           if (isMounted) {
-            setError('Location not set. Please complete onboarding first.');
+            setError(t('errors.location_not_set'));
           }
           return;
         }
@@ -265,14 +265,14 @@ export default function Crop() {
         if (!isMounted) return;
 
         console.error('[Crop Screen] Error:', err);
-        let errorMessage = 'Unable to load recommendations. Please try again.';
+        let errorMessage = t('errors.unable_to_load_recommendations');
 
         if (err.message?.includes('Network')) {
-          errorMessage = 'Network error: Unable to connect to backend. Check your connection and IP address.';
+          errorMessage = t('errors.network_connect_error');
         } else if (err.message?.includes('timeout')) {
-          errorMessage = 'Request timed out. Backend may be slow. Please try again.';
+          errorMessage = t('errors.request_timed_out');
         } else if (err.message?.includes('Location not set')) {
-          errorMessage = 'Location not set. Please complete onboarding first.';
+          errorMessage = t('errors.location_not_set');
         }
 
         setError(errorMessage);
@@ -337,7 +337,7 @@ export default function Crop() {
       );
     } catch (error) {
       console.error('[Crop] Failed to add crop:', error);
-      RNAlert.alert('Error', 'Failed to add crop. Please try again.');
+      RNAlert.alert(t('common.error'), t('errors.failed_add_crop'));
     }
   }, [selectedCropForModal, plantingDate, addCrop, setSelectedCrop, getCropProfile]);
 
@@ -532,7 +532,7 @@ export default function Crop() {
                       {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.water_intensity.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
-                      {selectedSustainability.dimensions.water_intensity.impact}
+                      {translateSustainabilityLevel(selectedSustainability.dimensions.water_intensity.impact)}
                     </AppText>
                   </View>
 
@@ -547,7 +547,7 @@ export default function Crop() {
                       {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.soil_impact.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
-                      {selectedSustainability.dimensions.soil_impact.impact}
+                      {translateSustainabilityLevel(selectedSustainability.dimensions.soil_impact.impact)}
                     </AppText>
                   </View>
 
@@ -562,7 +562,7 @@ export default function Crop() {
                       {t('sustainability.category')}: {translateSustainabilityLevel(selectedSustainability.dimensions.cultivation_intensity.category)}
                     </AppText>
                     <AppText variant="content" style={styles.dimensionText}>
-                      {selectedSustainability.dimensions.cultivation_intensity.impact}
+                      {translateSustainabilityLevel(selectedSustainability.dimensions.cultivation_intensity.impact)}
                     </AppText>
                   </View>
                 </>

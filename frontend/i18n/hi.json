@@ -190,7 +190,15 @@
     "status": "स्थिति",
     "loading": "लोड हो रहा है...",
     "retry": "पुनः प्रयास करें",
-    "unknown": "अज्ञात"
+    "unknown": "अज्ञात",
+    "error": "त्रुटि",
+    "success": "सफल",
+    "ok": "ठीक है",
+    "active": "सक्रिय",
+    "farmer": "किसान",
+    "today": "आज",
+    "market_data": "बाजार डेटा",
+    "state_average": "राज्य औसत"
   },
   "home": {
     "greeting": "नमस्ते,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "कटाई के लिए तैयार!",
       "next_stage": "अगला: {{stage}} {{days}} दिनों में",
       "view_all_crops": "सभी {{count}} फसलें देखें",
-      "tap_to_select": "फसल चुनने के लिए टैप करें"
+      "tap_to_select": "फसल चुनने के लिए टैप करें",
+      "crop_history": "आपकी फसलें",
+      "no_crops_yet": "अभी तक कोई फसल नहीं। सिफारिशों से एक फसल चुनें!",
+      "planted_on": "रोपण",
+      "add_new_crop": "नई फसल जोड़ें",
+      "edit_date": "तारीख बदलें",
+      "delete": "हटाएं",
+      "delete_title": "फसल हटाएं",
+      "delete_confirm": "क्या आप {{name}} को अपनी सक्रिय फसलों से हटाना चाहते हैं?",
+      "delete_button": "हटाएं",
+      "edit_date_title": "रोपण तिथि बदलें",
+      "primary_badge": "मुख्य",
+      "long_press_hint": "संपादित या हटाने के लिए फसल को देर तक दबाएं"
     },
     "market": {
       "per_kg": "प्रति क्विंटल"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "विकास अवधि: ~",
     "days_suffix": " दिन",
     "category_label": "श्रेणी: ",
-    "planting_date_query": "आपने यह फसल कब लगाई थी?"
+    "planting_date_query": "आपने यह फसल कब लगाई थी?",
+    "success_title": "फसल जोड़ी गई!",
+    "success_message": "{{name}} आपके खेत में जोड़ दी गई है।",
+    "planting_date_label": "रोपण तिथि: "
   },
   "market": {
     "title": "बाज़ार भाव",
@@ -259,7 +282,17 @@
     "initial_prompt": "राज्य, एपीएमसी और वस्तु चुनें\nफिर \"बाजार मूल्यांकन\" पर टैप करें",
     "evaluating_status": "बाजार का मूल्यांकन हो रहा है...",
     "past_time": "पिछला {{time}}",
-    "next_time": "अगला {{time}}"
+    "next_time": "अगला {{time}}",
+    "select_state": "राज्य चुनें",
+    "select_state_first": "पहले राज्य चुनें",
+    "select_apmc": "एपीएमसी चुनें",
+    "select_apmc_first": "पहले एपीएमसी चुनें",
+    "select_commodity": "वस्तु चुनें",
+    "evaluate_button": "बाजार मूल्यांकन",
+    "showing": "दिखा रहा है:",
+    "in": "में",
+    "selected": "चयनित:",
+    "tap_evaluate": "- मूल्यांकन करें"
   },
   "disease": {
     "title": "रोग की पहचान",
@@ -269,6 +302,59 @@
     "click_picture": "फोटो खींचें",
     "close": "बंद करें",
     "diagnosis": "रोग की जाँच (निदान)"
+  },
+  "fertilizer": {
+    "title": "उर्वरक सुझाव",
+    "subtitle": "व्यक्तिगत उर्वरक सुझाव प्राप्त करें",
+    "upload": "अपलोड करें",
+    "retake": "फिर से लें",
+    "click_picture": "फोटो खींचें",
+    "close": "बंद करें",
+    "diagnosis": "सुझाव",
+    "get_recommendations": "उर्वरक सुझाव प्राप्त करें",
+    "no_active_crop": "कोई सक्रिय फसल नहीं चुनी गई। कृपया पहले फसल टैब में फसल जोड़ें।",
+    "failed_recommendations": "सुझाव प्राप्त करने में विफल",
+    "something_went_wrong": "कुछ गलत हो गया",
+    "type_organic": "जैविक",
+    "type_chemical": "रासायनिक",
+    "type_ph": "pH",
+    "type_organic_full": "जैविक",
+    "type_chemical_full": "रासायनिक पूरक",
+    "type_ph_full": "pH संशोधन",
+    "quantity_label": "मात्रा",
+    "release_label": "रिलीज़",
+    "rainfall_adj_label": "वर्षा समायोजन",
+    "from_original": "{{quantity}} kg/ha से",
+    "unsure_apply": "कैसे डालें? नीचे किसी उपकरण पर टैप करें",
+    "why_this_fertilizer": "यह उर्वरक क्यों?",
+    "crop_context": "फसल संदर्भ",
+    "stage_label": "{{crop}} — {{stage}} अवस्था",
+    "growth_day_range": "विकास चक्र का दिन {{start}}–{{end}}",
+    "nutrient_deficits": "पोषक तत्वों की कमी पाई गई",
+    "deficit_label": "{{nutrient}} की कमी",
+    "severity_label": "गंभीरता: {{severity}}",
+    "deficit_description": "आपकी मिट्टी को {{amount}} kg/ha अधिक {{nutrient}} की आवश्यकता है।",
+    "what_supplies": "यह उर्वरक क्या प्रदान करता है",
+    "quantity_detail": "मात्रा:",
+    "release_speed": "रिलीज़ गति:",
+    "rainfall_adjusted": "वर्षा समायोजित:",
+    "benefits": "लाभ",
+    "rainfall_context": "वर्षा संदर्भ",
+    "weekly_rainfall": "साप्ताहिक वर्षा: {{amount}}mm",
+    "classification_label": "वर्गीकरण: {{classification}}",
+    "notes": "नोट्स",
+    "priority_strategy": "प्राथमिकता रणनीति",
+    "organic_first_explanation": "जैविक-प्रथम दृष्टिकोण: जैविक उर्वरकों को प्राथमिक समाधान के रूप में सुझाया गया है, रासायनिक पूरक केवल आवश्यकता पड़ने पर।",
+    "balanced_explanation": "कमी की गंभीरता के आधार पर रासायनिक और जैविक उर्वरकों का संतुलित दृष्टिकोण।",
+    "priority_label": "प्राथमिकता: {{priority}}",
+    "have_tool": "क्या आपके पास यह उपकरण है?",
+    "purchase_options": "खरीदारी के विकल्प",
+    "how_to_use": "कैसे उपयोग करें",
+    "watch_tutorial": "ट्यूटोरियल देखें",
+    "back": "वापस",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "day_label": "दिन {{day}}"
   },
   "profile": {
     "title": "प्रोफ़ाइल",
@@ -281,13 +367,29 @@
     "location": "स्थान",
     "logout": "लॉग आउट",
     "logout_confirm": "क्या आप वाकई अपने खाते से लॉग आउट करना चाहते हैं?",
-    "logout_description": "अपने सत्र से सुरक्षित रूप से लॉग आउट करें"
+    "logout_description": "अपने सत्र से सुरक्षित रूप से लॉग आउट करें",
+    "provide_location_first": "कृपया पहले स्थान दें",
+    "could_not_fetch_soil": "क्षेत्रीय मिट्टी डेटा प्राप्त नहीं हो सका",
+    "update_success": "प्रोफ़ाइल सफलतापूर्वक अपडेट हुई",
+    "update_error": "प्रोफ़ाइल अपडेट करने में विफल",
+    "state_placeholder": "राज्य",
+    "district_placeholder": "ज़िला"
   },
   "notifications": {
     "title": "सूचनाएं",
     "no_notifications": "अभी कोई सूचना नहीं",
     "mark_all_read": "सभी पढ़ी हुई चिह्नित करें",
-    "clear_all": "सभी हटाएं"
+    "clear_all": "सभी हटाएं",
+    "just_now": "अभी",
+    "min_ago": "{{minutes}} मिनट पहले",
+    "hr_ago": "{{hours}} घंटा पहले",
+    "hrs_ago": "{{hours}} घंटे पहले",
+    "day_ago": "{{days}} दिन पहले",
+    "days_ago": "{{days}} दिन पहले",
+    "checking_alerts": "अलर्ट जाँच रहे हैं...",
+    "no_notifications_title": "कोई सूचना नहीं",
+    "no_notifications_desc": "जलवायु और बाजार अलर्ट यहाँ दिखाई देंगे।",
+    "check_now": "अभी जाँचें"
   },
   "stages": {
     "germination": "अंकुरण",
@@ -522,6 +624,387 @@
     "timeout_error": "अनुरोध का समय समाप्त। कृपया पुनः प्रयास करें।",
     "no_data": "कोई डेटा उपलब्ध नहीं",
     "location_required": "स्थान आवश्यक है",
-    "crop_required": "कृपया पहले एक फसल चुनें"
+    "crop_required": "कृपया पहले एक फसल चुनें",
+    "location_not_set": "स्थान सेट नहीं है। कृपया पहले ऑनबोर्डिंग पूरी करें।",
+    "invalid_date": "अमान्य तिथि",
+    "planting_date_window": "रोपण तिथि 7 दिनों के भीतर होनी चाहिए (पहले या बाद)",
+    "failed_add_crop": "फसल जोड़ने में विफल। कृपया पुनः प्रयास करें।",
+    "provide_district_state": "कृपया पहले अपना ज़िला और राज्य दर्ज/चुनें।",
+    "could_not_fetch_soil": "मिट्टी के मापदंड प्राप्त नहीं हो सके।",
+    "registration_failed": "पंजीकरण विफल",
+    "unable_to_load_recommendations": "सिफारिशें लोड करने में असमर्थ। कृपया पुनः प्रयास करें।",
+    "network_connect_error": "नेटवर्क त्रुटि: बैकएंड से कनेक्ट करने में असमर्थ। अपना कनेक्शन और IP पता जांचें।",
+    "request_timed_out": "अनुरोध का समय समाप्त। बैकएंड धीमा हो सकता है। कृपया पुनः प्रयास करें।",
+    "failed_to_load_market": "बाजार डेटा लोड करने में विफल",
+    "no_market_data_combo": "इस फसल/राज्य संयोजन के लिए कोई बाजार डेटा उपलब्ध नहीं",
+    "select_state_apmc_commodity": "कृपया पहले राज्य, APMC और वस्तु चुनें",
+    "permission_denied": "अनुमति अस्वीकृत",
+    "failed_get_recommendations": "सिफारिशें प्राप्त करने में विफल",
+    "username_exists": "उपयोगकर्ता नाम पहले से मौजूद है",
+    "invalid_credentials": "अमान्य प्रमाण-पत्र",
+    "could_not_auto_fetch": "स्वतः प्राप्त नहीं हो सका। कृपया मैन्युअल रूप से दर्ज करें।"
+  },
+  "notification_risks": {
+    "climate_alert": "जलवायु चेतावनी",
+    "extreme_heat": "अत्यधिक गर्मी चेतावनी",
+    "extreme_cold": "शीत लहर चेतावनी",
+    "heavy_rainfall": "भारी वर्षा अपेक्षित",
+    "drought": "सूखे की स्थिति",
+    "high_humidity": "उच्च आर्द्रता चेतावनी",
+    "strong_winds": "तेज़ हवाओं की अपेक्षा",
+    "frost": "पाला चेतावनी",
+    "heatwave": "लू चेतावनी"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "धीमी",
+      "moderate": "मध्यम",
+      "fast": "तेज़",
+      "very_slow": "बहुत धीमी"
+    },
+    "classification": {
+      "very_low": "बहुत कम",
+      "low": "कम",
+      "optimal": "उचित",
+      "high": "अधिक",
+      "very_high": "बहुत अधिक",
+      "extreme": "अत्यधिक",
+      "unknown_crop": "अज्ञात फसल"
+    },
+    "severity": {
+      "none": "कोई नहीं",
+      "low": "कम",
+      "moderate": "मध्यम",
+      "high": "अधिक",
+      "critical": "गंभीर"
+    },
+    "timing_advice": {
+      "very_high": "भारी वर्षा का पता चला है। उर्वरक डालने में 2-3 दिन की देरी करें जब तक मिट्टी का पानी न निकल जाए। रिसाव हानि कम करने के लिए विभाजित खुराक में डालें।",
+      "high": "सामान्य से अधिक वर्षा। विभाजित खुराक पर विचार करें — आधा अभी डालें और शेष 3-4 दिन बाद डालें।",
+      "very_low": "बहुत शुष्क स्थिति। उर्वरक सिंचाई नालियों के पास डालें या उचित अवशोषण के लिए डालने के 24 घंटे के भीतर सिंचाई सुनिश्चित करें।",
+      "low": "सामान्य से कम नमी। उर्वरक डालने के बाद सिंचाई करें या सुबह जल्दी डालें जब मिट्टी में कुछ ओस हो।",
+      "optimal": "वर्षा उचित है। मानक अभ्यास के अनुसार उर्वरक डालें।"
+    },
+    "from_prefix": "से",
+    "summary": {
+      "no_deficit": "वर्तमान विकास चरण के लिए मिट्टी के पोषक तत्व और pH उचित सीमा में हैं। उर्वरक डालने की आवश्यकता नहीं है।",
+      "deficits_detected": "कमी पाई गई",
+      "deficit_word": "कमी",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha कमी)",
+      "ph_deficit_part": "pH: {{direction}} (अंतर: {{gap}})",
+      "organic_recommended": "{{count}} जैविक उर्वरक प्राथमिक उपचार के रूप में सुझाए गए।",
+      "chemical_added": "{{count}} रासायनिक पूरक जोड़े गए जहाँ जैविक अपर्याप्त है।",
+      "ph_correction": "pH सुधार: {{name}}।"
+    },
+    "names": {
+      "farmyard_manure_fym": "गोबर की खाद (FYM)",
+      "vermicompost": "वर्मीकम्पोस्ट (केंचुआ खाद)",
+      "neem_cake": "नीम की खली",
+      "bone_meal": "हड्डी का चूरा (Bone Meal)",
+      "seaweed_extract": "समुद्री शैवाल अर्क",
+      "compost": "कम्पोस्ट",
+      "fish_meal": "मछली की खाद (Fish Meal)",
+      "rock_phosphate": "रॉक फॉस्फेट",
+      "wood_ash": "लकड़ी की राख",
+      "green_manure_dhainchasesbania": "हरी खाद (ढैंचा/सेसबेनिया)",
+      "mustard_cake": "सरसों की खली",
+      "panchagavya": "पंचगव्य",
+      "urea": "यूरिया",
+      "dap_diammonium_phosphate": "DAP (डाई-अमोनियम फॉस्फेट)",
+      "mop_muriate_of_potash": "MOP (म्यूरेट ऑफ पोटाश)",
+      "ssp_single_super_phosphate": "SSP (सिंगल सुपर फॉस्फेट)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "अमोनियम सल्फेट",
+      "potassium_sulphate_sop": "पोटेशियम सल्फेट (SOP)",
+      "calcium_ammonium_nitrate_can": "कैल्शियम अमोनियम नाइट्रेट (CAN)",
+      "zinc_sulphate": "जिंक सल्फेट",
+      "borax": "बोरेक्स",
+      "agricultural_lime_caco": "कृषि चूना (CaCO₃)",
+      "dolomite_lime": "डोलोमाइट चूना",
+      "gypsum_caso": "जिप्सम (CaSO₄)",
+      "elemental_sulphur": "तात्विक गंधक (Elemental Sulphur)"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "बेसल (आधारीय) अनुप्रयोग",
+        "description": "बुवाई या रोपाई से पहले मिट्टी में उर्वरक मिलाना",
+        "when_to_use": "रोपण से पहले — भूमि तैयारी के समय डालें"
+      },
+      "manual_spread": {
+        "name": "हाथ से छिड़काव / ब्रॉडकास्टिंग",
+        "description": "खेत की सतह पर दानेदार उर्वरक को समान रूप से बिखेरना",
+        "when_to_use": "जैविक खादों (FYM, कम्पोस्ट) या बड़े क्षेत्रों में दानेदार उर्वरकों के लिए"
+      },
+      "top_dressing": {
+        "name": "टॉप ड्रेसिंग",
+        "description": "फसल के मौसम में बढ़ते पौधों की जड़ों के पास उर्वरक डालना",
+        "when_to_use": "वानस्पतिक या सक्रिय विकास चरण में — पौधे की जड़ के पास डालें और सिंचाई करें"
+      },
+      "soil_incorporation": {
+        "name": "मिट्टी में मिलाना",
+        "description": "जैविक खाद या उर्वरक को मिट्टी में गहराई से मिलाना",
+        "when_to_use": "धीमी गति से निकलने वाले जैविक उर्वरकों के लिए — रोपण से 2-4 सप्ताह पहले मिट्टी में मिलाएं"
+      },
+      "foliar_spray": {
+        "name": "पत्तों पर छिड़काव (फोलियर स्प्रे)",
+        "description": "तेज़ अवशोषण के लिए पतला तरल उर्वरक सीधे पत्तियों पर छिड़कना",
+        "when_to_use": "सूक्ष्म पोषक तत्वों की कमी, महत्वपूर्ण विकास चरणों, या जब मिट्टी में डालना अपर्याप्त हो"
+      },
+      "fertigation": {
+        "name": "फर्टिगेशन (सिंचाई द्वारा उर्वरक)",
+        "description": "ड्रिप या स्प्रिंकलर सिंचाई प्रणाली के माध्यम से पानी में घुलनशील उर्वरक डालना",
+        "when_to_use": "ड्रिप/स्प्रिंकलर वाले खेतों के लिए — सबसे कुशल विधि, बर्बादी कम करती है"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "खुरपी / गार्डन हो",
+        "description": "छोटे भूखंडों में उर्वरक को ऊपरी मिट्टी में मिलाने का हाथ का उपकरण"
+      },
+      "cultivator": {
+        "name": "कल्टीवेटर",
+        "description": "ट्रैक्टर चालित या हस्तचालित कल्टीवेटर — उर्वरक को मिट्टी में मिलाने के लिए"
+      },
+      "seed_drill": {
+        "name": "सीड-कम-फर्टिलाइज़र ड्रिल",
+        "description": "कूंड़ों में बीज और उर्वरक एक साथ डालता है"
+      },
+      "broadcast_spreader": {
+        "name": "हैंड ब्रॉडकास्ट स्प्रेडर",
+        "description": "दानेदार उर्वरक के समान वितरण के लिए क्रैंक से चलने वाला स्प्रेडर"
+      },
+      "fertilizer_basket": {
+        "name": "खाद की टोकरी / टोकरी",
+        "description": "FYM, कम्पोस्ट या दानों को हाथ से बिखेरने के लिए पारंपरिक बुनी टोकरी"
+      },
+      "wheelbarrow": {
+        "name": "ठेला (Wheelbarrow)",
+        "description": "खेत में जैविक खाद ले जाने और डालने के लिए"
+      },
+      "hand_duster": {
+        "name": "हैंड फर्टिलाइज़र डस्टर",
+        "description": "पौधों की कतारों के पास दानेदार उर्वरक रखने का छोटा उपकरण"
+      },
+      "khurpi": {
+        "name": "खुरपी / हैंड वीडर",
+        "description": "पौधों के पास उथली नालियाँ बनाने, उर्वरक डालने और ढकने के लिए"
+      },
+      "ring_applicator": {
+        "name": "रिंग एप्लीकेटर",
+        "description": "पेड़ वाली फसलों के चारों ओर गोलाकार रूप में उर्वरक डालने का उपकरण"
+      },
+      "spade": {
+        "name": "फावड़ा / फाउड़ा",
+        "description": "बगीचे की क्यारियों में खाद और कम्पोस्ट खोदकर मिलाने के लिए"
+      },
+      "rotavator": {
+        "name": "रोटावेटर / रोटरी टिलर",
+        "description": "पावर टिलर अटैचमेंट जो खाद को ऊपरी मिट्टी में समान रूप से मिलाता है"
+      },
+      "plough": {
+        "name": "हल (MB / देसी)",
+        "description": "जैविक पदार्थ के साथ मिट्टी पलटने के लिए पारंपरिक या मोल्ड-बोर्ड हल"
+      },
+      "knapsack_sprayer": {
+        "name": "नैपसेक स्प्रेयर (16L)",
+        "description": "पीठ पर लगाने वाला हस्तचालित पंप स्प्रेयर — छोटे-मध्यम खेतों के लिए सबसे आम"
+      },
+      "battery_sprayer": {
+        "name": "बैटरी चालित स्प्रेयर",
+        "description": "समान दबाव के लिए इलेक्ट्रिक पंप स्प्रेयर — शारीरिक मेहनत कम करता है"
+      },
+      "measuring_cup": {
+        "name": "मापने का कप / बीकर",
+        "description": "सांद्र तरल उर्वरकों के सटीक मिश्रण के लिए"
+      },
+      "venturi_injector": {
+        "name": "वेंचुरी फर्टिलाइज़र इंजेक्टर",
+        "description": "कम लागत का उपकरण जो पानी के दबाव से उर्वरक घोल को ड्रिप लाइनों में खींचता है"
+      },
+      "mixing_tank": {
+        "name": "उर्वरक मिश्रण टैंक",
+        "description": "इंजेक्शन से पहले पानी में घुलनशील उर्वरक को घोलने और मिलाने का टैंक"
+      },
+      "dosing_pump": {
+        "name": "फर्टिगेशन डोसिंग पंप",
+        "description": "सिंचाई में सटीक उर्वरक इंजेक्शन के लिए इलेक्ट्रिक या हाइड्रोलिक पंप"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "मिट्टी की संरचना सुधारता है",
+      "enhances_water_retention": "जल धारण क्षमता बढ़ाता है",
+      "supports_microbial_activity": "सूक्ष्मजीवी गतिविधि में सहायक",
+      "rich_in_humic_acids": "ह्यूमिक एसिड से भरपूर",
+      "contains_beneficial_microbes": "लाभकारी सूक्ष्मजीव युक्त",
+      "improves_nutrient_availability": "पोषक तत्वों की उपलब्धता सुधारता है",
+      "natural_pest_deterrent": "प्राकृतिक कीट निवारक",
+      "slow_nitrogen_release": "धीमी नाइट्रोजन रिलीज़",
+      "improves_soil_health": "मिट्टी का स्वास्थ्य सुधारता है",
+      "excellent_phosphorus_source": "फॉस्फोरस का उत्कृष्ट स्रोत",
+      "contains_calcium": "कैल्शियम युक्त",
+      "longlasting_effect": "लंबे समय तक असर",
+      "rich_in_micronutrients_and_growth_hormones": "सूक्ष्म पोषक तत्वों और वृद्धि हार्मोन से भरपूर",
+      "boosts_stress_resistance": "तनाव प्रतिरोधक क्षमता बढ़ाता है",
+      "enhances_root_growth": "जड़ों की वृद्धि बढ़ाता है",
+      "improves_soil_organic_matter": "मिट्टी का जैविक पदार्थ सुधारता है",
+      "enhances_drainage": "जल निकासी सुधारता है",
+      "feeds_soil_microorganisms": "मिट्टी के सूक्ष्मजीवों को पोषित करता है",
+      "high_n_and_p_content": "उच्च N और P सामग्री",
+      "natural_source": "प्राकृतिक स्रोत",
+      "improves_soil_biology": "मिट्टी की जैविकता सुधारता है",
+      "longterm_phosphorus_supply": "दीर्घकालिक फॉस्फोरस आपूर्ति",
+      "natural_mineral": "प्राकृतिक खनिज",
+      "no_chemical_processing": "कोई रासायनिक प्रसंस्करण नहीं",
+      "rich_in_potassium": "पोटेशियम से भरपूर",
+      "raises_soil_ph": "मिट्टी का pH बढ़ाता है",
+      "contains_trace_minerals": "सूक्ष्म खनिज युक्त",
+      "fixes_atmospheric_nitrogen": "वायुमंडलीय नाइट्रोजन स्थिर करता है",
+      "adds_organic_matter": "जैविक पदार्थ जोड़ता है",
+      "suppresses_weeds": "खरपतवार दबाता है",
+      "good_nitrogen_source": "नाइट्रोजन का अच्छा स्रोत",
+      "improves_soil_texture": "मिट्टी की बनावट सुधारता है",
+      "natural_pest_repellent": "प्राकृतिक कीट विकर्षक",
+      "traditional_biostimulant": "पारंपरिक जैव-उत्तेजक",
+      "boosts_immunity": "रोग प्रतिरोधक क्षमता बढ़ाता है",
+      "enhances_growth_hormones": "वृद्धि हार्मोन बढ़ाता है",
+      "highest_n_content": "सर्वाधिक N सामग्री",
+      "readily_available": "आसानी से उपलब्ध",
+      "costeffective": "किफायती",
+      "primary_p_source": "प्राथमिक P स्रोत",
+      "also_provides_nitrogen": "नाइट्रोजन भी प्रदान करता है",
+      "good_for_basal_application": "आधारीय अनुप्रयोग के लिए उपयुक्त",
+      "highest_k_content": "सर्वाधिक K सामग्री",
+      "essential_for_fruiting_crops": "फलदार फसलों के लिए आवश्यक",
+      "improves_disease_resistance": "रोग प्रतिरोधक क्षमता सुधारता है",
+      "contains_calcium_and_sulphur_too": "कैल्शियम और सल्फर भी युक्त",
+      "good_for_oilseeds": "तिलहन के लिए उपयुक्त",
+      "moderate_cost": "मध्यम लागत",
+      "balanced_p_and_k": "संतुलित P और K",
+      "suitable_for_basal_dose": "आधारीय खुराक के लिए उपयुक्त",
+      "reduces_number_of_fertilizers_needed": "आवश्यक उर्वरकों की संख्या कम करता है",
+      "high_phosphorus_blend": "उच्च फॉस्फोरस मिश्रण",
+      "good_starter_fertilizer": "अच्छा स्टार्टर उर्वरक",
+      "multinutrient_supply": "बहु-पोषक आपूर्ति",
+      "provides_sulphur_24": "सल्फर (24%) प्रदान करता है",
+      "acidifies_soil_slightly": "मिट्टी को हल्का अम्लीय बनाता है",
+      "chloridefree_k_source": "क्लोराइड-मुक्त K स्रोत",
+      "contains_sulphur_18": "सल्फर (18%) युक्त",
+      "better_for_sensitive_crops": "संवेदनशील फसलों के लिए बेहतर",
+      "provides_calcium": "कैल्शियम प्रदान करता है",
+      "fastacting_nitrogen": "तेज़ी से असर करने वाला नाइट्रोजन",
+      "less_volatile_than_urea": "यूरिया से कम वाष्पशील",
+      "corrects_zinc_deficiency": "जिंक की कमी दूर करता है",
+      "essential_for_ricemaize": "धान/मक्का के लिए आवश्यक",
+      "improves_grain_quality": "अनाज की गुणवत्ता सुधारता है",
+      "essential_for_floweringfruiting": "फूल/फल आने के लिए आवश्यक",
+      "improves_pollen_viability": "पराग की जीवनक्षमता सुधारता है",
+      "corrects_boron_deficiency": "बोरोन की कमी दूर करता है"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "बुवाई से 2-3 सप्ताह पहले डालना सबसे अच्छा है। ऊपरी मिट्टी में अच्छी तरह मिलाएं।",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "आधारीय खुराक या टॉप ड्रेसिंग के रूप में डाल सकते हैं। संग्रहित वर्मीकम्पोस्ट को सीधी धूप से बचाएं।",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "बुवाई के समय डालें। सूत्रकृमिनाशक और कीट विकर्षक के रूप में काम करता है।",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "अम्लीय से तटस्थ मिट्टी (pH < 7) में सबसे अच्छा काम करता है। क्षारीय मिट्टी में प्रभावी नहीं।",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "निर्देशानुसार पतला करें। सक्रिय वृद्धि के दौरान फोलियर स्प्रे के रूप में सबसे अच्छा।",
+      "ensure_compost_is_fully_decomposed_before_application": "डालने से पहले सुनिश्चित करें कि कम्पोस्ट पूरी तरह सड़ चुकी है।",
+      "may_attract_animals_mix_into_soil_well": "जानवरों को आकर्षित कर सकता है। मिट्टी में अच्छी तरह मिलाएं।",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "अम्लीय मिट्टी (pH < 6.5) में सबसे प्रभावी। बहुत धीमी गति से निकलता है।",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "क्षारीय मिट्टी पर न डालें। नाइट्रोजन उर्वरकों के साथ न मिलाएं।",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "मुख्य फसल की बुवाई से 3-4 सप्ताह पहले मिट्टी में मिलाएं।",
+      "apply_1520_days_before_sowing_for_best_results": "सर्वोत्तम परिणामों के लिए बुवाई से 15-20 दिन पहले डालें।",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "फोलियर स्प्रे के लिए 3% पतला करें। सुबह जल्दी या शाम को डालें।",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "विभाजित खुराकों में डालें। डालने के तुरंत बाद खेत में पानी न भरें।",
+      "best_applied_at_sowing_as_basal_dose": "बुवाई के समय आधारीय खुराक के रूप में डालना सबसे अच्छा है।",
+      "apply_at_sowing_or_during_tuberfruit_formation": "बुवाई के समय या कंद/फल बनने के दौरान डालें।",
+      "also_provides_11_sulphur_and_20_calcium": "11% सल्फर और 20% कैल्शियम भी प्रदान करता है।",
+      "ideal_for_crops_with_high_p_and_k_demand": "उच्च P और K मांग वाली फसलों के लिए आदर्श।",
+      "best_for_phosphorusdemanding_crops": "फॉस्फोरस की अधिक आवश्यकता वाली फसलों के लिए सर्वोत्तम।",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "सल्फर-प्रिय फसलों (तिलहन, दलहन) के लिए पसंदीदा।",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "क्लोराइड-संवेदनशील फसलों (आलू, टमाटर, फल) के लिए MOP से बेहतर।",
+      "good_for_acidic_soils_and_calciumloving_crops": "अम्लीय मिट्टी और कैल्शियम-प्रिय फसलों के लिए अच्छा।",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "भारतीय मिट्टी में आम कमी। मिट्टी में 25 kg/ha या 0.5% फोलियर स्प्रे करें।",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "तिलहन, दलहन और सब्जियों के लिए महत्वपूर्ण। अधिक मात्रा में न डालें — बोरोन विषाक्तता संभव है।",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "बुवाई से 2-3 सप्ताह पहले डालें। 2000 kg/ha प्रति 0.5-1.0 इकाई pH बढ़ाता है।",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "मैग्नीशियम भी प्रदान करता है। Mg की कमी वाली मिट्टी के लिए पसंदीदा।",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "क्षारीय/ऊसर मिट्टी के लिए। मिट्टी की संरचना भी सुधारता है।",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "धीमी गति से असर करता है। पहले से अच्छी तरह डालें। सूक्ष्मजीव S को सल्फ्यूरिक एसिड में बदलते हैं।"
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "सूखा धान — पोषक तत्व सक्रिय नहीं, खुराक बढ़ाएं",
+      "below_optimal_moisture": "उचित से कम नमी",
+      "ideal_conditions": "आदर्श स्थितियां",
+      "ideal": "आदर्श",
+      "leaching_risk_in_flooded_fields": "जलमग्न खेतों में रिसाव का खतरा",
+      "heavy_waterlogging__high_leaching": "भारी जलभराव — अधिक रिसाव",
+      "drought_stress_reduces_uptake": "सूखे का तनाव अवशोषण कम करता है",
+      "drought_stress": "सूखे का तनाव",
+      "drought": "सूखा",
+      "slightly_dry": "हल्का सूखा",
+      "excess_moisture": "अतिरिक्त नमी",
+      "excess": "अधिकता",
+      "waterlogging_risk": "जलभराव का खतरा",
+      "waterlogging": "जलभराव",
+      "heavy_waterlogging": "भारी जलभराव",
+      "very_dry__poor_nutrient_mobility": "बहुत सूखा — खराब पोषक गतिशीलता",
+      "excess_moisture_for_wheat": "गेहूं के लिए अतिरिक्त नमी",
+      "waterlogging__severe_leaching": "जलभराव — गंभीर रिसाव",
+      "dry_conditions": "शुष्क स्थितियां",
+      "waterlogging__pulse_crop_very_sensitive": "जलभराव — दलहन फसल बहुत संवेदनशील",
+      "waterlogging__pulse_sensitive": "जलभराव — दलहन संवेदनशील",
+      "low_moisture": "कम नमी",
+      "dry_soil_limits_tuber_growth": "सूखी मिट्टी कंद वृद्धि सीमित करती है",
+      "excess_moisture__rot_risk": "अतिरिक्त नमी — सड़न का खतरा",
+      "waterlogging__severe": "जलभराव — गंभीर",
+      "boll_rot_risk__reduce_heavily": "बॉल सड़न का खतरा — खुराक काफी कम करें",
+      "excess__rot_risk": "अधिकता — सड़न का खतरा",
+      "hardy_crop_slight_adjustment": "कठोर फसल, हल्का समायोजन",
+      "too_wet_for_hardy_pulse": "कठोर दलहन के लिए बहुत गीला",
+      "turmeric_needs_moisture": "हल्दी को नमी चाहिए",
+      "rhizome_rot_risk": "प्रकंद सड़न का खतरा",
+      "banana_is_waterhungry": "केला पानी की अधिक मांग करता है",
+      "root_suffocation": "जड़ों का दम घुटना",
+      "fungal_risk": "फफूंद का खतरा",
+      "too_wet_for_sesame": "तिल के लिए बहुत गीला",
+      "dry_stress": "शुष्क तनाव",
+      "blight_risk": "झुलसा रोग का खतरा",
+      "severe_disease_risk": "गंभीर रोग का खतरा",
+      "root_rot_risk": "जड़ सड़न का खतरा",
+      "root_rot": "जड़ सड़न",
+      "waterlogging__bulb_rot_risk": "जलभराव — कंद सड़न का खतरा",
+      "bulb_rot_risk": "कंद सड़न का खतरा",
+      "too_wet": "बहुत गीला",
+      "head_rot_risk": "सिर सड़न का खतरा",
+      "pineapple_is_droughttolerant": "अनानास सूखा-सहनशील है",
+      "curd_rot_risk": "फूल सड़न का खतरा",
+      "slight_drought_tolerance": "हल्की सूखा सहनशीलता",
+      "downy_mildew_risk__reduce_heavily": "डाउनी मिल्ड्यू का खतरा — खुराक काफी कम करें",
+      "dry__pithy_roots": "सूखा — स्पंजी जड़ें",
+      "root_cracking": "जड़ में दरार",
+      "root_splitting": "जड़ का फटना",
+      "severe_cracking_and_rot": "गंभीर दरार और सड़न",
+      "fruit_cracking": "फल में दरार",
+      "fruit_cracking_risk": "फल दरार का खतरा",
+      "needs_consistent_moisture": "लगातार नमी चाहिए",
+      "needs_moisture": "नमी चाहिए",
+      "needs_high_moisture": "अधिक नमी चाहिए",
+      "bitter_fruit_risk": "कड़वे फल का खतरा",
+      "soft_rot_risk": "मृदु सड़न का खतरा",
+      "dry__woody_roots": "सूखा — रेशेदार जड़ें",
+      "hardy__slight_adjustment": "कठोर — हल्का समायोजन",
+      "root_damage": "जड़ को नुकसान",
+      "ginger_needs_consistent_moisture": "अदरक को लगातार नमी चाहिए",
+      "needs_moisture_for_fruit_fill": "फल भरने के लिए नमी चाहिए",
+      "forked_roots_risk": "कांटेदार जड़ों का खतरा",
+      "droughttolerant": "सूखा-सहनशील",
+      "jute_needs_high_moisture": "जूट को अधिक नमी चाहिए",
+      "extreme_rainfall__significant_leaching_risk": "अत्यधिक वर्षा — महत्वपूर्ण रिसाव का खतरा।"
+    }
+  },
+  "tabs": {
+    "home": "होम",
+    "crop": "फसल",
+    "market": "बाजार",
+    "fertilizer": "उर्वरक"
   }
 }

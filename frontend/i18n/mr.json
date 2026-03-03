@@ -190,7 +190,15 @@
     "status": "स्थिती",
     "loading": "लोड होत आहे...",
     "retry": "पुन्हा प्रयत्न करा",
-    "unknown": "अज्ञात"
+    "unknown": "अज्ञात",
+    "error": "त्रुटी",
+    "success": "यशस्वी",
+    "ok": "ठीक आहे",
+    "active": "सक्रिय",
+    "farmer": "शेतकरी",
+    "today": "आज",
+    "market_data": "बाजार डेटा",
+    "state_average": "राज्य सरासरी"
   },
   "home": {
     "greeting": "नमस्कार,",
@@ -220,7 +228,19 @@
       "ready_to_harvest": "काढणीसाठी तयार!",
       "next_stage": "पुढील: {{days}} दिवसात {{stage}}",
       "view_all_crops": "सर्व {{count}} पिके पहा",
-      "tap_to_select": "पीक निवडण्यासाठी टॅप करा"
+      "tap_to_select": "पीक निवडण्यासाठी टॅप करा",
+      "crop_history": "तुमची पिके",
+      "no_crops_yet": "अजून पिके नाहीत. शिफारशींमधून एक पीक निवडा!",
+      "planted_on": "लागवड",
+      "add_new_crop": "नवीन पीक जोडा",
+      "edit_date": "तारीख बदला",
+      "delete": "काढा",
+      "delete_title": "पीक काढा",
+      "delete_confirm": "तुम्हाला {{name}} तुमच्या सक्रिय पिकांमधून काढायचे आहे का?",
+      "delete_button": "काढा",
+      "edit_date_title": "लागवड तारीख बदला",
+      "primary_badge": "मुख्य",
+      "long_press_hint": "संपादित करण्यासाठी किंवा काढण्यासाठी पीक दीर्घकाळ दाबा"
     },
     "market": {
       "per_kg": "प्रति क्विंटल"
@@ -243,7 +263,10 @@
     "growth_duration_prefix": "वाढण्याचा कालावधी: ~",
     "days_suffix": " दिवस",
     "category_label": "श्रेणी: ",
-    "planting_date_query": "तुम्ही हे पीक कधी लावले?"
+    "planting_date_query": "तुम्ही हे पीक कधी लावले?",
+    "success_title": "पीक जोडले!",
+    "success_message": "{{name}} तुमच्या शेतात जोडले गेले आहे.",
+    "planting_date_label": "लागवड तारीख: "
   },
   "market": {
     "title": "बाज़ार भाव",
@@ -259,7 +282,17 @@
     "initial_prompt": "राज्य, एपीएमसी आणि वस्तू निवडा\nनंतर \"बाजार मूल्यांकन\" वर टॅप करा",
     "evaluating_status": "बाजार मूल्यांकन चालू आहे...",
     "past_time": "मागील {{time}}",
-    "next_time": "पुढील {{time}}"
+    "next_time": "पुढील {{time}}",
+    "select_state": "राज्य निवडा",
+    "select_state_first": "आधी राज्य निवडा",
+    "select_apmc": "APMC निवडा",
+    "select_apmc_first": "आधी APMC निवडा",
+    "select_commodity": "वस्तू निवडा",
+    "evaluate_button": "बाजार मूल्यांकन",
+    "showing": "दाखवत आहे:",
+    "in": "मध्ये",
+    "selected": "निवडलेले:",
+    "tap_evaluate": "- मूल्यांकन करा"
   },
   "disease": {
     "title": "रोग ओळख",
@@ -269,6 +302,59 @@
     "click_picture": "फोटो काढा",
     "close": "बंद करा",
     "diagnosis": "रोगाचे निदान"
+  },
+  "fertilizer": {
+    "title": "खत शिफारस",
+    "subtitle": "वैयक्तिक खत शिफारसी मिळवा",
+    "upload": "अपलोड करा",
+    "retake": "पुन्हा फोटो काढा",
+    "click_picture": "फोटो काढा",
+    "close": "बंद करा",
+    "diagnosis": "शिफारस",
+    "get_recommendations": "खत शिफारसी मिळवा",
+    "no_active_crop": "कोणतेही सक्रिय पीक निवडलेले नाही. कृपया आधी पीक टॅबमध्ये पीक जोडा.",
+    "failed_recommendations": "शिफारसी मिळवण्यात अपयश",
+    "something_went_wrong": "काहीतरी चूक झाली",
+    "type_organic": "सेंद्रिय",
+    "type_chemical": "रासायनिक",
+    "type_ph": "pH",
+    "type_organic_full": "सेंद्रिय",
+    "type_chemical_full": "रासायनिक पूरक",
+    "type_ph_full": "pH सुधारणा",
+    "quantity_label": "प्रमाण",
+    "release_label": "रिलीझ",
+    "rainfall_adj_label": "पाऊस समायोजन",
+    "from_original": "{{quantity}} kg/ha पासून",
+    "unsure_apply": "कसे वापरावे? खालील साधनावर टॅप करा",
+    "why_this_fertilizer": "हेच खत का?",
+    "crop_context": "पीक संदर्भ",
+    "stage_label": "{{crop}} — {{stage}} अवस्था",
+    "growth_day_range": "वाढीच्या चक्राचा दिवस {{start}}–{{end}}",
+    "nutrient_deficits": "पोषक तत्वांची कमतरता आढळली",
+    "deficit_label": "{{nutrient}} कमतरता",
+    "severity_label": "गंभीरता: {{severity}}",
+    "deficit_description": "तुमच्या मातीला {{amount}} kg/ha अधिक {{nutrient}} आवश्यक आहे.",
+    "what_supplies": "हे खत काय पुरवते",
+    "quantity_detail": "प्रमाण:",
+    "release_speed": "रिलीझ वेग:",
+    "rainfall_adjusted": "पाऊस समायोजित:",
+    "benefits": "फायदे",
+    "rainfall_context": "पाऊस संदर्भ",
+    "weekly_rainfall": "साप्ताहिक पाऊस: {{amount}}mm",
+    "classification_label": "वर्गीकरण: {{classification}}",
+    "notes": "टिपा",
+    "priority_strategy": "प्राधान्य रणनीती",
+    "organic_first_explanation": "सेंद्रिय-प्रथम दृष्टिकोन: सेंद्रिय खतांना प्राधान्य दिले आहे, रासायनिक पूरक फक्त गरजेच्या वेळी.",
+    "balanced_explanation": "कमतरतेच्या गंभीरतेनुसार रासायनिक आणि सेंद्रिय खतांचा संतुलित दृष्टिकोन.",
+    "priority_label": "प्राधान्य: {{priority}}",
+    "have_tool": "तुमच्याकडे हे साधन आहे का?",
+    "purchase_options": "खरेदीचे पर्याय",
+    "how_to_use": "कसे वापरावे",
+    "watch_tutorial": "ट्युटोरियल पहा",
+    "back": "मागे",
+    "yes": "होय",
+    "no": "नाही",
+    "day_label": "दिवस {{day}}"
   },
   "profile": {
     "title": "प्रोफ़ाइल",
@@ -284,13 +370,27 @@
     "update_error": "प्रोफाइल अपडेट करण्यात अपयश",
     "logout": "लॉग आउट",
     "logout_confirm": "आपण खात्रीने आपल्या खात्यातून बाहेर पडू इच्छिता?",
-    "logout_description": "तुमच्या खात्यातून सुरक्षितपणे बाहेर पडा"
+    "logout_description": "तुमच्या खात्यातून सुरक्षितपणे बाहेर पडा",
+    "provide_location_first": "कृपया आधी स्थान द्या",
+    "could_not_fetch_soil": "प्रादेशिक माती डेटा मिळवण्यात अपयश",
+    "state_placeholder": "राज्य",
+    "district_placeholder": "जिल्हा"
   },
   "notifications": {
     "title": "सूचना",
     "no_notifications": "अजून कोणत्याही सूचना नाहीत",
     "mark_all_read": "सर्व वाचलेले म्हणून चिन्हांकित करा",
-    "clear_all": "सर्व हटवा"
+    "clear_all": "सर्व हटवा",
+    "just_now": "आत्ताच",
+    "min_ago": "{{minutes}} मिनिटांपूर्वी",
+    "hr_ago": "{{hours}} तासापूर्वी",
+    "hrs_ago": "{{hours}} तासांपूर्वी",
+    "day_ago": "{{days}} दिवसापूर्वी",
+    "days_ago": "{{days}} दिवसांपूर्वी",
+    "checking_alerts": "अलर्ट तपासत आहोत...",
+    "no_notifications_title": "कोणत्याही सूचना नाहीत",
+    "no_notifications_desc": "हवामान आणि बाजार अलर्ट येथे दिसतील.",
+    "check_now": "आत्ता तपासा"
   },
   "stages": {
     "germination": "उगवण",
@@ -525,6 +625,387 @@
     "timeout_error": "विनंती कालबाह्य. कृपया पुन्हा प्रयत्न करा.",
     "no_data": "डेटा उपलब्ध नाही",
     "location_required": "स्थान आवश्यक आहे",
-    "crop_required": "कृपया आधी एक पीक निवडा"
+    "crop_required": "कृपया आधी एक पीक निवडा",
+    "location_not_set": "स्थान सेट नाही. कृपया आधी ऑनबोर्डिंग पूर्ण करा.",
+    "invalid_date": "अमान्य तारीख",
+    "planting_date_window": "लागवडीची तारीख ७ दिवसांच्या आत असावी (मागील किंवा पुढील)",
+    "failed_add_crop": "पीक जोडण्यात अपयश. कृपया पुन्हा प्रयत्न करा.",
+    "provide_district_state": "कृपया आधी तुमचा जिल्हा आणि राज्य द्या/निवडा.",
+    "could_not_fetch_soil": "मातीचे मापदंड मिळवण्यात अपयश.",
+    "registration_failed": "नोंदणी अपयशी",
+    "unable_to_load_recommendations": "शिफारशी लोड करता आल्या नाहीत. कृपया पुन्हा प्रयत्न करा.",
+    "network_connect_error": "नेटवर्क त्रुटी: बॅकएंडशी जोडणी शक्य नाही. तुमचे कनेक्शन आणि IP पत्ता तपासा.",
+    "request_timed_out": "विनंतीचा कालावधी संपला. बॅकएंड मंद असू शकतो. कृपया पुन्हा प्रयत्न करा.",
+    "failed_to_load_market": "बाजार डेटा लोड करण्यात अयशस्वी",
+    "no_market_data_combo": "या पीक/राज्य संयोजनासाठी बाजार डेटा उपलब्ध नाही",
+    "select_state_apmc_commodity": "कृपया प्रथम राज्य, APMC आणि वस्तू निवडा",
+    "permission_denied": "परवानगी नाकारली",
+    "failed_get_recommendations": "शिफारशी मिळवण्यात अयशस्वी",
+    "username_exists": "वापरकर्ता नाव आधीच अस्तित्वात आहे",
+    "invalid_credentials": "अवैध प्रमाणपत्रे",
+    "could_not_auto_fetch": "स्वयंचलितपणे मिळवता आले नाही. कृपया स्वतः प्रविष्ट करा."
+  },
+  "notification_risks": {
+    "climate_alert": "हवामान सूचना",
+    "extreme_heat": "अत्यंत उष्णतेचा इशारा",
+    "extreme_cold": "थंडीची लाट सूचना",
+    "heavy_rainfall": "मुसळधार पावसाची अपेक्षा",
+    "drought": "दुष्काळी परिस्थिती",
+    "high_humidity": "उच्च आर्द्रता सूचना",
+    "strong_winds": "तीव्र वाऱ्याची अपेक्षा",
+    "frost": "दव चेतावणी",
+    "heatwave": "उष्णतेची लाट सूचना"
+  },
+  "fert_data": {
+    "release_speed": {
+      "slow": "संथ",
+      "moderate": "मध्यम",
+      "fast": "जलद",
+      "very_slow": "अत्यंत संथ"
+    },
+    "classification": {
+      "very_low": "अत्यंत कमी",
+      "low": "कमी",
+      "optimal": "योग्य",
+      "high": "जास्त",
+      "very_high": "अत्यंत जास्त",
+      "extreme": "अतिरेकी",
+      "unknown_crop": "अज्ञात पीक"
+    },
+    "severity": {
+      "none": "नाही",
+      "low": "कमी",
+      "moderate": "मध्यम",
+      "high": "जास्त",
+      "critical": "गंभीर"
+    },
+    "timing_advice": {
+      "very_high": "जोरदार पाऊस आढळला. माती निचरा होईपर्यंत खत वापर 2-3 दिवस पुढे ढकला. गळती कमी करण्यासाठी विभागून खत द्या.",
+      "high": "सामान्यापेक्षा जास्त पाऊस. विभागून खत द्या — अर्धे आता आणि उर्वरित 3-4 दिवसांनंतर द्या.",
+      "very_low": "अत्यंत कोरडी परिस्थिती. सिंचन वाहिन्यांजवळ खत द्या किंवा योग्य शोषणासाठी खत दिल्यानंतर 24 तासांच्या आत सिंचन करा.",
+      "low": "सामान्यापेक्षा कमी ओलावा. खत दिल्यानंतर सिंचन करा किंवा सकाळी लवकर जमिनीवर दव असताना खत द्या.",
+      "optimal": "पाऊस योग्य आहे. मानक पद्धतीनुसार खत द्या."
+    },
+    "from_prefix": "पासून",
+    "summary": {
+      "no_deficit": "सध्याच्या वाढीच्या टप्प्यासाठी मातीतील पोषक तत्त्वे आणि pH योग्य श्रेणीत आहेत. खत वापराची आवश्यकता नाही.",
+      "deficits_detected": "कमतरता आढळली",
+      "deficit_word": "कमतरता",
+      "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha कमतरता)",
+      "ph_deficit_part": "pH: {{direction}} (अंतर: {{gap}})",
+      "organic_recommended": "{{count}} सेंद्रिय खते प्राथमिक उपचार म्हणून सुचवली.",
+      "chemical_added": "{{count}} रासायनिक पूरक जोडले जेथे सेंद्रिय अपुरे आहे.",
+      "ph_correction": "pH सुधारणा: {{name}}."
+    },
+    "names": {
+      "farmyard_manure_fym": "शेणखत (FYM)",
+      "vermicompost": "गांडूळखत (Vermicompost)",
+      "neem_cake": "कडुलिंबाची पेंड",
+      "bone_meal": "हाडांचे चूर्ण (Bone Meal)",
+      "seaweed_extract": "समुद्री शैवाल अर्क",
+      "compost": "कंपोस्ट",
+      "fish_meal": "मासळी खत (Fish Meal)",
+      "rock_phosphate": "खडक स्फुरद (Rock Phosphate)",
+      "wood_ash": "लाकडाची राख",
+      "green_manure_dhainchasesbania": "हिरवळीचे खत (ताग/शेवरी)",
+      "mustard_cake": "मोहरी पेंड",
+      "panchagavya": "पंचगव्य",
+      "urea": "युरिया",
+      "dap_diammonium_phosphate": "DAP (डाय-अमोनियम फॉस्फेट)",
+      "mop_muriate_of_potash": "MOP (म्युरिएट ऑफ पोटॅश)",
+      "ssp_single_super_phosphate": "SSP (सिंगल सुपर फॉस्फेट)",
+      "npk_102626": "NPK 10:26:26",
+      "npk_123216": "NPK 12:32:16",
+      "ammonium_sulphate": "अमोनियम सल्फेट",
+      "potassium_sulphate_sop": "पोटॅशियम सल्फेट (SOP)",
+      "calcium_ammonium_nitrate_can": "कॅल्शियम अमोनियम नायट्रेट (CAN)",
+      "zinc_sulphate": "झिंक सल्फेट",
+      "borax": "बोरॅक्स",
+      "agricultural_lime_caco": "कृषी चुना (CaCO₃)",
+      "dolomite_lime": "डोलोमाइट चुना",
+      "gypsum_caso": "जिप्सम (CaSO₄)",
+      "elemental_sulphur": "मूलद्रव्य गंधक"
+    },
+    "methods": {
+      "basal_application": {
+        "name": "पायाभूत खत",
+        "description": "पेरणी किंवा पुनर्लागवडीपूर्वी मातीत खत मिसळणे",
+        "when_to_use": "लागवडीपूर्वी — जमीन तयार करताना वापरा"
+      },
+      "manual_spread": {
+        "name": "हाताने पसरवणे / ब्रॉडकास्टिंग",
+        "description": "दाणेदार खत शेताच्या पृष्ठभागावर समान प्रमाणात पसरवणे",
+        "when_to_use": "सेंद्रिय खतांसाठी (FYM, कंपोस्ट) किंवा मोठ्या क्षेत्रावर दाणेदार खतांसाठी"
+      },
+      "top_dressing": {
+        "name": "टॉप ड्रेसिंग",
+        "description": "पीक हंगामात वाढत्या रोपांच्या बुंध्याजवळ खत देणे",
+        "when_to_use": "वाढीच्या किंवा सक्रिय वाढीच्या टप्प्यात — रोपाच्या बुंध्याजवळ खत देऊन सिंचन करा"
+      },
+      "soil_incorporation": {
+        "name": "मातीत खत मिसळणे",
+        "description": "सेंद्रिय खत किंवा रासायनिक खत मातीत खोलवर मिसळणे",
+        "when_to_use": "संथ गतीने विरघळणाऱ्या सेंद्रिय खतांसाठी — लागवडीच्या 2-4 आठवडे आधी मातीत मिसळा"
+      },
+      "foliar_spray": {
+        "name": "पर्णसंभार फवारणी",
+        "description": "जलद शोषणासाठी पातळ केलेले द्रव खत थेट पानांवर फवारणे",
+        "when_to_use": "सूक्ष्म अन्नद्रव्यांच्या कमतरतेसाठी, महत्त्वाच्या वाढीच्या टप्प्यांसाठी, किंवा मातीतून खत देणे अपुरे असताना"
+      },
+      "fertigation": {
+        "name": "फर्टिगेशन",
+        "description": "ठिबक किंवा तुषार सिंचन प्रणालीद्वारे पाण्यात विरघळणारे खत देणे",
+        "when_to_use": "ठिबक/तुषार सिंचन असलेल्या शेतांसाठी — सर्वात कार्यक्षम पद्धत, अपव्यय कमी करते"
+      }
+    },
+    "tools": {
+      "garden_hoe": {
+        "name": "खुरपे / Garden Hoe",
+        "description": "लहान क्षेत्रात मातीच्या वरच्या थरात खत मिसळण्यासाठी हाताचे अवजार"
+      },
+      "cultivator": {
+        "name": "कल्टिव्हेटर",
+        "description": "मातीत खत मिसळण्यासाठी ट्रॅक्टरचलित किंवा हाताने चालवलेले कल्टिव्हेटर"
+      },
+      "seed_drill": {
+        "name": "बियाणे-खत पेरणी यंत्र",
+        "description": "सरीमध्ये बियाणे आणि खत एकाच वेळी टाकते"
+      },
+      "broadcast_spreader": {
+        "name": "हाताने चालवलेला ब्रॉडकास्ट स्प्रेडर",
+        "description": "दाणेदार खताच्या समान वितरणासाठी हँडल फिरवून चालवलेला स्प्रेडर"
+      },
+      "fertilizer_basket": {
+        "name": "खत टोपली / टोकरी",
+        "description": "FYM, कंपोस्ट किंवा दाणेदार खत हाताने पसरवण्यासाठी पारंपरिक विणलेली टोपली"
+      },
+      "wheelbarrow": {
+        "name": "हातगाडी",
+        "description": "शेतात सेंद्रिय खत वाहून नेण्यासाठी आणि टाकण्यासाठी"
+      },
+      "hand_duster": {
+        "name": "हाताने खत देण्याचे साधन",
+        "description": "रोपांच्या ओळींजवळ दाणेदार खत ठेवण्यासाठी लहान साधन"
+      },
+      "khurpi": {
+        "name": "खुरपी / हात निंदणी",
+        "description": "रोपांजवळ उथळ चर करणे, खत ठेवणे आणि झाकण्यासाठी वापरले जाते"
+      },
+      "ring_applicator": {
+        "name": "रिंग ॲप्लिकेटर",
+        "description": "फळझाडांभोवती गोलाकार खत देण्यासाठी साधन"
+      },
+      "spade": {
+        "name": "फावडे",
+        "description": "बागेत शेणखत आणि कंपोस्ट मातीत मिसळण्यासाठी"
+      },
+      "rotavator": {
+        "name": "रोटाव्हेटर",
+        "description": "मातीच्या वरच्या थरात शेणखत एकसमान मिसळण्यासाठी पॉवर टिलर जोडणी"
+      },
+      "plough": {
+        "name": "नांगर (MB / देशी)",
+        "description": "सेंद्रिय पदार्थांसह माती उलटण्यासाठी पारंपरिक किंवा मोल्ड-बोर्ड नांगर"
+      },
+      "knapsack_sprayer": {
+        "name": "पाठीवरचा फवारणी पंप (16L)",
+        "description": "हाताने चालवलेला पंप फवारणी यंत्र — लहान-मध्यम शेतांसाठी सर्वात सामान्य"
+      },
+      "battery_sprayer": {
+        "name": "बॅटरीवर चालणारा फवारणी पंप",
+        "description": "सतत दाबासाठी विद्युत पंप फवारणी यंत्र — हाताचे श्रम कमी करते"
+      },
+      "measuring_cup": {
+        "name": "मापन कप / बीकर",
+        "description": "सांद्र द्रव खतांचे अचूक पातळीकरण करण्यासाठी"
+      },
+      "venturi_injector": {
+        "name": "व्हेंचुरी खत इंजेक्टर",
+        "description": "पाण्याच्या दाबाचा वापर करून ठिबक नळ्यांमध्ये खत द्रावण ओढणारे कमी खर्चाचे साधन"
+      },
+      "mixing_tank": {
+        "name": "खत मिश्रण टाकी",
+        "description": "इंजेक्शनपूर्वी पाण्यात विरघळणारे खत विरघळवून मिसळण्यासाठी टाकी"
+      },
+      "dosing_pump": {
+        "name": "फर्टिगेशन डोसिंग पंप",
+        "description": "सिंचनात अचूक खत इंजेक्शनसाठी विद्युत किंवा हायड्रॉलिक पंप"
+      }
+    },
+    "benefits": {
+      "improves_soil_structure": "मातीची रचना सुधारते",
+      "enhances_water_retention": "पाणी धारण क्षमता वाढवते",
+      "supports_microbial_activity": "सूक्ष्मजीव क्रियाशीलतेस मदत करते",
+      "rich_in_humic_acids": "ह्युमिक आम्लांनी समृद्ध",
+      "contains_beneficial_microbes": "उपयुक्त सूक्ष्मजीव असतात",
+      "improves_nutrient_availability": "पोषक तत्त्वांची उपलब्धता सुधारते",
+      "natural_pest_deterrent": "नैसर्गिक कीटक प्रतिबंधक",
+      "slow_nitrogen_release": "संथ नत्र विमोचन",
+      "improves_soil_health": "मातीचे आरोग्य सुधारते",
+      "excellent_phosphorus_source": "स्फुरदाचा उत्कृष्ट स्रोत",
+      "contains_calcium": "कॅल्शियम असते",
+      "longlasting_effect": "दीर्घकाळ टिकणारा परिणाम",
+      "rich_in_micronutrients_and_growth_hormones": "सूक्ष्म अन्नद्रव्ये आणि वाढ संप्रेरकांनी समृद्ध",
+      "boosts_stress_resistance": "ताण प्रतिकारशक्ती वाढवते",
+      "enhances_root_growth": "मुळांची वाढ सुधारते",
+      "improves_soil_organic_matter": "मातीतील सेंद्रिय पदार्थ सुधारते",
+      "enhances_drainage": "निचरा सुधारते",
+      "feeds_soil_microorganisms": "मातीतील सूक्ष्मजीवांना पोषण देते",
+      "high_n_and_p_content": "N आणि P चे उच्च प्रमाण",
+      "natural_source": "नैसर्गिक स्रोत",
+      "improves_soil_biology": "मातीचे जीवशास्त्र सुधारते",
+      "longterm_phosphorus_supply": "दीर्घकालीन स्फुरद पुरवठा",
+      "natural_mineral": "नैसर्गिक खनिज",
+      "no_chemical_processing": "रासायनिक प्रक्रिया नाही",
+      "rich_in_potassium": "पालाशमध्ये समृद्ध",
+      "raises_soil_ph": "मातीचा pH वाढवते",
+      "contains_trace_minerals": "सूक्ष्म खनिजे असतात",
+      "fixes_atmospheric_nitrogen": "वातावरणातील नत्र स्थिर करते",
+      "adds_organic_matter": "सेंद्रिय पदार्थ वाढवते",
+      "suppresses_weeds": "तणांना दाबते",
+      "good_nitrogen_source": "नत्राचा चांगला स्रोत",
+      "improves_soil_texture": "मातीचा पोत सुधारते",
+      "natural_pest_repellent": "नैसर्गिक कीटक निवारक",
+      "traditional_biostimulant": "पारंपरिक जैव उत्तेजक",
+      "boosts_immunity": "प्रतिकारशक्ती वाढवते",
+      "enhances_growth_hormones": "वाढ संप्रेरक वाढवते",
+      "highest_n_content": "सर्वाधिक N प्रमाण",
+      "readily_available": "सहज उपलब्ध",
+      "costeffective": "किफायतशीर",
+      "primary_p_source": "प्राथमिक P स्रोत",
+      "also_provides_nitrogen": "नत्र देखील पुरवते",
+      "good_for_basal_application": "पायाभूत खतासाठी चांगले",
+      "highest_k_content": "सर्वाधिक K प्रमाण",
+      "essential_for_fruiting_crops": "फळपिकांसाठी आवश्यक",
+      "improves_disease_resistance": "रोग प्रतिकारशक्ती सुधारते",
+      "contains_calcium_and_sulphur_too": "कॅल्शियम आणि गंधक देखील असते",
+      "good_for_oilseeds": "तेलबियांसाठी चांगले",
+      "moderate_cost": "मध्यम किंमत",
+      "balanced_p_and_k": "संतुलित P आणि K",
+      "suitable_for_basal_dose": "पायाभूत मात्रेसाठी योग्य",
+      "reduces_number_of_fertilizers_needed": "आवश्यक खतांची संख्या कमी करते",
+      "high_phosphorus_blend": "उच्च स्फुरद मिश्रण",
+      "good_starter_fertilizer": "चांगले स्टार्टर खत",
+      "multinutrient_supply": "बहु-पोषक पुरवठा",
+      "provides_sulphur_24": "गंधक पुरवते (24%)",
+      "acidifies_soil_slightly": "माती किंचित अम्लीय करते",
+      "chloridefree_k_source": "क्लोराईडमुक्त K स्रोत",
+      "contains_sulphur_18": "गंधक असते (18%)",
+      "better_for_sensitive_crops": "संवेदनशील पिकांसाठी चांगले",
+      "provides_calcium": "कॅल्शियम पुरवते",
+      "fastacting_nitrogen": "जलद क्रियाशील नत्र",
+      "less_volatile_than_urea": "युरियापेक्षा कमी बाष्पनशील",
+      "corrects_zinc_deficiency": "जस्त कमतरता दूर करते",
+      "essential_for_ricemaize": "भात/मक्यासाठी आवश्यक",
+      "improves_grain_quality": "धान्याची गुणवत्ता सुधारते",
+      "essential_for_floweringfruiting": "फुलोरा/फळधारणेसाठी आवश्यक",
+      "improves_pollen_viability": "परागकणांची जीवनक्षमता सुधारते",
+      "corrects_boron_deficiency": "बोरॉन कमतरता दूर करते"
+    },
+    "notes": {
+      "best_applied_23_weeks_before_sowing_mix_well_into_topsoil": "पेरणीच्या 2-3 आठवडे आधी वापरणे उत्तम. वरच्या मातीत चांगले मिसळा.",
+      "can_be_applied_as_basal_dose_or_topdressing_avoid_direct_su": "पायाभूत मात्रा किंवा टॉप ड्रेसिंग म्हणून वापरता येते. साठवलेल्या गांडूळखतावर थेट सूर्यप्रकाश टाळा.",
+      "apply_at_sowing_time_acts_as_nematicide_and_insect_repellen": "पेरणीच्या वेळी वापरा. सूत्रकृमीनाशक आणि कीटक निवारक म्हणून काम करते.",
+      "works_best_in_acidic_to_neutral_soils_ph__7_not_effective_i": "अम्लीय ते तटस्थ मातीत (pH < 7) सर्वोत्तम काम करते. अल्कधर्मी मातीत प्रभावी नाही.",
+      "dilute_as_per_instructions_best_as_foliar_spray_during_acti": "सूचनांनुसार पातळ करा. सक्रिय वाढीच्या काळात पर्णसंभार फवारणी म्हणून सर्वोत्तम.",
+      "ensure_compost_is_fully_decomposed_before_application": "वापरण्यापूर्वी कंपोस्ट पूर्णपणे कुजलेले असल्याची खात्री करा.",
+      "may_attract_animals_mix_into_soil_well": "प्राणी आकर्षित होऊ शकतात. मातीत चांगले मिसळा.",
+      "most_effective_in_acidic_soils_ph__65_very_slow_release": "अम्लीय मातीत (pH < 6.5) सर्वात प्रभावी. अत्यंत संथ विमोचन.",
+      "avoid_on_alkaline_soils_do_not_mix_with_nitrogen_fertilizer": "अल्कधर्मी मातीत टाळा. नत्र खतांसोबत मिसळू नका.",
+      "incorporate_into_soil_34_weeks_before_sowing_main_crop": "मुख्य पिकाच्या पेरणीच्या 3-4 आठवडे आधी मातीत मिसळा.",
+      "apply_1520_days_before_sowing_for_best_results": "सर्वोत्तम परिणामांसाठी पेरणीच्या 15-20 दिवस आधी वापरा.",
+      "dilute_3_for_foliar_spray_apply_early_morning_or_evening": "पर्णसंभार फवारणीसाठी 3% पातळ करा. सकाळी लवकर किंवा संध्याकाळी फवारा.",
+      "apply_in_split_doses_avoid_flooding_immediately_after_appli": "विभागून मात्रा द्या. खत दिल्यानंतर लगेच पाणी भरणे टाळा.",
+      "best_applied_at_sowing_as_basal_dose": "पेरणीच्या वेळी पायाभूत मात्रा म्हणून देणे उत्तम.",
+      "apply_at_sowing_or_during_tuberfruit_formation": "पेरणीच्या वेळी किंवा कंद/फळ तयार होताना वापरा.",
+      "also_provides_11_sulphur_and_20_calcium": "11% गंधक आणि 20% कॅल्शियम देखील पुरवते.",
+      "ideal_for_crops_with_high_p_and_k_demand": "P आणि K ची जास्त मागणी असलेल्या पिकांसाठी आदर्श.",
+      "best_for_phosphorusdemanding_crops": "स्फुरदाची जास्त गरज असलेल्या पिकांसाठी सर्वोत्तम.",
+      "preferred_for_sulphurloving_crops_oilseeds_pulses": "गंधकप्रिय पिकांसाठी (तेलबिया, कडधान्ये) प्राधान्य.",
+      "preferred_over_mop_for_chloridesensitive_crops_potato_tomat": "क्लोराईड-संवेदनशील पिकांसाठी (बटाटा, टोमॅटो, फळे) MOP पेक्षा प्राधान्य.",
+      "good_for_acidic_soils_and_calciumloving_crops": "अम्लीय माती आणि कॅल्शियमप्रिय पिकांसाठी चांगले.",
+      "common_deficiency_in_indian_soils_apply_25_kgha_to_soil_or": "भारतीय मातीत सामान्य कमतरता. मातीत 25 kg/ha किंवा 0.5% पर्णसंभार फवारणी करा.",
+      "critical_for_oilseeds_pulses_and_vegetables_do_not_overapp": "तेलबिया, कडधान्ये आणि भाजीपाला यांसाठी महत्त्वपूर्ण. जास्त वापरू नका — बोरॉन विषाक्तता शक्य आहे.",
+      "apply_23_weeks_before_sowing_raises_ph_by_0510_unit_per_20": "पेरणीच्या 2-3 आठवडे आधी वापरा. 2000 kg/ha मागे pH 0.5-1.0 एकक वाढवते.",
+      "also_supplies_magnesium_preferred_for_mgdeficient_soils": "मॅग्नेशियम देखील पुरवते. Mg-कमतरता असलेल्या मातीसाठी प्राधान्य.",
+      "for_alkalinesodic_soils_also_improves_soil_structure": "अल्कधर्मी/क्षारीय मातीसाठी. मातीची रचना देखील सुधारते.",
+      "slowacting_apply_well_in_advance_microbes_convert_s_to_sulf": "संथ क्रिया. आधीच वापरा. सूक्ष्मजीव S चे सल्फ्युरिक आम्लात रूपांतर करतात."
+    },
+    "rainfall_reasons": {
+      "dry_paddy__nutrients_not_mobilized_increase_dose": "कोरडे भात — पोषक तत्त्वे हलत नाहीत, मात्रा वाढवा",
+      "below_optimal_moisture": "योग्य पेक्षा कमी ओलावा",
+      "ideal_conditions": "आदर्श परिस्थिती",
+      "ideal": "आदर्श",
+      "leaching_risk_in_flooded_fields": "पाणी भरलेल्या शेतात गळतीचा धोका",
+      "heavy_waterlogging__high_leaching": "तीव्र पाणी साचणे — जास्त गळती",
+      "drought_stress_reduces_uptake": "दुष्काळी ताण शोषण कमी करतो",
+      "drought_stress": "दुष्काळी ताण",
+      "drought": "दुष्काळ",
+      "slightly_dry": "किंचित कोरडे",
+      "excess_moisture": "अतिरिक्त ओलावा",
+      "excess": "अतिरिक्त",
+      "waterlogging_risk": "पाणी साचण्याचा धोका",
+      "waterlogging": "पाणी साचणे",
+      "heavy_waterlogging": "तीव्र पाणी साचणे",
+      "very_dry__poor_nutrient_mobility": "अत्यंत कोरडे — पोषक तत्त्वांची खराब गतिशीलता",
+      "excess_moisture_for_wheat": "गव्हासाठी अतिरिक्त ओलावा",
+      "waterlogging__severe_leaching": "पाणी साचणे — तीव्र गळती",
+      "dry_conditions": "कोरडी परिस्थिती",
+      "waterlogging__pulse_crop_very_sensitive": "पाणी साचणे — कडधान्य पीक अत्यंत संवेदनशील",
+      "waterlogging__pulse_sensitive": "पाणी साचणे — कडधान्य संवेदनशील",
+      "low_moisture": "कमी ओलावा",
+      "dry_soil_limits_tuber_growth": "कोरडी माती कंद वाढ मर्यादित करते",
+      "excess_moisture__rot_risk": "अतिरिक्त ओलावा — कुजण्याचा धोका",
+      "waterlogging__severe": "पाणी साचणे — तीव्र",
+      "boll_rot_risk__reduce_heavily": "बोंड कुजण्याचा धोका — मोठ्या प्रमाणात कमी करा",
+      "excess__rot_risk": "अतिरिक्त — कुजण्याचा धोका",
+      "hardy_crop_slight_adjustment": "कठीण पीक, किंचित समायोजन",
+      "too_wet_for_hardy_pulse": "कठीण कडधान्यासाठी खूप ओले",
+      "turmeric_needs_moisture": "हळदीला ओलावा लागतो",
+      "rhizome_rot_risk": "कंद कुजण्याचा धोका",
+      "banana_is_waterhungry": "केळी पाणी-भुकेले पीक आहे",
+      "root_suffocation": "मुळांचा गुदमरणे",
+      "fungal_risk": "बुरशीचा धोका",
+      "too_wet_for_sesame": "तिळासाठी खूप ओले",
+      "dry_stress": "कोरडा ताण",
+      "blight_risk": "करपा रोगाचा धोका",
+      "severe_disease_risk": "तीव्र रोगाचा धोका",
+      "root_rot_risk": "मूळ कुजण्याचा धोका",
+      "root_rot": "मूळ कूज",
+      "waterlogging__bulb_rot_risk": "पाणी साचणे — कंद कुजण्याचा धोका",
+      "bulb_rot_risk": "कंद कुजण्याचा धोका",
+      "too_wet": "खूप ओले",
+      "head_rot_risk": "डोके कुजण्याचा धोका",
+      "pineapple_is_droughttolerant": "अननस दुष्काळ सहनशील आहे",
+      "curd_rot_risk": "फूल कुजण्याचा धोका",
+      "slight_drought_tolerance": "किंचित दुष्काळ सहनशीलता",
+      "downy_mildew_risk__reduce_heavily": "डाउनी मिल्ड्यू धोका — मोठ्या प्रमाणात कमी करा",
+      "dry__pithy_roots": "कोरडे — भुसभुशीत मुळे",
+      "root_cracking": "मुळे फुटणे",
+      "root_splitting": "मुळे विभाजन",
+      "severe_cracking_and_rot": "तीव्र भेगा आणि कूज",
+      "fruit_cracking": "फळ फुटणे",
+      "fruit_cracking_risk": "फळ फुटण्याचा धोका",
+      "needs_consistent_moisture": "सतत ओलावा आवश्यक",
+      "needs_moisture": "ओलावा आवश्यक",
+      "needs_high_moisture": "जास्त ओलावा आवश्यक",
+      "bitter_fruit_risk": "कडू फळाचा धोका",
+      "soft_rot_risk": "मऊ कुजण्याचा धोका",
+      "dry__woody_roots": "कोरडे — लाकडी मुळे",
+      "hardy__slight_adjustment": "कठीण — किंचित समायोजन",
+      "root_damage": "मुळांचे नुकसान",
+      "ginger_needs_consistent_moisture": "आल्याला सतत ओलावा आवश्यक",
+      "needs_moisture_for_fruit_fill": "फळ भरण्यासाठी ओलावा आवश्यक",
+      "forked_roots_risk": "काटेरी मुळांचा धोका",
+      "droughttolerant": "दुष्काळ सहनशील",
+      "jute_needs_high_moisture": "ताग/पटसनाला जास्त ओलावा आवश्यक",
+      "extreme_rainfall__significant_leaching_risk": "अत्यंत पाऊस — लक्षणीय गळतीचा धोका."
+    }
+  },
+  "tabs": {
+    "home": "होम",
+    "crop": "पीक",
+    "market": "बाजार",
+    "fertilizer": "खत"
   }
 }

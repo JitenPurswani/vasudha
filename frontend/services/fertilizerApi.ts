@@ -93,6 +93,11 @@ export interface FertilizerResponseData {
   stage: FertilizerStage;
   deficit_kg_ha: Record<string, number>;
   severity: Record<string, string>;
+  ph_assessment?: {
+    status: string;
+    direction: string;
+    gap: number;
+  };
   recommendations: {
     organic: FertilizerRecommendation[];
     chemical_supplements: FertilizerRecommendation[];

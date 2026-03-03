@@ -321,20 +321,14 @@ function mapRiskSeverity(severity: string): 'warning' | 'critical' | 'info' {
 }
 
 function formatRiskTitle(riskType: string | undefined): string {
-  if (!riskType) return 'Climate Alert';
+  if (!riskType) return i18n.t('notification_risks.climate_alert');
   
-  const titles: Record<string, string> = {
-    'extreme_heat': 'Extreme Heat Warning',
-    'extreme_cold': 'Cold Wave Alert',
-    'heavy_rainfall': 'Heavy Rainfall Expected',
-    'drought': 'Drought Conditions',
-    'high_humidity': 'High Humidity Alert',
-    'strong_winds': 'Strong Winds Expected',
-    'frost': 'Frost Warning',
-    'heatwave': 'Heatwave Alert',
-  };
+  const key = `notification_risks.${riskType}`;
+  const translated = i18n.t(key);
+  // If the key exists in i18n, use it; otherwise, format the risk type nicely
+  if (translated !== key) return translated;
   
-  return titles[riskType] || riskType
+  return riskType
     .split('_')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
