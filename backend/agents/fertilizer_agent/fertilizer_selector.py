@@ -309,6 +309,11 @@ def select_fertilizers(deficit_result: dict) -> dict:
         "stage": deficit_result["stage"],
         "deficit_kg_ha": deficits,
         "severity": severities,
+        "ph_assessment": {
+            "status": ph_assessment["status"],
+            "direction": ph_assessment.get("direction", ""),
+            "gap": ph_assessment.get("gap", 0)
+        },
         "recommendations": {
             "organic": deduped_organic,
             "chemical_supplements": all_chemical,
