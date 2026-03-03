@@ -32,6 +32,8 @@ const LOGOUT_CLEAR_KEYS = [
     'plantingDate',
     'userLatitude',
     'userLongitude',
+    'vasudha_notifications',
+    'vasudha_last_notification_fetch',
 ];
 
 // Keys that should be preserved across sessions (device-specific)
