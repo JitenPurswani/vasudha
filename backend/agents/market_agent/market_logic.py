@@ -117,7 +117,12 @@ def evaluate_market_logic(crop: str, state: str) -> dict:
         (crop, state)
     )
 
-    trend_raw = ((recent_30 - prev_150) / prev_150) if prev_150 else 0
+    if recent_30 is None or prev_150 is None:
+        trend_raw = 0
+    elif prev_150 == 0:
+        trend_raw = 0
+    else:
+        trend_raw = (recent_30 - prev_150) / prev_150
     trend_cap = 0.2
     trend_norm = (max(-trend_cap, min(trend_raw, trend_cap)) + trend_cap) / (2 * trend_cap)
 
