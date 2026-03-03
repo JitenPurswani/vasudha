@@ -180,6 +180,7 @@ async def login(credentials: LoginSchema):
         return {
             "token": token,
             "profile": {
+                "name": user['username'],
                 "district": user['district_key'],
                 "state": user['state_key'],
                 "language": user['language'],
