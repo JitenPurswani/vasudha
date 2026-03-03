@@ -204,7 +204,7 @@ export default function Crop() {
 
   const { t, i18n } = useTranslation();
   const { setSelectedCrop } = useCrop();
-  const { addCrop, getCropProfile, activeCrops } = useActiveCrops();
+  const { addCrop, getCropProfile, activeCrops, primaryCrop } = useActiveCrops();
 
   // Get current season
   const getCurrentSeason = useCallback((): "kharif" | "rabi" | "zaid" => {
@@ -224,17 +224,49 @@ export default function Crop() {
 
       try {
         // Get location from AsyncStorage (stored during onboarding)
-        const lat = await AsyncStorage.getItem('userLatitude');
-        const lon = await AsyncStorage.getItem('userLongitude');
+        let lat = await AsyncStorage.getItem('userLatitude');
+        let lon = await AsyncStorage.getItem('userLongitude');
 
-        // Get user state from userProfile (stored during login/onboarding)
+        // Get user profile for state/district (needed for fallback geocoding)
         const profileStr = await AsyncStorage.getItem('userProfile');
+        let userDistrict: string | null = null;
+        let userStateVal: string | null = null;
+        
         if (profileStr) {
           try {
             const profile = JSON.parse(profileStr);
             setUserState(profile.state || null);
+            userStateVal = profile.state || null;
+            userDistrict = profile.district || null;
           } catch (e) {
             console.error('[Crop Screen] Failed to parse profile:', e);
+          }
+        }
+
+        // Fallback 1: use primary crop's coordinates if available
+        if ((!lat || !lon) && primaryCrop) {
+          console.log('[Crop Screen] Using primary crop coordinates as fallback');
+          lat = String(primaryCrop.latitude);
+          lon = String(primaryCrop.longitude);
+        }
+
+        // Fallback 2: geocode from district + state
+        if ((!lat || !lon) && userDistrict && userStateVal) {
+          console.log('[Crop Screen] Geocoding from district/state:', userDistrict, userStateVal);
+          try {
+            const query = encodeURIComponent(`${userDistrict.replace(/_/g, ' ')}, ${userStateVal.replace(/_/g, ' ')}, India`);
+            const geoResponse = await fetch(
+              `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
+              { headers: { 'User-Agent': 'VasudhaApp/1.0' } }
+            );
+            const geoData = await geoResponse.json();
+            if (geoData && geoData.length > 0) {
+              lat = geoData[0].lat;
+              lon = geoData[0].lon;
+              console.log('[Crop Screen] Geocoded to:', lat, lon);
+            }
+          } catch (geoErr) {
+            console.error('[Crop Screen] Geocoding failed:', geoErr);
           }
         }
 
@@ -285,7 +317,7 @@ export default function Crop() {
 
     loadRecommendations();
     return () => { isMounted = false; };
-  }, [mode, retryKey, getCurrentSeason]);
+  }, [mode, retryKey, getCurrentSeason, primaryCrop]);
 
   // Handle crop selection - show modal first
   const handleSelectCrop = useCallback((cropName: string) => {
