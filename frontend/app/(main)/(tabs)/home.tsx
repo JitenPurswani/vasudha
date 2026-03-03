@@ -10,6 +10,7 @@ import { format, differenceInDays, addDays } from 'date-fns';
 import { useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import { translateStage, translateCrop } from '@/services/i18nHelpers';
 import { useFocusEffect } from 'expo-router';
 import {
   ImageBackground,
@@ -122,7 +123,7 @@ const CropHistoryModal = ({
                       <View style={styles.historyItemLeft}>
                         <SaplingIcon height={20} width={20} />
                         <View style={styles.historyItemInfo}>
-                          <Text style={styles.historyItemName}>{crop.displayName}</Text>
+                          <Text style={styles.historyItemName}>{translateCrop(crop.cropKey)}</Text>
                           <Text style={styles.historyItemDate}>
                             {t('home.crop.planted_on')}: {format(new Date(crop.plantingDate), 'MMM dd, yyyy')}
                           </Text>
@@ -469,7 +470,7 @@ export default function Home() {
     if (!target) return;
     RNAlert.alert(
       t('home.crop.delete_title'),
-      t('home.crop.delete_confirm', { name: target.displayName }),
+      t('home.crop.delete_confirm', { name: translateCrop(target.cropKey) }),
       [
         { text: t('common.cancel'), style: 'cancel' },
         {
@@ -596,14 +597,14 @@ export default function Home() {
                   <View style={styles.cropNameRow}>
                     <SaplingIcon height={22} width={22} />
                     <AppText variant="content" bold style={styles.cropName}>
-                      {primaryCrop.displayName}
+                      {translateCrop(primaryCrop.cropKey)}
                     </AppText>
                   </View>
                   {growthState.currentStage && (
                     <View style={styles.stageBadge}>
                       <MaterialCommunityIcons name="leaf" size={14} color="#fff" />
                       <Text style={styles.stageBadgeText}>
-                        {growthState.currentStage.name}
+                        {translateStage(growthState.currentStage.name)}
                       </Text>
                     </View>
                   )}
@@ -642,23 +643,13 @@ export default function Home() {
                   </View>
                 </View>
 
-                {/* Stage tip */}
-                {growthState.currentStage?.description && (
-                  <View style={styles.stageTipContainer}>
-                    <MaterialCommunityIcons name="lightbulb-outline" size={16} color="#F7B035" />
-                    <Text style={styles.stageTipText}>
-                      {growthState.currentStage.description}
-                    </Text>
-                  </View>
-                )}
-
                 {/* Next stage indicator */}
                 {growthState.nextStage && growthState.daysToNextStage > 0 && (
                   <View style={styles.nextStageRow}>
                     <Feather name="arrow-right" size={14} color="#78909C" />
                     <Text style={styles.nextStageText}>
                       {t('home.crop.next_stage', { 
-                        stage: growthState.nextStage.name, 
+                        stage: translateStage(growthState.nextStage.name), 
                         days: growthState.daysToNextStage 
                       })}
                     </Text>
@@ -1090,22 +1081,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#186F71',
     fontFamily: 'OpenSans-Regular',
-  },
-  stageTipContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: 'rgba(247, 176, 53, 0.15)',
-    padding: 10,
-    borderRadius: 10,
-    marginTop: 4,
-    gap: 8,
-  },
-  stageTipText: {
-    flex: 1,
-    fontSize: 11,
-    color: '#5D4037',
-    fontFamily: 'OpenSans-Regular',
-    lineHeight: 16,
   },
   nextStageRow: {
     flexDirection: 'row',

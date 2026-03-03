@@ -28,7 +28,8 @@ import {
   translateSustainabilityLevel,
   getSustainabilitySummary,
   getSustainabilityDetail,
-  getFeatureExplanation
+  getFeatureExplanation,
+  translateCategory
 } from '@/services/i18nHelpers';
 import ExplanationIcon from '../../../assets/images/sustainability-exp-icon.svg'
 const { width: SCREEN_W } = Dimensions.get('window');
@@ -647,7 +648,7 @@ export default function Crop() {
                       {t('crop.growth_duration_prefix')}{getCropProfile(selectedCropForModal)?.growthDurationDays || '?'}{t('crop.days_suffix')}
                     </AppText>
                     <AppText variant="content" style={styles.cropModalCategory}>
-                      {t('crop.category_label')}{getCropProfile(selectedCropForModal)?.category || t('common.unknown')}
+                      {t('crop.category_label')}{translateCategory(getCropProfile(selectedCropForModal)?.category || '') || t('common.unknown')}
                     </AppText>
                   </View>
                 </View>

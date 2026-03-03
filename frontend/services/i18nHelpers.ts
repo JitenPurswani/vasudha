@@ -85,12 +85,35 @@ export function translateDistrict(districtKey: string, stateKey?: string): strin
 export function translateStage(stageKey: string): string {
   if (!stageKey) return '';
   
-  const normalizedKey = stageKey.toLowerCase().replace(/\s+/g, '_');
+  // Normalize: lowercase, replace spaces and hyphens with underscores
+  const normalizedKey = stageKey.toLowerCase().replace(/[\s-]+/g, '_');
   const translationKey = `stages.${normalizedKey}`;
   const translated = i18n.t(translationKey);
   
   if (translated === translationKey) {
-    return stageKey.charAt(0).toUpperCase() + stageKey.slice(1).toLowerCase();
+    // Format fallback: replace hyphens/underscores with spaces, title case
+    return stageKey
+      .replace(/[-_]/g, ' ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+  
+  return translated;
+}
+
+/**
+ * Translates a crop category (cereal, pulse, oilseed, etc.)
+ */
+export function translateCategory(categoryKey: string): string {
+  if (!categoryKey) return '';
+  
+  const normalizedKey = categoryKey.toLowerCase().replace(/[\s-]+/g, '_');
+  const translationKey = `categories.${normalizedKey}`;
+  const translated = i18n.t(translationKey);
+  
+  if (translated === translationKey) {
+    return categoryKey.charAt(0).toUpperCase() + categoryKey.slice(1).toLowerCase();
   }
   
   return translated;
