@@ -102,11 +102,20 @@ export function translateStage(stageKey: string): string {
 export function translateClimateRisk(riskKey: string): string {
   if (!riskKey) return '';
   
-  const normalizedKey = riskKey.toLowerCase().replace(/\s+/g, '_');
+  // Normalize: lowercase, replace spaces, strip trailing "_risk" to match i18n keys
+  // e.g., "Dry Spell Risk" → "dry_spell_risk" → "dry_spell"
+  let normalizedKey = riskKey.toLowerCase().replace(/\s+/g, '_');
+  normalizedKey = normalizedKey.replace(/_risk$/, '');
+  
   const translationKey = `climate_risks.${normalizedKey}`;
   const translated = i18n.t(translationKey);
   
   if (translated === translationKey) {
+    // Fallback: try with the full key including "_risk"
+    const fullKey = `climate_risks.${riskKey.toLowerCase().replace(/\s+/g, '_')}`;
+    const fullTranslated = i18n.t(fullKey);
+    if (fullTranslated !== fullKey) return fullTranslated;
+    
     return riskKey
       .split('_')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -123,7 +132,8 @@ export function getClimateTip(stage: string, riskType: string): string | null {
   if (!stage || !riskType) return null;
   
   const normalizedStage = stage.toLowerCase().replace(/\s+/g, '_');
-  const normalizedRisk = riskType.toLowerCase().replace(/\s+/g, '_');
+  // Strip trailing "_risk" to match i18n keys
+  const normalizedRisk = riskType.toLowerCase().replace(/\s+/g, '_').replace(/_risk$/, '');
   const tipKey = `climate_tips.${normalizedStage}.${normalizedRisk}`;
   const translated = i18n.t(tipKey);
   
@@ -279,7 +289,10 @@ export function getFeatureExplanation(feature: string, effect: 'positive' | 'neg
 export function getClimateActions(riskType: string, severity: 'high' | 'medium' | 'low' = 'high'): string[] {
   if (!riskType) return [];
   
-  const normalizedRisk = riskType.toLowerCase().replace(/\s+/g, '_');
+  // Normalize: strip trailing "_risk" to match i18n keys (e.g., "dry_spell_risk" → "dry_spell")
+  let normalizedRisk = riskType.toLowerCase().replace(/\s+/g, '_');
+  normalizedRisk = normalizedRisk.replace(/_risk$/, '');
+  
   const translationKey = `climate_actions.${normalizedRisk}.${severity}`;
   const translated = i18n.t(translationKey, { returnObjects: true });
   
