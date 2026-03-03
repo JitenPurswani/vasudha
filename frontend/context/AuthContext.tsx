@@ -30,13 +30,12 @@ const LOGOUT_CLEAR_KEYS = [
     'vasudha_planting_date',
     'vasudha_active_crops',
     'plantingDate',
-    // NOTE: We preserve location data (userLatitude, userLongitude) as it's device-specific
+    'userLatitude',
+    'userLongitude',
 ];
 
 // Keys that should be preserved across sessions (device-specific)
 const DEVICE_KEYS = [
-    'userLatitude',
-    'userLongitude',
     'user-language',
 ];
 

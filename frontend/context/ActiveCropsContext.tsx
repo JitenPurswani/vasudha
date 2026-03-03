@@ -71,6 +71,7 @@ interface ActiveCropsContextType {
   
   removeCrop: (id: string) => Promise<void>;
   updateCropStatus: (id: string, status: 'active' | 'harvested' | 'failed') => Promise<void>;
+  updateCropPlantingDate: (id: string, newDate: Date) => Promise<void>;
   
   // Query operations
   getCropProfile: (cropKey: string) => CropProfile | null;
@@ -255,6 +256,22 @@ export const ActiveCropsProvider = ({ children }: { children: React.ReactNode })
     );
   }, []);
 
+  const updateCropPlantingDate = useCallback(async (id: string, newDate: Date): Promise<void> => {
+    setActiveCrops(prev => 
+      prev.map(c => {
+        if (c.id !== id) return c;
+        const profile = profiles[c.cropKey];
+        const duration = profile?.growthDurationDays || 0;
+        return {
+          ...c,
+          plantingDate: newDate.toISOString(),
+          expectedHarvestDate: calculateHarvestDate(newDate, duration),
+        };
+      })
+    );
+    console.log('[ActiveCropsContext] Updated planting date for crop:', id);
+  }, []);
+
   const getCropProfile = useCallback((cropKey: string): CropProfile | null => {
     return profiles[cropKey.toLowerCase()] || null;
   }, []);
@@ -355,6 +372,7 @@ export const ActiveCropsProvider = ({ children }: { children: React.ReactNode })
         addCrop,
         removeCrop,
         updateCropStatus,
+        updateCropPlantingDate,
         getCropProfile,
         getCropGrowthState,
         getActiveCropsByLocation,
