@@ -46,7 +46,6 @@ export default function LoginScreen() {
         // Save user profile FIRST (before login navigates away)
         // login() no longer clears userProfile, only crop data
         await AsyncStorage.setItem('userProfile', JSON.stringify(userProfile));
-        console.log('[Login] Saved userProfile:', userProfile);
         
         // Apply user's language preference from profile
         if (response.data.profile && response.data.profile.language) {

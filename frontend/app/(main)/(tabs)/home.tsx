@@ -202,7 +202,7 @@ export default function Home() {
   const { userId } = useAuth();
   const router = useRouter();
 
-  const [userName, setUserName] = useState(i18n.t('common.farmer'));
+  const [userName, setUserName] = useState('');
   const [currentDate, setCurrentDate] = useState('');
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(true);
@@ -223,7 +223,27 @@ export default function Home() {
   const [editingCropId, setEditingCropId] = useState<string | null>(null);
 
   const currentContentFont = getFont('content', i18n.language);
-  
+
+  // Derive display name: prefer loaded userName, fallback to userId, then translated default
+  const displayName = userName || userId || t('common.farmer');
+
+  // Load username eagerly when userId is available (stable, runs once)
+  useEffect(() => {
+    if (!userId) return;
+    const loadName = async () => {
+      const savedData = await AsyncStorage.getItem('userProfile');
+      if (savedData) {
+        const data = JSON.parse(savedData);
+        if (data.name) {
+          setUserName(data.name);
+          return;
+        }
+      }
+      setUserName(userId);
+    };
+    loadName();
+  }, [userId]);
+
   // Refresh user data when screen comes into focus
   useFocusEffect(
     useCallback(() => {
@@ -476,9 +496,14 @@ export default function Home() {
           </View>
 
           <View style={styles.textOverlay}>
-            <AppText variant="content" style={styles.welcomeText}>
-              {t('home.greeting')} <Text style={styles.nameText}>{userName}</Text>
-            </AppText>
+            <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+              <AppText variant="content" style={styles.welcomeText}>
+                {t('home.greeting')}{' '}
+              </AppText>
+              <AppText variant="contentBold" style={styles.nameText}>
+                {displayName}
+              </AppText>
+            </View>
             <AppText variant="content" style={styles.dateText}>
               {currentDate}
             </AppText>
@@ -864,6 +889,7 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
   },
   nameText: {
+    fontSize: 26,
     fontFamily: 'OpenSans-Bold',
     color: '#186F71',
   },
