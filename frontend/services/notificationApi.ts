@@ -106,7 +106,8 @@ export async function fetchClimateAlerts(
       data.risks.forEach((risk, index) => {
         const severity = mapRiskSeverity(risk.severity);
         const riskName = risk.risk || 'unknown';
-        const riskKey = riskName.toLowerCase().replace(/\s+/g, '_');
+        // Normalize: strip trailing "_risk" to match i18n keys (e.g., "Dry Spell Risk" → "dry_spell")
+        const riskKey = riskName.toLowerCase().replace(/\s+/g, '_').replace(/_risk$/, '');
         
         // Translate risk name
         const translatedRiskName = translateClimateRisk(riskName);

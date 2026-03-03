@@ -420,25 +420,22 @@ export const NotificationProvider = ({ children }: { children: React.ReactNode }
         showToastsForNewNotifications(newAlerts);
         
         setNotifications(prev => {
-          // Deduplicate based on risk type and timestamp (within 1 hour)
-          const merged = [...newAlerts];
-          const oneHourAgo = Date.now() - 60 * 60 * 1000;
+          // Deduplicate: for each riskType, keep only the LATEST notification
+          // New alerts replace any existing alert with the same riskType
+          const newRiskTypes = new Set(newAlerts.map(n => n.source.riskType).filter(Boolean));
           
-          for (const existing of prev) {
-            const isDuplicate = newAlerts.some(
-              n => n.source.riskType === existing.source.riskType && 
-                   existing.timestamp > oneHourAgo
-            );
-            if (!isDuplicate) {
-              merged.push(existing);
-            }
-          }
+          // Keep existing notifications that DON'T have a newer version in newAlerts
+          const keptExisting = prev.filter(
+            existing => !newRiskTypes.has(existing.source.riskType)
+          );
+          
+          const merged = [...newAlerts, ...keptExisting];
           
           // Sort by timestamp descending
           merged.sort((a, b) => b.timestamp - a.timestamp);
           
-          // Keep only last 50 notifications
-          const limited = merged.slice(0, 50);
+          // Keep only last 20 notifications
+          const limited = merged.slice(0, 20);
           
           saveNotificationsToStorage(limited);
           return limited;
