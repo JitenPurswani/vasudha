@@ -111,7 +111,7 @@ export default function OnboardingScreen() {
     // Fetch soil params from soil agent
     const fetchSoilParams = async () => {
         if (!district || !stateName) {
-            alert('Please enter/select your district and state first.');
+            alert(t('errors.provide_district_state'));
             return;
         }
         setIsFetchingSoil(true);
@@ -122,7 +122,7 @@ export default function OnboardingScreen() {
             setSoilFetched(true);
             setSoilManualEdit(false);
         } catch (e: any) {
-            alert(e.message || 'Could not fetch soil parameters.');
+            alert(e.message || t('errors.could_not_fetch_soil'));
         } finally {
             setIsFetchingSoil(false);
         }
@@ -168,10 +168,12 @@ export default function OnboardingScreen() {
         console.log(`[Onboarding] Attempting registration for: ${cleanUsername}`);
 
         try {
-            // Geocoding Logic
-            if (!locationFetched && district && stateName) {
+            // Geocoding Logic — always geocode if user manually entered location
+            // (GPS fetch already stored coords, but manual entry needs geocoding)
+            if (district && stateName) {
                 try {
                     const query = `${toTitleCase(district)}, ${toTitleCase(stateName)}, India`;
+                    console.log(`[Onboarding] Geocoding: ${query}`);
                     const response = await fetch(
                         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`,
                         { headers: { 'User-Agent': 'Vasudha-App' } }
@@ -181,6 +183,7 @@ export default function OnboardingScreen() {
                         const { lat, lon } = results[0];
                         await AsyncStorage.setItem('userLatitude', String(lat));
                         await AsyncStorage.setItem('userLongitude', String(lon));
+                        console.log(`[Onboarding] Geocoded coordinates: lat=${lat}, lon=${lon}`);
                     }
                 } catch (geocodeError) {
                     console.error('[Onboarding] Geocoding error:', geocodeError);
@@ -214,7 +217,7 @@ export default function OnboardingScreen() {
                 }).join('\n');
                 alert(errorMessages);
             } else {
-                const msg = error.response?.data?.detail || "Registration failed";
+                const msg = error.response?.data?.detail || t('errors.registration_failed');
                 alert(msg);
             }
         } finally {
@@ -229,7 +232,7 @@ export default function OnboardingScreen() {
         try {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== "granted") {
-                setLocationError("Permission denied");
+                setLocationError(t('errors.permission_denied'));
                 return;
             }
 
@@ -270,7 +273,7 @@ export default function OnboardingScreen() {
                 setManualEdit(false);
             }
         } catch (error) {
-            setLocationError("Could not auto-fetch. Please enter manually.");
+            setLocationError(t('errors.could_not_auto_fetch'));
             setManualEdit(true);
         } finally {
             setIsFetching(false);

@@ -60,7 +60,7 @@ export default function LoginScreen() {
       }
     } catch (error: any) {
       console.error("[Login Error]", error);
-      const errorMsg = error.response?.data?.detail || "Invalid username or password";
+      const errorMsg = error.response?.data?.detail || t('login.error_unauthorized');
       alert(errorMsg);
     } finally {
       setIsSubmitting(false);
