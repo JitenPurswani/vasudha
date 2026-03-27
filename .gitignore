@@ -104,3 +104,5 @@ data/market/raw/
 data/market/sqlite/market.db
 
 backend/auth/users.db
+
+plan-fullStackTestingStrategy.prompt.md
