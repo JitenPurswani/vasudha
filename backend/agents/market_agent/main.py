@@ -98,28 +98,47 @@ def evaluate_market_batch(
 @app.get("/market/debug")
 @app.get("/market/debug/")
 def debug_info():
-    """Debug endpoint to see available crops and states"""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    cur = conn.cursor()
-    
-    cur.execute("SELECT DISTINCT commodity FROM state_daily_prices ORDER BY commodity")
-    commodities = [row[0] for row in cur.fetchall()]
-    
-    cur.execute("SELECT DISTINCT state FROM state_daily_prices ORDER BY state")
-    states = [row[0] for row in cur.fetchall()]
-    
-    cur.execute("SELECT COUNT(*) as total FROM state_daily_prices")
-    total_records = cur.fetchone()[0]
-    
-    conn.close()
-    
-    return {
-        "total_records": total_records,
-        "commodities": commodities[:20],  # Limit to first 20
-        "states": states,
-        "instructions": "Use exact crop and state names from the lists above for queries"
-    }
+    """Debug endpoint to see available crops and states.
+
+    Should fail in a controlled way if the underlying schema is missing
+    or incompatible (e.g. table state_daily_prices not present).
+    """
+
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+
+        cur.execute("SELECT DISTINCT commodity FROM state_daily_prices ORDER BY commodity")
+        commodities = [row[0] for row in cur.fetchall()]
+
+        cur.execute("SELECT DISTINCT state FROM state_daily_prices ORDER BY state")
+        states = [row[0] for row in cur.fetchall()]
+
+        cur.execute("SELECT COUNT(*) as total FROM state_daily_prices")
+        total_records = cur.fetchone()[0]
+
+        return {
+            "total_records": total_records,
+            "commodities": commodities[:20],  # Limit to first 20
+            "states": states,
+            "instructions": "Use exact crop and state names from the lists above for queries",
+        }
+    except sqlite3.OperationalError as exc:
+        # Surface a clear 500 error instead of an unhandled OperationalError
+        logger.error("[Market Debug] Database schema error: %s", str(exc))
+        raise HTTPException(status_code=500, detail=f"Database schema error: {exc}")
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.error("[Market Debug] Unexpected error: %s", str(exc), exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to fetch debug info: {exc}")
+    finally:
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                # Best-effort close; nothing to do if this fails
+                pass
 
 
 
