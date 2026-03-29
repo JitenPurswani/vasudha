@@ -106,3 +106,5 @@ data/market/sqlite/market.db
 backend/auth/users.db
 
 plan-fullStackTestingStrategy.prompt.md
+BACKEND_TEST_REPORT.md
+docs_testing/
