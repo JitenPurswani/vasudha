@@ -280,8 +280,38 @@ def select_fertilizers(deficit_result: dict) -> dict:
     has_ph_issue = ph_assessment["status"] != "none"
 
     if not has_deficit and not has_ph_issue:
-        summary = "Soil nutrients and pH are within optimal range for the current growth stage. No fertilizer application needed."
-        priority = "none"
+        # No deficit detected - provide maintenance recommendation
+        summary = "No deficit detected. Soil nutrients and pH are within optimal range for the current growth stage. Provide organic maintenance fertilizer to sustain soil health and productivity."
+        priority = "maintenance"
+        
+        # Add maintenance organic fertilizer recommendation
+        # Prefer FYM/Compost for maintenance (most commonly available)
+        maintenance_fert = None
+        for fert in organics:
+            if fert["id"] in ["fym", "compost", "vermicompost"]:
+                maintenance_fert = fert
+                break
+        
+        if maintenance_fert:
+            # Typical maintenance dose: 5-10 tons FYM/ha
+            qty = maintenance_fert.get("typical_dose_kg_ha", 7500)
+            deduped_organic.append({
+                "fertilizer_id": maintenance_fert["id"],
+                "display_name": maintenance_fert["display_name"],
+                "type": "organic",
+                "quantity_kg_ha": qty,
+                "nutrient_supplied_kg_ha": {
+                    "N": round(qty * (maintenance_fert["nutrient_content"]["N"] / 100.0), 1),
+                    "P": round(qty * (maintenance_fert["nutrient_content"]["P"] / 100.0), 1),
+                    "K": round(qty * (maintenance_fert["nutrient_content"]["K"] / 100.0), 1)
+                },
+                "release_speed": maintenance_fert.get("release_speed", "slow"),
+                "benefits": maintenance_fert.get("benefits", []),
+                "notes": "Maintenance dose to sustain soil productivity and organic matter content.",
+                "methods": maintenance_fert.get("methods", []),
+                "original_quantity_kg_ha": qty,
+                "rainfall_adjustment": 1.0
+            })
     else:
         worst_severity = max(
             [severities.get(n, "none") for n in ["N", "P", "K"]] + [ph_assessment["status"]],

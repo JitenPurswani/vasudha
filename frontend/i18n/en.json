@@ -1515,7 +1515,7 @@
     },
     "from_prefix": "from",
     "summary": {
-      "no_deficit": "Soil nutrients and pH are within optimal range for the current growth stage. No fertilizer application needed.",
+      "no_deficit": "No deficit detected. Soil nutrients and pH are within optimal range for the current growth stage. Provide organic maintenance fertilizer to sustain soil health and productivity.",
       "deficits_detected": "Deficits detected",
       "deficit_word": "deficit",
       "nutrient_deficit_part": "{{nutrient}}: {{severity}} ({{amount}} kg/ha deficit)",

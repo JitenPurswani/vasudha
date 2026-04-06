@@ -648,13 +648,27 @@ export default function Fertilizer() {
                     </AppText>
                   </View>
 
-                  {/* Nutrient Deficits Detected */}
-                  <AppText variant="content" bold style={styles.infoSectionTitle}>
-                    {t('fertilizer.nutrient_deficits')}
-                  </AppText>
-                  {Object.entries(responseData.severity)
-                    .filter(([, sev]) => sev !== 'none')
-                    .map(([nutrient, sev]) => (
+                  {/* No Deficit Alert - Show when all nutrients are optimal */}
+                  {!Object.entries(responseData.severity).some(([, sev]) => sev !== 'none') && (
+                    <View style={{ backgroundColor: '#E8F5E9', borderLeftWidth: 4, borderLeftColor: '#4CAF50', padding: 16, marginVertical: 12, borderRadius: 8 }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                        <Ionicons name="checkmark-circle" size={24} color="#4CAF50" style={{ marginRight: 8 }} />
+                        <AppText variant="content" bold style={{ color: '#2E7D32', fontSize: 16 }}>
+                          {t('fert_data.summary.no_deficit')}
+                        </AppText>
+                      </View>
+                    </View>
+                  )}
+
+                  {/* Nutrient Deficits Detected or No Deficit */}
+                  {Object.entries(responseData.severity).some(([, sev]) => sev !== 'none') ? (
+                    <>
+                      <AppText variant="content" bold style={styles.infoSectionTitle}>
+                        {t('fertilizer.nutrient_deficits')}
+                      </AppText>
+                      {Object.entries(responseData.severity)
+                        .filter(([, sev]) => sev !== 'none')
+                        .map(([nutrient, sev]) => (
                       <View key={nutrient} style={[
                         styles.infoDimensionCard,
                         { borderLeftColor: severityColor(sev) }
@@ -677,6 +691,20 @@ export default function Fertilizer() {
                         </AppText>
                       </View>
                     ))}
+                    </>
+                  ) : (
+                    <View style={[styles.infoDimensionCard, { borderLeftColor: '#4CAF50' }]}>
+                      <View style={styles.infoDimensionHeader}>
+                        <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
+                        <AppText variant="content" bold style={styles.infoDimensionTitle}>
+                          {t('fert_data.summary.no_deficit')}
+                        </AppText>
+                      </View>
+                      <AppText style={styles.infoDimensionText}>
+                        {translateSummary(responseData.summary, responseData)}
+                      </AppText>
+                    </View>
+                  )}
 
                   {/* This Fertilizer Supplies */}
                   <AppText variant="content" bold style={styles.infoSectionTitle}>

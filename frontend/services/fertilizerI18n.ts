@@ -162,8 +162,8 @@ export function translateSummary(
 ): string {
   if (!summary) return '';
 
-  // Static "no deficit" case
-  if (summary.includes('Soil nutrients and pH are within optimal range')) {
+  // Static "no deficit" case - check for new message first, then old message
+  if (summary.includes('No deficit detected') || summary.includes('Soil nutrients and pH are within optimal range')) {
     return t('fert_data.summary.no_deficit', summary);
   }
 
