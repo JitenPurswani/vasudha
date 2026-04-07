@@ -306,6 +306,7 @@ def step4_create_indexes():
         ("idx_state_daily_main", "state_daily_prices", "(state, commodity, arrival_date)"),
         ("idx_state_daily_date", "state_daily_prices", "(arrival_date)"),
         ("idx_state_daily_lower", "state_daily_prices", "(LOWER(state), LOWER(commodity), arrival_date DESC)"),
+        ("idx_state_daily_lower_commodity_date", "state_daily_prices", "(LOWER(commodity), LOWER(state), arrival_date)"),
         
         # market_aggregates indexes
         ("idx_aggregates_lookup", "market_aggregates", "(state, district, commodity)"),

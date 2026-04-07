@@ -1,3 +1,23 @@
+CREATE TABLE IF NOT EXISTS state_daily_prices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    state TEXT NOT NULL,
+    commodity TEXT NOT NULL,
+    arrival_date DATE NOT NULL,
+    avg_modal_price REAL NOT NULL,
+    UNIQUE(state, commodity, arrival_date)
+);
+
+-- Critical indexes for market_logic.py queries
+-- These dramatically speed up the LOWER() queries
+CREATE INDEX IF NOT EXISTS idx_state_daily_lower_state_commodity 
+ON state_daily_prices(LOWER(state), LOWER(commodity), arrival_date DESC);
+
+CREATE INDEX IF NOT EXISTS idx_state_daily_lower_commodity_date
+ON state_daily_prices(LOWER(commodity), LOWER(state), arrival_date);
+
+CREATE INDEX IF NOT EXISTS idx_state_daily_date
+ON state_daily_prices(arrival_date DESC);
+
 CREATE TABLE IF NOT EXISTS market_prices (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
