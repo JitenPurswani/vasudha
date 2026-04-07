@@ -731,6 +731,10 @@
       "chemical_added": "{{count}} रासायनिक पूरक जोडले जेथे सेंद्रिय अपुरे आहे.",
       "ph_correction": "pH सुधारणा: {{name}}."
     },
+    "maintenance": {
+      "title": "माती निरोगी आहे — फक्त हलके देखभाल खत",
+      "subtitle": "ही कमी मात्रेची खते कमतरता भरून काढण्यासाठी नसून, मातीचे आरोग्य टिकवण्यासाठी आहेत."
+    },
     "names": {
       "farmyard_manure_fym": "शेणखत (FYM)",
       "vermicompost": "गांडूळखत (Vermicompost)",

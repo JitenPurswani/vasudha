@@ -39,6 +39,8 @@ import {
   translateRainfallClassification,
   translateSummary,
   getFromPrefix,
+  translateMaintenanceTitle,
+  translateMaintenanceSubtitle,
 } from '@/services/fertilizerI18n';
 
 // ─── Tool image map (static requires) ─────────────────────────
@@ -432,7 +434,7 @@ export default function Fertilizer() {
         )}
 
         {/* Get Recommendations Button */}
-        <View style={styles.buttonWrapper}>
+        <View style={styles.buttonWrapper} testID='fetch-fertilizer-btn'>
           <TouchableOpacity
             style={[styles.primaryButton, loading && { opacity: 0.6 }]}
             onPress={fetchRecommendation}
@@ -455,6 +457,25 @@ export default function Fertilizer() {
             <AppText style={styles.errorText}>{error}</AppText>
           </View>
         )}
+
+        {/* Maintenance message: no deficit but basic fertilizer suggested */}
+        {responseData &&
+          allRecommendations.length > 0 &&
+          !Object.entries(responseData.severity).some(([, sev]) => sev !== 'none') && (
+            <View style={styles.summaryBanner}>
+              <View style={styles.summaryBannerHeader}>
+                <View style={styles.summaryIconCircle}>
+                  <Ionicons name="checkmark-circle" size={18} color="#1C6E6B" />
+                </View>
+                <AppText style={styles.summaryTitle}>
+                  {translateMaintenanceTitle()}
+                </AppText>
+              </View>
+              <AppText style={styles.summaryText}>
+                {translateMaintenanceSubtitle()}
+              </AppText>
+            </View>
+          )}
 
         {/* ─── Recommendation Cards ─── */}
         {allRecommendations.map((rec, idx) => (
@@ -568,6 +589,7 @@ export default function Fertilizer() {
                         key={tool.id}
                         style={styles.applicationItem}
                         onPress={() => openToolModal(tool, method)}
+                        testID='fertilizer-tool-item'
                       >
                         <View style={styles.iconBox}>
                           <Image
@@ -943,24 +965,42 @@ const styles = StyleSheet.create({
 
   /* ─── Summary Banner ─── */
   summaryBanner: {
-    backgroundColor: '#E2F3E4',
+    backgroundColor: '#daf4f9',
     borderRadius: 12,
-    padding: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#A5D6A7',
+    borderColor: '#a2c0be',
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
+  },
+  summaryBannerHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  summaryIconCircle: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#E5F3F3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
   },
   summaryTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#1B5E20',
-    marginBottom: 6,
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#155E5A',
   },
   summaryText: {
     fontSize: 11,
-    color: '#2E7D32',
+    color: '#246F6A',
     lineHeight: 16,
-    marginBottom: 8,
   },
   severityRow: {
     flexDirection: 'row',

@@ -234,3 +234,13 @@ export function translateSummary(
 export function getFromPrefix(): string {
   return t('fert_data.from_prefix', 'from');
 }
+
+// ─── Maintenance banner text ─────────────────────────────────
+
+export function translateMaintenanceTitle(): string {
+  return t('fert_data.maintenance.title');
+}
+
+export function translateMaintenanceSubtitle(): string {
+  return t('fert_data.maintenance.subtitle');
+}

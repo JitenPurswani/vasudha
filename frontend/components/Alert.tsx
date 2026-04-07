@@ -33,6 +33,7 @@ const Alert = ({
   
   return (
     <TouchableOpacity 
+      testID="alert-card"
       style={[
         styles.alertCard, 
         { 
@@ -70,7 +71,7 @@ const Alert = ({
       </View>
       
       {onDismiss && (
-        <TouchableOpacity onPress={onDismiss} style={styles.dismissButton}>
+        <TouchableOpacity testID="alert-dismiss" onPress={onDismiss} style={styles.dismissButton}>
           <Ionicons name="close" size={18} color="#666" />
         </TouchableOpacity>
       )}

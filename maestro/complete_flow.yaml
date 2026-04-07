@@ -1,0 +1,7 @@
+appId: host.exp.exponent
+name: Vasudha Complete Flow (App Flow)
+
+---
+- runFlow: "crop_recommendation_flow.yaml"
+- runFlow: "market_flow.yaml"
+- runFlow: "fertilizer_flow.yaml"

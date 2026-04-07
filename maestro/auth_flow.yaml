@@ -1,0 +1,6 @@
+appId: host.exp.exponent
+name: Auth Flow - Onboarding + Login
+
+---
+- runFlow: "onboarding_flow.yaml"
+- runFlow: "login_flow.yaml"

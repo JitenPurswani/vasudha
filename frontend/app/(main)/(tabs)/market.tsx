@@ -295,7 +295,7 @@ export default function Market() {
               }}
               activeOpacity={0.7}
             >
-              <AppText variant="content" bold style={styles.dropdownText} numberOfLines={1}>
+              <AppText variant="content" bold style={styles.dropdownText} numberOfLines={1} testID='select-state'>
                 {manualState || t('market.select_state')}
               </AppText>
               <Feather name={stateOpen ? 'chevron-up' : 'chevron-down'} size={14} color="#156349" />
@@ -307,7 +307,7 @@ export default function Market() {
                 transparent={true}
                 animationType="fade"
                 onRequestClose={() => setStateOpen(false)}
-              >
+              testID='state-selector-scroll'>
                 <Pressable style={styles.modalOverlay} onPress={() => setStateOpen(false)}>
                   <View style={[styles.modalDropdown, { top: 140, left: 16, right: 16, maxWidth: (Dimensions.get('window').width - 32) / 3 - 4 }]}>
                     <ScrollView
@@ -726,7 +726,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 16,
-    paddingBottom: 100,
+    paddingBottom: 120,
   },
   title: {
     fontSize: 15,

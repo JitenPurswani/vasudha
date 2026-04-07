@@ -40,11 +40,14 @@ interface CropCardProps {
   onSelect?: (cropName: string) => void;
   onSustainabilityPress?: (sustainability: SustainabilityResult) => void;
   userState?: string | null;
+  testIdSuffix: number;
 }
 
-function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: CropCardProps) {
+function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState, testIdSuffix }: CropCardProps) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+
+  const baseTestId = `crop-rec-${testIdSuffix}`;
 
   // Format crop name
   const cropName = item.crop.charAt(0).toUpperCase() + item.crop.slice(1);
@@ -64,6 +67,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
   return (
     <TouchableOpacity
       style={[styles.cardWrap, { backgroundColor: headerBg }]}
+      testID={`${baseTestId}-card`}
       onPress={() => onSelect?.(item.crop)} // Pass the raw key back to the parent
     >
       {/* Header */}
@@ -106,6 +110,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
             </View>
             <TouchableOpacity
               style={styles.infoButton}
+              testID={`${baseTestId}-sustainability`}
               onPress={() => onSustainabilityPress?.(item.sustainability!)}
             >
               <ExplanationIcon width={22} height={22} />
@@ -152,6 +157,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
         <View style={styles.buttonsRow}>
           <TouchableOpacity
             style={styles.marketButton}
+            testID={`${baseTestId}-market`}
             onPress={() => {
               // Always pass state - use userState if available, otherwise pass Maharashtra as default
               const stateToPass = userState || 'Maharashtra';
@@ -174,6 +180,7 @@ function CropCard({ item, isTop, onSelect, onSustainabilityPress, userState }: C
 
           <TouchableOpacity
             style={styles.selectButton}
+            testID={`${baseTestId}-select`}
             onPress={() => onSelect?.(cropName)}
           >
             <AppText variant="content" bold style={styles.selectButtonText}>
@@ -443,6 +450,7 @@ export default function Crop() {
             item={crop}
             isTop={idx === 0}
             userState={userState}
+            testIdSuffix={idx}
             onSelect={handleSelectCrop}
             onSustainabilityPress={(sust) => {
               setSelectedSustainability(sust);
@@ -462,12 +470,12 @@ export default function Crop() {
         onRequestClose={() => setShowSustainabilityModal(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+          <View style={styles.modalContent} testID="sustainability-modal">
             <View style={styles.modalHeader}>
               <AppText variant="header" style={styles.modalTitle}>
                 {t('sustainability.details')}
               </AppText>
-              <TouchableOpacity onPress={() => setShowSustainabilityModal(false)}>
+              <TouchableOpacity testID="sustainability-modal-close-x" onPress={() => setShowSustainabilityModal(false)}>
                 <Ionicons name="close" size={28} color="#186F71" />
               </TouchableOpacity>
             </View>
@@ -606,6 +614,7 @@ export default function Crop() {
 
             <TouchableOpacity
               style={styles.modalCloseButton}
+              testID="sustainability-modal-close-btn"
               onPress={() => setShowSustainabilityModal(false)}
             >
               <AppText variant="content" bold style={styles.modalCloseText}>
@@ -624,7 +633,7 @@ export default function Crop() {
         onRequestClose={() => setShowCropModal(false)}
       >
         <View style={styles.cropModalOverlay}>
-          <View style={styles.cropModalContent}>
+          <View style={styles.cropModalContent} testID="crop-select-modal">
             <View style={styles.cropModalHeader}>
               <AppText variant="header" style={styles.cropModalTitle}>
                 {t('crop.add_crop_title')}
@@ -659,6 +668,7 @@ export default function Crop() {
                   </AppText>
                   <TouchableOpacity
                     style={styles.datePickerButton}
+                    testID="crop-planting-date"
                     onPress={() => setShowDatePicker(true)}
                   >
                     <Ionicons name="calendar-outline" size={20} color="#186F71" />
@@ -690,6 +700,7 @@ export default function Crop() {
                 <View style={styles.cropModalActions}>
                   <TouchableOpacity
                     style={styles.cropModalCancelBtn}
+                    testID="crop-add-cancel"
                     onPress={() => setShowCropModal(false)}
                   >
                     <AppText variant="content" style={styles.cropModalCancelText}>
@@ -698,6 +709,7 @@ export default function Crop() {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.cropModalConfirmBtn}
+                    testID="crop-add-confirm"
                     onPress={handleConfirmCropSelection}
                   >
                     <Ionicons name="add" size={20} color="#FFF" />

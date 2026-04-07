@@ -1,0 +1,88 @@
+appId: host.exp.exponent
+name: Crop Recommendation Flow 
+
+---
+- tapOn: "Crop"
+- assertVisible: "Crop Recommendations"
+
+- scrollUntilVisible:
+    element:
+      id: "crop-rec-0-card"
+    direction: DOWN
+
+- assertVisible: "Sustainability"
+
+- tapOn:
+    id: "crop-rec-0-sustainability"
+- assertVisible: "Sustainability Details"
+- assertVisible: "Sustainability Score"
+
+- scrollUntilVisible:
+    element: "Impact Factors"
+    direction: DOWN
+- assertVisible: "Water Intensity"
+- assertVisible: "Soil Impact"
+
+- scrollUntilVisible:
+    element: "Cultivation Intensity"
+    direction: DOWN
+- assertVisible: "Cultivation Intensity"
+
+- tapOn:
+    id: "sustainability-modal-close-btn"
+- assertNotVisible: "Sustainability Details"
+
+- waitForAnimationToEnd:
+    timeout: 20000  
+
+
+- scrollUntilVisible:
+    element:
+      id: "crop-rec-0-select"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "crop-rec-0-select"
+
+- assertVisible:
+    id: "crop-select-modal"
+- assertVisible:
+    id: "crop-planting-date"
+
+- tapOn:
+    id: "crop-add-confirm"
+
+- assertVisible: "OK"
+- tapOn: "OK"
+
+- tapOn: 
+    id: "home-icon"
+
+- scrollUntilVisible:
+    element:
+      id: "home-current-crop-card"
+    direction: DOWN
+    centerElement: true
+
+- assertVisible: "Current Crop"
+- assertNotVisible: "Tap to select a crop"
+
+- tapOn:
+    id: "home-current-crop-card"
+- scrollUntilVisible:
+    element: "Crop Recommendations"
+    direction: UP
+
+- scrollUntilVisible:
+    element:
+      id: "crop-rec-0-market"
+    direction: DOWN
+    centerElement: true
+- tapOn:
+    id: "crop-rec-0-market"
+
+- assertVisible: "Market Prices"
+
+- waitForAnimationToEnd
+
+- back

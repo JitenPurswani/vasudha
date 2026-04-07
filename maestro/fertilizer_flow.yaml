@@ -1,0 +1,51 @@
+appId: host.exp.exponent
+name: Vasudha - Fertilizer Active Recommendation Flow
+
+---
+
+- tapOn: "Fertilizer"
+- assertVisible: "Fertilizer Recommendation"
+
+- tapOn:
+    id: "fetch-fertilizer-btn"
+
+- scrollUntilVisible:
+    element: ".*kg/ha.*"
+    direction: DOWN
+- assertVisible: "🌿.*Organic" 
+
+- runFlow:
+    when:
+      visible: "Rainfall Adjusted"
+    commands:
+      - assertVisible: "×.*"
+
+- scrollUntilVisible:
+    element:
+      id: "fertilizer-tool-item"
+      index: 0
+    direction: DOWN
+    timeout: 10000
+    centerElement: true
+
+- tapOn:
+    id: "fertilizer-tool-item"
+    index: 0
+    
+- assertVisible: "Do you have this tool?"
+
+- tapOn: "No"
+- assertVisible: "Purchase Options"
+- assertVisible: "Amazon|Flipkart|IndiaMart"
+- tapOn: "Back"
+
+- tapOn:
+    id: "fertilizer-tool-item"
+    index: 0
+    
+- tapOn: "Yes"
+- assertVisible: "How to use"
+- assertVisible: "Watch Tutorial"
+
+- back
+- back

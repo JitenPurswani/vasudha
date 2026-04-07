@@ -590,6 +590,7 @@ export default function Home() {
               </AppText>
               <TouchableOpacity
                 style={styles.cropCardExpanded}
+                testID="home-current-crop-card"
                 onPress={() => router.push('/(main)/(tabs)/crop')}
               >
                 {/* Top row: Crop name and stage badge */}
@@ -680,6 +681,7 @@ export default function Home() {
               </AppText>
               <TouchableOpacity
                 style={styles.noCropCard}
+                testID="home-no-crop-card"
                 onPress={() => router.push('/(main)/(tabs)/crop')}
               >
                 <SaplingIcon height={24} width={24} />

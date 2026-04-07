@@ -154,6 +154,7 @@ const Toast: React.FC<ToastProps> = ({ toast, onDismiss, index }) => {
           borderLeftColor: style.border,
         },
       ]}
+      testID={`toast-${toast.id}`}
     >
       <TouchableOpacity 
         onPress={handlePress} 
@@ -167,7 +168,7 @@ const Toast: React.FC<ToastProps> = ({ toast, onDismiss, index }) => {
           <Text style={styles.title} numberOfLines={1}>{toast.title}</Text>
           <Text style={styles.message} numberOfLines={2}>{toast.message}</Text>
         </View>
-        <TouchableOpacity onPress={dismissToast} style={styles.closeButton}>
+        <TouchableOpacity testID={`toast-close-${toast.id}`} onPress={dismissToast} style={styles.closeButton}>
           <Ionicons name="close" size={18} color="#6B7280" />
         </TouchableOpacity>
       </TouchableOpacity>

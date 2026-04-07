@@ -1,0 +1,52 @@
+appId: host.exp.exponent
+name: Vasudha - Manual Market Discovery
+
+---
+- tapOn: Market
+
+- tapOn: 
+    id: "select-state"
+- waitForAnimationToEnd
+
+- repeat:
+    times: 4
+    commands:
+      - swipe:
+          start: "15%, 40%"
+          end: "15%, 20%"
+          duration: 500
+
+- scrollUntilVisible:
+    element: "Maharashtra"
+    direction: DOWN
+    timeout: 5000
+- tapOn: "Maharashtra"
+
+- tapOn: "Select APMC"
+- tapOn: "Search APMC..." 
+- inputText: "Kalyan"
+- hideKeyboard
+
+- tapOn: 
+    text: "Kalyan"
+    index: 1
+    
+
+- tapOn: "Select Commodity"
+- repeat:
+    times: 4
+    commands:
+      - swipe:
+          start: "82%, 44%"
+          end: "82%, 22%"
+          duration: 500
+
+- tapOn: "Carrot"
+
+- tapOn: "Evaluate Market"
+- assertVisible: "Current Market"
+
+- scrollUntilVisible:
+    element: "Price Trend"
+    direction: DOWN
+- assertVisible: "30D"

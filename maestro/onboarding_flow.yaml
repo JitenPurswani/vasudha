@@ -1,0 +1,62 @@
+appId: host.exp.exponent  
+name: Vasudha - Full Onboarding and Registration
+
+env:
+  NEW_USER: "farmer_test_01"
+  NEW_PASS: "Vasudha@2026"
+  DISTRICT: "Pune"
+  STATE: "Maharashtra"
+
+---
+- assertVisible: "Welcome to Vasudha"
+
+- tapOn: 
+    text: ".*Create account.*"
+    index: 0
+
+- assertVisible: "Set up your profile"
+
+- tapOn: "Enter your name"
+- inputText: ${NEW_USER}
+- hideKeyboard
+- tapOn: "Enter your password"
+- inputText: ${NEW_PASS}
+- hideKeyboard 
+- tapOn: "Re-enter your password"
+- inputText: ${NEW_PASS}
+- hideKeyboard
+
+- scrollUntilVisible:
+    element: "District"
+    direction: DOWN
+    timeout: 5000
+- tapOn: "District"
+- inputText: ${DISTRICT}
+- hideKeyboard
+- scrollUntilVisible:
+    element: "State"
+    direction: DOWN
+    timeout: 5000
+- tapOn: "State"
+- inputText: ${STATE}
+- hideKeyboard
+
+- assertVisible: "Pune"
+- assertVisible: "Maharashtra"
+
+- swipe:
+    start: 50%, 80%
+    end: 50%, 20%
+- tapOn: "N"
+- inputText: "140"
+- tapOn: "P"
+- inputText: "70"
+- tapOn: "K"
+- inputText: "90"
+- tapOn: "pH"
+- inputText: "6.8"
+- hideKeyboard
+
+- tapOn: "Continue"
+
+- assertVisible: "Welcome to Vasudha"

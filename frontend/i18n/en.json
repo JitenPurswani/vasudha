@@ -1524,6 +1524,10 @@
       "chemical_added": "Added {{count}} chemical supplement(s) where organic is insufficient.",
       "ph_correction": "pH correction: {{name}}."
     },
+    "maintenance": {
+      "title": "Soil is healthy — light maintenance only",
+      "subtitle": "These small doses are for maintaining soil health, not fixing a deficit."
+    },
     "names": {
       "farmyard_manure_fym": "Farmyard Manure (FYM)",
       "vermicompost": "Vermicompost",

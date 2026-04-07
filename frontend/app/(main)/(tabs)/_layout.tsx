@@ -48,7 +48,7 @@ export default function TabLayout() {
           title: t('tabs.home'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
-              <HomeIcon width={23} height={23} fill={color} />
+              <HomeIcon width={23} height={23} fill={color} testID='home-icon'/>
             </TabItem>
           ),
         }}
@@ -70,7 +70,7 @@ export default function TabLayout() {
           title: t('tabs.market'),
           tabBarIcon: ({ focused, color }) => (
             <TabItem focused={focused}>
-              <MarketIcon width={24} height={24} fill={color} />
+              <MarketIcon width={24} height={24} fill={color} testID='market-icon'/>
             </TabItem>
           ),
         }}

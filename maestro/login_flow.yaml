@@ -1,0 +1,19 @@
+appId: host.exp.exponent
+name: Vasudha - Login Authentication
+
+env:
+  USER: "farmer_test_01"
+  PASS: "Vasudha@2026"
+
+---
+- assertVisible: "Welcome to Vasudha"
+
+- tapOn: "Enter your username"
+- inputText: ${USER}
+- tapOn: "Enter your password"
+- inputText: ${PASS}
+- hideKeyboard
+
+- tapOn: "Login"
+
+- assertVisible: "Fertilizer"
